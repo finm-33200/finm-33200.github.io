@@ -206,7 +206,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Homework 📝</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="HW0.html">Homework 0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="HW0.html">Homework 0: Set Up Your Environment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="HW1.html">Homework 1: Lopez-Lira Replication</a></li>
 <li class="toctree-l1"><a class="reference internal" href="HW2.html">Homework 2: Embedding-Based Return Prediction</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="final_project.html">Final Project</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -415,7 +415,10 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#assignments">Assignments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exams">Exams</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#guest-seminar-speakers">Guest Seminar Speakers</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#final-project">Final Project</a></li>
 </ul>
 </li>
@@ -424,7 +427,6 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hw-due-dates">HW Due Dates</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-start">Quick Start</a></li>
 </ul>
             </nav>
         </div>
@@ -442,38 +444,40 @@ document.write(`
 <h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
 <p><strong>Course Description</strong> “Generative and Agentic AI for Finance” is a hands-on course covering the practical applications of generative AI and agentic technologies in quantitative finance. This course provides hands-on experience with generative AI and agentic technologies and their practical applications in quantitative finance. Students will start by mastering modern AI development tools like Cursor editor and GitHub Copilot, then progress through understanding AI tool use, building autonomous agents, and implementing sophisticated systems like RAG. The course emphasizes real-world implementation using cutting-edge AI frameworks, covering everything from LLM fundamentals and the Model Context Protocol to building custom AI applications and deploying them in production environments. By the end of the course, students will be proficient in creating production-ready AI applications that can transform financial workflows and decision-making processes through intelligent automation and enhanced data analysis.</p>
 <ul class="simple">
-<li><p><strong>Class:</strong> TBD, in-person at the Stevanovich Center building,
+<li><p><strong>Class:</strong> 9:30-12:30, in-person at the Stevanovich Center building,
 Room #112. (5727 S. University Ave.)</p></li>
 <li><p><strong>Lecturers:</strong></p>
 <ul>
-<li><p>Mark Hendricks, <a class="reference external" href="mailto:mhendricks&#37;&#52;&#48;uchicago&#46;edu">mhendricks<span>&#64;</span>uchicago<span>&#46;</span>edu</a></p></li>
 <li><p>Jeremy Bejarano, <a class="reference external" href="mailto:jbejarano&#37;&#52;&#48;uchicago&#46;edu">jbejarano<span>&#64;</span>uchicago<span>&#46;</span>edu</a></p></li>
+<li><p>Mark Hendricks, <a class="reference external" href="mailto:hendricks&#37;&#52;&#48;uchicago&#46;edu">hendricks<span>&#64;</span>uchicago<span>&#46;</span>edu</a></p></li>
 </ul>
 </li>
-<li><p><strong>Instructor Office Hours:</strong> TBD, in the FinMath library (first floor of the Stevanovich Center, 5727 S. University Ave.)</p></li>
-<li><p><strong>Teaching Assistants:</strong></p>
-<ul>
-<li><p>TBD</p></li>
-<li><p>Note: Please include both TAs on all emails. However, students are strongly
-encouraged to post questions on the discussion page of the class GitHub
-repository here.</p></li>
-</ul>
-</li>
-<li><p><strong>TA Session/TA Office Hours:</strong> TBD, on Zoom. See the Zoom link on the Canvas calendar.</p></li>
+<li><p><strong>Instructor Office Hours:</strong> 1:30-2:30pm, in the FinMath library (first floor of the Stevanovich Center, 5727 S. University Ave.)</p></li>
+<li><p><strong>Online Office Hours:</strong> TBD, on Zoom. See the Zoom link on the Canvas calendar.</p></li>
 <li><p><strong>Website:</strong> Canvas will be used for grades and for publishing Zoom links
 only. Homework and notes will be posted on the course GitHub repo:
-<a class="github reference external" href="https://github.com/finm-32900/finm-32900-data-science">finm-32900/finm-32900-data-science</a>. Questions and other
+<a class="github reference external" href="https://github.com/finm-33200/finm-33200-data-science">finm-33200/finm-33200-data-science</a>. Questions and other
 class-related discussions should be posted here as well.</p></li>
 <li><p><strong>Textbook:</strong> The text for the course will be published incrementally here:
-<a class="reference external" href="https://finm-32900.github.io/">https://finm-32900.github.io/</a></p></li>
+<a class="reference external" href="https://finm-33200.github.io/">https://finm-33200.github.io/</a></p></li>
 </ul>
-<p><strong>NOTE:</strong> Due to the holiday on January 20, a makeup class will be scheduled. This makeup class will be held on Friday, January 24 during the TA office hours. I will use the same Zoom link as the TA office hours, which you can find on the Canvas calendar.</p>
+<section id="prerequisites">
+<h3>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading">#</a></h3>
+<p>Prior completion of FINM 32900 (Full-Stack Quantitative Finance) is recommended but not required. Most students will not have taken that course. Regardless, students are expected to be comfortable with the following tools and concepts on their own:</p>
+<ul class="simple">
+<li><p><strong>Git and GitHub:</strong> Version control basics (cloning, committing, pushing, pulling, branching), creating and managing repositories, and submitting assignments via GitHub Classroom.</p></li>
+<li><p><strong>GitKraken (or similar Git GUI):</strong> Using a graphical Git client to visualize branches and resolve merge conflicts.</p></li>
+<li><p><strong>The command line:</strong> Navigating the filesystem, running scripts, installing packages, and working in a terminal (bash/zsh).</p></li>
+<li><p><strong>Environment variables and <code class="docutils literal notranslate"><span class="pre">.env</span></code> files:</strong> Setting and managing environment variables, using <code class="docutils literal notranslate"><span class="pre">.env</span></code> files to store API keys securely, and understanding why secrets should not be committed to version control.</p></li>
+<li><p><strong>Task runners:</strong> Using tools like <a class="reference external" href="https://pydoit.org/">PyDoit</a> to automate build and workflow tasks.</p></li>
+<li><p><strong>Python:</strong> Advanced Python proficiency, including working with virtual environments, <code class="docutils literal notranslate"><span class="pre">pip</span></code>, and common data science libraries.</p></li>
+</ul>
+<p>These topics will not be covered in class. Students who are unfamiliar with any of these tools should review them independently before the course begins.</p>
+</section>
 <section id="assignments">
 <h3>Assignments<a class="headerlink" href="#assignments" title="Link to this heading">#</a></h3>
 <ul class="simple">
-<li><p>Assignments must be submitted via GitHub before 6 pm on Fridays. Each
-assignment will be distributed on a Monday, and will be due the on the Friday
-of the following week (11 days later).</p></li>
+<li><p>Assignments for the first half of the course must be submitted via GitHub.</p></li>
 <li><p>Assignments are automatically graded via the autograder on GitHub Classroom
 and solutions will be released shortly after. This means that the due date is
 strict. Late assignments will not be accepted.</p></li>
@@ -482,33 +486,67 @@ specified). Students are encouraged to work in groups, but students are not
 allowed to copy each other’s code. Each student must write their own solutions
 individually.</p></li>
 <li><p>After assignments are graded, solutions will be posted in separate GitHub
-repos, found here: <a class="github reference external" href="https://github.com/finm-32900">finm-32900</a></p></li>
+repos, found here: <a class="github reference external" href="https://github.com/finm-33200">finm-33200</a></p></li>
 </ul>
+</section>
+<section id="exams">
+<h3>Exams<a class="headerlink" href="#exams" title="Link to this heading">#</a></h3>
+<p>There will be two exams: a midterm and a final. Both are closed-book, multiple-choice, timed, proctored exams with no internet access.</p>
+<ul class="simple">
+<li><p><strong>Midterm Exam:</strong> The midterm will take place at the start of class during Week 5. The first half of class will be devoted to the exam, and the second half will proceed as a normal discussion.</p></li>
+<li><p><strong>Final Exam:</strong> The final exam will be held during finals week (Week 10).</p></li>
+</ul>
+</section>
+<section id="guest-seminar-speakers">
+<h3>Guest Seminar Speakers<a class="headerlink" href="#guest-seminar-speakers" title="Link to this heading">#</a></h3>
+<p>During Weeks 5, 6, 7, and 8, class will feature guest seminar speakers. Attendance at these seminars is required and will be taken. Seminar attendance is graded on a pass/fail basis (present or absent). Students are permitted to miss at most one seminar without penalty; any additional absences will affect the seminar attendance grade.</p>
+<p>Note that seminar attendance is separate from the participation grade.</p>
 </section>
 <section id="final-project">
 <h3>Final Project<a class="headerlink" href="#final-project" title="Link to this heading">#</a></h3>
-<p>In lieu of a final exam, students will be organized into groups of 2 (pairs) and
-will each complete a course project. Each group will present their completed
-project to the instructor at the end of the course. These presentations will be
+<p>Students will form groups of 4 and each complete a course project.
+Each group will present their completed project to other student groups and to the instructor at the end of the course. These presentations will be
 scheduled individually.</p>
 </section>
 </section>
 <section id="assessment">
 <h2>Assessment<a class="headerlink" href="#assessment" title="Link to this heading">#</a></h2>
-<p>Grades will be based on coding assignments (40%), a final group project (55%),
-and participation (5%).</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Component</p></th>
+<th class="head"><p>Weight</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Homework</p></td>
+<td><p>15%</p></td>
+</tr>
+<tr class="row-odd"><td><p>Midterm Exam</p></td>
+<td><p>20%</p></td>
+</tr>
+<tr class="row-even"><td><p>Final Exam</p></td>
+<td><p>30%</p></td>
+</tr>
+<tr class="row-odd"><td><p>Final Project</p></td>
+<td><p>25%</p></td>
+</tr>
+<tr class="row-even"><td><p>Seminar Attendance</p></td>
+<td><p>5%</p></td>
+</tr>
+<tr class="row-odd"><td><p>Participation</p></td>
+<td><p>5%</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 <ul class="simple">
-<li><p>Assignments will be submitted individually and will be graded using GitHub’s
+<li><p><strong>Homework:</strong> Assignments will be submitted individually and will be graded using GitHub’s
 automated testing tools.</p></li>
-<li><p>The final project will be completed in groups. Students will choose the
-project from among a few options provided at the beginning of the quarter. The
-project will be graded not only on how well it accomplishes the assigned data
-cleaning and analysis task, but will be primarily graded on whether (1) the
-steps to reproduce it are fully automated and well documented, (2) the code is
-written in a clean and reusable fashion, and (3) the results are presented
-clearly and presented in a way that convinces the reader that the results are
-correct. A more specific rubric will be provided in class.</p></li>
-<li><p>The participation grade will depend on the positive impacts that a student has
+<li><p><strong>Midterm &amp; Final Exams:</strong> Closed-book, multiple-choice, proctored exams. See the Exams section above for scheduling details.</p></li>
+<li><p><strong>Final Project:</strong> The final project will be completed in groups. Students will either choose the
+project from among a few options provided at the beginning of the quarter or they will propose their own project.</p></li>
+<li><p><strong>Seminar Attendance:</strong> Graded based on attendance at the guest seminar sessions during Weeks 5–8. Students may miss one seminar without penalty.</p></li>
+<li><p><strong>Participation:</strong> The participation grade will depend on the positive impacts that a student has
 on the class. These include participating in in-class discussions and/or
 answering questions on the class GitHub page (or on Canvas). Students are in
 no way penalized for giving wrong answers in these in-class discussions nor is
@@ -519,7 +557,7 @@ learn!</p></li>
 <section id="schedule">
 <h2>Schedule<a class="headerlink" href="#schedule" title="Link to this heading">#</a></h2>
 <p>The schedule will follow the ordering of the chapters listed in the GitHub book
-found here: <a class="reference external" href="https://finm-32900.github.io/">https://finm-32900.github.io/</a>. Each week is it’s own chapter and the
+found here: <a class="reference external" href="https://finm-33200.github.io/">https://finm-33200.github.io/</a>. Each week is it’s own chapter and the
 agenda is listed in the first sub-section of the chapter.</p>
 <section id="hw-due-dates">
 <h3>HW Due Dates<a class="headerlink" href="#hw-due-dates" title="Link to this heading">#</a></h3>
@@ -527,31 +565,6 @@ agenda is listed in the first sub-section of the chapter.</p>
 <li><p><a class="reference internal" href="HW0.html"><span class="std std-doc">HW 0: Ungraded. Due ASAP</span></a></p></li>
 </ul>
 </section>
-</section>
-<section id="quick-start">
-<h2>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading">#</a></h2>
-<p>To quickest way to run code in this repo is to use the following steps. First, you must have the <code class="docutils literal notranslate"><span class="pre">conda</span></code><br />
-package manager installed (e.g., via Anaconda). However, I recommend using <code class="docutils literal notranslate"><span class="pre">mamba</span></code>, via [miniforge]
-(<a class="github reference external" href="https://github.com/conda-forge/miniforge">conda-forge/miniforge</a>) as it is faster and more lightweight than <code class="docutils literal notranslate"><span class="pre">conda</span></code>. Second, you
-must have TexLive (or another LaTeX distribution) installed on your computer and available in your path.
-You can do this by downloading and
-installing it from here (<a class="reference external" href="https://tug.org/texlive/windows.html#install">windows</a>
-and <a class="reference external" href="https://tug.org/mactex/mactex-download.html">mac</a> installers).
-Having done these things, open a terminal and navigate to the root directory of the project and create a
-conda environment using the following command:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">-</span><span class="n">n</span> <span class="n">finm</span> <span class="n">python</span><span class="o">=</span><span class="mf">3.12</span>
-<span class="n">conda</span> <span class="n">activate</span> <span class="n">finm</span>
-</pre></div>
-</div>
-<p>and then install the dependencies with pip</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
-</pre></div>
-</div>
-<p>Finally, you can then run</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">doit</span>
-</pre></div>
-</div>
-<p>And that’s it! The landing page of the textbook website will be available at <code class="docutils literal notranslate"><span class="pre">./_build/html/index.html</span></code>.</p>
 </section>
 </section>
 
@@ -604,7 +617,10 @@ conda environment using the following command:</p>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#assignments">Assignments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exams">Exams</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#guest-seminar-speakers">Guest Seminar Speakers</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#final-project">Final Project</a></li>
 </ul>
 </li>
@@ -613,7 +629,6 @@ conda environment using the following command:</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hw-due-dates">HW Due Dates</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-start">Quick Start</a></li>
 </ul>
   </nav></div>
 

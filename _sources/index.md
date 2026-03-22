@@ -1,6 +1,6 @@
 # Generative and Agentic AI for Finance
 
-**By Jeremy Bejarano**
+**By Jeremy Bejarano and Mark Hendricks**
 
 Last updated: {sub-ref}`today` 
 

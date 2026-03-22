@@ -1,8 +1,8 @@
-# Homework 0
+# Homework 0: Set Up Your Environment
 
 **Setting up your computing environment**
 
-This homework is not graded, but please complete it before the first class. You will need these tools installed and accounts created to complete the coursework.
+To receive credit for this homework, please complete the following steps and affirm that you have completed it by indicating it in the code in the HW repository found here: TBD
 
 ---
 
@@ -14,27 +14,21 @@ Install the following software on your laptop (all free):
 
 - **[Anaconda](https://www.anaconda.com/download)** - Python 3.10+ distribution with data science packages
 - **[Visual Studio Code](https://code.visualstudio.com/)** - Code editor (NOT Visual Studio, which is different)
+  - Free AI features via GitHub Copilot — sign up through [GitHub Education](https://github.com/education/students) with your .edu email. See [Copilot student access](https://docs.github.com/en/copilot/how-tos/manage-your-account/free-access-with-copilot-student).
+- **[Cursor](https://cursor.com/)** - AI-native code editor
+  - Free 1-year Pro plan for students at [cursor.com/students](https://cursor.com/students). Verify with your .edu email.
+  - Imports VS Code settings automatically
 - **[Git](https://git-scm.com/)** - Version control
 - **[GitKraken](https://www.gitkraken.com/)** - Git GUI (free for students via [GitHub Student Pack](https://www.gitkraken.com/github-student-developer-pack))
+- **[GitHub CLI](https://cli.github.com/)** - Command-line interface for GitHub (managing repos, PRs, issues, etc.)
+- **[TeX Live](https://tug.org/texlive/)** - Only needed if you want to compile LaTeX documents
+
+I want you to try both VS Code and Cursor. Cursor has been one of the most important tools in AI-assisted coding over the last two years and you should be familiar with it. That said, **do not spend money on Cursor** — the free student plan is more than sufficient. We will use Claude Code as our primary AI coding tool in this course.
 
 ### AI Development Tools
 
-- **[Claude Code](https://github.com/anthropics/claude-code)** - Anthropic's terminal AI agent
-  ```bash
-  # Requires Node.js 18+
-  npm install -g @anthropic-ai/claude-code
+- **[Claude Code](https://code.claude.com/docs/en/quickstart)** - Anthropic's agentic coding tool. Follow the [quickstart guide](https://code.claude.com/docs/en/quickstart) for installation instructions.
 
-  # Verify installation
-  claude --version
-  ```
-
-- **[Cursor](https://cursor.sh/)** - AI-native code editor
-  - Download from cursor.sh
-  - Imports VS Code settings automatically
-
-### Optional
-
-- **[TeX Live](https://tug.org/texlive/)** - Only needed if you want to compile LaTeX documents
 
 ---
 
@@ -47,112 +41,42 @@ Create accounts with the following services (free tiers available):
 | Service | URL | Notes |
 |---------|-----|-------|
 | **GitHub** | [github.com](https://github.com/) | Code hosting, assignment submission |
-| **OpenAI Platform** | [platform.openai.com](https://platform.openai.com/) | Add $5-10 API credits |
-| **Anthropic Console** | [console.anthropic.com](https://console.anthropic.com/) | For Claude Code |
-| **OpenRouter** | [openrouter.ai](https://openrouter.ai/) | Multi-model API access (free tier available) |
+| **OpenAI Platform** | [platform.openai.com](https://platform.openai.com/) | API access (don't add credits yet) |
+| **Claude** | [claude.ai](https://claude.ai/) | Claude Code subscription ([quickstart](https://code.claude.com/docs/en/quickstart)) |
+| **OpenRouter** | [openrouter.ai](https://openrouter.ai/) | Multi-model API access (don't add credits yet) |
 
-### For Financial Data (Later in Course)
+For HW0, just create these accounts. We will add API credits and subscriptions when needed in later assignments. See the Course Budget section below for details.
 
-| Service | URL | Notes |
-|---------|-----|-------|
-| **WRDS** | [wrds-www.wharton.upenn.edu](https://wrds-www.wharton.upenn.edu/) | Apply through UChicago ([registration](https://wrds-www.wharton.upenn.edu/register/)) |
-| **IPUMS CPS** | [cps.ipums.org](https://cps.ipums.org/cps/) | Economic data |
+### WRDS (Financial Data)
+
+We will use [WRDS](https://wrds-www.wharton.upenn.edu/) for financial data access. If you are a Financial Mathematics student, you should be able to apply for your own personal account through the [WRDS registration page](https://wrds-www.wharton.upenn.edu/register/). If you are not, you can use the class account code: **TBD**.
 
 For WRDS access issues, contact the UChicago Mathematics department representative: John Zekos (zekos@math.uchicago.edu).
 
 ---
 
-## Environment Setup
+## Submission
 
-### 1. Create .env File
-
-API keys should never be committed to git. Create a `.env` file for local configuration:
-
-```bash
-# Create .env file in your project directory
-OPENAI_API_KEY=sk-...
-OPENROUTER_API_KEY=sk-or-...
-ANTHROPIC_API_KEY=sk-ant-...
-```
-
-### 2. Clone Course Repository
-
-```bash
-git clone https://github.com/finm-33200/ai_inclass_examples.git
-cd ai_inclass_examples
-```
-
-### 3. Install Python Packages
-
-```bash
-# Create conda environment
-conda create -n finm33200 python=3.11
-conda activate finm33200
-
-# Install core packages
-pip install openai python-decouple pydantic
-```
-
-### 4. Verify Setup
-
-Test that your environment works:
-
-```bash
-cd ai_inclass_examples/basic_llm_api/02_openai_hello
-python hello.py
-```
-
-You should see a response from GPT-4o-mini and token usage statistics.
+Once you have completed the steps above, submit this homework via GitHub using the homework repository link at the top of this page.
 
 ---
 
-## Verification Checklist
+## Course Budget
 
-Before the first class, confirm:
+Just like other courses require textbooks, this course requires AI tools. Instead of textbooks, you are investing in AI usage, API credits, and a Claude Code plan.
 
-- [ ] Python 3.10+ installed and working
-- [ ] VS Code or Cursor installed
-- [ ] Git installed (`git --version` works)
-- [ ] Claude Code installed (`claude --version` works)
-- [ ] GitHub account created
-- [ ] OpenAI account with API credits
-- [ ] Anthropic Console account
-- [ ] OpenRouter account
-- [ ] `.env` file created with API keys
-- [ ] `ai_inclass_examples` repo cloned
-- [ ] `hello.py` runs successfully
+### Claude Code (Anthropic)
 
----
+Claude Code requires a Claude subscription. You are welcome to start with the **Pro plan (\$20/month)**, but you will quickly run out of usage. I **strongly recommend the Max plan (\$100/month)** for a smooth experience throughout the quarter.
 
-## Troubleshooting
+### API Credits
 
-### Claude Code Installation Issues
+Budget approximately **\$100 for API usage** over the quarter. We will try to use less than that, but plan accordingly. This covers:
 
-If `npm install -g` fails:
+- **OpenAI API** — the most feature-rich LLM API and an important one to know
+- **OpenRouter** — allows us to try many different models through a single API
 
-```bash
-# On macOS, you may need to fix permissions
-sudo chown -R $(whoami) ~/.npm
-
-# Or use npx instead
-npx @anthropic-ai/claude-code
-```
-
-### API Key Not Working
-
-1. Verify the key is correct (no extra spaces)
-2. Check that you have credits on the account
-3. Ensure the `.env` file is in the correct directory
-
-### Python Package Issues
-
-```bash
-# If packages fail to install, try upgrading pip first
-pip install --upgrade pip
-
-# Then retry installation
-pip install openai python-decouple pydantic
-```
+You are responsible for your own API keys and usage. If you exceed this budget, that is your own responsibility.
 
 ---
 
