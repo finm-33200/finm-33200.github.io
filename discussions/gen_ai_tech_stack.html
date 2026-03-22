@@ -1,0 +1,918 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>The Generative AI Tech Stack &#8212; Full Stack Quantitative Finance</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=f23691d7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=7a7908ec"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'discussions/gen_ai_tech_stack';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/custom.js?v=c0d9a6f1"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="LLMs Transforming Finance: The New Quant" href="llms_transforming_finance.html" />
+    <link rel="prev" title="Discussion 1: The New Quant - LLMs in Finance" href="../discussion_01.html" /> 
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>   
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Full Stack Quantitative Finance - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Full Stack Quantitative Finance - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Generative and Agentic AI for Finance
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../README.html">Course Syllabus: FINM 32900, Winter 2025</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Course Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Discussions 📖</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../discussion_01.html">Discussion 1: The New Quant - LLMs in Finance</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">The Generative AI Tech Stack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="llms_transforming_finance.html">LLMs Transforming Finance: The New Quant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_and_structured_outputs.html">API Basics and Structured Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ai_copilots_intro.html">AI Copilots: Claude Code and Cursor</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_02.html">Discussion 2: Building and Benchmarking Coding Agents</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="agent_fundamentals.html">Agent Fundamentals: From ReAct to LangGraph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building_flawed_code.html">Building FlawedCode: A Minimal Claude Code Clone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chartbook_integration.html">ChartBook Integration: Connecting Agents to Financial Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="context_management.html">Context Management for Deep Agents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agent_benchmarking.html">Agent Benchmarking: Measuring What Matters</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_03.html">Discussion 3: AI Application Development &amp; Financial Data Integration</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="chat_applications_overview.html">Chat Applications Overview: AI in Financial Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_to_nextjs.html">Introduction to Next.js and Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_to_chatkit.html">Building a Financial Research Assistant with ChatKit</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_04.html">Discussion 4: Text Representation &amp; Embeddings</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="vector_embeddings_and_search.html"><strong>The Architecture of Meaning: From Vector Embeddings to Reasoning-Based Retrieval</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="vector_embeddings_literature.html">Essential papers on embeddings and vector databases for AI/ML</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Homework 📝</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../HW0.html">Homework 0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HW1.html">Homework 1: Lopez-Lira Replication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HW2.html">Homework 2: Embedding-Based Return Prediction</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../final_project.html">Final Project</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/final_project_rubric.html">Final Project Instructions and Rubric</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/potential_final_projects.html">List of Potential Final Projects</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Misc 📌</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../acknowledgments.html">Acknowledgments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../appendix.html">Appendix</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project/issues/new?title=Issue%20on%20page%20%2Fdiscussions/gen_ai_tech_stack.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/discussions/gen_ai_tech_stack.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>The Generative AI Tech Stack</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-understanding-the-stack-matters">Why Understanding the Stack Matters</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-emerging-tech-stack">The Emerging Tech Stack</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#layer-by-layer-breakdown">Layer-by-Layer Breakdown</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#infrastructure-layer-cloud-providers">1. Infrastructure Layer (Cloud Providers)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-layer-vector-stores-databases">2. Data Layer (Vector Stores &amp; Databases)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#llm-layer-foundation-models">3. LLM Layer (Foundation Models)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#api-layer-model-access">4. API Layer (Model Access)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application-layer-frameworks-tools">5. Application Layer (Frameworks &amp; Tools)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ui-layer-user-interfaces">6. UI Layer (User Interfaces)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-the-stack-comes-together-a-finance-example">How the Stack Comes Together: A Finance Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#where-this-course-focuses">Where This Course Focuses</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">Key Takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-exercise-2-minutes">Quick Exercise (2 minutes)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next Steps</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                   <section class="tex2jax_ignore mathjax_ignore" id="the-generative-ai-tech-stack">
+<h1>The Generative AI Tech Stack<a class="headerlink" href="#the-generative-ai-tech-stack" title="Link to this heading">#</a></h1>
+<p><strong>Duration:</strong> 15 minutes reading</p>
+<p><strong>Learning Objectives:</strong></p>
+<ul class="simple">
+<li><p>Understand the layered architecture of generative AI systems</p></li>
+<li><p>Identify which layers are most relevant for finance practitioners</p></li>
+<li><p>Map course topics to the appropriate stack layers</p></li>
+<li><p>Build intuition for where different tools and frameworks fit</p></li>
+</ul>
+<hr class="docutils" />
+<section id="why-understanding-the-stack-matters">
+<h2>Why Understanding the Stack Matters<a class="headerlink" href="#why-understanding-the-stack-matters" title="Link to this heading">#</a></h2>
+<p>Before diving into LLM applications in finance, it helps to have a mental map of the technology landscape. The generative AI ecosystem has matured rapidly, and understanding its architecture helps you:</p>
+<ol class="arabic simple">
+<li><p><strong>Choose the right tools</strong> for each problem</p></li>
+<li><p><strong>Understand trade-offs</strong> between build vs. buy decisions</p></li>
+<li><p><strong>Communicate effectively</strong> with engineering teams</p></li>
+<li><p><strong>Identify opportunities</strong> where AI can add value</p></li>
+</ol>
+<p>Think of it like understanding how the financial system works before trading in it—you need to know where exchanges, brokers, and clearing houses fit before you can effectively participate.</p>
+</section>
+<hr class="docutils" />
+<section id="the-emerging-tech-stack">
+<h2>The Emerging Tech Stack<a class="headerlink" href="#the-emerging-tech-stack" title="Link to this heading">#</a></h2>
+<p><img alt="The Emerging Generative AI Tech Stack" src="../_images/gen_ai_stack3.jpg" /></p>
+<p><em>Source: Image by Pavan Belagatti, The Emerging Generative AI Tech Stack <a class="reference external" href="https://x.com/Pavan_Belagatti/status/1840781487324463596">X</a></em></p>
+<p>This diagram illustrates the layered architecture of generative AI systems. Let’s work through each layer from bottom to top.</p>
+</section>
+<hr class="docutils" />
+<section id="layer-by-layer-breakdown">
+<h2>Layer-by-Layer Breakdown<a class="headerlink" href="#layer-by-layer-breakdown" title="Link to this heading">#</a></h2>
+<section id="infrastructure-layer-cloud-providers">
+<h3>1. Infrastructure Layer (Cloud Providers)<a class="headerlink" href="#infrastructure-layer-cloud-providers" title="Link to this heading">#</a></h3>
+<p><strong>What it is:</strong> AWS, Azure, Google Cloud—the compute and storage backbone.</p>
+<p><strong>For practitioners:</strong> You won’t interact with this layer directly. Cloud infrastructure is abstracted away by the API providers and application frameworks you’ll use. However, understanding that GPU compute is expensive and scarce helps explain API pricing and rate limits.</p>
+<p><strong>Key insight:</strong> When OpenAI or Anthropic has capacity issues, it’s often at this layer.</p>
+</section>
+<hr class="docutils" />
+<section id="data-layer-vector-stores-databases">
+<h3>2. Data Layer (Vector Stores &amp; Databases)<a class="headerlink" href="#data-layer-vector-stores-databases" title="Link to this heading">#</a></h3>
+<p><strong>What it is:</strong> Specialized databases for storing embeddings (vector stores like Pinecone, Weaviate, Chroma) plus traditional databases for structured data.</p>
+<p><strong>For practitioners:</strong> This layer becomes critical when building RAG (Retrieval-Augmented Generation) systems. When you want an LLM to answer questions about your firm’s proprietary research or SEC filings, you’ll store document embeddings here.</p>
+<p><strong>Course coverage:</strong> Week 4 (RAG)</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Tool</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Use Case</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Pinecone</p></td>
+<td><p>Managed vector DB</p></td>
+<td><p>Production RAG systems</p></td>
+</tr>
+<tr class="row-odd"><td><p>Chroma</p></td>
+<td><p>Local vector DB</p></td>
+<td><p>Prototyping, small datasets</p></td>
+</tr>
+<tr class="row-even"><td><p>PostgreSQL + pgvector</p></td>
+<td><p>Relational + vector</p></td>
+<td><p>Hybrid structured/unstructured</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="llm-layer-foundation-models">
+<h3>3. LLM Layer (Foundation Models)<a class="headerlink" href="#llm-layer-foundation-models" title="Link to this heading">#</a></h3>
+<p><strong>What it is:</strong> The large language models themselves—GPT-4, Claude, Gemini, LLaMA, and others.</p>
+<p><strong>For practitioners:</strong> Model selection is one of your most important decisions. Different models have different strengths, costs, and licensing terms.</p>
+<p><strong>Course coverage:</strong> Throughout, especially Week 1</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Model</p></th>
+<th class="head"><p>Provider</p></th>
+<th class="head"><p>Strengths</p></th>
+<th class="head"><p>Best For</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>GPT-4o</p></td>
+<td><p>OpenAI</p></td>
+<td><p>Strong reasoning, multimodal</p></td>
+<td><p>Complex analysis, vision tasks</p></td>
+</tr>
+<tr class="row-odd"><td><p>GPT-4o-mini</p></td>
+<td><p>OpenAI</p></td>
+<td><p>Fast, cheap, good quality</p></td>
+<td><p>High-volume processing, prototyping</p></td>
+</tr>
+<tr class="row-even"><td><p>Claude 3.5 Sonnet</p></td>
+<td><p>Anthropic</p></td>
+<td><p>Long context, coding</p></td>
+<td><p>Document analysis, code generation</p></td>
+</tr>
+<tr class="row-odd"><td><p>Gemini 1.5</p></td>
+<td><p>Google</p></td>
+<td><p>Very long context (1M tokens)</p></td>
+<td><p>Processing full documents</p></td>
+</tr>
+<tr class="row-even"><td><p>LLaMA 3</p></td>
+<td><p>Meta</p></td>
+<td><p>Open source, customizable</p></td>
+<td><p>On-premise, fine-tuning</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Key trade-off:</strong> Frontier models (GPT-4o, Claude 3.5) are more capable but expensive. For high-volume tasks like processing thousands of headlines, cheaper models like GPT-4o-mini may be sufficient—the Lopez-Lira paper finding that “scale matters” suggests testing this empirically.</p>
+</section>
+<hr class="docutils" />
+<section id="api-layer-model-access">
+<h3>4. API Layer (Model Access)<a class="headerlink" href="#api-layer-model-access" title="Link to this heading">#</a></h3>
+<p><strong>What it is:</strong> The programmatic interfaces that let you call LLMs—OpenAI API, Anthropic API, OpenRouter, <a class="reference external" href="http://together.ai">together.ai</a>.</p>
+<p><strong>For practitioners:</strong> This is where you’ll spend most of your time. Understanding API patterns, rate limits, and cost structures is essential.</p>
+<p><strong>Course coverage:</strong> Week 1-2</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># The core pattern you&#39;ll use throughout the course</span>
+<span class="kn">from</span> <span class="nn">openai</span> <span class="kn">import</span> <span class="n">OpenAI</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">()</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">,</span>
+    <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
+        <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;You are a financial analyst.&quot;</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Analyze this headline: ...&quot;</span><span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Key services:</strong></p>
+<ul class="simple">
+<li><p><strong>OpenAI API</strong> — Industry standard, most documentation and examples</p></li>
+<li><p><strong>Anthropic API</strong> — Claude models, strong for coding and analysis</p></li>
+<li><p><strong>OpenRouter</strong> — Aggregator that provides access to many models through one interface</p></li>
+<li><p><strong><a class="reference external" href="http://together.ai">together.ai</a></strong> — Cost-effective access to open-source models</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="application-layer-frameworks-tools">
+<h3>5. Application Layer (Frameworks &amp; Tools)<a class="headerlink" href="#application-layer-frameworks-tools" title="Link to this heading">#</a></h3>
+<p><strong>What it is:</strong> Libraries and frameworks that help you build applications—LangChain, LangGraph, LlamaIndex, and specialized tools.</p>
+<p><strong>For practitioners:</strong> These frameworks handle common patterns like prompt chaining, tool use, and agent orchestration. They save you from reinventing the wheel but add complexity.</p>
+<p><strong>Course coverage:</strong> Week 2-3 (Agents, Tool Use)</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Framework</p></th>
+<th class="head"><p>Purpose</p></th>
+<th class="head"><p>When to Use</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>LangChain</p></td>
+<td><p>General LLM orchestration</p></td>
+<td><p>Multi-step workflows, RAG</p></td>
+</tr>
+<tr class="row-odd"><td><p>LangGraph</p></td>
+<td><p>Agent state machines</p></td>
+<td><p>Complex agents with branching logic</p></td>
+</tr>
+<tr class="row-even"><td><p>LlamaIndex</p></td>
+<td><p>Data indexing for RAG</p></td>
+<td><p>Document Q&amp;A systems</p></td>
+</tr>
+<tr class="row-odd"><td><p>Instructor</p></td>
+<td><p>Structured outputs</p></td>
+<td><p>Extracting typed data from LLMs</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Key insight:</strong> Start simple. Many tasks don’t need a framework—direct API calls suffice. Add frameworks when you need their specific features.</p>
+</section>
+<hr class="docutils" />
+<section id="ui-layer-user-interfaces">
+<h3>6. UI Layer (User Interfaces)<a class="headerlink" href="#ui-layer-user-interfaces" title="Link to this heading">#</a></h3>
+<p><strong>What it is:</strong> The applications users interact with—ChatGPT, <a class="reference external" href="http://Claude.ai">Claude.ai</a>, Cursor, custom web apps.</p>
+<p><strong>For practitioners:</strong> You’ll use these tools daily and eventually build your own. Understanding what’s possible at this layer helps you scope projects.</p>
+<p><strong>Course coverage:</strong> Week 1 (Copilots), Week 5 (App Development)</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Tool</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Use Case</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ChatGPT</p></td>
+<td><p>General chat</p></td>
+<td><p>Ad-hoc analysis, brainstorming</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="http://Claude.ai">Claude.ai</a></p></td>
+<td><p>General chat</p></td>
+<td><p>Long document analysis</p></td>
+</tr>
+<tr class="row-even"><td><p>Cursor</p></td>
+<td><p>Code editor</p></td>
+<td><p>AI-assisted development</p></td>
+</tr>
+<tr class="row-odd"><td><p>Claude Code</p></td>
+<td><p>CLI tool</p></td>
+<td><p>Agentic coding in terminal</p></td>
+</tr>
+<tr class="row-even"><td><p>Custom apps</p></td>
+<td><p>Your builds</p></td>
+<td><p>Domain-specific workflows</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="how-the-stack-comes-together-a-finance-example">
+<h2>How the Stack Comes Together: A Finance Example<a class="headerlink" href="#how-the-stack-comes-together-a-finance-example" title="Link to this heading">#</a></h2>
+<p>Let’s trace a concrete workflow through the stack. Imagine you’re building a system to analyze earnings call transcripts:</p>
+<ol class="arabic simple">
+<li><p><strong>UI Layer:</strong> Analyst opens your custom dashboard and uploads Q4 earnings call PDF</p></li>
+<li><p><strong>Application Layer:</strong> LangChain orchestrates the workflow:</p>
+<ul class="simple">
+<li><p>Extract text from PDF</p></li>
+<li><p>Chunk into passages</p></li>
+<li><p>Generate embeddings</p></li>
+<li><p>Store and retrieve relevant sections</p></li>
+</ul>
+</li>
+<li><p><strong>API Layer:</strong> Your app calls OpenAI’s API to:</p>
+<ul class="simple">
+<li><p>Generate embeddings (<code class="docutils literal notranslate"><span class="pre">text-embedding-3-small</span></code>)</p></li>
+<li><p>Analyze retrieved passages (<code class="docutils literal notranslate"><span class="pre">gpt-4o</span></code>)</p></li>
+</ul>
+</li>
+<li><p><strong>LLM Layer:</strong> GPT-4o processes the context and generates insights about revenue guidance, management tone, and risk factors</p></li>
+<li><p><strong>Data Layer:</strong> Chroma stores the document embeddings for future queries</p></li>
+<li><p><strong>Infrastructure Layer:</strong> All compute runs on cloud infrastructure (abstracted away)</p></li>
+</ol>
+<p>The analyst sees a clean interface; the stack handles the complexity.</p>
+</section>
+<hr class="docutils" />
+<section id="where-this-course-focuses">
+<h2>Where This Course Focuses<a class="headerlink" href="#where-this-course-focuses" title="Link to this heading">#</a></h2>
+<p>This course emphasizes the layers where practitioners spend most of their time:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Week</p></th>
+<th class="head"><p>Topic</p></th>
+<th class="head"><p>Primary Stack Layers</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>AI Dev Tools &amp; Copilots</p></td>
+<td><p>UI, API</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>Tool Use &amp; Agents</p></td>
+<td><p>Application, API</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>LLM Fundamentals</p></td>
+<td><p>LLM, API</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>RAG</p></td>
+<td><p>Data, Application</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>AI App Development</p></td>
+<td><p>UI, Application</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p>Governance &amp; Evaluation</p></td>
+<td><p>All layers</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>We spend less time on infrastructure (cloud providers) since it’s abstracted away, and more time on the layers where you’ll make decisions and write code.</p>
+</section>
+<hr class="docutils" />
+<section id="key-takeaways">
+<h2>Key Takeaways<a class="headerlink" href="#key-takeaways" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>The stack is layered:</strong> Each layer builds on the one below. You don’t need to understand GPU architecture to use GPT-4, but understanding the layers helps you debug and optimize.</p></li>
+<li><p><strong>APIs are your main interface:</strong> Most practitioners interact with LLMs through APIs, not by running models locally.</p></li>
+<li><p><strong>Frameworks help but add complexity:</strong> LangChain and similar tools are valuable for complex workflows but overkill for simple tasks. Start with raw API calls.</p></li>
+<li><p><strong>Model selection matters:</strong> Different models for different tasks. GPT-4o for quality, GPT-4o-mini for volume, open-source for privacy.</p></li>
+<li><p><strong>The stack is evolving rapidly:</strong> New tools emerge weekly. The conceptual layers remain stable even as specific tools change.</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="quick-exercise-2-minutes">
+<h2>Quick Exercise (2 minutes)<a class="headerlink" href="#quick-exercise-2-minutes" title="Link to this heading">#</a></h2>
+<p>Map each tool to its primary stack layer:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Tool</p></th>
+<th class="head"><p>Your Answer</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Pinecone</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Claude 3.5 Sonnet</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>LangChain</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>OpenAI API</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Cursor</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<details>
+<summary>Check your answers</summary>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Tool</p></th>
+<th class="head"><p>Layer</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Pinecone</p></td>
+<td><p>Data (Vector Store)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Claude 3.5 Sonnet</p></td>
+<td><p>LLM (Foundation Model)</p></td>
+</tr>
+<tr class="row-even"><td><p>LangChain</p></td>
+<td><p>Application (Framework)</p></td>
+</tr>
+<tr class="row-odd"><td><p>OpenAI API</p></td>
+<td><p>API</p></td>
+</tr>
+<tr class="row-even"><td><p>Cursor</p></td>
+<td><p>UI</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</details>
+</section>
+<hr class="docutils" />
+<section id="next-steps">
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
+<p>Now that you have a mental map of the generative AI landscape, let’s see how these technologies are transforming quantitative finance. Continue to <a class="reference internal" href="llms_transforming_finance.html"><span class="std std-doc">LLMs Transforming Finance: The New Quant</span></a>.</p>
+</section>
+</section>
+
+<div class="section ablog__blog_comments">
+   
+</div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../discussion_01.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Discussion 1: The New Quant - LLMs in Finance</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="llms_transforming_finance.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">LLMs Transforming Finance: The New Quant</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-understanding-the-stack-matters">Why Understanding the Stack Matters</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-emerging-tech-stack">The Emerging Tech Stack</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#layer-by-layer-breakdown">Layer-by-Layer Breakdown</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#infrastructure-layer-cloud-providers">1. Infrastructure Layer (Cloud Providers)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-layer-vector-stores-databases">2. Data Layer (Vector Stores &amp; Databases)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#llm-layer-foundation-models">3. LLM Layer (Foundation Models)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#api-layer-model-access">4. API Layer (Model Access)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application-layer-frameworks-tools">5. Application Layer (Frameworks &amp; Tools)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ui-layer-user-interfaces">6. UI Layer (User Interfaces)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-the-stack-comes-together-a-finance-example">How the Stack Comes Together: A Finance Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#where-this-course-focuses">Where This Course Focuses</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">Key Takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-exercise-2-minutes">Quick Exercise (2 minutes)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next Steps</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jeremiah Bejarano
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, Jeremiah Bejarano.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

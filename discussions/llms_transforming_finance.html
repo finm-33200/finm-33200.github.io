@@ -1,0 +1,835 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>LLMs Transforming Finance: The New Quant &#8212; Full Stack Quantitative Finance</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=f23691d7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=7a7908ec"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'discussions/llms_transforming_finance';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/custom.js?v=c0d9a6f1"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="API Basics and Structured Outputs" href="api_and_structured_outputs.html" />
+    <link rel="prev" title="The Generative AI Tech Stack" href="gen_ai_tech_stack.html" /> 
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>   
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Full Stack Quantitative Finance - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Full Stack Quantitative Finance - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Generative and Agentic AI for Finance
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../README.html">Course Syllabus: FINM 32900, Winter 2025</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Course Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Discussions 📖</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../discussion_01.html">Discussion 1: The New Quant - LLMs in Finance</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="gen_ai_tech_stack.html">The Generative AI Tech Stack</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">LLMs Transforming Finance: The New Quant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_and_structured_outputs.html">API Basics and Structured Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ai_copilots_intro.html">AI Copilots: Claude Code and Cursor</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_02.html">Discussion 2: Building and Benchmarking Coding Agents</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="agent_fundamentals.html">Agent Fundamentals: From ReAct to LangGraph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building_flawed_code.html">Building FlawedCode: A Minimal Claude Code Clone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chartbook_integration.html">ChartBook Integration: Connecting Agents to Financial Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="context_management.html">Context Management for Deep Agents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agent_benchmarking.html">Agent Benchmarking: Measuring What Matters</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_03.html">Discussion 3: AI Application Development &amp; Financial Data Integration</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="chat_applications_overview.html">Chat Applications Overview: AI in Financial Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_to_nextjs.html">Introduction to Next.js and Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_to_chatkit.html">Building a Financial Research Assistant with ChatKit</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_04.html">Discussion 4: Text Representation &amp; Embeddings</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="vector_embeddings_and_search.html"><strong>The Architecture of Meaning: From Vector Embeddings to Reasoning-Based Retrieval</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="vector_embeddings_literature.html">Essential papers on embeddings and vector databases for AI/ML</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Homework 📝</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../HW0.html">Homework 0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HW1.html">Homework 1: Lopez-Lira Replication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HW2.html">Homework 2: Embedding-Based Return Prediction</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../final_project.html">Final Project</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/final_project_rubric.html">Final Project Instructions and Rubric</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/potential_final_projects.html">List of Potential Final Projects</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Misc 📌</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../acknowledgments.html">Acknowledgments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../appendix.html">Appendix</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project/issues/new?title=Issue%20on%20page%20%2Fdiscussions/llms_transforming_finance.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/discussions/llms_transforming_finance.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>LLMs Transforming Finance: The New Quant</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-emergence-of-the-new-quant">The Emergence of the “New Quant”</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sentiment-event-extraction">1. Sentiment &amp; Event Extraction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-lopez-lira-finding">The Lopez-Lira Finding</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#llm-embeddings-for-return-prediction">LLM Embeddings for Return Prediction</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numerical-economic-reasoning">2. Numerical &amp; Economic Reasoning</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chain-of-thought-prompting">Chain-of-Thought Prompting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fincot-finance-specific-reasoning">FinCoT: Finance-Specific Reasoning</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multimodal-understanding">3. Multimodal Understanding</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vision-models-for-financial-documents">Vision Models for Financial Documents</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#retrieval-augmented-generation-rag">4. Retrieval-Augmented Generation (RAG)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#neusym-rag-for-financial-documents">NeuSym-RAG for Financial Documents</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#asset-embeddings">Asset Embeddings</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agentic-systems">5. Agentic Systems</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#trading-r1-rl-for-trading-decisions">Trading-R1: RL for Trading Decisions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deep-research-agents">Deep Research Agents</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-react-pattern">The ReAct Pattern</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#domain-specific-models">6. Domain-Specific Models</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bloomberggpt">BloombergGPT</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#open-source-alternative-fingpt">Open-Source Alternative: FinGPT</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chronogpt-eliminating-lookahead-bias">ChronoGPT: Eliminating Lookahead Bias</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-this-means-for-quant-practitioners">What This Means for Quant Practitioners</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion-questions">Discussion Questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-live-demo">Hands-On: Live Demo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next Steps</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                   <section class="tex2jax_ignore mathjax_ignore" id="llms-transforming-finance-the-new-quant">
+<h1>LLMs Transforming Finance: The New Quant<a class="headerlink" href="#llms-transforming-finance-the-new-quant" title="Link to this heading">#</a></h1>
+<p><strong>Duration:</strong> 40 minutes reading</p>
+<p><strong>Learning Objectives:</strong></p>
+<ul class="simple">
+<li><p>Survey 6 categories of LLM applications in quantitative finance</p></li>
+<li><p>Understand why model scale matters for financial tasks</p></li>
+<li><p>Connect research papers to practical tools</p></li>
+<li><p>Recognize the productivity gains from AI assistance</p></li>
+</ul>
+<hr class="docutils" />
+<section id="the-emergence-of-the-new-quant">
+<h2>The Emergence of the “New Quant”<a class="headerlink" href="#the-emergence-of-the-new-quant" title="Link to this heading">#</a></h2>
+<blockquote>
+<div><p><strong>📚 Literature: Fu, X. (2025). “The New Quant: A Survey of LLMs in Financial Prediction and Trading.” arXiv:2510.05533</strong></p>
+<p>This comprehensive survey maps the landscape of LLM applications in finance. Fu organizes the field into six categories: sentiment and event extraction, numerical reasoning, multimodal understanding, retrieval-augmented generation, agentic systems, and domain-specific models. The key insight: LLMs are not replacing quants—they’re augmenting them, creating a new type of practitioner who combines traditional quantitative skills with AI-powered analysis.</p>
+</div></blockquote>
+<p>A growing body of research suggests the emergence of a “new quant”—practitioners who leverage large language models to amplify their analytical capabilities. Empirical evidence supports this shift:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Study</p></th>
+<th class="head"><p>Finding</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Brynjolfsson (2025)</p></td>
+<td><p>15% average productivity increase for knowledge workers using AI assistance</p></td>
+</tr>
+<tr class="row-odd"><td><p>Kwa (2025)</p></td>
+<td><p>AI task-completion capability doubling every 7 months</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>For quantitative finance practitioners who routinely process documents, analyze market data, write code, and synthesize research, these tools represent a fundamental change in how work gets done.</p>
+<p><img alt="Gen AI Stack" src="../_images/gen_ai_stack3.jpg" /></p>
+<p><em>The generative AI technology stack spans infrastructure, data, LLMs, APIs, and applications. Understanding this stack helps contextualize where different LLM-finance applications fit.</em></p>
+</section>
+<hr class="docutils" />
+<section id="sentiment-event-extraction">
+<h2>1. Sentiment &amp; Event Extraction<a class="headerlink" href="#sentiment-event-extraction" title="Link to this heading">#</a></h2>
+<p>The most direct application of LLMs in finance: reading text and extracting trading signals.</p>
+<section id="the-lopez-lira-finding">
+<h3>The Lopez-Lira Finding<a class="headerlink" href="#the-lopez-lira-finding" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><p><strong>📚 Literature: Lopez-Lira, A. (2023). “Can ChatGPT Forecast Stock Price Movements? Return Predictability and Large Language Models.”</strong></p>
+<p>This paper tested whether ChatGPT could predict stock returns by classifying news headlines as “good news,” “bad news,” or “uncertain.” The headline finding: <strong>GPT-4’s sentiment scores correlate positively with next-day returns and outperform traditional sentiment metrics.</strong> Crucially, smaller models like BERT showed no predictive power—only the largest models captured this return predictability. This “scale matters” insight explains why the field shifted from fine-tuned small models to prompting frontier models.</p>
+</div></blockquote>
+<p><strong>Key insight:</strong> The same headline classified by BERT and GPT-4 produces different signals—and only GPT-4’s signal predicts returns.</p>
+</section>
+<section id="llm-embeddings-for-return-prediction">
+<h3>LLM Embeddings for Return Prediction<a class="headerlink" href="#llm-embeddings-for-return-prediction" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><p><strong>📚 Literature: Chen, L., Kelly, B., &amp; Xiu, D. (2022). “Return Prediction with Large Language Models.”</strong></p>
+<p>While Lopez-Lira uses sentiment labels, Chen et al. use embeddings—the dense vector representations that LLMs produce internally. They find that LLM embeddings significantly outperform simpler NLP methods (bag-of-words, Word2Vec) and technical signals across 16 global equity markets and 13 languages. Benefits are most pronounced for articles featuring negation or complex narratives—exactly where simpler methods fail.</p>
+</div></blockquote>
+<p><em>We explore text representations — from bag-of-words to embeddings — in <a class="reference internal" href="../discussion_04.html"><span class="std std-doc">Discussion 4: Text Representation &amp; Embeddings</span></a>, and replicate a portion of this analysis in <a class="reference internal" href="../HW2.html"><span class="std std-doc">Homework 2</span></a>.</em></p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="numerical-economic-reasoning">
+<h2>2. Numerical &amp; Economic Reasoning<a class="headerlink" href="#numerical-economic-reasoning" title="Link to this heading">#</a></h2>
+<p>LLMs can do more than read—they can reason about quantitative problems.</p>
+<section id="chain-of-thought-prompting">
+<h3>Chain-of-Thought Prompting<a class="headerlink" href="#chain-of-thought-prompting" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><p><strong>📚 Literature: Wei, J. (2022). “Chain-of-Thought Prompting Elicits Reasoning in Large Language Models.”</strong></p>
+<p>This paper showed that prompting models to produce explicit step-by-step reasoning unlocks performance on math and logic problems. The technique is simple: instead of asking for an answer directly, you prompt with “Let’s think step by step” or provide examples that show the reasoning process. Chain-of-thought is now standard practice in commercial LLM products and foundational for finance applications.</p>
+</div></blockquote>
+<p><img alt="Chain-of-Thought Prompting" src="../_images/cot_standard_vs_reasoning.png" /></p>
+<p><em>Standard prompting asks for direct answers, while chain-of-thought prompting elicits step-by-step reasoning. This technique is foundational for financial analysis tasks requiring multi-step logic. Source: <a class="reference external" href="https://research.google/blog/language-models-perform-reasoning-via-chain-of-thought/">Google Research</a></em></p>
+</section>
+<section id="fincot-finance-specific-reasoning">
+<h3>FinCoT: Finance-Specific Reasoning<a class="headerlink" href="#fincot-finance-specific-reasoning" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><p><strong>📚 Literature: Nitarach, N. (2025). “FinCoT: Chain-of-Thought Reasoning for Financial Analysis.”</strong></p>
+<p>FinCoT adapts chain-of-thought for finance by injecting expert-defined reasoning blueprints into prompts. Evaluated on CFA-style questions across financial domains, <strong>FinCoT improved accuracy from 63% to 80% on a general 8B model</strong>—demonstrating that careful prompt engineering can substantially enhance performance without fine-tuning.</p>
+</div></blockquote>
+<p><strong>Practical takeaway:</strong> Before fine-tuning, try better prompts. FinCoT achieves significant gains just by structuring the reasoning process.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="multimodal-understanding">
+<h2>3. Multimodal Understanding<a class="headerlink" href="#multimodal-understanding" title="Link to this heading">#</a></h2>
+<p>Modern LLMs can process images, enabling new applications.</p>
+<section id="vision-models-for-financial-documents">
+<h3>Vision Models for Financial Documents<a class="headerlink" href="#vision-models-for-financial-documents" title="Link to this heading">#</a></h3>
+<p>Vision-language models like GPT-4V and Claude 3 can:</p>
+<ul class="simple">
+<li><p>Read earnings tables directly from images</p></li>
+<li><p>Interpret financial charts and graphs</p></li>
+<li><p>Extract data from PDFs that resist text extraction</p></li>
+<li><p>Process historical documents with complex layouts</p></li>
+</ul>
+<p><strong>Use case:</strong> An analyst receives a quarterly report as a scanned PDF. Instead of manual data entry, a vision model extracts the key figures directly, maintaining the semantic context that pure OCR would lose.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="retrieval-augmented-generation-rag">
+<h2>4. Retrieval-Augmented Generation (RAG)<a class="headerlink" href="#retrieval-augmented-generation-rag" title="Link to this heading">#</a></h2>
+<p>RAG connects LLMs to external knowledge bases, extending them beyond their training data.</p>
+<section id="neusym-rag-for-financial-documents">
+<h3>NeuSym-RAG for Financial Documents<a class="headerlink" href="#neusym-rag-for-financial-documents" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><p><strong>📚 Literature: Cao, Y. (2025). “NeuSym-RAG: A Hybrid Neural-Symbolic Framework for Financial Document Q&amp;A.”</strong></p>
+<p>Financial documents combine structured tables with unstructured narrative—a challenge for pure vector search. NeuSym-RAG addresses this with a hybrid approach: neural retrieval for narrative sections, symbolic SQL-based retrieval for tabular data. The framework outperforms pure neural methods on financial document question answering.</p>
+</div></blockquote>
+<p><img alt="Augmented LLM" src="../_images/augmented_llm.png" /></p>
+<p><em>The augmented LLM building block combines retrieval, tools, and memory to extend model capabilities beyond training data. RAG systems like NeuSym-RAG build on this foundation. Source: <a class="reference external" href="https://www.anthropic.com/research/building-effective-agents">Anthropic</a></em></p>
+</section>
+<section id="asset-embeddings">
+<h3>Asset Embeddings<a class="headerlink" href="#asset-embeddings" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><p><strong>📚 Literature: Gabaix, X. (2025). “Asset Embeddings: Large Language Models for Financial Asset Representation.”</strong></p>
+<p>Just as words appearing in similar contexts get similar embeddings, assets held together by investors get similar <em>asset embeddings</em>. Gabaix applies the word embedding paradigm to financial assets: firms that appear together in portfolios receive similar vector representations. The follow-up work demonstrates that these firm embeddings explain credit spreads better than ratings or distance-to-default.</p>
+</div></blockquote>
+<p><strong>Key insight:</strong> The embedding techniques that power LLMs can represent assets, not just text—opening new approaches to similarity analysis and clustering.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="agentic-systems">
+<h2>5. Agentic Systems<a class="headerlink" href="#agentic-systems" title="Link to this heading">#</a></h2>
+<p>Agents combine LLM reasoning with real-world actions, enabling autonomous workflows.</p>
+<section id="trading-r1-rl-for-trading-decisions">
+<h3>Trading-R1: RL for Trading Decisions<a class="headerlink" href="#trading-r1-rl-for-trading-decisions" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><p><strong>📚 Literature: Xiao, Y. (2025). “Trading-R1: Reasoning-Guided LLM for Financial Trading.”</strong></p>
+<p>While reasoning LLMs excel at math and coding, their unguided reasoning often drifts away from market-relevant analysis. Trading-R1 uses reinforcement learning to train LLMs for trading decisions, achieving <strong>Sharpe ratios of 1.6–2.7 across major equities</strong> while generating structured, evidence-backed investment theses. The model learns to focus its reasoning on the factors that actually predict returns.</p>
+</div></blockquote>
+</section>
+<section id="deep-research-agents">
+<h3>Deep Research Agents<a class="headerlink" href="#deep-research-agents" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><p><strong>📚 Literature: Du, L. (2025). “DeepResearch Bench: Evaluating Deep Research Agents.”</strong></p>
+<p>Deep Research Agents produce analyst-grade, citation-rich reports by autonomously searching, reading, and synthesizing information. Du introduces the first comprehensive benchmark for these systems. ChatGPT’s Deep Research mode exemplifies this capability—give it a complex question, and it conducts multi-step research before producing a coherent report.</p>
+</div></blockquote>
+</section>
+<section id="the-react-pattern">
+<h3>The ReAct Pattern<a class="headerlink" href="#the-react-pattern" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><p><strong>📚 Literature: Yao, S. “ReAct: Synergizing Reasoning and Acting in Language Models.”</strong></p>
+<p>ReAct established the paradigm that underlies every modern agent: interleaving reasoning traces (“thoughts”) with actions. When an LLM explains its reasoning before acting, it makes fewer errors and recovers better from mistakes. This pattern powers Claude Code, ChatGPT’s tool use, and all major agentic frameworks.</p>
+</div></blockquote>
+<p><img alt="ReAct Pattern" src="../_images/react_overview.png" /></p>
+<p><em>The ReAct pattern interleaves reasoning traces (thoughts) with actions, enabling agents to explain their logic before acting. This pattern underlies modern agent frameworks including Claude Code and ChatGPT’s tool use. Source: <a class="reference external" href="https://research.google/blog/react-synergizing-reasoning-and-acting-in-language-models/">Google Research</a></em></p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="domain-specific-models">
+<h2>6. Domain-Specific Models<a class="headerlink" href="#domain-specific-models" title="Link to this heading">#</a></h2>
+<p>Some applications require models trained specifically on financial data.</p>
+<section id="bloomberggpt">
+<h3>BloombergGPT<a class="headerlink" href="#bloomberggpt" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><p><strong>📚 Literature: Wu, S. (2023). “BloombergGPT: A Large Language Model for Finance.”</strong></p>
+<p>Bloomberg trained a 50-billion parameter model on their proprietary dataset of 363 billion tokens of financial text. BloombergGPT significantly outperforms general-purpose LLMs on financial tasks while maintaining competitive performance on standard benchmarks. The model demonstrates that domain-specific pre-training can yield substantial improvements.</p>
+</div></blockquote>
+</section>
+<section id="open-source-alternative-fingpt">
+<h3>Open-Source Alternative: FinGPT<a class="headerlink" href="#open-source-alternative-fingpt" title="Link to this heading">#</a></h3>
+<p>While BloombergGPT remains proprietary, the AI4Finance Foundation has released FinGPT as an open-source alternative:</p>
+<p><img alt="FinGPT Framework" src="../_images/fingpt_framework.png" /></p>
+<p><em>FinGPT’s full-stack framework demonstrates how practitioners can build domain-specific financial LLMs using open-source tools and lightweight fine-tuning techniques like LoRA. Source: <a class="reference external" href="https://github.com/AI4Finance-Foundation/FinGPT">AI4Finance Foundation</a></em></p>
+</section>
+<section id="chronogpt-eliminating-lookahead-bias">
+<h3>ChronoGPT: Eliminating Lookahead Bias<a class="headerlink" href="#chronogpt-eliminating-lookahead-bias" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><p><strong>📚 Literature: He, X., Lv, J., Manela, A., &amp; Wu, R. (2025a). “ChronoGPT: Chronologically Consistent Language Models.”</strong></p>
+<p>Standard LLMs are trained on text that includes future information relative to any historical backtest date—creating data leakage. ChronoGPT trains only on text available at each point in time, eliminating lookahead bias. For backtesting applications, this is critical: using a model trained on 2024 data to analyze a 2020 headline introduces forward-looking information that wouldn’t have existed at the time.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>📚 Literature: He, X., Lv, J., Manela, A., &amp; Wu, R. (2025). “Instruction-Tuning ChronoGPT for Chat Capabilities.”</strong></p>
+<p>The follow-up work adds instruction tuning to ChronoGPT, creating chat-capable models that maintain chronological consistency. Each model has a clearly defined knowledge cutoff date, enabling realistic historical analysis.</p>
+</div></blockquote>
+<p><strong>Key insight for practitioners:</strong> When backtesting LLM-based strategies, standard models introduce forward-looking bias. ChronoGPT offers a methodologically sound alternative.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="what-this-means-for-quant-practitioners">
+<h2>What This Means for Quant Practitioners<a class="headerlink" href="#what-this-means-for-quant-practitioners" title="Link to this heading">#</a></h2>
+<p>The papers above suggest several practical implications:</p>
+<ol class="arabic simple">
+<li><p><strong>Scale matters.</strong> The Lopez-Lira finding—that only frontier models capture return-predictive sentiment—means practitioners should use the best available models for signal extraction, not fine-tuned small models.</p></li>
+<li><p><strong>Prompts before fine-tuning.</strong> FinCoT’s 17-percentage-point improvement from better prompts suggests exhausting prompt engineering before investing in fine-tuning.</p></li>
+<li><p><strong>Hybrid approaches work.</strong> NeuSym-RAG’s combination of neural and symbolic retrieval outperforms either alone—a pattern likely to generalize across financial applications.</p></li>
+<li><p><strong>Agents are ready.</strong> Trading-R1’s Sharpe ratios and Deep Research’s analyst-grade reports demonstrate that agentic systems can perform real financial work, not just demos.</p></li>
+<li><p><strong>Temporal consistency matters.</strong> ChronoGPT addresses a methodological problem that most practitioners haven’t considered: standard LLMs leak future information into historical analysis.</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="discussion-questions">
+<h2>Discussion Questions<a class="headerlink" href="#discussion-questions" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Scale vs. fine-tuning:</strong> Given the Lopez-Lira finding, when would you still choose to fine-tune a smaller model rather than prompt a frontier model?</p></li>
+<li><p><strong>Lookahead bias:</strong> How would you design a backtesting framework that uses LLMs without introducing forward-looking bias? Would you always use ChronoGPT, or are there cases where standard models are acceptable?</p></li>
+<li><p><strong>Agentic trading:</strong> Trading-R1 achieves strong Sharpe ratios in research settings. What additional challenges would you face deploying such a system in production?</p></li>
+<li><p><strong>RAG vs. fine-tuning:</strong> When building a financial Q&amp;A system, how would you decide between RAG (retrieving from documents) and fine-tuning on financial text?</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="hands-on-live-demo">
+<h2>Hands-On: Live Demo<a class="headerlink" href="#hands-on-live-demo" title="Link to this heading">#</a></h2>
+<p>Let’s see Lopez-Lira’s core methodology in action. We’ll classify 5 headlines with GPT-4o-mini and examine the sentiment scores:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">openai</span> <span class="kn">import</span> <span class="n">OpenAI</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">()</span>
+
+<span class="n">headlines</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;Apple Reports Record Q4 Earnings, Beats Analyst Expectations&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Fed Signals More Rate Hikes Ahead, Markets Tumble&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Tesla Stock Plunges After Disappointing Delivery Numbers&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Microsoft Cloud Revenue Grows 27%, Exceeding Forecasts&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Bank of America Warns of Recession Risk in 2024&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">headline</span> <span class="ow">in</span> <span class="n">headlines</span><span class="p">:</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+        <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">,</span>
+        <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
+            <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;You are a financial analyst. Classify news as &#39;good news&#39;, &#39;bad news&#39;, or &#39;uncertain&#39;.&quot;</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Headline: </span><span class="si">{</span><span class="n">headline</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">},</span>
+        <span class="p">],</span>
+    <span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">headline</span><span class="p">[:</span><span class="mi">50</span><span class="p">]</span><span class="si">}</span><span class="s2">... → </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">content</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="next-steps">
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
+<p>Now that you’ve seen the landscape of LLM applications in finance, let’s build our sentiment classification pipeline from scratch. Continue to <a class="reference internal" href="api_and_structured_outputs.html"><span class="std std-doc">API and Structured Outputs</span></a>.</p>
+</section>
+</section>
+
+<div class="section ablog__blog_comments">
+   
+</div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="gen_ai_tech_stack.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">The Generative AI Tech Stack</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="api_and_structured_outputs.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">API Basics and Structured Outputs</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-emergence-of-the-new-quant">The Emergence of the “New Quant”</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sentiment-event-extraction">1. Sentiment &amp; Event Extraction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-lopez-lira-finding">The Lopez-Lira Finding</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#llm-embeddings-for-return-prediction">LLM Embeddings for Return Prediction</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numerical-economic-reasoning">2. Numerical &amp; Economic Reasoning</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chain-of-thought-prompting">Chain-of-Thought Prompting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fincot-finance-specific-reasoning">FinCoT: Finance-Specific Reasoning</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multimodal-understanding">3. Multimodal Understanding</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vision-models-for-financial-documents">Vision Models for Financial Documents</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#retrieval-augmented-generation-rag">4. Retrieval-Augmented Generation (RAG)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#neusym-rag-for-financial-documents">NeuSym-RAG for Financial Documents</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#asset-embeddings">Asset Embeddings</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agentic-systems">5. Agentic Systems</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#trading-r1-rl-for-trading-decisions">Trading-R1: RL for Trading Decisions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deep-research-agents">Deep Research Agents</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-react-pattern">The ReAct Pattern</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#domain-specific-models">6. Domain-Specific Models</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bloomberggpt">BloombergGPT</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#open-source-alternative-fingpt">Open-Source Alternative: FinGPT</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chronogpt-eliminating-lookahead-bias">ChronoGPT: Eliminating Lookahead Bias</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-this-means-for-quant-practitioners">What This Means for Quant Practitioners</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion-questions">Discussion Questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-live-demo">Hands-On: Live Demo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next Steps</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jeremiah Bejarano
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, Jeremiah Bejarano.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

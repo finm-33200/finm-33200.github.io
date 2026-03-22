@@ -1,0 +1,1071 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Context Management for Deep Agents &#8212; Full Stack Quantitative Finance</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=f23691d7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=7a7908ec"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'discussions/context_management';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/custom.js?v=c0d9a6f1"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Agent Benchmarking: Measuring What Matters" href="agent_benchmarking.html" />
+    <link rel="prev" title="ChartBook Integration: Connecting Agents to Financial Data" href="chartbook_integration.html" /> 
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>   
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Full Stack Quantitative Finance - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Full Stack Quantitative Finance - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Generative and Agentic AI for Finance
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../README.html">Course Syllabus: FINM 32900, Winter 2025</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Course Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Discussions 📖</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_01.html">Discussion 1: The New Quant - LLMs in Finance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="gen_ai_tech_stack.html">The Generative AI Tech Stack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="llms_transforming_finance.html">LLMs Transforming Finance: The New Quant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_and_structured_outputs.html">API Basics and Structured Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ai_copilots_intro.html">AI Copilots: Claude Code and Cursor</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../discussion_02.html">Discussion 2: Building and Benchmarking Coding Agents</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="agent_fundamentals.html">Agent Fundamentals: From ReAct to LangGraph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building_flawed_code.html">Building FlawedCode: A Minimal Claude Code Clone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chartbook_integration.html">ChartBook Integration: Connecting Agents to Financial Data</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Context Management for Deep Agents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agent_benchmarking.html">Agent Benchmarking: Measuring What Matters</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_03.html">Discussion 3: AI Application Development &amp; Financial Data Integration</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="chat_applications_overview.html">Chat Applications Overview: AI in Financial Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_to_nextjs.html">Introduction to Next.js and Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_to_chatkit.html">Building a Financial Research Assistant with ChatKit</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_04.html">Discussion 4: Text Representation &amp; Embeddings</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="vector_embeddings_and_search.html"><strong>The Architecture of Meaning: From Vector Embeddings to Reasoning-Based Retrieval</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="vector_embeddings_literature.html">Essential papers on embeddings and vector databases for AI/ML</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Homework 📝</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../HW0.html">Homework 0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HW1.html">Homework 1: Lopez-Lira Replication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HW2.html">Homework 2: Embedding-Based Return Prediction</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../final_project.html">Final Project</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/final_project_rubric.html">Final Project Instructions and Rubric</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/potential_final_projects.html">List of Potential Final Projects</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Misc 📌</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../acknowledgments.html">Acknowledgments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../appendix.html">Appendix</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project/issues/new?title=Issue%20on%20page%20%2Fdiscussions/context_management.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/discussions/context_management.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Context Management for Deep Agents</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-problem-context-rot">The Problem: Context Rot</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#demo-watch-context-degrade">Demo: Watch Context Degrade</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-context-fill">Visualizing Context Fill</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-langchain-context-management-framework">The LangChain Context Management Framework</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#technique-1-offload-large-results">Technique 1: Offload Large Results</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-strategy">The Strategy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">Implementation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#integrating-with-tools">Integrating with Tools</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-output">Example Output</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion-question">Discussion Question</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#technique-2-summarization-at-threshold">Technique 2: Summarization at Threshold</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">The Strategy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Implementation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#summarization-prompt-design">Summarization Prompt Design</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-summary">Example Summary</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#flawedcode-version-progression">FlawedCode Version Progression</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-v2-adds">What v2 Adds</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-exercise-identify-offloading-candidates">Hands-On Exercise: Identify Offloading Candidates</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">Key Takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture-comparison">Architecture Comparison</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion-questions">Discussion Questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next Steps</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                   <section class="tex2jax_ignore mathjax_ignore" id="context-management-for-deep-agents">
+<h1>Context Management for Deep Agents<a class="headerlink" href="#context-management-for-deep-agents" title="Link to this heading">#</a></h1>
+<p><strong>Duration:</strong> 35 minutes</p>
+<p><strong>Learning Objectives:</strong></p>
+<ul class="simple">
+<li><p>Recognize “context rot” in multi-turn agent conversations</p></li>
+<li><p>Understand offloading strategies for large tool results</p></li>
+<li><p>Implement summarization to compress conversation history</p></li>
+<li><p>Appreciate the v1 → v2 improvement opportunity</p></li>
+</ul>
+<hr class="docutils" />
+<section id="the-problem-context-rot">
+<h2>The Problem: Context Rot<a class="headerlink" href="#the-problem-context-rot" title="Link to this heading">#</a></h2>
+<p>Multi-turn agents accumulate context with every interaction. Eventually, this leads to <strong>context rot</strong>—degraded performance as the context window fills up and important earlier information gets “pushed out.”</p>
+<p>The agent loop that creates this problem follows the <strong>ReAct paradigm</strong> introduced by Yao et al. (2023), which established the pattern of interleaving reasoning traces with actions. This Thought → Action → Observation cycle is now the foundation of every major agent framework, including LangGraph and Claude Code. As agents tackle increasingly complex tasks—Kwa et al. (2025) document that AI task-completion time horizons have been doubling every 7 months—context management becomes the bottleneck that determines whether an agent can complete multi-hour workflows.</p>
+<div class="note admonition">
+<p class="admonition-title">Key Papers</p>
+<p><strong>Yao, S., Zhao, J., Yu, D., et al. (2023). “<a class="reference external" href="https://arxiv.org/abs/2210.03629">ReAct: Synergizing Reasoning and Acting in Language Models</a>.” ICLR 2023.</strong></p>
+<p><strong>Kwa, T., et al. (2025). “<a class="reference external" href="https://metr.org/blog/2025-03-19-measuring-ai-ability-to-complete-long-tasks/">Measuring AI Ability to Complete Long Tasks</a>.” METR.</strong></p>
+</div>
+<p><img alt="Context vs Prompt Engineering" src="../_images/context_vs_prompt_engineering.png" /></p>
+<p><em>Unlike discrete prompt engineering, context engineering is an iterative process that happens throughout an agent’s execution. Source: <a class="reference external" href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents">Anthropic</a></em></p>
+<section id="demo-watch-context-degrade">
+<h3>Demo: Watch Context Degrade<a class="headerlink" href="#demo-watch-context-degrade" title="Link to this heading">#</a></h3>
+<p>Try this sequence with FlawedCode + ChartBook tools:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>1. &quot;List ChartBook dataframes&quot;
+2. &quot;Get docs for yield_curve/repo_public&quot;    ← ~5000 chars
+3. &quot;Now get docs for money_markets/sofr&quot;     ← ~3000 more chars
+4. &quot;Load 50 rows of SOFR data&quot;               ← ~2000 more chars
+5. &quot;Get docs for treasury_yields&quot;            ← ~4000 more chars
+6. &quot;What was my original goal?&quot;              ← Agent struggles!
+</pre></div>
+</div>
+<p>By step 6, the agent may have forgotten the conversation’s purpose. The early messages—including your goals and previous insights—are compressed or lost as new content fills the window.</p>
+<p><img alt="Token Accumulation" src="../_images/context_token_accumulation.png" /></p>
+<p><em>Token usage grows with each agent turn as tool calls and results accumulate. Source: <a class="reference external" href="https://blog.langchain.com/context-engineering-for-agents/">LangChain</a></em></p>
+</section>
+<section id="visualizing-context-fill">
+<h3>Visualizing Context Fill<a class="headerlink" href="#visualizing-context-fill" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>┌────────────────────────────────────────────────────────────────┐
+│                        CONTEXT WINDOW (128K tokens)            │
+├────────────────────────────────────────────────────────────────┤
+│████████████████████████████████████████████░░░░░░░░░░░░░░░░░░░│
+│ ↑                                          ↑                   │
+│ Start: System prompt, goals, early turns   End: Latest content │
+│                                                                 │
+│ As context fills, LLM attention to early content decreases     │
+└────────────────────────────────────────────────────────────────┘
+
+After many turns:
+┌────────────────────────────────────────────────────────────────┐
+│████████████████████████████████████████████████████████████████│
+│ Context is FULL - new content pushes out old context           │
+│ or summarization kicks in, losing detail                       │
+└────────────────────────────────────────────────────────────────┘
+</pre></div>
+</div>
+<p><img alt="Token Usage Chart" src="../_images/context_token_usage_chart.png" /></p>
+<p><em>Real token usage patterns during agent runs. Notice how context grows over time and compression events reduce usage. Source: <a class="reference external" href="https://blog.langchain.com/context-management-for-deepagents/">LangChain</a></em></p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="the-langchain-context-management-framework">
+<h2>The LangChain Context Management Framework<a class="headerlink" href="#the-langchain-context-management-framework" title="Link to this heading">#</a></h2>
+<p>LangChain’s blog post <a class="reference external" href="https://blog.langchain.com/context-management-for-deepagents/">Context Management for Deep Agents</a> outlines three core strategies:</p>
+<p><img alt="Context Engineering Strategies" src="../_images/context_engineering_strategies.png" /></p>
+<p><em>Four primary strategies for managing context: write (add information), select (retrieve relevant context), compress (summarize), and isolate (distribute across agents). Source: <a class="reference external" href="https://blog.langchain.com/context-engineering-for-agents/">LangChain</a></em></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Problem</p></th>
+<th class="head"><p>Solution</p></th>
+<th class="head"><p>When to Use</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Large tool results fill context</p></td>
+<td><p><strong>Offload to filesystem</strong></p></td>
+<td><p>Tool result &gt; threshold</p></td>
+</tr>
+<tr class="row-odd"><td><p>Context grows unbounded</p></td>
+<td><p><strong>Summarize history</strong></p></td>
+<td><p>Context usage &gt; 80%</p></td>
+</tr>
+<tr class="row-even"><td><p>Lost information needed later</p></td>
+<td><p><strong>Archive + search</strong></p></td>
+<td><p>Complex multi-step tasks</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Let’s implement each technique.</p>
+</section>
+<hr class="docutils" />
+<section id="technique-1-offload-large-results">
+<h2>Technique 1: Offload Large Results<a class="headerlink" href="#technique-1-offload-large-results" title="Link to this heading">#</a></h2>
+<p>When a tool returns more content than needed in immediate context, save it to disk and keep only a preview. This offload-and-retrieve pattern mirrors the core insight of <strong>Retrieval-Augmented Generation</strong> (Lewis et al., 2020): rather than keeping everything in context, store information externally and retrieve it when needed.</p>
+<p><img alt="Offloading Tool Results" src="../_images/context_offload_tool_results.png" /></p>
+<p><em>When tool responses exceed a threshold (e.g., 20K tokens), the full content is saved to the filesystem and only a preview with a file path reference remains in context. Source: <a class="reference external" href="https://blog.langchain.com/context-management-for-deepagents/">LangChain</a></em></p>
+<section id="the-strategy">
+<h3>The Strategy<a class="headerlink" href="#the-strategy" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Tool returns large result
+        ↓
+Check if result &gt; THRESHOLD
+        ↓ Yes                    ↓ No
+┌─────────────────────┐    ┌──────────────────┐
+│ Save to scratch/    │    │ Return as-is     │
+│ Return preview +    │    │                  │
+│ file path           │    │                  │
+└─────────────────────┘    └──────────────────┘
+</pre></div>
+</div>
+</section>
+<section id="implementation">
+<h3>Implementation<a class="headerlink" href="#implementation" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">uuid</span> <span class="kn">import</span> <span class="n">uuid4</span>
+
+<span class="n">LARGE_RESULT_THRESHOLD</span> <span class="o">=</span> <span class="mi">5000</span>  <span class="c1"># characters</span>
+<span class="n">SCRATCH_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;scratch&quot;</span><span class="p">)</span>
+<span class="n">SCRATCH_DIR</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">estimate_tokens</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Rough token estimate: ~4 chars per token.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="o">//</span> <span class="mi">4</span>
+
+<span class="k">def</span> <span class="nf">maybe_offload</span><span class="p">(</span><span class="n">result</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">tool_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Offload large results to filesystem, return preview.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">LARGE_RESULT_THRESHOLD</span><span class="p">:</span>
+        <span class="c1"># Generate unique filename</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">tool_name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">[:</span><span class="mi">8</span><span class="p">]</span><span class="si">}</span><span class="s2">.txt&quot;</span>
+        <span class="n">filepath</span> <span class="o">=</span> <span class="n">SCRATCH_DIR</span> <span class="o">/</span> <span class="n">filename</span>
+
+        <span class="c1"># Save full result</span>
+        <span class="n">filepath</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+        <span class="c1"># Create preview (first 500 chars + summary)</span>
+        <span class="n">preview</span> <span class="o">=</span> <span class="n">result</span><span class="p">[:</span><span class="mi">500</span><span class="p">]</span>
+        <span class="n">lines_count</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">char_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;[Saved to scratch/</span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">]</span>
+<span class="s2">[</span><span class="si">{</span><span class="n">char_count</span><span class="si">}</span><span class="s2"> characters, </span><span class="si">{</span><span class="n">lines_count</span><span class="si">}</span><span class="s2"> lines]</span>
+
+<span class="s2">Preview:</span>
+<span class="si">{</span><span class="n">preview</span><span class="si">}</span><span class="s2">...</span>
+
+<span class="s2">Use read_file(&#39;scratch/</span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">&#39;) to see the full content.&quot;&quot;&quot;</span>
+
+    <span class="k">return</span> <span class="n">result</span>
+</pre></div>
+</div>
+</section>
+<section id="integrating-with-tools">
+<h3>Integrating with Tools<a class="headerlink" href="#integrating-with-tools" title="Link to this heading">#</a></h3>
+<p>Wrap the offload logic around tool results:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@tool</span>
+<span class="k">def</span> <span class="nf">chartbook_get_docs</span><span class="p">(</span><span class="n">pipeline</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dataframe</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get documentation for a ChartBook dataframe.&quot;&quot;&quot;</span>
+    <span class="n">docs</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get_docs</span><span class="p">(</span><span class="n">pipeline</span><span class="o">=</span><span class="n">pipeline</span><span class="p">,</span> <span class="n">dataframe</span><span class="o">=</span><span class="n">dataframe</span><span class="p">)</span>
+
+    <span class="c1"># Offload if too large</span>
+    <span class="k">return</span> <span class="n">maybe_offload</span><span class="p">(</span><span class="n">docs</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;docs_</span><span class="si">{</span><span class="n">pipeline</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">dataframe</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="example-output">
+<h3>Example Output<a class="headerlink" href="#example-output" title="Link to this heading">#</a></h3>
+<p>Before offloading:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[chartbook_get_docs] {&quot;pipeline&quot;: &quot;yield_curve&quot;, &quot;dataframe&quot;: &quot;repo_public&quot;}
+  → # repo_public
+     Federal Reserve Repo Operations Data
+     ## Column Definitions
+     | Column | Type | Description |
+     | observation_date | date | The date... |
+     | total_amt_accepted | float | Total amount... |
+     ... [5000+ characters in context]
+</pre></div>
+</div>
+<p>After offloading:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[chartbook_get_docs] {&quot;pipeline&quot;: &quot;yield_curve&quot;, &quot;dataframe&quot;: &quot;repo_public&quot;}
+  → [Saved to scratch/docs_yield_curve_repo_public_a1b2c3d4.txt]
+     [5234 characters, 89 lines]
+
+     Preview:
+     # repo_public
+     Federal Reserve Repo Operations Data
+     ## Column Definitions
+     | Column | Type | Description |
+     | observation_date | date | The date...
+
+     Use read_file(&#39;scratch/docs_yield_curve_repo_public_a1b2c3d4.txt&#39;)
+     to see the full content.
+</pre></div>
+</div>
+</section>
+<section id="discussion-question">
+<h3>Discussion Question<a class="headerlink" href="#discussion-question" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><p><strong>How do you decide what goes in the preview?</strong></p>
+<p>First 500 characters? First and last 250? Key sections? Column names only?</p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="technique-2-summarization-at-threshold">
+<h2>Technique 2: Summarization at Threshold<a class="headerlink" href="#technique-2-summarization-at-threshold" title="Link to this heading">#</a></h2>
+<p>When context usage exceeds a threshold, compress the conversation history while preserving key information.</p>
+<p><img alt="Summarization Points" src="../_images/context_summarization_points.png" /></p>
+<p><em>Summarization can be applied at multiple points in an agent workflow—after tool calls, at turn boundaries, or when context reaches a threshold. Source: <a class="reference external" href="https://blog.langchain.com/context-engineering-for-agents/">LangChain</a></em></p>
+<section id="id1">
+<h3>The Strategy<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Before each turn:
+        ↓
+Check context usage
+        ↓
+Usage &gt; 80% of limit?
+        ↓ Yes                        ↓ No
+┌───────────────────────────┐   ┌──────────────────┐
+│ 1. Archive full context   │   │ Continue as-is   │
+│ 2. Summarize with LLM     │   │                  │
+│ 3. Replace with summary   │   │                  │
+└───────────────────────────┘   └──────────────────┘
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h3>Implementation<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">CONTEXT_THRESHOLD</span> <span class="o">=</span> <span class="mf">0.80</span>  <span class="c1"># 80% of model limit</span>
+<span class="n">MODEL_CONTEXT_LIMIT</span> <span class="o">=</span> <span class="mi">128000</span>  <span class="c1"># tokens</span>
+<span class="n">ARCHIVE_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;archives&quot;</span><span class="p">)</span>
+<span class="n">ARCHIVE_DIR</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">SUMMARIZATION_PROMPT</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;Summarize this conversation for an AI assistant that will continue the work.</span>
+
+<span class="s2">Preserve:</span>
+<span class="s2">1. The user&#39;s original goal and any stated objectives</span>
+<span class="s2">2. Key decisions made and their rationale</span>
+<span class="s2">3. Important findings or results (especially numbers)</span>
+<span class="s2">4. Files that were read, modified, or created</span>
+<span class="s2">5. Current state of any ongoing task</span>
+
+<span class="s2">Format as a structured summary the assistant can use to continue effectively.</span>
+<span class="s2">Keep it under 2000 characters.</span>
+
+<span class="s2">Conversation:</span>
+<span class="si">{conversation}</span><span class="s2">&quot;&quot;&quot;</span>
+
+<span class="k">def</span> <span class="nf">get_context_usage</span><span class="p">(</span><span class="n">messages</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Estimate current context usage as fraction of limit.&quot;&quot;&quot;</span>
+    <span class="n">total_chars</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">m</span><span class="p">))</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">messages</span><span class="p">)</span>
+    <span class="n">total_tokens</span> <span class="o">=</span> <span class="n">total_chars</span> <span class="o">//</span> <span class="mi">4</span>
+    <span class="k">return</span> <span class="n">total_tokens</span> <span class="o">/</span> <span class="n">MODEL_CONTEXT_LIMIT</span>
+
+<span class="k">def</span> <span class="nf">archive_context</span><span class="p">(</span><span class="n">messages</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Save full context to disk for potential recovery.&quot;&quot;&quot;</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;archive_</span><span class="si">{</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">[:</span><span class="mi">8</span><span class="p">]</span><span class="si">}</span><span class="s2">.json&quot;</span>
+    <span class="n">filepath</span> <span class="o">=</span> <span class="n">ARCHIVE_DIR</span> <span class="o">/</span> <span class="n">filename</span>
+    <span class="n">filepath</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">messages</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="nb">str</span><span class="p">))</span>
+    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">maybe_summarize</span><span class="p">(</span><span class="n">messages</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">llm</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Summarize conversation if context is getting full.&quot;&quot;&quot;</span>
+    <span class="n">usage</span> <span class="o">=</span> <span class="n">get_context_usage</span><span class="p">(</span><span class="n">messages</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">usage</span> <span class="o">&gt;</span> <span class="n">CONTEXT_THRESHOLD</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[Context at </span><span class="si">{</span><span class="n">usage</span><span class="si">:</span><span class="s2">.0%</span><span class="si">}</span><span class="s2"> - summarizing...]&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Archive full context</span>
+        <span class="n">archive_path</span> <span class="o">=</span> <span class="n">archive_context</span><span class="p">(</span><span class="n">messages</span><span class="p">)</span>
+
+        <span class="c1"># Generate summary</span>
+        <span class="n">conversation_text</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">m</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;role&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;unknown&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;content&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">))[:</span><span class="mi">500</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">messages</span>
+        <span class="p">)</span>
+
+        <span class="n">summary</span> <span class="o">=</span> <span class="n">llm</span><span class="o">.</span><span class="n">invoke</span><span class="p">([</span>
+            <span class="n">SystemMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="n">SUMMARIZATION_PROMPT</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">conversation</span><span class="o">=</span><span class="n">conversation_text</span>
+            <span class="p">))</span>
+        <span class="p">])</span>
+
+        <span class="c1"># Return compressed context</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="n">SystemMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;&quot;&quot;Previous conversation summarized (full archive: </span><span class="si">{</span><span class="n">archive_path</span><span class="si">}</span><span class="s2">):</span>
+
+<span class="si">{</span><span class="n">summary</span><span class="o">.</span><span class="n">content</span><span class="si">}</span>
+
+<span class="s2">Continue assisting the user from here.&quot;&quot;&quot;</span><span class="p">)</span>
+        <span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">messages</span>
+</pre></div>
+</div>
+</section>
+<section id="summarization-prompt-design">
+<h3>Summarization Prompt Design<a class="headerlink" href="#summarization-prompt-design" title="Link to this heading">#</a></h3>
+<p>The summary should preserve:</p>
+<ol class="arabic simple">
+<li><p><strong>Goals</strong> - What the user is trying to accomplish</p></li>
+<li><p><strong>Decisions</strong> - Choices made and why</p></li>
+<li><p><strong>Results</strong> - Key findings, especially numbers</p></li>
+<li><p><strong>State</strong> - What files exist, what’s been modified</p></li>
+<li><p><strong>Next steps</strong> - What was about to happen</p></li>
+</ol>
+</section>
+<section id="example-summary">
+<h3>Example Summary<a class="headerlink" href="#example-summary" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">## Conversation Summary</span>
+
+<span class="o">**</span><span class="n">User</span> <span class="n">Goal</span><span class="o">**</span><span class="p">:</span> <span class="n">Analyze</span> <span class="n">SOFR</span> <span class="n">trends</span> <span class="ow">and</span> <span class="n">compare</span> <span class="n">to</span> <span class="n">EFFR</span> <span class="n">rates</span>
+
+<span class="o">**</span><span class="n">Actions</span> <span class="n">Taken</span><span class="o">**</span><span class="p">:</span>
+<span class="o">-</span> <span class="n">Listed</span> <span class="n">ChartBook</span> <span class="n">dataframes</span> <span class="p">(</span><span class="n">yield_curve</span><span class="p">,</span> <span class="n">money_markets</span> <span class="n">available</span><span class="p">)</span>
+<span class="o">-</span> <span class="n">Retrieved</span> <span class="n">documentation</span> <span class="k">for</span> <span class="n">repo_public</span> <span class="p">(</span><span class="mi">44</span> <span class="n">columns</span><span class="p">,</span> <span class="n">saved</span> <span class="n">to</span> <span class="n">scratch</span><span class="o">/</span><span class="p">)</span>
+<span class="o">-</span> <span class="n">Loaded</span> <span class="mi">30</span> <span class="n">days</span> <span class="n">of</span> <span class="n">SOFR</span> <span class="n">data</span> <span class="p">(</span><span class="n">average</span><span class="p">:</span> <span class="mf">5.32</span><span class="o">%</span><span class="p">)</span>
+<span class="o">-</span> <span class="n">Loaded</span> <span class="mi">30</span> <span class="n">days</span> <span class="n">of</span> <span class="n">EFFR</span> <span class="n">data</span> <span class="p">(</span><span class="n">average</span><span class="p">:</span> <span class="mf">5.33</span><span class="o">%</span><span class="p">)</span>
+
+<span class="o">**</span><span class="n">Key</span> <span class="n">Findings</span><span class="o">**</span><span class="p">:</span>
+<span class="o">-</span> <span class="n">EFFR</span> <span class="n">averages</span> <span class="mi">1</span><span class="n">bp</span> <span class="n">higher</span> <span class="n">than</span> <span class="n">SOFR</span> <span class="n">over</span> <span class="n">the</span> <span class="n">period</span>
+<span class="o">-</span> <span class="n">Both</span> <span class="n">rates</span> <span class="n">stable</span> <span class="n">around</span> <span class="mf">5.32</span><span class="o">-</span><span class="mf">5.33</span><span class="o">%</span>
+
+<span class="o">**</span><span class="n">Files</span> <span class="n">Created</span><span class="o">**</span><span class="p">:</span>
+<span class="o">-</span> <span class="n">scratch</span><span class="o">/</span><span class="n">docs_yield_curve_repo_public_a1b2c3d4</span><span class="o">.</span><span class="n">txt</span>
+<span class="o">-</span> <span class="n">scratch</span><span class="o">/</span><span class="n">sofr_analysis</span><span class="o">.</span><span class="n">py</span>
+
+<span class="o">**</span><span class="n">Current</span> <span class="n">State</span><span class="o">**</span><span class="p">:</span> <span class="n">User</span> <span class="n">asked</span> <span class="k">for</span> <span class="n">a</span> <span class="n">visualization</span> <span class="n">of</span> <span class="n">the</span> <span class="n">spread</span><span class="o">.</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="flawedcode-version-progression">
+<h2>FlawedCode Version Progression<a class="headerlink" href="#flawedcode-version-progression" title="Link to this heading">#</a></h2>
+<p>With these techniques, we can now define the agent versions for benchmarking:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Version</p></th>
+<th class="head"><p>Features</p></th>
+<th class="head"><p>Context Strategy</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>v0</strong></p></td>
+<td><p>Basic ReAct, no memory</p></td>
+<td><p>None - single turn only</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>v1</strong></p></td>
+<td><p>Conversation memory</p></td>
+<td><p>Unbounded accumulation</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>v2</strong></p></td>
+<td><p>+ Offloading + Summarization</p></td>
+<td><p>Active management</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Claude Code</strong></p></td>
+<td><p>Full production system</p></td>
+<td><p>Sophisticated multi-strategy</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="what-v2-adds">
+<h3>What v2 Adds<a class="headerlink" href="#what-v2-adds" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># v1: Simple memory accumulation</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="n">user_input</span><span class="p">))</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;messages&quot;</span><span class="p">:</span> <span class="n">messages</span><span class="p">})</span>
+    <span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+
+<span class="c1"># v2: Active context management</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="n">user_input</span><span class="p">))</span>
+
+    <span class="c1"># Summarize if context is filling up</span>
+    <span class="n">messages</span> <span class="o">=</span> <span class="n">maybe_summarize</span><span class="p">(</span><span class="n">messages</span><span class="p">,</span> <span class="n">llm</span><span class="p">)</span>
+
+    <span class="n">response</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;messages&quot;</span><span class="p">:</span> <span class="n">messages</span><span class="p">})</span>
+
+    <span class="c1"># Offload large tool results</span>
+    <span class="k">for</span> <span class="n">msg</span> <span class="ow">in</span> <span class="n">response</span><span class="p">[</span><span class="s2">&quot;messages&quot;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">is_tool_result</span><span class="p">(</span><span class="n">msg</span><span class="p">):</span>
+            <span class="n">msg</span><span class="o">.</span><span class="n">content</span> <span class="o">=</span> <span class="n">maybe_offload</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">content</span><span class="p">,</span> <span class="n">msg</span><span class="o">.</span><span class="n">tool_name</span><span class="p">)</span>
+
+    <span class="n">messages</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s2">&quot;messages&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="hands-on-exercise-identify-offloading-candidates">
+<h2>Hands-On Exercise: Identify Offloading Candidates<a class="headerlink" href="#hands-on-exercise-identify-offloading-candidates" title="Link to this heading">#</a></h2>
+<p>Look at the ChartBook tools and answer:</p>
+<ol class="arabic simple">
+<li><p><strong>Which tools return large results?</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">chartbook_get_docs</span></code> - documentation (large)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">chartbook_load_data</span></code> - data tables (potentially large)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">chartbook_list</span></code> - catalog (small)</p></li>
+</ul>
+</li>
+<li><p><strong>What preview length is appropriate?</strong></p>
+<ul class="simple">
+<li><p>Documentation: First 500 chars + column list</p></li>
+<li><p>Data: First 10 rows + summary statistics</p></li>
+<li><p>Large files: First/last 250 chars</p></li>
+</ul>
+</li>
+<li><p><strong>What triggers summarization?</strong></p>
+<ul class="simple">
+<li><p>80% context usage</p></li>
+<li><p>More than 20 turns</p></li>
+<li><p>Explicit “start fresh” command</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="key-takeaways">
+<h2>Key Takeaways<a class="headerlink" href="#key-takeaways" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Context is finite</strong> - Active management is required for long-running agents</p></li>
+<li><p><strong>Offloading keeps large results accessible</strong> - Save to disk, keep preview in context</p></li>
+<li><p><strong>Summarization preserves goals</strong> - Compress history while retaining essentials</p></li>
+<li><p><strong>v1 → v2 is a meaningful improvement</strong> - Same model, better architecture</p></li>
+<li><p><strong>These techniques compound</strong> - Offloading reduces summarization frequency</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="architecture-comparison">
+<h2>Architecture Comparison<a class="headerlink" href="#architecture-comparison" title="Link to this heading">#</a></h2>
+<p>For complex tasks, another powerful strategy is <strong>context isolation</strong>—distributing work across specialized sub-agents, each with their own focused context window. Kim et al. (2024) formalized parallel execution approaches in <strong>LLMCompiler</strong>, demonstrating 3.7× latency reduction through optimized function orchestration—a technique that becomes essential when managing context in multi-tool workflows.</p>
+<div class="tip admonition">
+<p class="admonition-title">Additional Reading</p>
+<p><strong>Lewis, P., et al. (2020). “<a class="reference external" href="https://arxiv.org/abs/2005.11401">Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks</a>.” NeurIPS 2020.</strong> — The foundational RAG paper that established the pattern of offloading knowledge to external retrieval.</p>
+<p><strong>Kim, S., Moon, S., Tabrizi, R., et al. (2024). “<a class="reference external" href="https://arxiv.org/abs/2312.04511">An LLM Compiler for Parallel Function Calling</a>.”</strong> — Applies compiler optimization principles to agent tool execution.</p>
+</div>
+<p><img alt="Multi-Agent Context Isolation" src="../_images/context_multi_agent_isolation.png" /></p>
+<p><em>Multi-agent architectures distribute context across specialized sub-agents. Each agent maintains focused context for its domain while an orchestrator coordinates the overall task. Source: <a class="reference external" href="https://blog.langchain.com/context-engineering-for-agents/">LangChain</a></em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>v1 Architecture:
+┌──────────────────────────────────────────────────────┐
+│ User → Agent → Tools → Results → All in Context → ∞ │
+└──────────────────────────────────────────────────────┘
+
+v2 Architecture:
+┌────────────────────────────────────────────────────────────────┐
+│ User → Agent → Tools → Results                                 │
+│                   ↓                                            │
+│         Large result? → Offload to scratch/                    │
+│                   ↓                                            │
+│         Context full? → Summarize + Archive                    │
+│                   ↓                                            │
+│         Continue with managed context                          │
+└────────────────────────────────────────────────────────────────┘
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="discussion-questions">
+<h2>Discussion Questions<a class="headerlink" href="#discussion-questions" title="Link to this heading">#</a></h2>
+<blockquote>
+<div><p><strong>How do you decide what goes in the preview?</strong></p>
+<p>Think about what information is needed for immediate decisions vs. detailed reference.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>When should summarization trigger?</strong></p>
+<p>80% is a heuristic. What factors might change this threshold?</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>What happens if the summary loses critical information?</strong></p>
+<p>That’s why we archive! Design for recovery.</p>
+</div></blockquote>
+</section>
+<hr class="docutils" />
+<section id="next-steps">
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
+<p>Now that we understand context management, let’s measure its impact systematically with <a class="reference internal" href="agent_benchmarking.html"><span class="std std-doc">Agent Benchmarking</span></a>.</p>
+</section>
+</section>
+
+<div class="section ablog__blog_comments">
+   
+</div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="chartbook_integration.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">ChartBook Integration: Connecting Agents to Financial Data</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="agent_benchmarking.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Agent Benchmarking: Measuring What Matters</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-problem-context-rot">The Problem: Context Rot</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#demo-watch-context-degrade">Demo: Watch Context Degrade</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-context-fill">Visualizing Context Fill</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-langchain-context-management-framework">The LangChain Context Management Framework</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#technique-1-offload-large-results">Technique 1: Offload Large Results</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-strategy">The Strategy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">Implementation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#integrating-with-tools">Integrating with Tools</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-output">Example Output</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion-question">Discussion Question</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#technique-2-summarization-at-threshold">Technique 2: Summarization at Threshold</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">The Strategy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Implementation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#summarization-prompt-design">Summarization Prompt Design</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-summary">Example Summary</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#flawedcode-version-progression">FlawedCode Version Progression</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-v2-adds">What v2 Adds</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-exercise-identify-offloading-candidates">Hands-On Exercise: Identify Offloading Candidates</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">Key Takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture-comparison">Architecture Comparison</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion-questions">Discussion Questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next Steps</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jeremiah Bejarano
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, Jeremiah Bejarano.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,1079 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ChartBook Integration: Connecting Agents to Financial Data &#8212; Full Stack Quantitative Finance</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=f23691d7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=7a7908ec"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'discussions/chartbook_integration';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/custom.js?v=c0d9a6f1"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Context Management for Deep Agents" href="context_management.html" />
+    <link rel="prev" title="Building FlawedCode: A Minimal Claude Code Clone" href="building_flawed_code.html" /> 
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>   
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Full Stack Quantitative Finance - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Full Stack Quantitative Finance - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Generative and Agentic AI for Finance
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../README.html">Course Syllabus: FINM 32900, Winter 2025</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Course Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Discussions 📖</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_01.html">Discussion 1: The New Quant - LLMs in Finance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="gen_ai_tech_stack.html">The Generative AI Tech Stack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="llms_transforming_finance.html">LLMs Transforming Finance: The New Quant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_and_structured_outputs.html">API Basics and Structured Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ai_copilots_intro.html">AI Copilots: Claude Code and Cursor</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../discussion_02.html">Discussion 2: Building and Benchmarking Coding Agents</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="agent_fundamentals.html">Agent Fundamentals: From ReAct to LangGraph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building_flawed_code.html">Building FlawedCode: A Minimal Claude Code Clone</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">ChartBook Integration: Connecting Agents to Financial Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="context_management.html">Context Management for Deep Agents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agent_benchmarking.html">Agent Benchmarking: Measuring What Matters</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_03.html">Discussion 3: AI Application Development &amp; Financial Data Integration</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="chat_applications_overview.html">Chat Applications Overview: AI in Financial Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_to_nextjs.html">Introduction to Next.js and Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_to_chatkit.html">Building a Financial Research Assistant with ChatKit</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_04.html">Discussion 4: Text Representation &amp; Embeddings</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="vector_embeddings_and_search.html"><strong>The Architecture of Meaning: From Vector Embeddings to Reasoning-Based Retrieval</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="vector_embeddings_literature.html">Essential papers on embeddings and vector databases for AI/ML</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Homework 📝</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../HW0.html">Homework 0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HW1.html">Homework 1: Lopez-Lira Replication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HW2.html">Homework 2: Embedding-Based Return Prediction</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../final_project.html">Final Project</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/final_project_rubric.html">Final Project Instructions and Rubric</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/potential_final_projects.html">List of Potential Final Projects</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Misc 📌</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../acknowledgments.html">Acknowledgments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../appendix.html">Appendix</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project/issues/new?title=Issue%20on%20page%20%2Fdiscussions/chartbook_integration.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/discussions/chartbook_integration.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>ChartBook Integration: Connecting Agents to Financial Data</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-chartbook">What is ChartBook?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-chartbook-for-this-course">Why ChartBook for This Course?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-installation-configuration-20-min">Part 1: Installation &amp; Configuration (20 min)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-chartbook">Install ChartBook</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clone-sample-catalogs">Clone Sample Catalogs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configure-chartbook">Configure ChartBook</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verify-installation">Verify Installation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-output">Expected Output</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-explore-chartbook-api-15-min">Part 2: Explore ChartBook API (15 min)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-api-basics">Python API Basics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-documentation-problem">The Documentation Problem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion-question">Discussion Question</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-create-chartbook-tools-15-min">Part 3: Create ChartBook Tools (15 min)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tool-1-chartbook-list">Tool 1: chartbook_list</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tool-2-chartbook-get-docs">Tool 2: chartbook_get_docs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tool-3-chartbook-load-data">Tool 3: chartbook_load_data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-4-integrate-with-flawedcode-10-min">Part 4: Integrate with FlawedCode (10 min)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#add-tools-to-agent">Add Tools to Agent</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#live-demo">Live Demo</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-exercise-chartbook-exploration">Hands-On Exercise: ChartBook Exploration</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-1-discover-available-data">Task 1: Discover Available Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-2-understand-a-dataset">Task 2: Understand a Dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-3-load-and-analyze">Task 3: Load and Analyze</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-4-multi-dataset-query">Task 4: Multi-Dataset Query</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-context-problem-emerges">The Context Problem Emerges</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sequence-that-fills-context">Sequence That Fills Context</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#whats-happening">What’s Happening?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#symptoms-of-context-pressure">Symptoms of Context Pressure</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Discussion Question</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preview-the-solution">Preview: The Solution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">Key Takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint-questions">Checkpoint Questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next Steps</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                   <section class="tex2jax_ignore mathjax_ignore" id="chartbook-integration-connecting-agents-to-financial-data">
+<h1>ChartBook Integration: Connecting Agents to Financial Data<a class="headerlink" href="#chartbook-integration-connecting-agents-to-financial-data" title="Link to this heading">#</a></h1>
+<p><strong>Duration:</strong> 60 minutes</p>
+<p><strong>Learning Objectives:</strong></p>
+<ul class="simple">
+<li><p>Install and configure ChartBook</p></li>
+<li><p>Understand ChartBook’s data organization (Pipelines, Dataframes, Charts)</p></li>
+<li><p>Create LangChain tools that wrap ChartBook API</p></li>
+<li><p>Experience why large data dictionaries stress context windows</p></li>
+</ul>
+<hr class="docutils" />
+<section id="what-is-chartbook">
+<h2>What is ChartBook?<a class="headerlink" href="#what-is-chartbook" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://github.com/chartbook-project/chartbook">ChartBook</a> is a data science documentation platform that organizes financial data into a structured catalog:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Concept</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Example</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Pipeline</strong></p></td>
+<td><p>An analytics project</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">yield_curve</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Dataframe</strong></p></td>
+<td><p>A dataset with metadata</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">repo_public</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Chart</strong></p></td>
+<td><p>A visualization</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sofr_timeseries</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Documentation</strong></p></td>
+<td><p>Data dictionary, governance</p></td>
+<td><p>Column definitions</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="why-chartbook-for-this-course">
+<h3>Why ChartBook for This Course?<a class="headerlink" href="#why-chartbook-for-this-course" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Real-world data access pattern</strong> - How financial firms organize data</p></li>
+<li><p><strong>Data dictionaries are LARGE</strong> - Perfect for testing context limits</p></li>
+<li><p><strong>Structured catalog</strong> - Enables programmatic discovery</p></li>
+<li><p><strong>Finance-relevant datasets</strong> - Treasury yields, repo rates, SOFR</p></li>
+</ol>
+</section>
+</section>
+<hr class="docutils" />
+<section id="part-1-installation-configuration-20-min">
+<h2>Part 1: Installation &amp; Configuration (20 min)<a class="headerlink" href="#part-1-installation-configuration-20-min" title="Link to this heading">#</a></h2>
+<section id="install-chartbook">
+<h3>Install ChartBook<a class="headerlink" href="#install-chartbook" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>chartbook
+</pre></div>
+</div>
+</section>
+<section id="clone-sample-catalogs">
+<h3>Clone Sample Catalogs<a class="headerlink" href="#clone-sample-catalogs" title="Link to this heading">#</a></h3>
+<p>Your instructor will provide repository URLs for sample financial data catalogs:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Clone the catalogs (instructor provides URLs)</span>
+git<span class="w"> </span>clone<span class="w"> </span><span class="o">[</span>catalog-repo-1<span class="o">]</span>
+git<span class="w"> </span>clone<span class="w"> </span><span class="o">[</span>catalog-repo-2<span class="o">]</span>
+</pre></div>
+</div>
+</section>
+<section id="configure-chartbook">
+<h3>Configure ChartBook<a class="headerlink" href="#configure-chartbook" title="Link to this heading">#</a></h3>
+<p>ChartBook needs to know where to find your catalogs:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Interactive configuration</span>
+chartbook<span class="w"> </span>config
+
+<span class="c1"># Or set via environment variable</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">CHARTBOOK_CATALOG_PATH</span><span class="o">=</span>/path/to/catalogs
+</pre></div>
+</div>
+</section>
+<section id="verify-installation">
+<h3>Verify Installation<a class="headerlink" href="#verify-installation" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># List all pipelines</span>
+chartbook<span class="w"> </span>ls
+
+<span class="c1"># List all dataframes</span>
+chartbook<span class="w"> </span>ls<span class="w"> </span>dataframes
+
+<span class="c1"># Get documentation for a specific dataframe</span>
+chartbook<span class="w"> </span>data<span class="w"> </span>get-docs<span class="w"> </span>--pipeline<span class="w"> </span>yield_curve<span class="w"> </span>--dataframe<span class="w"> </span>repo_public
+</pre></div>
+</div>
+</section>
+<section id="expected-output">
+<h3>Expected Output<a class="headerlink" href="#expected-output" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ chartbook ls dataframes
+┌──────────────────┬─────────────────┬────────────┐
+│ Pipeline         │ Dataframe       │ Records    │
+├──────────────────┼─────────────────┼────────────┤
+│ yield_curve      │ repo_public     │ 9,132      │
+│ yield_curve      │ treasury_yields │ 12,450     │
+│ money_markets    │ sofr_daily      │ 1,825      │
+│ money_markets    │ effr_daily      │ 1,825      │
+└──────────────────┴─────────────────┴────────────┘
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="part-2-explore-chartbook-api-15-min">
+<h2>Part 2: Explore ChartBook API (15 min)<a class="headerlink" href="#part-2-explore-chartbook-api-15-min" title="Link to this heading">#</a></h2>
+<section id="python-api-basics">
+<h3>Python API Basics<a class="headerlink" href="#python-api-basics" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">chartbook</span> <span class="kn">import</span> <span class="n">data</span>
+
+<span class="c1"># Load a dataframe</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">pipeline</span><span class="o">=</span><span class="s2">&quot;yield_curve&quot;</span><span class="p">,</span> <span class="n">dataframe</span><span class="o">=</span><span class="s2">&quot;repo_public&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Shape: </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># (9132, 44) - 44 columns!</span>
+
+<span class="c1"># Get column names</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+
+<span class="c1"># Preview data</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+<section id="the-documentation-problem">
+<h3>The Documentation Problem<a class="headerlink" href="#the-documentation-problem" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get documentation (THIS IS LARGE!)</span>
+<span class="n">docs</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get_docs</span><span class="p">(</span><span class="n">pipeline</span><span class="o">=</span><span class="s2">&quot;yield_curve&quot;</span><span class="p">,</span> <span class="n">dataframe</span><span class="o">=</span><span class="s2">&quot;repo_public&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Documentation length: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">docs</span><span class="p">)</span><span class="si">}</span><span class="s2"> characters&quot;</span><span class="p">)</span>
+<span class="c1"># Often 5000+ characters!</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">docs</span><span class="p">[:</span><span class="mi">500</span><span class="p">])</span>  <span class="c1"># Preview</span>
+</pre></div>
+</div>
+<p><strong>Sample documentation output:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># repo_public</span>
+
+<span class="n">Federal</span> <span class="n">Reserve</span> <span class="n">Repo</span> <span class="n">Operations</span> <span class="n">Data</span>
+
+<span class="c1">## Column Definitions</span>
+
+<span class="o">|</span> <span class="n">Column</span> <span class="o">|</span> <span class="n">Type</span> <span class="o">|</span> <span class="n">Description</span> <span class="o">|</span>
+<span class="o">|--------|------|-------------|</span>
+<span class="o">|</span> <span class="n">observation_date</span> <span class="o">|</span> <span class="n">date</span> <span class="o">|</span> <span class="n">The</span> <span class="n">date</span> <span class="n">of</span> <span class="n">the</span> <span class="n">observation</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">total_amt_accepted</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">Total</span> <span class="n">amount</span> <span class="n">accepted</span> <span class="ow">in</span> <span class="n">millions</span> <span class="n">USD</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">total_amt_submitted</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">Total</span> <span class="n">amount</span> <span class="n">submitted</span> <span class="ow">in</span> <span class="n">millions</span> <span class="n">USD</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">operation_type</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Type</span> <span class="n">of</span> <span class="n">repo</span> <span class="n">operation</span> <span class="p">(</span><span class="n">overnight</span><span class="p">,</span> <span class="n">term</span><span class="p">)</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">award_rate</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">The</span> <span class="n">awarded</span> <span class="n">rate</span> <span class="k">for</span> <span class="n">the</span> <span class="n">operation</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">high_rate</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">Highest</span> <span class="n">rate</span> <span class="n">submitted</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">low_rate</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">Lowest</span> <span class="n">rate</span> <span class="n">submitted</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">bid_to_cover</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">Ratio</span> <span class="n">of</span> <span class="n">submitted</span> <span class="n">to</span> <span class="n">accepted</span> <span class="o">|</span>
+<span class="o">...</span> <span class="p">[</span><span class="n">continues</span> <span class="k">for</span> <span class="mi">44</span> <span class="n">columns</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="discussion-question">
+<h3>Discussion Question<a class="headerlink" href="#discussion-question" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><p><strong>If each dataframe’s docs are 5000+ characters, and we query 3 dataframes, how quickly do we fill a 128K context window?</strong></p>
+<p>Do the math: 5000 chars × 3 = 15,000 chars ≈ 4,000 tokens. After 30 dataframe queries, you’ve used ~120K tokens just for documentation.</p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="part-3-create-chartbook-tools-15-min">
+<h2>Part 3: Create ChartBook Tools (15 min)<a class="headerlink" href="#part-3-create-chartbook-tools-15-min" title="Link to this heading">#</a></h2>
+<p>Let’s create LangChain tools that wrap the ChartBook API.</p>
+<section id="tool-1-chartbook-list">
+<h3>Tool 1: chartbook_list<a class="headerlink" href="#tool-1-chartbook-list" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain_core.tools</span> <span class="kn">import</span> <span class="n">tool</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+
+<span class="nd">@tool</span>
+<span class="k">def</span> <span class="nf">chartbook_list</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;List available ChartBook pipelines and dataframes.</span>
+
+<span class="sd">    Returns a table of all available data sources with their record counts.</span>
+<span class="sd">    Use this to discover what data is available before loading.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+        <span class="p">[</span><span class="s2">&quot;chartbook&quot;</span><span class="p">,</span> <span class="s2">&quot;ls&quot;</span><span class="p">,</span> <span class="s2">&quot;dataframes&quot;</span><span class="p">],</span>
+        <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">text</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">stdout</span> <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">stdout</span> <span class="k">else</span> <span class="s2">&quot;No dataframes found&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="tool-2-chartbook-get-docs">
+<h3>Tool 2: chartbook_get_docs<a class="headerlink" href="#tool-2-chartbook-get-docs" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">chartbook</span> <span class="kn">import</span> <span class="n">data</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Annotated</span>
+
+<span class="nd">@tool</span>
+<span class="k">def</span> <span class="nf">chartbook_get_docs</span><span class="p">(</span>
+    <span class="n">pipeline</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Pipeline name (e.g., &#39;yield_curve&#39;)&quot;</span><span class="p">],</span>
+    <span class="n">dataframe</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Dataframe name (e.g., &#39;repo_public&#39;)&quot;</span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get full documentation for a ChartBook dataframe.</span>
+
+<span class="sd">    Returns column definitions, data types, and descriptions.</span>
+<span class="sd">    WARNING: Returns large content - may need to save to file for reference.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">docs</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get_docs</span><span class="p">(</span><span class="n">pipeline</span><span class="o">=</span><span class="n">pipeline</span><span class="p">,</span> <span class="n">dataframe</span><span class="o">=</span><span class="n">dataframe</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">docs</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Error getting docs: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="tool-3-chartbook-load-data">
+<h3>Tool 3: chartbook_load_data<a class="headerlink" href="#tool-3-chartbook-load-data" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@tool</span>
+<span class="k">def</span> <span class="nf">chartbook_load_data</span><span class="p">(</span>
+    <span class="n">pipeline</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Pipeline name&quot;</span><span class="p">],</span>
+    <span class="n">dataframe</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Dataframe name&quot;</span><span class="p">],</span>
+    <span class="n">columns</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Comma-separated column names (optional)&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">limit</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s2">&quot;Maximum rows to return&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load data from a ChartBook dataframe.</span>
+
+<span class="sd">    Returns the most recent rows as a formatted table.</span>
+<span class="sd">    Use &#39;columns&#39; to select specific columns and &#39;limit&#39; to control size.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">pipeline</span><span class="o">=</span><span class="n">pipeline</span><span class="p">,</span> <span class="n">dataframe</span><span class="o">=</span><span class="n">dataframe</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">columns</span><span class="p">:</span>
+            <span class="n">col_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">columns</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)]</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col_list</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="n">limit</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">()</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Error loading data: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="part-4-integrate-with-flawedcode-10-min">
+<h2>Part 4: Integrate with FlawedCode (10 min)<a class="headerlink" href="#part-4-integrate-with-flawedcode-10-min" title="Link to this heading">#</a></h2>
+<section id="add-tools-to-agent">
+<h3>Add Tools to Agent<a class="headerlink" href="#add-tools-to-agent" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tools</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">read_file</span><span class="p">,</span> <span class="n">write_file</span><span class="p">,</span> <span class="n">list_files</span><span class="p">,</span> <span class="n">search_files</span><span class="p">,</span> <span class="n">run_python</span><span class="p">,</span>
+    <span class="n">chartbook_list</span><span class="p">,</span> <span class="n">chartbook_get_docs</span><span class="p">,</span> <span class="n">chartbook_load_data</span>  <span class="c1"># NEW!</span>
+<span class="p">)</span>
+
+<span class="c1"># All tools available to the agent</span>
+<span class="n">tools</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">read_file</span><span class="p">,</span>
+    <span class="n">write_file</span><span class="p">,</span>
+    <span class="n">list_files</span><span class="p">,</span>
+    <span class="n">search_files</span><span class="p">,</span>
+    <span class="n">run_python</span><span class="p">,</span>
+    <span class="n">chartbook_list</span><span class="p">,</span>       <span class="c1"># NEW</span>
+    <span class="n">chartbook_get_docs</span><span class="p">,</span>   <span class="c1"># NEW</span>
+    <span class="n">chartbook_load_data</span><span class="p">,</span>  <span class="c1"># NEW</span>
+<span class="p">]</span>
+
+<span class="c1"># Update system prompt</span>
+<span class="n">SYSTEM_PROMPT</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;You are FlawedCode, a coding assistant with financial data access.</span>
+
+<span class="s2">You have access to:</span>
+<span class="s2">- File operations: read_file, write_file, list_files, search_files</span>
+<span class="s2">- Code execution: run_python</span>
+<span class="s2">- Financial data: chartbook_list, chartbook_get_docs, chartbook_load_data</span>
+
+<span class="s2">When working with ChartBook data:</span>
+<span class="s2">1. First use chartbook_list to see available dataframes</span>
+<span class="s2">2. Use chartbook_get_docs to understand column definitions</span>
+<span class="s2">3. Use chartbook_load_data to fetch actual data</span>
+<span class="s2">4. Analyze or visualize with run_python</span>
+
+<span class="s2">Be concise. Large data results may need to be saved to files.</span>
+<span class="s2">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="live-demo">
+<h3>Live Demo<a class="headerlink" href="#live-demo" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>flawed_code&gt; List ChartBook dataframes
+  [chartbook_list] {}
+    → ┌──────────────────┬─────────────────┬────────────┐
+       │ Pipeline         │ Dataframe       │ Records    │
+       ...
+Available dataframes: yield_curve/repo_public, money_markets/sofr_daily...
+
+flawed_code&gt; Get docs for yield_curve/repo_public
+  [chartbook_get_docs] {&quot;pipeline&quot;: &quot;yield_curve&quot;, &quot;dataframe&quot;: &quot;repo_public&quot;}
+    → # repo_public
+       Federal Reserve Repo Operations Data
+       ## Column Definitions...
+The repo_public dataframe contains 44 columns including observation_date,
+total_amt_accepted, award_rate, SOFR rates...
+
+flawed_code&gt; What columns are related to repo rates?
+Based on the documentation, the rate-related columns are:
+- award_rate: The awarded rate for the operation
+- high_rate: Highest rate submitted
+- low_rate: Lowest rate submitted
+- sofr_rate: Secured Overnight Financing Rate
+- effr_rate: Effective Federal Funds Rate
+
+flawed_code&gt; Load 10 days of SOFR and EFFR data
+  [chartbook_load_data] {&quot;pipeline&quot;: &quot;yield_curve&quot;, &quot;dataframe&quot;: &quot;repo_public&quot;,
+                         &quot;columns&quot;: &quot;observation_date,sofr_rate,effr_rate&quot;,
+                         &quot;limit&quot;: 10}
+    → observation_date  sofr_rate  effr_rate
+       2024-01-15       5.31       5.33
+       2024-01-16       5.32       5.33
+       ...
+Here&#39;s the last 10 days of SOFR and EFFR rates...
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="hands-on-exercise-chartbook-exploration">
+<h2>Hands-On Exercise: ChartBook Exploration<a class="headerlink" href="#hands-on-exercise-chartbook-exploration" title="Link to this heading">#</a></h2>
+<section id="task-1-discover-available-data">
+<h3>Task 1: Discover Available Data<a class="headerlink" href="#task-1-discover-available-data" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;List all available ChartBook dataframes&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="task-2-understand-a-dataset">
+<h3>Task 2: Understand a Dataset<a class="headerlink" href="#task-2-understand-a-dataset" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;Get the documentation for the money_markets/sofr_daily dataframe&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="task-3-load-and-analyze">
+<h3>Task 3: Load and Analyze<a class="headerlink" href="#task-3-load-and-analyze" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;Load 30 days of SOFR data and calculate the average rate&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="task-4-multi-dataset-query">
+<h3>Task 4: Multi-Dataset Query<a class="headerlink" href="#task-4-multi-dataset-query" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;Compare SOFR and EFFR rates over the last week - which is higher on average?&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="the-context-problem-emerges">
+<h2>The Context Problem Emerges<a class="headerlink" href="#the-context-problem-emerges" title="Link to this heading">#</a></h2>
+<p>After several ChartBook queries, watch what happens:</p>
+<section id="sequence-that-fills-context">
+<h3>Sequence That Fills Context<a class="headerlink" href="#sequence-that-fills-context" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;List</span> <span class="pre">ChartBook</span> <span class="pre">dataframes&quot;</span></code> → ~500 chars</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;Get</span> <span class="pre">docs</span> <span class="pre">for</span> <span class="pre">yield_curve/repo_public&quot;</span></code> → ~5,000 chars</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;Get</span> <span class="pre">docs</span> <span class="pre">for</span> <span class="pre">money_markets/sofr_daily&quot;</span></code> → ~3,000 chars</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;Load</span> <span class="pre">50</span> <span class="pre">rows</span> <span class="pre">of</span> <span class="pre">SOFR</span> <span class="pre">data&quot;</span></code> → ~2,000 chars</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;Get</span> <span class="pre">docs</span> <span class="pre">for</span> <span class="pre">treasury_yields&quot;</span></code> → ~4,000 chars</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;What</span> <span class="pre">was</span> <span class="pre">my</span> <span class="pre">original</span> <span class="pre">goal?&quot;</span></code> → <strong>Agent struggles!</strong></p></li>
+</ol>
+</section>
+<section id="whats-happening">
+<h3>What’s Happening?<a class="headerlink" href="#whats-happening" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>┌────────────────────────────────────────────────────────┐
+│                   CONTEXT WINDOW                        │
+├─────────────────────────────────────────────────────────┤
+│ System prompt                           [1,000 tokens] │
+│ User: &quot;List dataframes&quot;                 [10 tokens]    │
+│ Tool result: dataframe list             [200 tokens]   │
+│ User: &quot;Get docs repo_public&quot;            [15 tokens]    │
+│ Tool result: FULL DOCUMENTATION         [1,500 tokens] │ ← BIG
+│ User: &quot;Get docs sofr_daily&quot;             [15 tokens]    │
+│ Tool result: FULL DOCUMENTATION         [1,000 tokens] │ ← BIG
+│ User: &quot;Load 50 rows&quot;                    [20 tokens]    │
+│ Tool result: data table                 [800 tokens]   │
+│ User: &quot;Get docs treasury&quot;               [15 tokens]    │
+│ Tool result: FULL DOCUMENTATION         [1,200 tokens] │ ← BIG
+│ ...                                                    │
+│ [EARLIER CONTEXT GETS PUSHED OUT]                      │
+└────────────────────────────────────────────────────────┘
+</pre></div>
+</div>
+</section>
+<section id="symptoms-of-context-pressure">
+<h3>Symptoms of Context Pressure<a class="headerlink" href="#symptoms-of-context-pressure" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Agent forgets earlier conversation</p></li>
+<li><p>Responses become less coherent</p></li>
+<li><p>Goal retention drops</p></li>
+<li><p>Token usage spikes</p></li>
+</ul>
+</section>
+<section id="id1">
+<h3>Discussion Question<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><p><strong>How would you handle a 10,000 character tool result?</strong></p>
+<p>You can’t just truncate it—the details might be important. But you can’t keep everything in context either.</p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="preview-the-solution">
+<h2>Preview: The Solution<a class="headerlink" href="#preview-the-solution" title="Link to this heading">#</a></h2>
+<p>This is the problem we solve with <strong>context management</strong>:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Problem</p></th>
+<th class="head"><p>Solution</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Large tool results fill context</p></td>
+<td><p><strong>Offload to filesystem</strong> with preview</p></td>
+</tr>
+<tr class="row-odd"><td><p>Context grows unbounded</p></td>
+<td><p><strong>Summarize</strong> at threshold</p></td>
+</tr>
+<tr class="row-even"><td><p>Lost information needed later</p></td>
+<td><p><strong>Archive + search</strong> for recovery</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>We’ll implement these techniques in <a class="reference internal" href="context_management.html"><span class="std std-doc">Context Management</span></a>.</p>
+</section>
+<hr class="docutils" />
+<section id="key-takeaways">
+<h2>Key Takeaways<a class="headerlink" href="#key-takeaways" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>ChartBook provides structured access</strong> to financial data catalogs</p></li>
+<li><p><strong>Documentation size creates context pressure</strong> - real data has real metadata</p></li>
+<li><p><strong>Tools are easy to add</strong> - just decorate functions with <code class="docutils literal notranslate"><span class="pre">&#64;tool</span></code></p></li>
+<li><p><strong>Context limits become visible</strong> with real-world data</p></li>
+<li><p><strong>The problem is predictable</strong> - we can design solutions</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="checkpoint-questions">
+<h2>Checkpoint Questions<a class="headerlink" href="#checkpoint-questions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>What’s the largest tool result you’ve seen during this exercise?</p></li>
+<li><p>How would you decide what to keep in context vs. save to disk?</p></li>
+<li><p>What information is most important to preserve for goal retention?</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="next-steps">
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
+<p>Now that we’ve experienced the context problem firsthand, let’s learn how to solve it with <a class="reference internal" href="context_management.html"><span class="std std-doc">Context Management</span></a>.</p>
+</section>
+</section>
+
+<div class="section ablog__blog_comments">
+   
+</div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="building_flawed_code.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Building FlawedCode: A Minimal Claude Code Clone</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="context_management.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Context Management for Deep Agents</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-chartbook">What is ChartBook?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-chartbook-for-this-course">Why ChartBook for This Course?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-installation-configuration-20-min">Part 1: Installation &amp; Configuration (20 min)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-chartbook">Install ChartBook</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clone-sample-catalogs">Clone Sample Catalogs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configure-chartbook">Configure ChartBook</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verify-installation">Verify Installation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-output">Expected Output</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-explore-chartbook-api-15-min">Part 2: Explore ChartBook API (15 min)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-api-basics">Python API Basics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-documentation-problem">The Documentation Problem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion-question">Discussion Question</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-create-chartbook-tools-15-min">Part 3: Create ChartBook Tools (15 min)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tool-1-chartbook-list">Tool 1: chartbook_list</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tool-2-chartbook-get-docs">Tool 2: chartbook_get_docs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tool-3-chartbook-load-data">Tool 3: chartbook_load_data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-4-integrate-with-flawedcode-10-min">Part 4: Integrate with FlawedCode (10 min)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#add-tools-to-agent">Add Tools to Agent</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#live-demo">Live Demo</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-exercise-chartbook-exploration">Hands-On Exercise: ChartBook Exploration</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-1-discover-available-data">Task 1: Discover Available Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-2-understand-a-dataset">Task 2: Understand a Dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-3-load-and-analyze">Task 3: Load and Analyze</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-4-multi-dataset-query">Task 4: Multi-Dataset Query</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-context-problem-emerges">The Context Problem Emerges</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sequence-that-fills-context">Sequence That Fills Context</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#whats-happening">What’s Happening?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#symptoms-of-context-pressure">Symptoms of Context Pressure</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Discussion Question</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preview-the-solution">Preview: The Solution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">Key Takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint-questions">Checkpoint Questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next Steps</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jeremiah Bejarano
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, Jeremiah Bejarano.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

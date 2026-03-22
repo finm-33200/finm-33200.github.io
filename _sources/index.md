@@ -31,6 +31,8 @@ discussion_04.md
 :maxdepth: 1
 :caption: Homework 📝
 HW0.md
+HW1.md
+HW2.md
 final_project.md
 ```
 

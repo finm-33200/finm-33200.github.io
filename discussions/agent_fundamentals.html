@@ -1,0 +1,1135 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Agent Fundamentals: From ReAct to LangGraph &#8212; Full Stack Quantitative Finance</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=f23691d7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=7a7908ec"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'discussions/agent_fundamentals';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/custom.js?v=c0d9a6f1"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Building FlawedCode: A Minimal Claude Code Clone" href="building_flawed_code.html" />
+    <link rel="prev" title="Discussion 2: Building and Benchmarking Coding Agents" href="../discussion_02.html" /> 
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>   
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Full Stack Quantitative Finance - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Full Stack Quantitative Finance - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Generative and Agentic AI for Finance
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../README.html">Course Syllabus: FINM 32900, Winter 2025</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Course Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Discussions 📖</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_01.html">Discussion 1: The New Quant - LLMs in Finance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="gen_ai_tech_stack.html">The Generative AI Tech Stack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="llms_transforming_finance.html">LLMs Transforming Finance: The New Quant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_and_structured_outputs.html">API Basics and Structured Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ai_copilots_intro.html">AI Copilots: Claude Code and Cursor</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../discussion_02.html">Discussion 2: Building and Benchmarking Coding Agents</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Agent Fundamentals: From ReAct to LangGraph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building_flawed_code.html">Building FlawedCode: A Minimal Claude Code Clone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chartbook_integration.html">ChartBook Integration: Connecting Agents to Financial Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="context_management.html">Context Management for Deep Agents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agent_benchmarking.html">Agent Benchmarking: Measuring What Matters</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_03.html">Discussion 3: AI Application Development &amp; Financial Data Integration</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="chat_applications_overview.html">Chat Applications Overview: AI in Financial Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_to_nextjs.html">Introduction to Next.js and Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_to_chatkit.html">Building a Financial Research Assistant with ChatKit</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_04.html">Discussion 4: Text Representation &amp; Embeddings</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="vector_embeddings_and_search.html"><strong>The Architecture of Meaning: From Vector Embeddings to Reasoning-Based Retrieval</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="vector_embeddings_literature.html">Essential papers on embeddings and vector databases for AI/ML</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Homework 📝</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../HW0.html">Homework 0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HW1.html">Homework 1: Lopez-Lira Replication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HW2.html">Homework 2: Embedding-Based Return Prediction</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../final_project.html">Final Project</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/final_project_rubric.html">Final Project Instructions and Rubric</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/potential_final_projects.html">List of Potential Final Projects</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Misc 📌</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../acknowledgments.html">Acknowledgments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../appendix.html">Appendix</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project/issues/new?title=Issue%20on%20page%20%2Fdiscussions/agent_fundamentals.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/discussions/agent_fundamentals.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Agent Fundamentals: From ReAct to LangGraph</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-react-pattern">The ReAct Pattern</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-an-agent">What is an Agent?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-01-the-simplest-agent">Example 01: The Simplest Agent</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tool-definitions">Tool Definitions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-agent-loop">The Agent Loop</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-output">Example Output</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion-question">Discussion Question</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-02-adding-memory">Example 02: Adding Memory</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-insight-memory-is-just-message-history">Key Insight: Memory is Just Message History</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#memory-growth-visualization">Memory Growth Visualization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint-question">Checkpoint Question</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-03-multi-tool-agents">Example 03: Multi-Tool Agents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#available-tools">Available Tools</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tool-selection-in-action">Tool Selection in Action</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-insight">Key Insight</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-manual-to-framework-langgraph">From Manual to Framework: LangGraph</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-a-framework">Why Use a Framework?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-04-stategraph-basics">Example 04: StateGraph Basics</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-05-create-react-agent">Example 05: create_react_agent</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compare-the-code">Compare the Code</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#models-to-try">Models to Try</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">Key Takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-exercise-run-the-examples">Hands-On Exercise: Run the Examples</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next Steps</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                   <section class="tex2jax_ignore mathjax_ignore" id="agent-fundamentals-from-react-to-langgraph">
+<h1>Agent Fundamentals: From ReAct to LangGraph<a class="headerlink" href="#agent-fundamentals-from-react-to-langgraph" title="Link to this heading">#</a></h1>
+<p><strong>Duration:</strong> 30 minutes</p>
+<p><strong>Learning Objectives:</strong></p>
+<ul class="simple">
+<li><p>Understand the ReAct (Reason + Act) pattern</p></li>
+<li><p>See how memory enables multi-turn conversations</p></li>
+<li><p>Compare manual agent loops vs framework abstractions</p></li>
+<li><p>Recognize when to use each approach</p></li>
+</ul>
+<hr class="docutils" />
+<section id="the-react-pattern">
+<h2>The ReAct Pattern<a class="headerlink" href="#the-react-pattern" title="Link to this heading">#</a></h2>
+<blockquote>
+<div><p><strong>📚 Literature: Yao, S., Zhao, J., Yu, D., et al. (2023). “ReAct: Synergizing Reasoning and Acting in Language Models.” ICLR 2023.</strong></p>
+<p>This paper introduced the paradigm that underlies every major agent framework today. ReAct showed that interleaving reasoning traces (“thoughts”) with actions produces more reliable, interpretable agents than either approach alone. The key insight: when an LLM can explain its reasoning before acting, it makes fewer errors and recovers better from mistakes. For our purposes, understanding ReAct explains <em>why</em> Claude Code alternates between thinking and tool calls—it’s not arbitrary, but follows this empirically validated pattern.</p>
+</div></blockquote>
+<p>Every agent framework—LangGraph, AutoGen, CrewAI—implements the same core pattern: <strong>ReAct</strong> (Reason + Act). By understanding this pattern, you understand what all these frameworks actually do.</p>
+<p><img alt="ReAct Comparison" src="../_images/react_comparison.png" /></p>
+<p><em>ReAct outperforms standard prompting, chain-of-thought (CoT), and act-only approaches by combining reasoning with action. Figure from Yao et al. (2023). Source: <a class="reference external" href="https://research.google/blog/react-synergizing-reasoning-and-acting-in-language-models/">Google Research</a></em></p>
+<section id="what-is-an-agent">
+<h3>What is an Agent?<a class="headerlink" href="#what-is-an-agent" title="Link to this heading">#</a></h3>
+<p>An agent is fundamentally just a <strong>loop with tools</strong>. The LLM decides what to do, we execute tools, and feed results back until the LLM has enough information to answer.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>User asks question
+    ↓
+┌─────────────────────────┐
+│  LLM thinks about it    │  ← REASON
+└─────────────────────────┘
+    ↓
+Does LLM want to use a tool?
+    ↓ Yes                     ↓ No
+┌──────────────┐         ┌──────────────┐
+│ Execute tool │  ← ACT  │ Return answer│
+└──────────────┘         └──────────────┘
+    ↓
+┌──────────────────────────┐
+│ Add result to messages   │  ← OBSERVE
+└──────────────────────────┘
+    ↓
+    └──────→ Back to &quot;LLM thinks&quot;
+</pre></div>
+</div>
+<p>The key insight: <strong>the LLM decides</strong> which tools to use and when it has enough information. We just provide the tools and execute them.</p>
+<p><img alt="ReAct Pattern Overview" src="../_images/react_overview.png" /></p>
+<p><em>The ReAct pattern: LLMs alternate between reasoning (thought), acting (tool use), and observing (results). Figure from Yao et al. (2023). Source: <a class="reference external" href="https://research.google/blog/react-synergizing-reasoning-and-acting-in-language-models/">Google Research</a></em></p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="example-01-the-simplest-agent">
+<h2>Example 01: The Simplest Agent<a class="headerlink" href="#example-01-the-simplest-agent" title="Link to this heading">#</a></h2>
+<p>Let’s look at a basic agent built from scratch using just the OpenAI SDK. No frameworks, no abstractions—just the raw mechanics.</p>
+<p><strong>Full code</strong>: <a class="reference external" href="https://github.com/finm-33200/ai_inclass_examples/tree/main/agents/01_react_loop">01_react_loop on GitHub</a></p>
+<section id="tool-definitions">
+<h3>Tool Definitions<a class="headerlink" href="#tool-definitions" title="Link to this heading">#</a></h3>
+<p>Tools are defined as JSON schemas that tell the LLM what’s available:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">TOOLS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;function&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;get_stock_price&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Get the current price of a stock given its ticker symbol&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;parameters&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;ticker&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Stock ticker symbol (e.g., AAPL, MSFT)&quot;</span>
+                    <span class="p">}</span>
+                <span class="p">},</span>
+                <span class="s2">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;ticker&quot;</span><span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;function&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;calculate&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Perform a mathematical calculation&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;parameters&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;expression&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Math expression to evaluate (e.g., &#39;100 * 178.5&#39;)&quot;</span>
+                    <span class="p">}</span>
+                <span class="p">},</span>
+                <span class="s2">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;expression&quot;</span><span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="the-agent-loop">
+<h3>The Agent Loop<a class="headerlink" href="#the-agent-loop" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">run_agent</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">user_message</span><span class="p">,</span> <span class="n">max_iterations</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">messages</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;You are a helpful financial assistant...&quot;</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">user_message</span><span class="p">}</span>
+    <span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">iteration</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_iterations</span><span class="p">):</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+            <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+            <span class="n">messages</span><span class="o">=</span><span class="n">messages</span><span class="p">,</span>
+            <span class="n">tools</span><span class="o">=</span><span class="n">TOOLS</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">message</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span>
+
+        <span class="k">if</span> <span class="n">message</span><span class="o">.</span><span class="n">tool_calls</span><span class="p">:</span>
+            <span class="c1"># Agent wants to use a tool - execute it</span>
+            <span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">tool_call</span> <span class="ow">in</span> <span class="n">message</span><span class="o">.</span><span class="n">tool_calls</span><span class="p">:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">execute_tool</span><span class="p">(</span><span class="n">tool_call</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                     <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">tool_call</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="n">arguments</span><span class="p">))</span>
+                <span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                    <span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;tool&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;tool_call_id&quot;</span><span class="p">:</span> <span class="n">tool_call</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                    <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">result</span><span class="p">,</span>
+                <span class="p">})</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Agent is done - return final answer</span>
+            <span class="k">return</span> <span class="n">message</span><span class="o">.</span><span class="n">content</span>
+
+    <span class="k">return</span> <span class="s2">&quot;Max iterations reached&quot;</span>
+</pre></div>
+</div>
+<p><img alt="Augmented LLM" src="../_images/augmented_llm.png" /></p>
+<p><em>The augmented LLM: A foundation model enhanced with retrieval, tools, and memory. Source: <a class="reference external" href="https://www.anthropic.com/research/building-effective-agents">Anthropic</a></em></p>
+</section>
+<section id="example-output">
+<h3>Example Output<a class="headerlink" href="#example-output" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>User: What&#39;s the price of AAPL? If I buy 100 shares, how much would that cost?
+
+[Step 1] Agent decides to use tools:
+  Action: get_stock_price({&#39;ticker&#39;: &#39;AAPL&#39;})
+  Observation: {&quot;ticker&quot;: &quot;AAPL&quot;, &quot;price&quot;: 178.5, &quot;currency&quot;: &quot;USD&quot;}
+
+[Step 2] Agent decides to use tools:
+  Action: calculate({&#39;expression&#39;: &#39;178.5 * 100&#39;})
+  Observation: {&quot;result&quot;: 17850.0}
+
+[Final Answer]
+The current price of AAPL (Apple Inc.) is $178.50.
+If you buy 100 shares, it would cost you $17,850.00.
+</pre></div>
+</div>
+</section>
+<section id="discussion-question">
+<h3>Discussion Question<a class="headerlink" href="#discussion-question" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><p><strong>What happens if we remove the <code class="docutils literal notranslate"><span class="pre">max_iterations</span></code> safeguard?</strong></p>
+<p>Think about what could go wrong if the loop never terminates.</p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="example-02-adding-memory">
+<h2>Example 02: Adding Memory<a class="headerlink" href="#example-02-adding-memory" title="Link to this heading">#</a></h2>
+<p>The agent in Example 01 forgets everything between calls. Each invocation starts fresh. Let’s fix that.</p>
+<p><strong>Full code</strong>: <a class="reference external" href="https://github.com/finm-33200/ai_inclass_examples/tree/main/agents/02_agent_with_memory">02_agent_with_memory on GitHub</a></p>
+<section id="key-insight-memory-is-just-message-history">
+<h3>Key Insight: Memory is Just Message History<a class="headerlink" href="#key-insight-memory-is-just-message-history" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">PortfolioAgent</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">client</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">messages</span> <span class="o">=</span> <span class="p">[</span>  <span class="c1"># THIS IS THE MEMORY</span>
+            <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;You are a portfolio assistant...&quot;</span><span class="p">}</span>
+        <span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">chat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_message</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="c1"># Add user message to history</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">user_message</span><span class="p">})</span>
+
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+                <span class="n">model</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span>
+                <span class="n">messages</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">messages</span><span class="p">,</span>  <span class="c1"># LLM sees EVERYTHING</span>
+                <span class="n">tools</span><span class="o">=</span><span class="n">TOOLS</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="c1"># ... handle tool calls, add results to self.messages</span>
+
+        <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">content</span>
+</pre></div>
+</div>
+</section>
+<section id="memory-growth-visualization">
+<h3>Memory Growth Visualization<a class="headerlink" href="#memory-growth-visualization" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Turn</p></th>
+<th class="head"><p>User Says</p></th>
+<th class="head"><p>Messages Count</p></th>
+<th class="head"><p>Approx Tokens</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>“What’s my portfolio worth?”</p></td>
+<td><p>5</p></td>
+<td><p>~500</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>“How much AAPL do I have?”</p></td>
+<td><p>7</p></td>
+<td><p>~700</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>“What if AAPL goes up 10%?”</p></td>
+<td><p>9</p></td>
+<td><p>~900</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>“Sell half my position”</p></td>
+<td><p>11</p></td>
+<td><p>~1100</p></td>
+</tr>
+<tr class="row-even"><td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+</tr>
+<tr class="row-odd"><td><p>N</p></td>
+<td><p>“What was my original question?”</p></td>
+<td><p>?</p></td>
+<td><p>Context limit!</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="checkpoint-question">
+<h3>Checkpoint Question<a class="headerlink" href="#checkpoint-question" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><p><strong>At what point does memory become a problem?</strong></p>
+<p>Most models have 128K context windows. At ~4 characters per token, that’s about 500K characters. How many turns until you hit limits?</p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="example-03-multi-tool-agents">
+<h2>Example 03: Multi-Tool Agents<a class="headerlink" href="#example-03-multi-tool-agents" title="Link to this heading">#</a></h2>
+<p>Real agents need multiple tools. The LLM must decide which tool(s) to use based on the question.</p>
+<p><strong>Full code</strong>: <a class="reference external" href="https://github.com/finm-33200/ai_inclass_examples/tree/main/agents/03_multi_tool_agent">03_multi_tool_agent on GitHub</a></p>
+<section id="available-tools">
+<h3>Available Tools<a class="headerlink" href="#available-tools" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Tool</p></th>
+<th class="head"><p>Purpose</p></th>
+<th class="head"><p>When to Use</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">get_stock_price</span></code></p></td>
+<td><p>Current price + daily change</p></td>
+<td><p>Market data queries</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">get_company_info</span></code></p></td>
+<td><p>P/E, sector, market cap</p></td>
+<td><p>Fundamental analysis</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">get_historical_prices</span></code></p></td>
+<td><p>Price history</p></td>
+<td><p>Trend analysis</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">get_news</span></code></p></td>
+<td><p>Recent headlines</p></td>
+<td><p>Sentiment/event analysis</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">calculate_return</span></code></p></td>
+<td><p>% return calculation</p></td>
+<td><p>Performance metrics</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="tool-selection-in-action">
+<h3>Tool Selection in Action<a class="headerlink" href="#tool-selection-in-action" title="Link to this heading">#</a></h3>
+<p><strong>Simple query</strong> - single tool:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>User: &quot;What&#39;s the current price of NVDA?&quot;
+→ get_stock_price(&quot;NVDA&quot;)
+</pre></div>
+</div>
+<p><strong>Comparative query</strong> - multiple tools:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>User: &quot;Compare AAPL and JPM - which has better P/E?&quot;
+→ get_company_info(&quot;AAPL&quot;)
+→ get_company_info(&quot;JPM&quot;)
+→ [LLM compares and responds]
+</pre></div>
+</div>
+<p><strong>Complex query</strong> - many tools:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>User: &quot;Analyze MSFT: price, fundamentals, news, 7-day trend&quot;
+→ get_stock_price(&quot;MSFT&quot;)
+→ get_company_info(&quot;MSFT&quot;)
+→ get_news(&quot;MSFT&quot;)
+→ get_historical_prices(&quot;MSFT&quot;, 7)
+→ [LLM synthesizes everything]
+</pre></div>
+</div>
+</section>
+<section id="key-insight">
+<h3>Key Insight<a class="headerlink" href="#key-insight" title="Link to this heading">#</a></h3>
+<p><strong>Tool descriptions are the interface</strong> between LLM reasoning and tool selection. Better descriptions → better choices.</p>
+<blockquote>
+<div><p><strong>📚 Literature: Tool Use &amp; Parallel Execution</strong></p>
+<p><strong>Kim, S., et al. (2024). “An LLM Compiler for Parallel Function Calling.”</strong> Drawing inspiration from classical compilers, LLMCompiler optimizes function execution by enabling parallel tool calls. The result: 3.7× latency reduction and 6.7× cost savings compared to sequential ReAct—critical for latency-sensitive trading applications where milliseconds matter.</p>
+<p><strong>Patil, S.G., et al. (2024). “Gorilla: Large Language Model Connected with Massive APIs.” NeurIPS 2024.</strong> Demonstrated that LLMs can surpass GPT-4 on API call accuracy through Retriever Aware Training (RAT). The key insight for our work: <strong>tool descriptions are the interface</strong> between LLM reasoning and tool selection—better descriptions lead to better choices.</p>
+</div></blockquote>
+<p><img alt="Routing Workflow" src="../_images/routing_workflow.png" /></p>
+<p><em>Routing workflow: The agent classifies input and routes to the appropriate tool or handler. Source: <a class="reference external" href="https://www.anthropic.com/research/building-effective-agents">Anthropic</a></em></p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="from-manual-to-framework-langgraph">
+<h2>From Manual to Framework: LangGraph<a class="headerlink" href="#from-manual-to-framework-langgraph" title="Link to this heading">#</a></h2>
+<p>Examples 01-03 build agents manually. This teaches the fundamentals, but production code uses frameworks.</p>
+<section id="why-use-a-framework">
+<h3>Why Use a Framework?<a class="headerlink" href="#why-use-a-framework" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Feature</p></th>
+<th class="head"><p>Manual (01-03)</p></th>
+<th class="head"><p>LangGraph (04-08)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Tool dispatch</p></td>
+<td><p>Write it yourself</p></td>
+<td><p>Automatic</p></td>
+</tr>
+<tr class="row-odd"><td><p>State management</p></td>
+<td><p>Manual lists</p></td>
+<td><p>Built-in TypedDict</p></td>
+</tr>
+<tr class="row-even"><td><p>Streaming</p></td>
+<td><p>Complex async</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.stream()</span></code> method</p></td>
+</tr>
+<tr class="row-odd"><td><p>Debugging</p></td>
+<td><p>Print statements</p></td>
+<td><p>LangSmith tracing</p></td>
+</tr>
+<tr class="row-even"><td><p>Persistence</p></td>
+<td><p>Write from scratch</p></td>
+<td><p>Checkpointing built-in</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><img alt="Autonomous Agent Loop" src="../_images/autonomous_agent.png" /></p>
+<p><em>The autonomous agent pattern: A loop of reasoning, tool execution, and environment feedback. Source: <a class="reference external" href="https://www.anthropic.com/research/building-effective-agents">Anthropic</a></em></p>
+</section>
+<section id="example-04-stategraph-basics">
+<h3>Example 04: StateGraph Basics<a class="headerlink" href="#example-04-stategraph-basics" title="Link to this heading">#</a></h3>
+<p>LangGraph models workflows as <strong>directed graphs</strong> with state.</p>
+<p><strong>Full code</strong>: <a class="reference external" href="https://github.com/finm-33200/ai_inclass_examples/tree/main/agents/04_langgraph_intro">04_langgraph_intro on GitHub</a></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langgraph.graph</span> <span class="kn">import</span> <span class="n">StateGraph</span><span class="p">,</span> <span class="n">END</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TypedDict</span>
+
+<span class="c1"># Define state that flows through the graph</span>
+<span class="k">class</span> <span class="nc">AnalysisState</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">ticker</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">earnings_text</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">sentiment</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">key_points</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+    <span class="n">recommendation</span><span class="p">:</span> <span class="nb">str</span>
+
+<span class="c1"># Define nodes (functions that transform state)</span>
+<span class="k">def</span> <span class="nf">analyze_sentiment</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">AnalysisState</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Analyze sentiment of earnings text.&quot;&quot;&quot;</span>
+    <span class="n">prompt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Analyze sentiment: </span><span class="si">{</span><span class="n">state</span><span class="p">[</span><span class="s1">&#39;earnings_text&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">sentiment</span> <span class="o">=</span> <span class="n">call_llm</span><span class="p">(</span><span class="n">prompt</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;sentiment&quot;</span><span class="p">:</span> <span class="n">sentiment</span><span class="p">}</span>
+
+<span class="k">def</span> <span class="nf">make_recommendation</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">AnalysisState</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate recommendation based on sentiment.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">state</span><span class="p">[</span><span class="s2">&quot;sentiment&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;positive&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;recommendation&quot;</span><span class="p">:</span> <span class="s2">&quot;CONSIDER BUYING&quot;</span><span class="p">}</span>
+    <span class="k">elif</span> <span class="n">state</span><span class="p">[</span><span class="s2">&quot;sentiment&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;negative&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;recommendation&quot;</span><span class="p">:</span> <span class="s2">&quot;CONSIDER SELLING&quot;</span><span class="p">}</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;recommendation&quot;</span><span class="p">:</span> <span class="s2">&quot;HOLD&quot;</span><span class="p">}</span>
+
+<span class="c1"># Build the graph</span>
+<span class="n">workflow</span> <span class="o">=</span> <span class="n">StateGraph</span><span class="p">(</span><span class="n">AnalysisState</span><span class="p">)</span>
+<span class="n">workflow</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;analyze_sentiment&quot;</span><span class="p">,</span> <span class="n">analyze_sentiment</span><span class="p">)</span>
+<span class="n">workflow</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;make_recommendation&quot;</span><span class="p">,</span> <span class="n">make_recommendation</span><span class="p">)</span>
+
+<span class="n">workflow</span><span class="o">.</span><span class="n">set_entry_point</span><span class="p">(</span><span class="s2">&quot;analyze_sentiment&quot;</span><span class="p">)</span>
+<span class="n">workflow</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s2">&quot;analyze_sentiment&quot;</span><span class="p">,</span> <span class="s2">&quot;make_recommendation&quot;</span><span class="p">)</span>
+<span class="n">workflow</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s2">&quot;make_recommendation&quot;</span><span class="p">,</span> <span class="n">END</span><span class="p">)</span>
+
+<span class="n">graph</span> <span class="o">=</span> <span class="n">workflow</span><span class="o">.</span><span class="n">compile</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>┌───────────────────┐     ┌────────────────────┐     ┌─────┐
+│ analyze_sentiment │ ──→ │ make_recommendation│ ──→ │ END │
+└───────────────────┘     └────────────────────┘     └─────┘
+</pre></div>
+</div>
+<p><img alt="LangGraph Agent Workflow" src="../_images/langgraph_agent_workflow.png" /></p>
+<p><em>LangGraph models workflows as directed graphs with typed state flowing between nodes.</em></p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="example-05-create-react-agent">
+<h2>Example 05: create_react_agent<a class="headerlink" href="#example-05-create-react-agent" title="Link to this heading">#</a></h2>
+<p>LangGraph provides a pre-built ReAct agent that handles all the plumbing.</p>
+<p><strong>Full code</strong>: <a class="reference external" href="https://github.com/finm-33200/ai_inclass_examples/tree/main/agents/05_langgraph_agent">05_langgraph_agent on GitHub</a></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain_core.tools</span> <span class="kn">import</span> <span class="n">tool</span>
+<span class="kn">from</span> <span class="nn">langchain_openai</span> <span class="kn">import</span> <span class="n">ChatOpenAI</span>
+<span class="kn">from</span> <span class="nn">langgraph.prebuilt</span> <span class="kn">import</span> <span class="n">create_react_agent</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Annotated</span>
+
+<span class="c1"># Tools are now decorated functions</span>
+<span class="nd">@tool</span>
+<span class="k">def</span> <span class="nf">get_stock_price</span><span class="p">(</span><span class="n">ticker</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Stock ticker symbol&quot;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the current price of a stock. Returns price in USD.&quot;&quot;&quot;</span>
+    <span class="n">price</span> <span class="o">=</span> <span class="n">STOCK_DATA</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ticker</span><span class="o">.</span><span class="n">upper</span><span class="p">(),</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;price&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ticker</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2"> is trading at $</span><span class="si">{</span><span class="n">price</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="nd">@tool</span>
+<span class="k">def</span> <span class="nf">calculate</span><span class="p">(</span><span class="n">expression</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Math expression to evaluate&quot;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Perform a mathematical calculation.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="nb">eval</span><span class="p">(</span><span class="n">expression</span><span class="p">))</span>
+
+<span class="c1"># Create the LLM</span>
+<span class="n">llm</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="s2">&quot;openai/gpt-4o-mini&quot;</span><span class="p">,</span>
+    <span class="n">base_url</span><span class="o">=</span><span class="s2">&quot;https://openrouter.ai/api/v1&quot;</span><span class="p">,</span>
+    <span class="n">api_key</span><span class="o">=</span><span class="n">config</span><span class="p">(</span><span class="s2">&quot;OPENROUTER_API_KEY&quot;</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># One-liner agent creation!</span>
+<span class="n">agent</span> <span class="o">=</span> <span class="n">create_react_agent</span><span class="p">(</span><span class="n">llm</span><span class="p">,</span> <span class="p">[</span><span class="n">get_stock_price</span><span class="p">,</span> <span class="n">calculate</span><span class="p">])</span>
+
+<span class="c1"># Use it</span>
+<span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">agent</span><span class="o">.</span><span class="n">stream</span><span class="p">({</span><span class="s2">&quot;messages&quot;</span><span class="p">:</span> <span class="p">[(</span><span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;What&#39;s AAPL price times 100?&quot;</span><span class="p">)]}):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+</pre></div>
+</div>
+<section id="compare-the-code">
+<h3>Compare the Code<a class="headerlink" href="#compare-the-code" title="Link to this heading">#</a></h3>
+<p><strong>Manual (Example 01)</strong>: ~100 lines</p>
+<ul class="simple">
+<li><p>Define tool schemas</p></li>
+<li><p>Write execution logic</p></li>
+<li><p>Manage message history</p></li>
+<li><p>Handle the loop</p></li>
+</ul>
+<p><strong>LangGraph (Example 05)</strong>: ~30 lines</p>
+<ul class="simple">
+<li><p>Decorate functions with <code class="docutils literal notranslate"><span class="pre">&#64;tool</span></code></p></li>
+<li><p>Call <code class="docutils literal notranslate"><span class="pre">create_react_agent</span></code></p></li>
+<li><p>Stream results</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="models-to-try">
+<h2>Models to Try<a class="headerlink" href="#models-to-try" title="Link to this heading">#</a></h2>
+<p>All examples use OpenRouter to access multiple models cheaply:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Model</p></th>
+<th class="head"><p>Cost</p></th>
+<th class="head"><p>Quality</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">meta-llama/llama-3.1-8b-instruct</span></code></p></td>
+<td><p>$0.02/1M</p></td>
+<td><p>Good for simple</p></td>
+<td><p>More mistakes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">openai/gpt-4o-mini</span></code></p></td>
+<td><p>$0.15/1M</p></td>
+<td><p>Reliable</p></td>
+<td><p>Default choice</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">google/gemini-2.0-flash-exp:free</span></code></p></td>
+<td><p>Free</p></td>
+<td><p>Variable</p></td>
+<td><p>Testing only</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">anthropic/claude-3-haiku</span></code></p></td>
+<td><p>$0.25/1M</p></td>
+<td><p>Fast, quality</p></td>
+<td><p>Good alternative</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="key-takeaways">
+<h2>Key Takeaways<a class="headerlink" href="#key-takeaways" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Agents are loops with tools</strong> - The ReAct pattern is universal</p></li>
+<li><p><strong>Memory is just message history</strong> - Context accumulates in the messages list</p></li>
+<li><p><strong>Tool descriptions guide selection</strong> - Better descriptions → better tool choices</p></li>
+<li><p><strong>LangGraph simplifies plumbing</strong> - Use manual for learning, framework for production</p></li>
+<li><p><strong>Choose your abstraction level</strong> - Understand what frameworks hide</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="hands-on-exercise-run-the-examples">
+<h2>Hands-On Exercise: Run the Examples<a class="headerlink" href="#hands-on-exercise-run-the-examples" title="Link to this heading">#</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Clone the examples</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/finm-33200/ai_inclass_examples.git
+<span class="nb">cd</span><span class="w"> </span>ai_inclass_examples/agents
+
+<span class="c1"># Set up environment</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;OPENROUTER_API_KEY=your-key-here&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>.env
+
+<span class="c1"># Run each example</span>
+<span class="nb">cd</span><span class="w"> </span>01_react_loop<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>python<span class="w"> </span>react_agent.py
+<span class="nb">cd</span><span class="w"> </span>../02_agent_with_memory<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>python<span class="w"> </span>memory_agent.py
+<span class="nb">cd</span><span class="w"> </span>../05_langgraph_agent<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>python<span class="w"> </span>langgraph_agent.py
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="next-steps">
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
+<p>Now that you understand the fundamentals, let’s build a complete coding assistant in <a class="reference internal" href="building_flawed_code.html"><span class="std std-doc">Building FlawedCode</span></a>.</p>
+</section>
+</section>
+
+<div class="section ablog__blog_comments">
+   
+</div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../discussion_02.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Discussion 2: Building and Benchmarking Coding Agents</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="building_flawed_code.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Building FlawedCode: A Minimal Claude Code Clone</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-react-pattern">The ReAct Pattern</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-an-agent">What is an Agent?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-01-the-simplest-agent">Example 01: The Simplest Agent</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tool-definitions">Tool Definitions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-agent-loop">The Agent Loop</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-output">Example Output</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion-question">Discussion Question</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-02-adding-memory">Example 02: Adding Memory</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-insight-memory-is-just-message-history">Key Insight: Memory is Just Message History</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#memory-growth-visualization">Memory Growth Visualization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint-question">Checkpoint Question</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-03-multi-tool-agents">Example 03: Multi-Tool Agents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#available-tools">Available Tools</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tool-selection-in-action">Tool Selection in Action</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-insight">Key Insight</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-manual-to-framework-langgraph">From Manual to Framework: LangGraph</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-a-framework">Why Use a Framework?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-04-stategraph-basics">Example 04: StateGraph Basics</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-05-create-react-agent">Example 05: create_react_agent</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compare-the-code">Compare the Code</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#models-to-try">Models to Try</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">Key Takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-exercise-run-the-examples">Hands-On Exercise: Run the Examples</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next Steps</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jeremiah Bejarano
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, Jeremiah Bejarano.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,831 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chat Applications Overview: AI in Financial Services &#8212; Full Stack Quantitative Finance</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=f23691d7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=7a7908ec"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'discussions/chat_applications_overview';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/custom.js?v=c0d9a6f1"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Introduction to Next.js and Deployment" href="intro_to_nextjs.html" />
+    <link rel="prev" title="Discussion 3: AI Application Development &amp; Financial Data Integration" href="../discussion_03.html" /> 
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>   
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Full Stack Quantitative Finance - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Full Stack Quantitative Finance - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Generative and Agentic AI for Finance
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../README.html">Course Syllabus: FINM 32900, Winter 2025</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Course Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Discussions 📖</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_01.html">Discussion 1: The New Quant - LLMs in Finance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="gen_ai_tech_stack.html">The Generative AI Tech Stack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="llms_transforming_finance.html">LLMs Transforming Finance: The New Quant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_and_structured_outputs.html">API Basics and Structured Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ai_copilots_intro.html">AI Copilots: Claude Code and Cursor</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_02.html">Discussion 2: Building and Benchmarking Coding Agents</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="agent_fundamentals.html">Agent Fundamentals: From ReAct to LangGraph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building_flawed_code.html">Building FlawedCode: A Minimal Claude Code Clone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chartbook_integration.html">ChartBook Integration: Connecting Agents to Financial Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="context_management.html">Context Management for Deep Agents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agent_benchmarking.html">Agent Benchmarking: Measuring What Matters</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../discussion_03.html">Discussion 3: AI Application Development &amp; Financial Data Integration</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Chat Applications Overview: AI in Financial Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_to_nextjs.html">Introduction to Next.js and Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_to_chatkit.html">Building a Financial Research Assistant with ChatKit</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_04.html">Discussion 4: Text Representation &amp; Embeddings</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="vector_embeddings_and_search.html"><strong>The Architecture of Meaning: From Vector Embeddings to Reasoning-Based Retrieval</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="vector_embeddings_literature.html">Essential papers on embeddings and vector databases for AI/ML</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Homework 📝</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../HW0.html">Homework 0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HW1.html">Homework 1: Lopez-Lira Replication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HW2.html">Homework 2: Embedding-Based Return Prediction</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../final_project.html">Final Project</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/final_project_rubric.html">Final Project Instructions and Rubric</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/potential_final_projects.html">List of Potential Final Projects</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Misc 📌</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../acknowledgments.html">Acknowledgments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../appendix.html">Appendix</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project/issues/new?title=Issue%20on%20page%20%2Fdiscussions/chat_applications_overview.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/discussions/chat_applications_overview.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chat Applications Overview: AI in Financial Services</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-ai-chat-applications">Introduction to AI Chat Applications</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#real-world-examples-in-finance">Real-World Examples in Finance</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#local-vs-cloud-ai-development">Local vs. Cloud AI Development</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cloud-based-development-openai-api">Cloud-Based Development (OpenAI API)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#local-llm-deployment">Local LLM Deployment</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-chatkit">What is ChatKit?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-features">Key Features</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-chatkit-for-financial-applications">Why ChatKit for Financial Applications?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chatkit-vs-building-from-scratch">ChatKit vs. Building from Scratch</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture-financial-company-research-assistant">Architecture: Financial Company Research Assistant</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#system-architecture">System Architecture</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-flow">Data Flow</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resources-further-reading">Resources &amp; Further Reading</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chatkit-documentation">ChatKit Documentation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#financial-data-apis">Financial Data APIs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ai-development-best-practices">AI Development Best Practices</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">Key Takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next Steps</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                   <section class="tex2jax_ignore mathjax_ignore" id="chat-applications-overview-ai-in-financial-services">
+<h1>Chat Applications Overview: AI in Financial Services<a class="headerlink" href="#chat-applications-overview-ai-in-financial-services" title="Link to this heading">#</a></h1>
+<p><strong>Duration:</strong> 30 minutes
+<strong>Learning Objectives:</strong></p>
+<ul class="simple">
+<li><p>Understand the landscape of AI chat applications in finance</p></li>
+<li><p>Compare local vs. cloud-based AI development approaches</p></li>
+<li><p>Learn about OpenAI’s ChatKit framework</p></li>
+<li><p>Understand the architecture of financial AI assistants</p></li>
+</ul>
+<hr class="docutils" />
+<section id="introduction-to-ai-chat-applications">
+<h2>Introduction to AI Chat Applications<a class="headerlink" href="#introduction-to-ai-chat-applications" title="Link to this heading">#</a></h2>
+<p>AI-powered chat interfaces are transforming how we interact with financial data and services. Modern AI chat applications can:</p>
+<ul class="simple">
+<li><p><strong>Analyze complex financial documents</strong> (10-Ks, 10-Qs, earnings reports)</p></li>
+<li><p><strong>Answer natural language queries</strong> about companies and markets</p></li>
+<li><p><strong>Synthesize data from multiple sources</strong> in real-time</p></li>
+<li><p><strong>Provide personalized financial insights</strong> based on user context</p></li>
+</ul>
+<p><img alt="Augmented LLM" src="../_images/augmented_llm.png" /></p>
+<p><em>Modern AI chat applications combine LLMs with retrieval, tools, and memory. Source: <a class="reference external" href="https://www.anthropic.com/research/building-effective-agents">Anthropic - Building Effective Agents</a></em></p>
+<section id="real-world-examples-in-finance">
+<h3>Real-World Examples in Finance<a class="headerlink" href="#real-world-examples-in-finance" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Bloomberg GPT</strong>: Financial language model for market analysis</p></li>
+<li><p><strong>Morgan Stanley’s AI Assistant</strong>: Investment research tool for financial advisors</p></li>
+<li><p><strong>Stripe’s Support Bot</strong>: Handles developer and merchant queries</p></li>
+<li><p><strong>Personal finance chatbots</strong>: Budgeting, expense tracking, and investment advice</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="local-vs-cloud-ai-development">
+<h2>Local vs. Cloud AI Development<a class="headerlink" href="#local-vs-cloud-ai-development" title="Link to this heading">#</a></h2>
+<section id="cloud-based-development-openai-api">
+<h3>Cloud-Based Development (OpenAI API)<a class="headerlink" href="#cloud-based-development-openai-api" title="Link to this heading">#</a></h3>
+<p><strong>Advantages:</strong></p>
+<ul class="simple">
+<li><p>No hardware requirements</p></li>
+<li><p>Access to state-of-the-art models (GPT-4, GPT-4o)</p></li>
+<li><p>Scalable infrastructure</p></li>
+<li><p>Regular model updates</p></li>
+<li><p>No model maintenance</p></li>
+</ul>
+<p><strong>Considerations:</strong></p>
+<ul class="simple">
+<li><p>API costs per token</p></li>
+<li><p>Data privacy concerns</p></li>
+<li><p>Internet dependency</p></li>
+<li><p>Rate limits</p></li>
+</ul>
+<p><strong>Best for:</strong> Production applications, prototyping, applications requiring latest capabilities</p>
+</section>
+<section id="local-llm-deployment">
+<h3>Local LLM Deployment<a class="headerlink" href="#local-llm-deployment" title="Link to this heading">#</a></h3>
+<p><strong>Advantages:</strong></p>
+<ul class="simple">
+<li><p>Complete data privacy</p></li>
+<li><p>No per-request costs</p></li>
+<li><p>No internet dependency</p></li>
+<li><p>Full control over model</p></li>
+</ul>
+<p><strong>Considerations:</strong></p>
+<ul class="simple">
+<li><p>Hardware requirements (GPU)</p></li>
+<li><p>Model size constraints</p></li>
+<li><p>Performance limitations</p></li>
+<li><p>Manual updates</p></li>
+</ul>
+<p><strong>Tools for local deployment:</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ollama.ai/">Ollama</a> - Run Llama 2, Mistral, and other models locally</p></li>
+<li><p><a class="reference external" href="https://lmstudio.ai/">LM Studio</a> - GUI for running local models</p></li>
+<li><p><a class="reference external" href="https://github.com/vllm-project/vllm">vLLM</a> - High-performance inference engine</p></li>
+</ul>
+<p><strong>Best for:</strong> Privacy-sensitive applications, high-volume internal tools, offline requirements</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="what-is-chatkit">
+<h2>What is ChatKit?<a class="headerlink" href="#what-is-chatkit" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://openai.github.io/chatkit-js/">OpenAI ChatKit</a> is a framework for building production-ready AI chat experiences. It’s designed to simplify the process of creating custom chat interfaces without building everything from scratch.</p>
+<p><img alt="ChatKit Interface Example" src="../_images/chatkit_interface_example.png" /></p>
+<p><em>Example chat interface built with OpenAI’s ChatKit framework. Source: <a class="reference external" href="https://www.eesel.ai/blog/openai-chatkit">EESEL AI</a></em></p>
+<section id="key-features">
+<h3>Key Features<a class="headerlink" href="#key-features" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Drop-in chat component</strong> - Minimal setup required</p></li>
+<li><p><strong>Deep UI customization</strong> - Match your brand and design</p></li>
+<li><p><strong>Built-in response streaming</strong> - Real-time message display</p></li>
+<li><p><strong>Tool and workflow integration</strong> - Connect to external data sources</p></li>
+<li><p><strong>Rich interactive widgets</strong> - Charts, tables, buttons</p></li>
+<li><p><strong>Attachment handling</strong> - Upload documents and images</p></li>
+<li><p><strong>Thread management</strong> - Multi-conversation support</p></li>
+<li><p><strong>Source annotations</strong> - Cite where information comes from</p></li>
+</ul>
+</section>
+<section id="why-chatkit-for-financial-applications">
+<h3>Why ChatKit for Financial Applications?<a class="headerlink" href="#why-chatkit-for-financial-applications" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Production-ready</strong>: Built by OpenAI with enterprise features</p></li>
+<li><p><strong>Compliance-friendly</strong>: Source citations for audit trails</p></li>
+<li><p><strong>Extensible</strong>: Easy to integrate with financial APIs</p></li>
+<li><p><strong>Framework-agnostic</strong>: Works with React, Vue, vanilla JS</p></li>
+<li><p><strong>Secure</strong>: Built-in authentication and session management</p></li>
+</ol>
+<p><img alt="ChatKit Implementation Workflow" src="../_images/chatkit_implementation_workflow.png" /></p>
+<p><em>ChatKit implementation workflow: Build Agent, Secure Backend, Embed Frontend. Source: <a class="reference external" href="https://www.eesel.ai/blog/openai-chatkit">EESEL AI</a></em></p>
+</section>
+<section id="chatkit-vs-building-from-scratch">
+<h3>ChatKit vs. Building from Scratch<a class="headerlink" href="#chatkit-vs-building-from-scratch" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Feature</p></th>
+<th class="head"><p>ChatKit</p></th>
+<th class="head"><p>Custom Build</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Time to MVP</p></td>
+<td><p>Hours</p></td>
+<td><p>Weeks</p></td>
+</tr>
+<tr class="row-odd"><td><p>Streaming support</p></td>
+<td><p>Built-in</p></td>
+<td><p>Manual implementation</p></td>
+</tr>
+<tr class="row-even"><td><p>UI components</p></td>
+<td><p>Included</p></td>
+<td><p>Build yourself</p></td>
+</tr>
+<tr class="row-odd"><td><p>Tool integration</p></td>
+<td><p>Built-in patterns</p></td>
+<td><p>Design from scratch</p></td>
+</tr>
+<tr class="row-even"><td><p>Maintenance</p></td>
+<td><p>Handled by OpenAI</p></td>
+<td><p>Your responsibility</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="architecture-financial-company-research-assistant">
+<h2>Architecture: Financial Company Research Assistant<a class="headerlink" href="#architecture-financial-company-research-assistant" title="Link to this heading">#</a></h2>
+<p>Today we’ll build a <strong>Company Research Assistant</strong> that combines:</p>
+<ol class="arabic simple">
+<li><p><strong>SEC EDGAR filings</strong> - Official company disclosures</p></li>
+<li><p><strong>Stock price data</strong> - Real-time market information</p></li>
+<li><p><strong>AI analysis</strong> - Natural language interface</p></li>
+</ol>
+<section id="system-architecture">
+<h3>System Architecture<a class="headerlink" href="#system-architecture" title="Link to this heading">#</a></h3>
+<p><img alt="Routing Workflow" src="../_images/routing_workflow.png" /></p>
+<p><em>Tool routing enables the assistant to choose between SEC EDGAR and Yahoo Finance data sources. Source: <a class="reference external" href="https://www.anthropic.com/research/building-effective-agents">Anthropic - Building Effective Agents</a></em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+------------------+</span>
+<span class="o">|</span>   <span class="n">User</span> <span class="n">Browser</span>   <span class="o">|</span>
+<span class="o">|</span>   <span class="p">(</span><span class="n">Next</span><span class="o">.</span><span class="n">js</span> <span class="n">UI</span><span class="p">)</span>   <span class="o">|</span>
+<span class="o">+--------+---------+</span>
+         <span class="o">|</span>
+         <span class="n">v</span>
+<span class="o">+------------------+</span>
+<span class="o">|</span>   <span class="n">Next</span><span class="o">.</span><span class="n">js</span> <span class="n">API</span>    <span class="o">|</span>
+<span class="o">|</span>     <span class="n">Routes</span>       <span class="o">|</span>
+<span class="o">+--------+---------+</span>
+         <span class="o">|</span>
+         <span class="o">+------------------+</span>
+         <span class="o">|</span>                  <span class="o">|</span>
+         <span class="n">v</span>                  <span class="n">v</span>
+<span class="o">+------------------+</span>  <span class="o">+------------------+</span>
+<span class="o">|</span>   <span class="n">OpenAI</span> <span class="n">API</span>     <span class="o">|</span>  <span class="o">|</span>  <span class="n">Data</span> <span class="n">Sources</span>    <span class="o">|</span>
+<span class="o">|</span>   <span class="p">(</span><span class="n">ChatKit</span><span class="p">)</span>      <span class="o">|</span>  <span class="o">|</span>  <span class="o">-</span> <span class="n">SEC</span> <span class="n">EDGAR</span>     <span class="o">|</span>
+<span class="o">+------------------+</span>  <span class="o">|</span>  <span class="o">-</span> <span class="n">Yahoo</span> <span class="n">Finance</span> <span class="o">|</span>
+                      <span class="o">+------------------+</span>
+</pre></div>
+</div>
+</section>
+<section id="data-flow">
+<h3>Data Flow<a class="headerlink" href="#data-flow" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>User asks</strong>: “What was Apple’s revenue in the latest quarter?”</p></li>
+<li><p><strong>ChatKit</strong> routes to your custom tool</p></li>
+<li><p><strong>Your API</strong> fetches latest 10-Q from SEC EDGAR</p></li>
+<li><p><strong>Your API</strong> gets current stock price from Yahoo Finance</p></li>
+<li><p><strong>AI analyzes</strong> the data and formulates response</p></li>
+<li><p><strong>User receives</strong> natural language answer with sources</p></li>
+</ol>
+</section>
+</section>
+<hr class="docutils" />
+<section id="resources-further-reading">
+<h2>Resources &amp; Further Reading<a class="headerlink" href="#resources-further-reading" title="Link to this heading">#</a></h2>
+<section id="chatkit-documentation">
+<h3>ChatKit Documentation<a class="headerlink" href="#chatkit-documentation" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://openai.github.io/chatkit-js/">ChatKit Documentation</a></p></li>
+<li><p><a class="reference external" href="https://platform.openai.com/docs/guides/chatkit">Platform Guide</a></p></li>
+<li><p><a class="reference external" href="https://github.com/openai/openai-chatkit-starter-app">Starter App</a></p></li>
+<li><p><a class="reference external" href="https://github.com/openai/openai-chatkit-advanced-samples">Advanced Samples</a></p></li>
+<li><p><a class="reference external" href="https://chatkit.studio/">ChatKit Studio</a> - Visual builder</p></li>
+</ul>
+</section>
+<section id="financial-data-apis">
+<h3>Financial Data APIs<a class="headerlink" href="#financial-data-apis" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.sec.gov/search-filings/edgar-application-programming-interfaces">SEC EDGAR API Docs</a></p></li>
+<li><p><a class="reference external" href="https://github.com/dgunning/edgartools">edgartools Library</a> - Python library for SEC data</p></li>
+<li><p><a class="reference external" href="https://github.com/ranaroussi/yfinance">yfinance Library</a> - Yahoo Finance data</p></li>
+</ul>
+</section>
+<section id="ai-development-best-practices">
+<h3>AI Development Best Practices<a class="headerlink" href="#ai-development-best-practices" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://platform.openai.com/docs/guides/prompt-engineering">OpenAI Best Practices</a></p></li>
+<li><p><a class="reference external" href="https://openai.com/safety">Building Safe AI Systems</a></p></li>
+<li><p><a class="reference external" href="https://www.nist.gov/itl/ai-risk-management-framework">AI Governance Framework</a></p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="key-takeaways">
+<h2>Key Takeaways<a class="headerlink" href="#key-takeaways" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>AI chat applications</strong> are powerful tools for financial analysis</p></li>
+<li><p><strong>Cloud-based development</strong> (like ChatKit) enables rapid prototyping</p></li>
+<li><p><strong>ChatKit</strong> provides production-ready components out of the box</p></li>
+<li><p><strong>Financial data integration</strong> requires understanding multiple APIs</p></li>
+<li><p><strong>Architecture matters</strong> - plan your data flow before coding</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="next-steps">
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
+<p>In the next section, we’ll dive into <strong>Next.js fundamentals</strong> and learn how to set up our development environment.</p>
+<p><strong>Checkpoint Questions:</strong></p>
+<ul class="simple">
+<li><p>What are the main tradeoffs between local and cloud AI development?</p></li>
+<li><p>What makes ChatKit suitable for financial applications?</p></li>
+<li><p>What data sources will we use for our company research assistant?</p></li>
+</ul>
+</section>
+</section>
+
+<div class="section ablog__blog_comments">
+   
+</div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../discussion_03.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Discussion 3: AI Application Development &amp; Financial Data Integration</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="intro_to_nextjs.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Introduction to Next.js and Deployment</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-ai-chat-applications">Introduction to AI Chat Applications</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#real-world-examples-in-finance">Real-World Examples in Finance</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#local-vs-cloud-ai-development">Local vs. Cloud AI Development</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cloud-based-development-openai-api">Cloud-Based Development (OpenAI API)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#local-llm-deployment">Local LLM Deployment</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-chatkit">What is ChatKit?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-features">Key Features</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-chatkit-for-financial-applications">Why ChatKit for Financial Applications?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chatkit-vs-building-from-scratch">ChatKit vs. Building from Scratch</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture-financial-company-research-assistant">Architecture: Financial Company Research Assistant</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#system-architecture">System Architecture</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-flow">Data Flow</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resources-further-reading">Resources &amp; Further Reading</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chatkit-documentation">ChatKit Documentation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#financial-data-apis">Financial Data APIs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ai-development-best-practices">AI Development Best Practices</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">Key Takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next Steps</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jeremiah Bejarano
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, Jeremiah Bejarano.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

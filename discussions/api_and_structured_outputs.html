@@ -1,0 +1,1037 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>API Basics and Structured Outputs &#8212; Full Stack Quantitative Finance</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=f23691d7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=7a7908ec"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'discussions/api_and_structured_outputs';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/custom.js?v=c0d9a6f1"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="AI Copilots: Claude Code and Cursor" href="ai_copilots_intro.html" />
+    <link rel="prev" title="LLMs Transforming Finance: The New Quant" href="llms_transforming_finance.html" /> 
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>   
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Full Stack Quantitative Finance - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Full Stack Quantitative Finance - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Generative and Agentic AI for Finance
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../README.html">Course Syllabus: FINM 32900, Winter 2025</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Course Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Discussions 📖</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../discussion_01.html">Discussion 1: The New Quant - LLMs in Finance</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="gen_ai_tech_stack.html">The Generative AI Tech Stack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="llms_transforming_finance.html">LLMs Transforming Finance: The New Quant</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">API Basics and Structured Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ai_copilots_intro.html">AI Copilots: Claude Code and Cursor</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_02.html">Discussion 2: Building and Benchmarking Coding Agents</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="agent_fundamentals.html">Agent Fundamentals: From ReAct to LangGraph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building_flawed_code.html">Building FlawedCode: A Minimal Claude Code Clone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chartbook_integration.html">ChartBook Integration: Connecting Agents to Financial Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="context_management.html">Context Management for Deep Agents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agent_benchmarking.html">Agent Benchmarking: Measuring What Matters</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_03.html">Discussion 3: AI Application Development &amp; Financial Data Integration</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="chat_applications_overview.html">Chat Applications Overview: AI in Financial Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_to_nextjs.html">Introduction to Next.js and Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_to_chatkit.html">Building a Financial Research Assistant with ChatKit</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_04.html">Discussion 4: Text Representation &amp; Embeddings</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="vector_embeddings_and_search.html"><strong>The Architecture of Meaning: From Vector Embeddings to Reasoning-Based Retrieval</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="vector_embeddings_literature.html">Essential papers on embeddings and vector databases for AI/ML</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Homework 📝</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../HW0.html">Homework 0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HW1.html">Homework 1: Lopez-Lira Replication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HW2.html">Homework 2: Embedding-Based Return Prediction</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../final_project.html">Final Project</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/final_project_rubric.html">Final Project Instructions and Rubric</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/potential_final_projects.html">List of Potential Final Projects</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Misc 📌</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../acknowledgments.html">Acknowledgments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../appendix.html">Appendix</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project/issues/new?title=Issue%20on%20page%20%2Fdiscussions/api_and_structured_outputs.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/discussions/api_and_structured_outputs.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>API Basics and Structured Outputs</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-openai-api-foundation-for-everything">The OpenAI API: Foundation for Everything</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#message-roles">Message Roles</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-api-call">Basic API Call</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-tokens">Understanding Tokens</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#openrouter-multi-model-access">OpenRouter: Multi-Model Access</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#models-to-know">Models to Know</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#structured-outputs-type-safe-data-extraction">Structured Outputs: Type-Safe Data Extraction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-structured-outputs">Why Structured Outputs?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pydantic-schema-definition">Pydantic Schema Definition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-the-schema-with-openai">Using the Schema with OpenAI</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-strict-true-requirement">The <code class="docutils literal notranslate"><span class="pre">strict:</span> <span class="pre">True</span></code> Requirement</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-the-lopez-lira-classifier">Building the Lopez-Lira Classifier</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preview-evaluation-with-promptfoo">Preview: Evaluation with promptfoo</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-measurement-mindset">The Measurement Mindset</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-exercises">Hands-On Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-basic-api-call">Exercise 1: Basic API Call</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-model-comparison">Exercise 2: Model Comparison</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-build-a-schema">Exercise 3: Build a Schema</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-batch-classification">Exercise 4: Batch Classification</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">Key Takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next Steps</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                   <section class="tex2jax_ignore mathjax_ignore" id="api-basics-and-structured-outputs">
+<h1>API Basics and Structured Outputs<a class="headerlink" href="#api-basics-and-structured-outputs" title="Link to this heading">#</a></h1>
+<p><strong>Duration:</strong> 30 minutes reading</p>
+<p><strong>Learning Objectives:</strong></p>
+<ul class="simple">
+<li><p>Understand the OpenAI API message format (system, user, assistant)</p></li>
+<li><p>Use OpenRouter for multi-model access</p></li>
+<li><p>Extract structured data with Pydantic schemas</p></li>
+<li><p>Preview evaluation with promptfoo</p></li>
+</ul>
+<hr class="docutils" />
+<section id="the-openai-api-foundation-for-everything">
+<h2>The OpenAI API: Foundation for Everything<a class="headerlink" href="#the-openai-api-foundation-for-everything" title="Link to this heading">#</a></h2>
+<p>Almost every LLM tool you’ll use—LangChain, Claude Code, Cursor, custom agents—builds on the same fundamental interface: the chat completions API. Understanding this interface explains how all these tools work.</p>
+<p><img alt="Augmented LLM Building Block" src="../_images/augmented_llm.png" /></p>
+<p><em>The modern LLM stack: a model augmented with retrieval, tools, and memory. The API is the interface that connects all these components. Source: <a class="reference external" href="https://www.anthropic.com/research/building-effective-agents">Anthropic - Building Effective Agents</a></em></p>
+<section id="message-roles">
+<h3>Message Roles<a class="headerlink" href="#message-roles" title="Link to this heading">#</a></h3>
+<p>The API uses a conversation format with three roles:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Role</p></th>
+<th class="head"><p>Purpose</p></th>
+<th class="head"><p>Example</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">system</span></code></p></td>
+<td><p>Sets context and behavior</p></td>
+<td><p>“You are a financial analyst…”</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">user</span></code></p></td>
+<td><p>Human input</p></td>
+<td><p>“Analyze AAPL earnings”</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">assistant</span></code></p></td>
+<td><p>Model response</p></td>
+<td><p>“Apple reported…”</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">messages</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;You are a helpful assistant. Keep responses concise.&quot;</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;What is an LLM?&quot;</span><span class="p">},</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>The system message is optional but powerful—it shapes how the model interprets all subsequent messages.</p>
+</section>
+<section id="basic-api-call">
+<h3>Basic API Call<a class="headerlink" href="#basic-api-call" title="Link to this heading">#</a></h3>
+<p><strong>Full code</strong>: <a class="reference external" href="https://github.com/finm-33200/ai_inclass_examples/tree/main/basic_llm_api/02_openai_hello">02_openai_hello on GitHub</a></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">openai</span> <span class="kn">import</span> <span class="n">OpenAI</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;your-key-here&quot;</span><span class="p">)</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">,</span>
+    <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
+        <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;You are a helpful assistant.&quot;</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;What is an LLM? Explain in 2-3 sentences.&quot;</span><span class="p">},</span>
+    <span class="p">],</span>
+<span class="p">)</span>
+
+<span class="c1"># Extract the response text</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+
+<span class="c1"># Check token usage (important for cost management)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total tokens: </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">usage</span><span class="o">.</span><span class="n">total_tokens</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="understanding-tokens">
+<h3>Understanding Tokens<a class="headerlink" href="#understanding-tokens" title="Link to this heading">#</a></h3>
+<p>LLMs process text as <em>tokens</em>—roughly 4 characters or 0.75 words each. You pay per token, so understanding tokenization matters:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Text</p></th>
+<th class="head"><p>Approximate Tokens</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>“Hello”</p></td>
+<td><p>1 token</p></td>
+</tr>
+<tr class="row-odd"><td><p>“quantitative finance”</p></td>
+<td><p>~3 tokens</p></td>
+</tr>
+<tr class="row-even"><td><p>A typical earnings headline</p></td>
+<td><p>~20-30 tokens</p></td>
+</tr>
+<tr class="row-odd"><td><p>A full 10-K filing section</p></td>
+<td><p>~5,000-10,000 tokens</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Cost awareness:</strong> GPT-4o-mini costs ~<span class="math notranslate nohighlight">\(0.15 per million input tokens and ~\)</span>0.60 per million output tokens. Processing 10,000 headlines costs roughly $0.03-0.10 depending on response length.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="openrouter-multi-model-access">
+<h2>OpenRouter: Multi-Model Access<a class="headerlink" href="#openrouter-multi-model-access" title="Link to this heading">#</a></h2>
+<p>OpenRouter provides a unified API to access models from OpenAI, Anthropic, Google, Meta, and others. This is valuable for:</p>
+<ul class="simple">
+<li><p>Cost optimization (route to cheaper models when appropriate)</p></li>
+<li><p>Model comparison (test the same prompt across providers)</p></li>
+<li><p>Fallback handling (switch providers if one is down)</p></li>
+</ul>
+<p><img alt="Gen AI Stack" src="../_images/gen_ai_stack3.jpg" /></p>
+<p><em>The modern GenAI stack has many layers and providers. OpenRouter sits at the API layer, providing a single interface to models from OpenAI, Anthropic, Google, Meta, and more.</em></p>
+<section id="setup">
+<h3>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h3>
+<p><strong>Full code</strong>: <a class="reference external" href="https://github.com/finm-33200/ai_inclass_examples/tree/main/basic_llm_api/03_openrouter_hello">03_openrouter_hello on GitHub</a></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">openai</span> <span class="kn">import</span> <span class="n">OpenAI</span>
+
+<span class="c1"># Same OpenAI client, different base URL</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">(</span>
+    <span class="n">base_url</span><span class="o">=</span><span class="s2">&quot;https://openrouter.ai/api/v1&quot;</span><span class="p">,</span>
+    <span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;your-openrouter-key&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Access any model through OpenRouter</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="s2">&quot;openai/gpt-4o-mini&quot;</span><span class="p">,</span>  <span class="c1"># Note the provider prefix</span>
+    <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
+        <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Hello from OpenRouter!&quot;</span><span class="p">},</span>
+    <span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="models-to-know">
+<h3>Models to Know<a class="headerlink" href="#models-to-know" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Model</p></th>
+<th class="head"><p>OpenRouter ID</p></th>
+<th class="head"><p>Cost (per 1M tokens)</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>GPT-4o-mini</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">openai/gpt-4o-mini</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(0.15 / \)</span>0.60</p></td>
+<td><p>Fast, cost-effective</p></td>
+</tr>
+<tr class="row-odd"><td><p>GPT-4o</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">openai/gpt-4o</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(2.50 / \)</span>10.00</p></td>
+<td><p>Full capability</p></td>
+</tr>
+<tr class="row-even"><td><p>Claude 3.5 Sonnet</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">anthropic/claude-3.5-sonnet</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(3.00 / \)</span>15.00</p></td>
+<td><p>Strong reasoning</p></td>
+</tr>
+<tr class="row-odd"><td><p>Gemini 2.0 Flash</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">google/gemini-2.0-flash-exp:free</span></code></p></td>
+<td><p>Free</p></td>
+<td><p>Testing only</p></td>
+</tr>
+<tr class="row-even"><td><p>Llama 3.1 8B</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">meta-llama/llama-3.1-8b-instruct</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(0.02 / \)</span>0.05</p></td>
+<td><p>Open source, cheap</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Tip:</strong> Start with GPT-4o-mini for development. Use more expensive models only when you’ve validated the approach works.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="structured-outputs-type-safe-data-extraction">
+<h2>Structured Outputs: Type-Safe Data Extraction<a class="headerlink" href="#structured-outputs-type-safe-data-extraction" title="Link to this heading">#</a></h2>
+<p>Raw text responses are hard to parse reliably. Structured outputs solve this by forcing the model to return valid JSON matching a schema.</p>
+<p><img alt="Routing Workflow" src="../_images/routing_workflow.png" /></p>
+<p><em>Structured outputs enable reliable data flow between LLM calls and downstream systems. When the model returns consistent JSON, you can build robust pipelines. Source: <a class="reference external" href="https://www.anthropic.com/research/building-effective-agents">Anthropic - Building Effective Agents</a></em></p>
+<section id="why-structured-outputs">
+<h3>Why Structured Outputs?<a class="headerlink" href="#why-structured-outputs" title="Link to this heading">#</a></h3>
+<p><strong>Without structured outputs:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">User</span><span class="p">:</span> <span class="n">Classify</span> <span class="n">this</span> <span class="n">headline</span><span class="p">:</span> <span class="s2">&quot;Apple beats earnings&quot;</span>
+<span class="n">Model</span><span class="p">:</span> <span class="s2">&quot;This is good news for Apple as they exceeded analyst expectations.&quot;</span>
+</pre></div>
+</div>
+<p>How do you extract “good news” from that? Regex? String matching? Both are fragile.</p>
+<p><strong>With structured outputs:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;sentiment&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;positive&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;confidence&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.92</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;reasoning&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Beating earnings expectations is typically positive&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now you have reliable data you can immediately use in a trading system.</p>
+</section>
+<section id="pydantic-schema-definition">
+<h3>Pydantic Schema Definition<a class="headerlink" href="#pydantic-schema-definition" title="Link to this heading">#</a></h3>
+<p><strong>Full code</strong>: <a class="reference external" href="https://github.com/finm-33200/ai_inclass_examples/tree/main/basic_llm_api/05_structured_outputs">05_structured_outputs on GitHub</a></p>
+<p>Pydantic provides type-safe schema definitions that validate responses:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span>
+
+<span class="k">class</span> <span class="nc">SentimentAnalysis</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Structured sentiment analysis for a financial headline.&quot;&quot;&quot;</span>
+
+    <span class="n">headline</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;The original headline&quot;</span><span class="p">)</span>
+    <span class="n">sentiment</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;positive&quot;</span><span class="p">,</span> <span class="s2">&quot;negative&quot;</span><span class="p">,</span> <span class="s2">&quot;neutral&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Overall sentiment classification&quot;</span>
+    <span class="p">)</span>
+    <span class="n">confidence</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Confidence score from 0.0 to 1.0&quot;</span><span class="p">,</span>
+        <span class="n">ge</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">le</span><span class="o">=</span><span class="mf">1.0</span>
+    <span class="p">)</span>
+    <span class="n">key_entities</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Company tickers or entities mentioned&quot;</span>
+    <span class="p">)</span>
+    <span class="n">reasoning</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Brief explanation of the classification&quot;</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="using-the-schema-with-openai">
+<h3>Using the Schema with OpenAI<a class="headerlink" href="#using-the-schema-with-openai" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">openai</span> <span class="kn">import</span> <span class="n">OpenAI</span>
+<span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">()</span>
+
+<span class="k">class</span> <span class="nc">SentimentAnalysis</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">sentiment</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;positive&quot;</span><span class="p">,</span> <span class="s2">&quot;negative&quot;</span><span class="p">,</span> <span class="s2">&quot;neutral&quot;</span><span class="p">]</span>
+    <span class="n">confidence</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">ge</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">le</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">reasoning</span><span class="p">:</span> <span class="nb">str</span>
+
+<span class="k">def</span> <span class="nf">classify_headline</span><span class="p">(</span><span class="n">headline</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SentimentAnalysis</span><span class="p">:</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+        <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">,</span>
+        <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Classify financial news headlines. Return structured JSON.&quot;</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">headline</span><span class="p">},</span>
+        <span class="p">],</span>
+        <span class="n">response_format</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;json_schema&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;json_schema&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;SentimentAnalysis&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;strict&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+                <span class="s2">&quot;schema&quot;</span><span class="p">:</span> <span class="n">SentimentAnalysis</span><span class="o">.</span><span class="n">model_json_schema</span><span class="p">(),</span>
+            <span class="p">},</span>
+        <span class="p">},</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Parse and validate the response</span>
+    <span class="k">return</span> <span class="n">SentimentAnalysis</span><span class="o">.</span><span class="n">model_validate_json</span><span class="p">(</span>
+        <span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">content</span>
+    <span class="p">)</span>
+
+<span class="c1"># Use it</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">classify_headline</span><span class="p">(</span><span class="s2">&quot;Apple Reports Record Q4 Earnings&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sentiment: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">sentiment</span><span class="si">}</span><span class="s2"> (confidence: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">confidence</span><span class="si">:</span><span class="s2">.0%</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Reasoning: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">reasoning</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="the-strict-true-requirement">
+<h3>The <code class="docutils literal notranslate"><span class="pre">strict:</span> <span class="pre">True</span></code> Requirement<a class="headerlink" href="#the-strict-true-requirement" title="Link to this heading">#</a></h3>
+<p>OpenAI’s strict mode guarantees the response matches your schema exactly. Without it, the model might:</p>
+<ul class="simple">
+<li><p>Add extra fields</p></li>
+<li><p>Use wrong types</p></li>
+<li><p>Skip required fields</p></li>
+</ul>
+<p>With <code class="docutils literal notranslate"><span class="pre">strict:</span> <span class="pre">True</span></code>, you get guaranteed schema compliance.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="building-the-lopez-lira-classifier">
+<h2>Building the Lopez-Lira Classifier<a class="headerlink" href="#building-the-lopez-lira-classifier" title="Link to this heading">#</a></h2>
+<p>Let’s build the complete sentiment classification pipeline from Lopez-Lira (2023):</p>
+<p><strong>Full code</strong>: <a class="reference external" href="https://github.com/finm-33200/ai_inclass_examples/tree/main/basic_llm_api/11_lopez_lira">11_lopez_lira on GitHub</a></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">openai</span> <span class="kn">import</span> <span class="n">OpenAI</span>
+<span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span>
+<span class="kn">import</span> <span class="nn">csv</span>
+
+<span class="k">class</span> <span class="nc">LopezLiraSentiment</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Replicating Lopez-Lira (2023) sentiment classification.&quot;&quot;&quot;</span>
+
+    <span class="n">classification</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;good news&quot;</span><span class="p">,</span> <span class="s2">&quot;bad news&quot;</span><span class="p">,</span> <span class="s2">&quot;uncertain&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Classify as &#39;good news&#39;, &#39;bad news&#39;, or &#39;uncertain&#39;&quot;</span>
+    <span class="p">)</span>
+    <span class="n">confidence</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Confidence in classification from 0.0 to 1.0&quot;</span><span class="p">,</span>
+        <span class="n">ge</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">le</span><span class="o">=</span><span class="mf">1.0</span>
+    <span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">classify_headlines</span><span class="p">(</span><span class="n">headlines</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Classify a batch of headlines following Lopez-Lira methodology.&quot;&quot;&quot;</span>
+
+    <span class="n">client</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">()</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">headline</span> <span class="ow">in</span> <span class="n">headlines</span><span class="p">:</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+            <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+            <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="p">(</span>
+                        <span class="s2">&quot;You are a financial expert. For each headline, determine &quot;</span>
+                        <span class="s2">&quot;whether it represents &#39;good news&#39;, &#39;bad news&#39;, or &#39;uncertain&#39; &quot;</span>
+                        <span class="s2">&quot;for the mentioned company&#39;s stock price. Consider market &quot;</span>
+                        <span class="s2">&quot;expectations and typical investor reactions.&quot;</span>
+                    <span class="p">),</span>
+                <span class="p">},</span>
+                <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Headline: </span><span class="si">{</span><span class="n">headline</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">},</span>
+            <span class="p">],</span>
+            <span class="n">response_format</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;json_schema&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;json_schema&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;LopezLiraSentiment&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;strict&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+                    <span class="s2">&quot;schema&quot;</span><span class="p">:</span> <span class="n">LopezLiraSentiment</span><span class="o">.</span><span class="n">model_json_schema</span><span class="p">(),</span>
+                <span class="p">},</span>
+            <span class="p">},</span>
+        <span class="p">)</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="n">LopezLiraSentiment</span><span class="o">.</span><span class="n">model_validate_json</span><span class="p">(</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">content</span>
+        <span class="p">)</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;headline&quot;</span><span class="p">:</span> <span class="n">headline</span><span class="p">,</span> <span class="o">**</span><span class="n">result</span><span class="o">.</span><span class="n">model_dump</span><span class="p">()})</span>
+
+    <span class="k">return</span> <span class="n">results</span>
+
+<span class="c1"># Example usage</span>
+<span class="n">headlines</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;Apple Reports Record Q4 Earnings, Beats Analyst Expectations&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Fed Signals More Rate Hikes Ahead, Markets Tumble&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Tesla Stock Plunges After Disappointing Delivery Numbers&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="n">results</span> <span class="o">=</span> <span class="n">classify_headlines</span><span class="p">(</span><span class="n">headlines</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;classification&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">12</span><span class="si">}</span><span class="s2"> (conf: </span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;confidence&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.0%</span><span class="si">}</span><span class="s2">) | </span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;headline&#39;</span><span class="p">][:</span><span class="mi">50</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="preview-evaluation-with-promptfoo">
+<h2>Preview: Evaluation with promptfoo<a class="headerlink" href="#preview-evaluation-with-promptfoo" title="Link to this heading">#</a></h2>
+<p>How do you know your classifier is working? You need systematic evaluation.</p>
+<p><strong>promptfoo</strong> is an open-source tool for testing LLM outputs. We’ll cover it in depth later, but here’s the core idea:</p>
+<p><img alt="Promptfoo Comparison Table" src="../_images/promptfoo_comparison_table.png" /></p>
+<p><em>Promptfoo’s web UI shows side-by-side prompt evaluation across multiple models. At a glance, you can see which prompts pass or fail across GPT-4, Claude, and other models. Source: <a class="reference external" href="https://github.com/promptfoo/promptfoo">Promptfoo GitHub</a></em></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># promptfoo.yaml</span>
+<span class="nt">prompts</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;Classify</span><span class="nv"> </span><span class="s">this</span><span class="nv"> </span><span class="s">headline:</span><span class="nv"> </span><span class="s">{{headline}}&quot;</span>
+
+<span class="nt">providers</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai:gpt-4o-mini</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai:gpt-4o</span>
+
+<span class="nt">tests</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">vars</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">headline</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Apple</span><span class="nv"> </span><span class="s">beats</span><span class="nv"> </span><span class="s">earnings</span><span class="nv"> </span><span class="s">expectations&quot;</span>
+<span class="w">    </span><span class="nt">assert</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">contains</span>
+<span class="w">        </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;good</span><span class="nv"> </span><span class="s">news&quot;</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">vars</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">headline</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Company</span><span class="nv"> </span><span class="s">announces</span><span class="nv"> </span><span class="s">massive</span><span class="nv"> </span><span class="s">layoffs&quot;</span>
+<span class="w">    </span><span class="nt">assert</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">contains</span>
+<span class="w">        </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;bad</span><span class="nv"> </span><span class="s">news&quot;</span>
+</pre></div>
+</div>
+<p>Run <code class="docutils literal notranslate"><span class="pre">promptfoo</span> <span class="pre">eval</span></code> and you get a comparison table showing how each model performs on each test case.</p>
+<section id="the-measurement-mindset">
+<h3>The Measurement Mindset<a class="headerlink" href="#the-measurement-mindset" title="Link to this heading">#</a></h3>
+<p>Before we dive into agents and RAG, establish this principle: <strong>every change should be measured.</strong></p>
+<ul class="simple">
+<li><p>Changed the system prompt? Measure accuracy.</p></li>
+<li><p>Tried a different model? Measure cost and quality.</p></li>
+<li><p>Added few-shot examples? Measure improvement.</p></li>
+</ul>
+<p>This is what separates principled development from trial-and-error.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="hands-on-exercises">
+<h2>Hands-On Exercises<a class="headerlink" href="#hands-on-exercises" title="Link to this heading">#</a></h2>
+<section id="exercise-1-basic-api-call">
+<h3>Exercise 1: Basic API Call<a class="headerlink" href="#exercise-1-basic-api-call" title="Link to this heading">#</a></h3>
+<p>Run the <a class="reference external" href="http://hello.py">hello.py</a> example and verify your API key works:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>ai_inclass_examples/basic_llm_api/02_openai_hello
+python<span class="w"> </span>hello.py
+</pre></div>
+</div>
+</section>
+<section id="exercise-2-model-comparison">
+<h3>Exercise 2: Model Comparison<a class="headerlink" href="#exercise-2-model-comparison" title="Link to this heading">#</a></h3>
+<p>Modify the script to use OpenRouter and compare GPT-4o-mini vs Llama 3.1 8B on the same prompt. Note differences in response quality and cost.</p>
+</section>
+<section id="exercise-3-build-a-schema">
+<h3>Exercise 3: Build a Schema<a class="headerlink" href="#exercise-3-build-a-schema" title="Link to this heading">#</a></h3>
+<p>Design a Pydantic schema for extracting financial metrics from earnings headlines. Include fields for:</p>
+<ul class="simple">
+<li><p>Ticker symbol</p></li>
+<li><p>Metric mentioned (revenue, earnings, guidance, etc.)</p></li>
+<li><p>Whether it beat/missed/met expectations</p></li>
+<li><p>Magnitude (if mentioned)</p></li>
+</ul>
+</section>
+<section id="exercise-4-batch-classification">
+<h3>Exercise 4: Batch Classification<a class="headerlink" href="#exercise-4-batch-classification" title="Link to this heading">#</a></h3>
+<p>Use the Lopez-Lira classifier to process the sample headlines in <code class="docutils literal notranslate"><span class="pre">data/sample_headlines.csv</span></code>. Calculate the distribution of positive/negative/neutral classifications.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="key-takeaways">
+<h2>Key Takeaways<a class="headerlink" href="#key-takeaways" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>The message format is universal.</strong> System/user/assistant roles appear everywhere—understanding them unlocks all LLM tooling.</p></li>
+<li><p><strong>OpenRouter provides flexibility.</strong> Use it to access multiple providers through one API.</p></li>
+<li><p><strong>Structured outputs eliminate parsing.</strong> Pydantic schemas guarantee you get usable data.</p></li>
+<li><p><strong>Measure everything.</strong> The promptfoo preview establishes the evaluation mindset we’ll use throughout the course.</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="next-steps">
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
+<p>Now that you can call LLM APIs and extract structured data, let’s set up the AI development tools you’ll use daily. Continue to <a class="reference internal" href="ai_copilots_intro.html"><span class="std std-doc">AI Copilots Introduction</span></a>.</p>
+</section>
+</section>
+
+<div class="section ablog__blog_comments">
+   
+</div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="llms_transforming_finance.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">LLMs Transforming Finance: The New Quant</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="ai_copilots_intro.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">AI Copilots: Claude Code and Cursor</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-openai-api-foundation-for-everything">The OpenAI API: Foundation for Everything</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#message-roles">Message Roles</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-api-call">Basic API Call</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-tokens">Understanding Tokens</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#openrouter-multi-model-access">OpenRouter: Multi-Model Access</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#models-to-know">Models to Know</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#structured-outputs-type-safe-data-extraction">Structured Outputs: Type-Safe Data Extraction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-structured-outputs">Why Structured Outputs?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pydantic-schema-definition">Pydantic Schema Definition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-the-schema-with-openai">Using the Schema with OpenAI</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-strict-true-requirement">The <code class="docutils literal notranslate"><span class="pre">strict:</span> <span class="pre">True</span></code> Requirement</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-the-lopez-lira-classifier">Building the Lopez-Lira Classifier</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preview-evaluation-with-promptfoo">Preview: Evaluation with promptfoo</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-measurement-mindset">The Measurement Mindset</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-exercises">Hands-On Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-basic-api-call">Exercise 1: Basic API Call</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-model-comparison">Exercise 2: Model Comparison</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-build-a-schema">Exercise 3: Build a Schema</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-batch-classification">Exercise 4: Batch Classification</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">Key Takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next Steps</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jeremiah Bejarano
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, Jeremiah Bejarano.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,1086 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Building FlawedCode: A Minimal Claude Code Clone &#8212; Full Stack Quantitative Finance</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=f23691d7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=7a7908ec"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'discussions/building_flawed_code';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/custom.js?v=c0d9a6f1"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="ChartBook Integration: Connecting Agents to Financial Data" href="chartbook_integration.html" />
+    <link rel="prev" title="Agent Fundamentals: From ReAct to LangGraph" href="agent_fundamentals.html" /> 
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>   
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Full Stack Quantitative Finance - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Full Stack Quantitative Finance - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Generative and Agentic AI for Finance
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../README.html">Course Syllabus: FINM 32900, Winter 2025</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Course Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Discussions 📖</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_01.html">Discussion 1: The New Quant - LLMs in Finance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="gen_ai_tech_stack.html">The Generative AI Tech Stack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="llms_transforming_finance.html">LLMs Transforming Finance: The New Quant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_and_structured_outputs.html">API Basics and Structured Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ai_copilots_intro.html">AI Copilots: Claude Code and Cursor</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../discussion_02.html">Discussion 2: Building and Benchmarking Coding Agents</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="agent_fundamentals.html">Agent Fundamentals: From ReAct to LangGraph</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Building FlawedCode: A Minimal Claude Code Clone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chartbook_integration.html">ChartBook Integration: Connecting Agents to Financial Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="context_management.html">Context Management for Deep Agents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agent_benchmarking.html">Agent Benchmarking: Measuring What Matters</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_03.html">Discussion 3: AI Application Development &amp; Financial Data Integration</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="chat_applications_overview.html">Chat Applications Overview: AI in Financial Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_to_nextjs.html">Introduction to Next.js and Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_to_chatkit.html">Building a Financial Research Assistant with ChatKit</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_04.html">Discussion 4: Text Representation &amp; Embeddings</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="vector_embeddings_and_search.html"><strong>The Architecture of Meaning: From Vector Embeddings to Reasoning-Based Retrieval</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="vector_embeddings_literature.html">Essential papers on embeddings and vector databases for AI/ML</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Homework 📝</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../HW0.html">Homework 0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HW1.html">Homework 1: Lopez-Lira Replication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HW2.html">Homework 2: Embedding-Based Return Prediction</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../final_project.html">Final Project</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/final_project_rubric.html">Final Project Instructions and Rubric</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/potential_final_projects.html">List of Potential Final Projects</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Misc 📌</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../acknowledgments.html">Acknowledgments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../appendix.html">Appendix</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project/issues/new?title=Issue%20on%20page%20%2Fdiscussions/building_flawed_code.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/discussions/building_flawed_code.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Building FlawedCode: A Minimal Claude Code Clone</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-flawedcode">What is FlawedCode?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-flawed">Why “Flawed”?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-tools">The Tools</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tool-implementation">Tool Implementation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#flawedcode-v0-no-memory-baseline">FlawedCode v0: No Memory (Baseline)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-code">The Code</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#demo-watch-it-fail">Demo: Watch It Fail</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-it-fails">Why It Fails</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#flawedcode-v1-with-memory">FlawedCode v1: With Memory</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-key-difference">The Key Difference</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-full-repl">The Full REPL</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#demo-now-it-works">Demo: Now It Works!</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-exercise-run-flawedcode">Hands-On Exercise: Run FlawedCode</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#try-these-tasks">Try These Tasks</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-session">Example Session</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion-whats-missing">Discussion: What’s Missing?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion-questions">Discussion Questions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture-overview">Architecture Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">Key Takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-journey-so-far">The Journey So Far</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next Steps</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                   <section class="tex2jax_ignore mathjax_ignore" id="building-flawedcode-a-minimal-claude-code-clone">
+<h1>Building FlawedCode: A Minimal Claude Code Clone<a class="headerlink" href="#building-flawedcode-a-minimal-claude-code-clone" title="Link to this heading">#</a></h1>
+<p><strong>Duration:</strong> 30 minutes</p>
+<p><strong>Learning Objectives:</strong></p>
+<ul class="simple">
+<li><p>Build a working coding assistant step-by-step</p></li>
+<li><p>Implement file operation and code execution tools</p></li>
+<li><p>Understand the difference between v0 (no memory) and v1 (with memory)</p></li>
+<li><p>Experience agent limitations firsthand</p></li>
+</ul>
+<hr class="docutils" />
+<section id="what-is-flawedcode">
+<h2>What is FlawedCode?<a class="headerlink" href="#what-is-flawedcode" title="Link to this heading">#</a></h2>
+<p><strong>FlawedCode</strong> is a minimal Claude Code clone in ~200 lines. It’s a REPL-based coding assistant that can read files, write code, navigate directories, and execute Python—just like the production tools you use daily.</p>
+<p><strong>Full code</strong>: <a class="reference external" href="https://github.com/finm-33200/ai_inclass_examples/tree/main/agents/08_flawed_code">08_flawed_code on GitHub</a></p>
+<section id="why-flawed">
+<h3>Why “Flawed”?<a class="headerlink" href="#why-flawed" title="Link to this heading">#</a></h3>
+<p>The name is intentional:</p>
+<ul class="simple">
+<li><p>Uses inexpensive models (~$0.15/1M tokens) that make mistakes</p></li>
+<li><p>Missing many features of production tools</p></li>
+<li><p><strong>The flaws are the point</strong> - you’ll learn both capabilities AND limitations</p></li>
+</ul>
+<p>This is how you learn to build better agents: by building imperfect ones first.</p>
+<p><img alt="Autonomous Agent Architecture" src="../_images/autonomous_agent.png" /></p>
+<p><em>FlawedCode implements the autonomous agent pattern: receive input, decide on tools, observe results, loop until complete. Source: <a class="reference external" href="https://www.anthropic.com/research/building-effective-agents">Anthropic</a></em></p>
+<blockquote>
+<div><p><strong>📚 Literature: Yao, S., Zhao, J., Yu, D., et al. (2023). “ReAct: Synergizing Reasoning and Acting in Language Models.” ICLR 2023.</strong></p>
+<p>This paper formalized the agent pattern FlawedCode implements. ReAct showed that interleaving reasoning traces with actions produces more reliable agents than pure reasoning (chain-of-thought) or pure action (without explicit reasoning). The key insight: agents should “think out loud” before and after tool calls.</p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="the-tools">
+<h2>The Tools<a class="headerlink" href="#the-tools" title="Link to this heading">#</a></h2>
+<p>FlawedCode has 5 core tools—the minimum needed for a useful coding assistant:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Tool</p></th>
+<th class="head"><p>Purpose</p></th>
+<th class="head"><p>Example</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">read_file</span></code></p></td>
+<td><p>Read file contents</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">read_file(&quot;main.py&quot;)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">write_file</span></code></p></td>
+<td><p>Create/modify files</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">write_file(&quot;test.py&quot;,</span> <span class="pre">&quot;print('hello')&quot;)</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">list_files</span></code></p></td>
+<td><p>Navigate directories</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">list_files(&quot;src/&quot;)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">search_files</span></code></p></td>
+<td><p>Find patterns in code</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">search_files(&quot;def</span> <span class="pre">calculate&quot;)</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">run_python</span></code></p></td>
+<td><p>Execute Python code</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">run_python(&quot;print(2+2)&quot;)</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><img alt="Augmented LLM" src="../_images/augmented_llm.png" /></p>
+<p><em>FlawedCode augments the base LLM with file operations and code execution—the minimum tools for a useful coding assistant. Source: <a class="reference external" href="https://www.anthropic.com/research/building-effective-agents">Anthropic</a></em></p>
+<blockquote>
+<div><p><strong>📚 Literature: Chen, M., et al. (2021). “Evaluating Large Language Models Trained on Code.”</strong></p>
+<p>Codex demonstrated that LLMs trained on code repositories can generate functional programs from natural language descriptions. This capability—showing that a single model could both understand and produce code—is what makes tools like FlawedCode possible. The paper also introduced HumanEval, still used today to benchmark code generation.</p>
+</div></blockquote>
+<section id="tool-implementation">
+<h3>Tool Implementation<a class="headerlink" href="#tool-implementation" title="Link to this heading">#</a></h3>
+<p>Tools use LangChain’s <code class="docutils literal notranslate"><span class="pre">&#64;tool</span></code> decorator:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain_core.tools</span> <span class="kn">import</span> <span class="n">tool</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Annotated</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="n">WORK_DIR</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>  <span class="c1"># Constrained working directory</span>
+
+<span class="nd">@tool</span>
+<span class="k">def</span> <span class="nf">read_file</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Relative path to file&quot;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Read the contents of a file.&quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">full_path</span> <span class="o">=</span> <span class="n">WORK_DIR</span> <span class="o">/</span> <span class="n">path</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">full_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Error: File not found: </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="n">full_path</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="nd">@tool</span>
+<span class="k">def</span> <span class="nf">write_file</span><span class="p">(</span>
+    <span class="n">path</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Relative path to file&quot;</span><span class="p">],</span>
+    <span class="n">content</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Content to write&quot;</span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Write content to a file. Creates parent directories if needed.&quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">full_path</span> <span class="o">=</span> <span class="n">WORK_DIR</span> <span class="o">/</span> <span class="n">path</span>
+        <span class="n">full_path</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">full_path</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Wrote </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">content</span><span class="p">)</span><span class="si">}</span><span class="s2"> characters to </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="nd">@tool</span>
+<span class="k">def</span> <span class="nf">run_python</span><span class="p">(</span><span class="n">code</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Python code to execute&quot;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Execute Python code and return the output. Use print() to show results.&quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;.py&#39;</span><span class="p">,</span> <span class="n">delete</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+            <span class="n">temp_path</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">name</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+            <span class="p">[</span><span class="s1">&#39;python&#39;</span><span class="p">,</span> <span class="n">temp_path</span><span class="p">],</span>
+            <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>  <span class="c1"># Safety limit</span>
+            <span class="n">cwd</span><span class="o">=</span><span class="n">WORK_DIR</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">output</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">stdout</span>
+        <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">stderr</span><span class="p">:</span>
+            <span class="n">output</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">[stderr]: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">stderr</span><span class="si">}</span><span class="s2">&quot;</span>
+
+        <span class="k">return</span> <span class="n">output</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">if</span> <span class="n">output</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;[No output]&quot;</span>
+
+    <span class="k">except</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">TimeoutExpired</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;[Error: Execution timed out after 10 seconds]&quot;</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">Path</span><span class="p">(</span><span class="n">temp_path</span><span class="p">)</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">missing_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="flawedcode-v0-no-memory-baseline">
+<h2>FlawedCode v0: No Memory (Baseline)<a class="headerlink" href="#flawedcode-v0-no-memory-baseline" title="Link to this heading">#</a></h2>
+<p>First, let’s build the simplest possible version—one that forgets everything between turns.</p>
+<p><img alt="Prompt Chaining" src="../_images/prompt_chaining.png" /></p>
+<p><em>v0 treats each turn as independent: no memory of previous interactions means the agent forgets everything between turns. Source: <a class="reference external" href="https://www.anthropic.com/research/building-effective-agents">Anthropic</a></em></p>
+<section id="the-code">
+<h3>The Code<a class="headerlink" href="#the-code" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langgraph.prebuilt</span> <span class="kn">import</span> <span class="n">create_react_agent</span>
+
+<span class="k">def</span> <span class="nf">run_single_turn</span><span class="p">(</span><span class="n">agent</span><span class="p">,</span> <span class="n">user_input</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Process one turn with no memory.&quot;&quot;&quot;</span>
+    <span class="n">messages</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="n">user_input</span><span class="p">)]</span>  <span class="c1"># Fresh messages each time!</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;messages&quot;</span><span class="p">:</span> <span class="n">messages</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">response</span><span class="p">[</span><span class="s2">&quot;messages&quot;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">content</span>
+</pre></div>
+</div>
+</section>
+<section id="demo-watch-it-fail">
+<h3>Demo: Watch It Fail<a class="headerlink" href="#demo-watch-it-fail" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>flawed_code_v0&gt; List files in the project
+  [list_files] {}
+    → [file] README.md
+       [file] analyze.py
+       [file] data.csv
+Found 3 files: README.md, analyze.py, and data.csv.
+
+flawed_code_v0&gt; Read analyze.py
+  [read_file] {&quot;path&quot;: &quot;analyze.py&quot;}
+    → &quot;&quot;&quot;Stock price analyzer...&quot;&quot;&quot;
+The file contains stock analysis functions including
+calculate_returns and calculate_volatility.
+
+flawed_code_v0&gt; What files did you just read?
+I don&#39;t have any context about previous actions.
+Could you tell me which files you&#39;d like me to read?
+</pre></div>
+</div>
+<p><strong>The agent forgot everything!</strong> Each turn starts fresh.</p>
+</section>
+<section id="why-it-fails">
+<h3>Why It Fails<a class="headerlink" href="#why-it-fails" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Turn 1: messages = [user: &quot;list files&quot;]  → response
+Turn 2: messages = [user: &quot;read file&quot;]   → response (no memory of turn 1)
+Turn 3: messages = [user: &quot;what files?&quot;] → response (no memory of turns 1-2)
+</pre></div>
+</div>
+<p>The messages list is recreated each turn. No history is preserved.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="flawedcode-v1-with-memory">
+<h2>FlawedCode v1: With Memory<a class="headerlink" href="#flawedcode-v1-with-memory" title="Link to this heading">#</a></h2>
+<p>Now let’s add the critical feature: <strong>conversation memory</strong>.</p>
+<p><img alt="Evaluator-Optimizer Loop" src="../_images/evaluator_optimizer.png" /></p>
+<p><em>With memory, the agent can iterate through multi-step tasks—reading, modifying, and verifying code while maintaining context. Source: <a class="reference external" href="https://www.anthropic.com/research/building-effective-agents">Anthropic</a></em></p>
+<section id="the-key-difference">
+<h3>The Key Difference<a class="headerlink" href="#the-key-difference" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># v0: Messages reset each turn</span>
+<span class="k">def</span> <span class="nf">run_single_turn</span><span class="p">(</span><span class="n">agent</span><span class="p">,</span> <span class="n">user_input</span><span class="p">):</span>
+    <span class="n">messages</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="n">user_input</span><span class="p">)]</span>  <span class="c1"># Fresh each time!</span>
+    <span class="o">...</span>
+
+<span class="c1"># v1: Messages persist across turns</span>
+<span class="n">messages</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># OUTSIDE the loop!</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">user_input</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;flawed_code&gt; &quot;</span><span class="p">)</span>
+    <span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="n">user_input</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">agent</span><span class="o">.</span><span class="n">stream</span><span class="p">({</span><span class="s2">&quot;messages&quot;</span><span class="p">:</span> <span class="n">messages</span><span class="p">}):</span>
+        <span class="c1"># Process events...</span>
+        <span class="k">pass</span>
+
+    <span class="c1"># Messages accumulate - agent remembers everything</span>
+</pre></div>
+</div>
+</section>
+<section id="the-full-repl">
+<h3>The Full REPL<a class="headerlink" href="#the-full-repl" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain_openai</span> <span class="kn">import</span> <span class="n">ChatOpenAI</span>
+<span class="kn">from</span> <span class="nn">langgraph.prebuilt</span> <span class="kn">import</span> <span class="n">create_react_agent</span>
+<span class="kn">from</span> <span class="nn">tools</span> <span class="kn">import</span> <span class="n">read_file</span><span class="p">,</span> <span class="n">write_file</span><span class="p">,</span> <span class="n">list_files</span><span class="p">,</span> <span class="n">search_files</span><span class="p">,</span> <span class="n">run_python</span>
+
+<span class="n">MODEL</span> <span class="o">=</span> <span class="s2">&quot;openai/gpt-4o-mini&quot;</span>  <span class="c1"># Cheap but capable</span>
+
+<span class="n">llm</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">MODEL</span><span class="p">,</span>
+    <span class="n">base_url</span><span class="o">=</span><span class="s2">&quot;https://openrouter.ai/api/v1&quot;</span><span class="p">,</span>
+    <span class="n">api_key</span><span class="o">=</span><span class="n">config</span><span class="p">(</span><span class="s2">&quot;OPENROUTER_API_KEY&quot;</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">SYSTEM_PROMPT</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;You are FlawedCode, a simple coding assistant.</span>
+
+<span class="s2">You have access to:</span>
+<span class="s2">- read_file: Read file contents</span>
+<span class="s2">- write_file: Write/create files</span>
+<span class="s2">- list_files: List directory contents</span>
+<span class="s2">- search_files: Search patterns in files</span>
+<span class="s2">- run_python: Execute Python code</span>
+
+<span class="s2">When helping with code:</span>
+<span class="s2">1. First understand the codebase (list_files, read_file)</span>
+<span class="s2">2. Make focused changes (write_file)</span>
+<span class="s2">3. Test if needed (run_python)</span>
+
+<span class="s2">Be concise but helpful. You may make mistakes - you&#39;re running on a cheap model!</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">tools</span> <span class="o">=</span> <span class="p">[</span><span class="n">read_file</span><span class="p">,</span> <span class="n">write_file</span><span class="p">,</span> <span class="n">list_files</span><span class="p">,</span> <span class="n">search_files</span><span class="p">,</span> <span class="n">run_python</span><span class="p">]</span>
+<span class="n">agent</span> <span class="o">=</span> <span class="n">create_react_agent</span><span class="p">(</span><span class="n">llm</span><span class="p">,</span> <span class="n">tools</span><span class="p">,</span> <span class="n">prompt</span><span class="o">=</span><span class="n">SystemMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="n">SYSTEM_PROMPT</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">run_repl</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;flawed_code v0.1 - Minimal Claude Code Clone&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Using model: </span><span class="si">{</span><span class="n">MODEL</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+
+    <span class="n">messages</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Persistent memory!</span>
+
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">user_input</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">flawed_code&gt; &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">user_input</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;quit&quot;</span><span class="p">:</span>
+            <span class="k">break</span>
+        <span class="k">if</span> <span class="n">user_input</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;clear&quot;</span><span class="p">:</span>
+            <span class="n">messages</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[Conversation cleared]&quot;</span><span class="p">)</span>
+            <span class="k">continue</span>
+
+        <span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="n">user_input</span><span class="p">))</span>
+
+        <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">agent</span><span class="o">.</span><span class="n">stream</span><span class="p">({</span><span class="s2">&quot;messages&quot;</span><span class="p">:</span> <span class="n">messages</span><span class="p">}):</span>
+            <span class="c1"># Print tool calls and results</span>
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">event</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s2">&quot;agent&quot;</span><span class="p">:</span>
+                    <span class="n">msg</span> <span class="o">=</span> <span class="n">value</span><span class="p">[</span><span class="s2">&quot;messages&quot;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="s2">&quot;tool_calls&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">msg</span><span class="o">.</span><span class="n">tool_calls</span><span class="p">:</span>
+                        <span class="k">for</span> <span class="n">tc</span> <span class="ow">in</span> <span class="n">msg</span><span class="o">.</span><span class="n">tool_calls</span><span class="p">:</span>
+                            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  [</span><span class="si">{</span><span class="n">tc</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">tc</span><span class="p">[</span><span class="s1">&#39;args&#39;</span><span class="p">])[:</span><span class="mi">60</span><span class="p">]</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">msg</span><span class="o">.</span><span class="n">content</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+
+        <span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s2">&quot;assistant&quot;</span><span class="p">,</span> <span class="s2">&quot;[response]&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+<section id="demo-now-it-works">
+<h3>Demo: Now It Works!<a class="headerlink" href="#demo-now-it-works" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>flawed_code&gt; List files in the project
+  [list_files] {}
+    → [file] README.md
+       [file] analyze.py
+       [file] data.csv
+Found 3 files: README.md, analyze.py, and data.csv.
+
+flawed_code&gt; Read analyze.py
+  [read_file] {&quot;path&quot;: &quot;analyze.py&quot;}
+    → &quot;&quot;&quot;Stock price analyzer...&quot;&quot;&quot;
+The file contains stock analysis functions...
+
+flawed_code&gt; What files did you just read?
+I just read analyze.py, which contains stock analysis functions
+including calculate_returns and calculate_volatility.
+</pre></div>
+</div>
+<p><strong>The agent remembers!</strong> Same questions, different results.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="hands-on-exercise-run-flawedcode">
+<h2>Hands-On Exercise: Run FlawedCode<a class="headerlink" href="#hands-on-exercise-run-flawedcode" title="Link to this heading">#</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>ai_inclass_examples/agents/08_flawed_code
+python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
+<span class="nb">source</span><span class="w"> </span>.venv/bin/activate<span class="w">  </span><span class="c1"># Windows: .venv\Scripts\activate</span>
+pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+python<span class="w"> </span>flawed_code.py
+</pre></div>
+</div>
+<section id="try-these-tasks">
+<h3>Try These Tasks<a class="headerlink" href="#try-these-tasks" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Explore</strong>: <code class="docutils literal notranslate"><span class="pre">&quot;what</span> <span class="pre">files</span> <span class="pre">are</span> <span class="pre">here?&quot;</span></code></p></li>
+<li><p><strong>Read</strong>: <code class="docutils literal notranslate"><span class="pre">&quot;read</span> <span class="pre">analyze.py</span> <span class="pre">and</span> <span class="pre">describe</span> <span class="pre">it&quot;</span></code></p></li>
+<li><p><strong>Fix a bug</strong>: <code class="docutils literal notranslate"><span class="pre">&quot;fix</span> <span class="pre">the</span> <span class="pre">bug</span> <span class="pre">in</span> <span class="pre">calculate_volatility&quot;</span></code></p></li>
+<li><p><strong>Test</strong>: <code class="docutils literal notranslate"><span class="pre">&quot;run</span> <span class="pre">it&quot;</span></code></p></li>
+</ol>
+</section>
+<section id="example-session">
+<h3>Example Session<a class="headerlink" href="#example-session" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>flawed_code v0.1 - Minimal Claude Code Clone
+Using model: openai/gpt-4o-mini
+Working directory: demo_project
+Commands: &#39;quit&#39; to exit, &#39;clear&#39; to reset conversation
+--------------------------------------------------
+
+flawed_code&gt; what files are here?
+  [list_files] {}...
+    → [file] README.md
+       [file] analyze.py
+       [file] data.csv
+There are 3 files: README.md, analyze.py, and data.csv.
+
+flawed_code&gt; read analyze.py and describe it
+  [read_file] {&#39;path&#39;: &#39;analyze.py&#39;}...
+    → &quot;&quot;&quot;Stock price analyzer.&quot;&quot;&quot;...
+The analyze.py file contains stock analysis functions:
+- calculate_returns: Computes daily returns from prices
+- calculate_volatility: Computes standard deviation (has a bug!)
+- main: Demo with sample AAPL prices
+
+flawed_code&gt; fix the bug in calculate_volatility
+  [read_file] {&#39;path&#39;: &#39;analyze.py&#39;}...
+  [write_file] {&#39;path&#39;: &#39;analyze.py&#39;, &#39;content&#39;: &#39;...&#39;}...
+    → Wrote 650 chars to analyze.py
+Fixed! Added a check for empty lists that returns 0.0.
+
+flawed_code&gt; run it
+  [run_python] {&#39;code&#39;: &#39;exec(open(&quot;analyze.py&quot;).read())&#39;}...
+    → Returns: [0.0167, -0.0098, 0.0265, -0.0097]
+       Volatility: 0.0150
+The code runs successfully now.
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="discussion-whats-missing">
+<h2>Discussion: What’s Missing?<a class="headerlink" href="#discussion-whats-missing" title="Link to this heading">#</a></h2>
+<p>Compare FlawedCode to Claude Code:</p>
+<p><img alt="Coding Agent Flow" src="../_images/coding_agent_flow.png" /></p>
+<p><em>Production tools like Claude Code implement sophisticated pipelines for understanding issues, exploring codebases, writing solutions, and verification. FlawedCode captures only the core loop. Source: <a class="reference external" href="https://www.anthropic.com/research/building-effective-agents">Anthropic</a></em></p>
+<blockquote>
+<div><p><strong>📚 Literature: The Agent Gap</strong></p>
+<p><strong>Jimenez, C.E., et al. (2023). “SWE-bench: Can Language Models Resolve Real-World GitHub Issues?” ICLR 2024.</strong>
+SWE-bench exposed a crucial gap: models scoring well on coding benchmarks often fail at real software engineering requiring multi-file coordination, test awareness, and codebase understanding. FlawedCode’s limitations mirror this gap—it handles simple file operations but struggles with complex, multi-step modifications.</p>
+<p><strong>Kim, S., et al. (2024). “An LLM Compiler for Parallel Function Calling.”</strong>
+Production agents like Claude Code use parallel tool execution to reduce latency. LLMCompiler showed how to achieve 3.7x latency reduction by analyzing tool dependencies and executing independent calls simultaneously—a feature FlawedCode lacks entirely.</p>
+</div></blockquote>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Feature</p></th>
+<th class="head"><p>Claude Code</p></th>
+<th class="head"><p>FlawedCode</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Multi-file edits</p></td>
+<td><p>Yes</p></td>
+<td><p>No (sequential)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Git integration</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-even"><td><p>MCP servers</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p>Planning mode</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-even"><td><p>Image support</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p>Permission system</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-even"><td><p>Context management</p></td>
+<td><p>Sophisticated</p></td>
+<td><p>None</p></td>
+</tr>
+<tr class="row-odd"><td><p>Streaming UI</p></td>
+<td><p>Fancy terminal</p></td>
+<td><p>Basic print</p></td>
+</tr>
+<tr class="row-even"><td><p>Total size</p></td>
+<td><p>~10K lines</p></td>
+<td><p>~200 lines</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="discussion-questions">
+<h3>Discussion Questions<a class="headerlink" href="#discussion-questions" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><p><strong>What happens after many turns?</strong></p>
+<p>The messages list grows forever. What are the consequences?</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Why do expensive models matter less than we think?</strong></p>
+<p>FlawedCode uses gpt-4o-mini (<span class="math notranslate nohighlight">\(0.15/1M). Would GPT-4 (\)</span>10/1M) be 66x better?</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>What’s the biggest limitation you noticed?</strong></p>
+<p>Think about what frustrated you during the hands-on exercise.</p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="architecture-overview">
+<h2>Architecture Overview<a class="headerlink" href="#architecture-overview" title="Link to this heading">#</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>08_flawed_code/
+├── flawed_code.py    # Main REPL (~100 lines)
+├── tools.py          # Tool definitions (~100 lines)
+├── requirements.txt
+├── README.md
+└── demo_project/     # Sample files for testing
+    ├── analyze.py    # Has a bug to fix!
+    ├── data.csv
+    └── README.md
+</pre></div>
+</div>
+<p><strong>Total: ~200 lines</strong> of actual code to build a functional coding assistant.</p>
+<p><img alt="LangGraph Flow Diagram" src="../_images/langgraph_flow_diagram.png" /></p>
+<p><em>FlawedCode’s simple graph: user input flows to agent, routes to tools, and returns responses—all in ~200 lines.</em></p>
+</section>
+<hr class="docutils" />
+<section id="key-takeaways">
+<h2>Key Takeaways<a class="headerlink" href="#key-takeaways" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>A working coding assistant is surprisingly simple</strong> - ~200 lines</p></li>
+<li><p><strong>Memory (v0 → v1) is the first critical improvement</strong> - enables multi-turn work</p></li>
+<li><p><strong>Tools are the interface</strong> - LLM reasons, tools act</p></li>
+<li><p><strong>Context limits will become a problem</strong> - we’ll address this next</p></li>
+<li><p><strong>Frameworks handle plumbing</strong> - LangGraph lets you focus on tools</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="the-journey-so-far">
+<h2>The Journey So Far<a class="headerlink" href="#the-journey-so-far" title="Link to this heading">#</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>01_react_loop        → Core agent pattern
+02_agent_with_memory → Conversation context
+03_multi_tool_agent  → Multiple tool selection
+04_langgraph_intro   → Graph-based workflows
+05_langgraph_agent   → Framework-based agents
+06_code_execution    → Running code safely
+07_file_operations   → File system tools
+08_flawed_code       → The complete assistant ← YOU ARE HERE
+</pre></div>
+</div>
+<p>From raw loops to a working Claude Code clone!</p>
+</section>
+<hr class="docutils" />
+<section id="next-steps">
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
+<p>FlawedCode v1 works, but it has a hidden problem: <strong>context grows unbounded</strong>. Let’s add real financial data with <a class="reference internal" href="chartbook_integration.html"><span class="std std-doc">ChartBook Integration</span></a> to see this problem emerge.</p>
+</section>
+</section>
+
+<div class="section ablog__blog_comments">
+   
+</div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="agent_fundamentals.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Agent Fundamentals: From ReAct to LangGraph</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="chartbook_integration.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">ChartBook Integration: Connecting Agents to Financial Data</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-flawedcode">What is FlawedCode?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-flawed">Why “Flawed”?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-tools">The Tools</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tool-implementation">Tool Implementation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#flawedcode-v0-no-memory-baseline">FlawedCode v0: No Memory (Baseline)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-code">The Code</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#demo-watch-it-fail">Demo: Watch It Fail</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-it-fails">Why It Fails</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#flawedcode-v1-with-memory">FlawedCode v1: With Memory</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-key-difference">The Key Difference</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-full-repl">The Full REPL</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#demo-now-it-works">Demo: Now It Works!</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-exercise-run-flawedcode">Hands-On Exercise: Run FlawedCode</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#try-these-tasks">Try These Tasks</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-session">Example Session</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion-whats-missing">Discussion: What’s Missing?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion-questions">Discussion Questions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture-overview">Architecture Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">Key Takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-journey-so-far">The Journey So Far</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next Steps</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jeremiah Bejarano
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, Jeremiah Bejarano.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

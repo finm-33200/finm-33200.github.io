@@ -1,0 +1,826 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Homework 1: Lopez-Lira Replication &#8212; Full Stack Quantitative Finance</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=f23691d7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=7a7908ec"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'HW1';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/custom.js?v=c0d9a6f1"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Homework 2: Embedding-Based Return Prediction" href="HW2.html" />
+    <link rel="prev" title="Homework 0" href="HW0.html" /> 
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>   
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Full Stack Quantitative Finance - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Full Stack Quantitative Finance - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Generative and Agentic AI for Finance
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="README.html">Course Syllabus: FINM 32900, Winter 2025</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Course Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Discussions 📖</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="discussion_01.html">Discussion 1: The New Quant - LLMs in Finance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="discussions/gen_ai_tech_stack.html">The Generative AI Tech Stack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/llms_transforming_finance.html">LLMs Transforming Finance: The New Quant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/api_and_structured_outputs.html">API Basics and Structured Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/ai_copilots_intro.html">AI Copilots: Claude Code and Cursor</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="discussion_02.html">Discussion 2: Building and Benchmarking Coding Agents</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="discussions/agent_fundamentals.html">Agent Fundamentals: From ReAct to LangGraph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/building_flawed_code.html">Building FlawedCode: A Minimal Claude Code Clone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/chartbook_integration.html">ChartBook Integration: Connecting Agents to Financial Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/context_management.html">Context Management for Deep Agents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/agent_benchmarking.html">Agent Benchmarking: Measuring What Matters</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="discussion_03.html">Discussion 3: AI Application Development &amp; Financial Data Integration</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="discussions/chat_applications_overview.html">Chat Applications Overview: AI in Financial Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/intro_to_nextjs.html">Introduction to Next.js and Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/intro_to_chatkit.html">Building a Financial Research Assistant with ChatKit</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="discussion_04.html">Discussion 4: Text Representation &amp; Embeddings</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="discussions/vector_embeddings_and_search.html"><strong>The Architecture of Meaning: From Vector Embeddings to Reasoning-Based Retrieval</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/vector_embeddings_literature.html">Essential papers on embeddings and vector databases for AI/ML</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Homework 📝</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="HW0.html">Homework 0</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Homework 1: Lopez-Lira Replication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="HW2.html">Homework 2: Embedding-Based Return Prediction</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="final_project.html">Final Project</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="FinalProject/final_project_rubric.html">Final Project Instructions and Rubric</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FinalProject/potential_final_projects.html">List of Potential Final Projects</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Misc 📌</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="acknowledgments.html">Acknowledgments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix.html">Appendix</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project/issues/new?title=Issue%20on%20page%20%2FHW1.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/HW1.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Homework 1: Lopez-Lira Replication</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-objectives">Learning Objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background-reading">Background Reading</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#assignment-components">Assignment Components</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-paper-analysis-10-points">Part 1: Paper Analysis (10 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-sentiment-classification-pipeline-40-points">Part 2: Sentiment Classification Pipeline (40 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-data-collection-20-points">Part 3: Data Collection (20 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-4-classification-results-20-points">Part 4: Classification Results (20 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-5-baseline-comparison-10-points-optional-but-recommended">Part 5: Baseline Comparison (10 points, Optional but Recommended)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">Deliverables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grading-rubric">Grading Rubric</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tips-for-success">Tips for Success</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prompt-engineering">Prompt Engineering</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rate-limit-handling">Rate Limit Handling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cost-management">Cost Management</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-comparison">Model Comparison</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resources">Resources</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submission">Submission</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                   <section class="tex2jax_ignore mathjax_ignore" id="homework-1-lopez-lira-replication">
+<h1>Homework 1: Lopez-Lira Replication<a class="headerlink" href="#homework-1-lopez-lira-replication" title="Link to this heading">#</a></h1>
+<p><strong>Replicating Sentiment-Based Return Prediction</strong></p>
+<p>In this assignment, you will replicate the core methodology from Lopez-Lira (2023), “Can ChatGPT Forecast Stock Price Movements?” This paper demonstrated that GPT-4’s sentiment classifications of financial news headlines correlate with next-day stock returns—a finding with significant implications for quantitative trading.</p>
+<hr class="docutils" />
+<section id="learning-objectives">
+<h2>Learning Objectives<a class="headerlink" href="#learning-objectives" title="Link to this heading">#</a></h2>
+<p>By completing this assignment, you will:</p>
+<ol class="arabic simple">
+<li><p><strong>Understand the Lopez-Lira methodology</strong> and its significance</p></li>
+<li><p><strong>Build a complete sentiment classification pipeline</strong> using the OpenAI API</p></li>
+<li><p><strong>Extract structured data</strong> using Pydantic schemas</p></li>
+<li><p><strong>Process financial news data</strong> at scale</p></li>
+<li><p><strong>Evaluate classifier performance</strong> against baseline methods</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="background-reading">
+<h2>Background Reading<a class="headerlink" href="#background-reading" title="Link to this heading">#</a></h2>
+<p>Before starting, read the following paper:</p>
+<blockquote>
+<div><p><strong>Lopez-Lira, A. &amp; Tang, Y. (2023). “Can ChatGPT Forecast Stock Price Movements? Return Predictability and Large Language Models.”</strong> <a class="reference external" href="https://arxiv.org/abs/2304.07619">arXiv:2304.07619</a></p>
+</div></blockquote>
+<p>Key findings to understand:</p>
+<ul class="simple">
+<li><p>GPT-4 sentiment scores predict next-day returns</p></li>
+<li><p>Smaller models (BERT, GPT-3.5) showed no predictive power</p></li>
+<li><p>The effect is strongest for smaller, less-covered stocks</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="assignment-components">
+<h2>Assignment Components<a class="headerlink" href="#assignment-components" title="Link to this heading">#</a></h2>
+<section id="part-1-paper-analysis-10-points">
+<h3>Part 1: Paper Analysis (10 points)<a class="headerlink" href="#part-1-paper-analysis-10-points" title="Link to this heading">#</a></h3>
+<p>Write a brief (1-2 page) summary addressing:</p>
+<ol class="arabic simple">
+<li><p><strong>Methodology:</strong> How did Lopez-Lira collect headlines and classify sentiment?</p></li>
+<li><p><strong>Key Finding:</strong> What is the main result, and why does model scale matter?</p></li>
+<li><p><strong>Limitations:</strong> What are the paper’s main limitations?</p></li>
+<li><p><strong>Replication Scope:</strong> What aspects will you replicate, and what will you simplify?</p></li>
+</ol>
+</section>
+<section id="part-2-sentiment-classification-pipeline-40-points">
+<h3>Part 2: Sentiment Classification Pipeline (40 points)<a class="headerlink" href="#part-2-sentiment-classification-pipeline-40-points" title="Link to this heading">#</a></h3>
+<p>Build a Python pipeline that:</p>
+<ol class="arabic simple">
+<li><p><strong>Loads headlines</strong> from a CSV file</p></li>
+<li><p><strong>Classifies each headline</strong> as “good news,” “bad news,” or “uncertain”</p></li>
+<li><p><strong>Returns structured output</strong> with confidence scores</p></li>
+<li><p><strong>Handles errors gracefully</strong> (rate limits, API failures)</p></li>
+</ol>
+<p><strong>Required structure:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span>
+
+<span class="k">class</span> <span class="nc">LopezLiraSentiment</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Sentiment classification following Lopez-Lira (2023).&quot;&quot;&quot;</span>
+
+    <span class="n">classification</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;good news&quot;</span><span class="p">,</span> <span class="s2">&quot;bad news&quot;</span><span class="p">,</span> <span class="s2">&quot;uncertain&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Sentiment classification&quot;</span>
+    <span class="p">)</span>
+    <span class="n">confidence</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Confidence score from 0.0 to 1.0&quot;</span><span class="p">,</span>
+        <span class="n">ge</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">le</span><span class="o">=</span><span class="mf">1.0</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Starter code:</strong> See <a class="reference external" href="https://github.com/finm-33200/ai_inclass_examples/tree/main/basic_llm_api/11_lopez_lira">11_lopez_lira</a> in the course examples repository.</p>
+</section>
+<section id="part-3-data-collection-20-points">
+<h3>Part 3: Data Collection (20 points)<a class="headerlink" href="#part-3-data-collection-20-points" title="Link to this heading">#</a></h3>
+<p>Collect or curate a dataset of at least <strong>50 financial news headlines</strong>. Options:</p>
+<ol class="arabic simple">
+<li><p><strong>Manual collection:</strong> Gather headlines from financial news sites (Reuters, Bloomberg, WSJ)</p></li>
+<li><p><strong>Public datasets:</strong> Use existing headline datasets (e.g., Kaggle financial news)</p></li>
+<li><p><strong>API access:</strong> If you have access, use a news API</p></li>
+</ol>
+<p>For each headline, record:</p>
+<ul class="simple">
+<li><p>Headline text</p></li>
+<li><p>Source</p></li>
+<li><p>Date</p></li>
+<li><p>Associated ticker (if mentioned)</p></li>
+</ul>
+<p><strong>Important:</strong> Document your data collection process. Include a README explaining your sources and any preprocessing.</p>
+</section>
+<section id="part-4-classification-results-20-points">
+<h3>Part 4: Classification Results (20 points)<a class="headerlink" href="#part-4-classification-results-20-points" title="Link to this heading">#</a></h3>
+<p>Run your classifier on the collected headlines and report:</p>
+<ol class="arabic simple">
+<li><p><strong>Distribution of classifications</strong></p>
+<ul class="simple">
+<li><p>How many headlines were classified as good/bad/uncertain?</p></li>
+<li><p>What is the average confidence score by category?</p></li>
+</ul>
+</li>
+<li><p><strong>Example outputs</strong></p>
+<ul class="simple">
+<li><p>Show 5 example headlines with their classifications and reasoning</p></li>
+<li><p>Identify any surprising or incorrect classifications</p></li>
+</ul>
+</li>
+<li><p><strong>Cost analysis</strong></p>
+<ul class="simple">
+<li><p>Total tokens used</p></li>
+<li><p>Estimated API cost</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="part-5-baseline-comparison-10-points-optional-but-recommended">
+<h3>Part 5: Baseline Comparison (10 points, Optional but Recommended)<a class="headerlink" href="#part-5-baseline-comparison-10-points-optional-but-recommended" title="Link to this heading">#</a></h3>
+<p>Compare GPT-4o-mini’s classifications against a baseline:</p>
+<p><strong>Option A: VADER Sentiment</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">vaderSentiment.vaderSentiment</span> <span class="kn">import</span> <span class="n">SentimentIntensityAnalyzer</span>
+<span class="n">analyzer</span> <span class="o">=</span> <span class="n">SentimentIntensityAnalyzer</span><span class="p">()</span>
+<span class="n">scores</span> <span class="o">=</span> <span class="n">analyzer</span><span class="o">.</span><span class="n">polarity_scores</span><span class="p">(</span><span class="n">headline</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Option B: FinBERT</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">pipeline</span>
+<span class="n">finbert</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="s2">&quot;sentiment-analysis&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s2">&quot;ProsusAI/finbert&quot;</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">finbert</span><span class="p">(</span><span class="n">headline</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Report:</p>
+<ul class="simple">
+<li><p>Agreement rate between GPT and baseline</p></li>
+<li><p>Cases where they disagree</p></li>
+<li><p>Which seems more accurate on your data?</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="deliverables">
+<h2>Deliverables<a class="headerlink" href="#deliverables" title="Link to this heading">#</a></h2>
+<p>Submit the following:</p>
+<ol class="arabic simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">report.pdf</span></code></strong> - Written analysis (Parts 1, 4, and 5)</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">classify_headlines.py</span></code></strong> - Your classification pipeline</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">data/headlines.csv</span></code></strong> - Your collected headlines</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">results/classifications.csv</span></code></strong> - Classification outputs</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">README.md</span></code></strong> - Setup instructions and data documentation</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="grading-rubric">
+<h2>Grading Rubric<a class="headerlink" href="#grading-rubric" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Component</p></th>
+<th class="head"><p>Points</p></th>
+<th class="head"><p>Criteria</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Paper Analysis</p></td>
+<td><p>10</p></td>
+<td><p>Clear summary, identifies key insights and limitations</p></td>
+</tr>
+<tr class="row-odd"><td><p>Pipeline Code</p></td>
+<td><p>40</p></td>
+<td><p>Working code, proper error handling, structured outputs</p></td>
+</tr>
+<tr class="row-even"><td><p>Data Collection</p></td>
+<td><p>20</p></td>
+<td><p>Sufficient quantity, proper documentation, diverse sources</p></td>
+</tr>
+<tr class="row-odd"><td><p>Results Analysis</p></td>
+<td><p>20</p></td>
+<td><p>Accurate reporting, insightful examples, cost awareness</p></td>
+</tr>
+<tr class="row-even"><td><p>Baseline Comparison</p></td>
+<td><p>10</p></td>
+<td><p>Meaningful comparison, correct interpretation</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Total: 100 points</strong> (90 without optional baseline comparison)</p>
+</section>
+<hr class="docutils" />
+<section id="tips-for-success">
+<h2>Tips for Success<a class="headerlink" href="#tips-for-success" title="Link to this heading">#</a></h2>
+<section id="prompt-engineering">
+<h3>Prompt Engineering<a class="headerlink" href="#prompt-engineering" title="Link to this heading">#</a></h3>
+<p>The system prompt significantly affects classification quality. Experiment with:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Basic prompt</span>
+<span class="s2">&quot;Classify this headline as good news, bad news, or uncertain.&quot;</span>
+
+<span class="c1"># More detailed prompt (Lopez-Lira style)</span>
+<span class="sd">&quot;&quot;&quot;You are a financial expert. For each headline, determine whether</span>
+<span class="sd">it represents &#39;good news&#39;, &#39;bad news&#39;, or &#39;uncertain&#39; for the</span>
+<span class="sd">mentioned company&#39;s stock price. Consider market expectations</span>
+<span class="sd">and typical investor reactions.&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="rate-limit-handling">
+<h3>Rate Limit Handling<a class="headerlink" href="#rate-limit-handling" title="Link to this heading">#</a></h3>
+<p>The OpenAI API has rate limits. Add retries with exponential backoff:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">openai</span> <span class="kn">import</span> <span class="n">RateLimitError</span>
+
+<span class="k">def</span> <span class="nf">classify_with_retry</span><span class="p">(</span><span class="n">headline</span><span class="p">,</span> <span class="n">max_retries</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">attempt</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_retries</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">classify_headline</span><span class="p">(</span><span class="n">headline</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">RateLimitError</span><span class="p">:</span>
+            <span class="n">wait_time</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">**</span> <span class="n">attempt</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">wait_time</span><span class="p">)</span>
+    <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Max retries exceeded&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="cost-management">
+<h3>Cost Management<a class="headerlink" href="#cost-management" title="Link to this heading">#</a></h3>
+<p>GPT-4o-mini is cost-effective, but monitor usage:</p>
+<ul class="simple">
+<li><p>~25 tokens per headline (input)</p></li>
+<li><p>~50 tokens per classification (output)</p></li>
+<li><p>50 headlines ≈ 3,750 tokens ≈ $0.001</p></li>
+</ul>
+</section>
+<section id="model-comparison">
+<h3>Model Comparison<a class="headerlink" href="#model-comparison" title="Link to this heading">#</a></h3>
+<p>If you want to replicate Lopez-Lira’s finding that scale matters, try classifying the same headlines with different models:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">gpt-4o-mini</span></code> (our default)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gpt-4o</span></code> (more expensive, potentially better)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">meta-llama/llama-3.1-8b-instruct</span></code> via OpenRouter (cheaper, smaller)</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="resources">
+<h2>Resources<a class="headerlink" href="#resources" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://platform.openai.com/docs/api-reference">OpenAI API Documentation</a></p></li>
+<li><p><a class="reference external" href="https://docs.pydantic.dev/">Pydantic Documentation</a></p></li>
+<li><p><a class="reference external" href="https://github.com/finm-33200/ai_inclass_examples/tree/main/basic_llm_api/11_lopez_lira">In-Class Examples: 11_lopez_lira</a></p></li>
+<li><p><a class="reference external" href="https://arxiv.org/abs/2304.07619">Lopez-Lira Paper</a></p></li>
+<li><p><a class="reference external" href="https://github.com/cjhutto/vaderSentiment">VADER Sentiment</a></p></li>
+<li><p><a class="reference external" href="https://huggingface.co/ProsusAI/finbert">FinBERT on HuggingFace</a></p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="submission">
+<h2>Submission<a class="headerlink" href="#submission" title="Link to this heading">#</a></h2>
+<p>Submit via the course’s designated submission method (Canvas/GitHub Classroom) by the deadline posted in the syllabus.</p>
+<p><strong>Questions?</strong> Ask on the course discussion forum or during office hours.</p>
+</section>
+</section>
+
+<div class="section ablog__blog_comments">
+   
+</div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="HW0.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Homework 0</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="HW2.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Homework 2: Embedding-Based Return Prediction</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-objectives">Learning Objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background-reading">Background Reading</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#assignment-components">Assignment Components</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-paper-analysis-10-points">Part 1: Paper Analysis (10 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-sentiment-classification-pipeline-40-points">Part 2: Sentiment Classification Pipeline (40 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-data-collection-20-points">Part 3: Data Collection (20 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-4-classification-results-20-points">Part 4: Classification Results (20 points)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-5-baseline-comparison-10-points-optional-but-recommended">Part 5: Baseline Comparison (10 points, Optional but Recommended)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">Deliverables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grading-rubric">Grading Rubric</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tips-for-success">Tips for Success</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prompt-engineering">Prompt Engineering</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rate-limit-handling">Rate Limit Handling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cost-management">Cost Management</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-comparison">Model Comparison</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resources">Resources</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submission">Submission</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jeremiah Bejarano
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, Jeremiah Bejarano.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

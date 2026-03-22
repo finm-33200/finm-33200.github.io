@@ -1,0 +1,1255 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Agent Benchmarking: Measuring What Matters &#8212; Full Stack Quantitative Finance</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=f23691d7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=7a7908ec"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'discussions/agent_benchmarking';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/custom.js?v=c0d9a6f1"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Discussion 3: AI Application Development &amp; Financial Data Integration" href="../discussion_03.html" />
+    <link rel="prev" title="Context Management for Deep Agents" href="context_management.html" /> 
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>   
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Full Stack Quantitative Finance - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Full Stack Quantitative Finance - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Generative and Agentic AI for Finance
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../README.html">Course Syllabus: FINM 32900, Winter 2025</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Course Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Discussions 📖</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_01.html">Discussion 1: The New Quant - LLMs in Finance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="gen_ai_tech_stack.html">The Generative AI Tech Stack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="llms_transforming_finance.html">LLMs Transforming Finance: The New Quant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_and_structured_outputs.html">API Basics and Structured Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ai_copilots_intro.html">AI Copilots: Claude Code and Cursor</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../discussion_02.html">Discussion 2: Building and Benchmarking Coding Agents</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="agent_fundamentals.html">Agent Fundamentals: From ReAct to LangGraph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building_flawed_code.html">Building FlawedCode: A Minimal Claude Code Clone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chartbook_integration.html">ChartBook Integration: Connecting Agents to Financial Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="context_management.html">Context Management for Deep Agents</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Agent Benchmarking: Measuring What Matters</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_03.html">Discussion 3: AI Application Development &amp; Financial Data Integration</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="chat_applications_overview.html">Chat Applications Overview: AI in Financial Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_to_nextjs.html">Introduction to Next.js and Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_to_chatkit.html">Building a Financial Research Assistant with ChatKit</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_04.html">Discussion 4: Text Representation &amp; Embeddings</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="vector_embeddings_and_search.html"><strong>The Architecture of Meaning: From Vector Embeddings to Reasoning-Based Retrieval</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="vector_embeddings_literature.html">Essential papers on embeddings and vector databases for AI/ML</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Homework 📝</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../HW0.html">Homework 0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HW1.html">Homework 1: Lopez-Lira Replication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HW2.html">Homework 2: Embedding-Based Return Prediction</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../final_project.html">Final Project</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/final_project_rubric.html">Final Project Instructions and Rubric</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/potential_final_projects.html">List of Potential Final Projects</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Misc 📌</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../acknowledgments.html">Acknowledgments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../appendix.html">Appendix</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project/issues/new?title=Issue%20on%20page%20%2Fdiscussions/agent_benchmarking.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/discussions/agent_benchmarking.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Agent Benchmarking: Measuring What Matters</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#literature-review">Literature Review</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-agent-benchmarking-is-different">Why Agent Benchmarking is Different</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#traditional-llm-evaluation">Traditional LLM Evaluation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#agent-evaluation-is-different">Agent Evaluation is Different</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-insight">Key Insight</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agent-benchmark-design">Agent Benchmark Design</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#anatomy-of-a-benchmark-task">Anatomy of a Benchmark Task</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#required-components">Required Components</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#benchmark-categories">Benchmark Categories</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#category-1-simple-file-operations">Category 1: Simple File Operations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#category-2-multi-step-analysis">Category 2: Multi-Step Analysis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#category-3-chartbook-workflows">Category 3: ChartBook Workflows</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#category-4-goal-retention">Category 4: Goal Retention</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-benchmark-runner">The Benchmark Runner</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture">Architecture</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">Implementation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-multiple-runs">Why Multiple Runs?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metrics-to-track">Metrics to Track</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#primary-metrics">Primary Metrics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#computing-metrics">Computing Metrics</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-results-preview">Expected Results Preview</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpreting-results">Interpreting Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-your-benchmarks">Running Your Benchmarks</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run">Run</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-preview">Homework Preview</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-implement-flawedcode-v2-40">Part 1: Implement FlawedCode v2 (40%)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-design-benchmark-suite-20">Part 2: Design Benchmark Suite (20%)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-run-benchmarks-30">Part 3: Run Benchmarks (30%)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-4-analysis-report-10">Part 4: Analysis Report (10%)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-exercise-design-3-tasks">Hands-On Exercise: Design 3 Tasks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">Key Takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint-questions">Checkpoint Questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-resources">Additional Resources</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#academic-papers">Academic Papers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tools-frameworks">Tools &amp; Frameworks</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next Steps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                   <section class="tex2jax_ignore mathjax_ignore" id="agent-benchmarking-measuring-what-matters">
+<h1>Agent Benchmarking: Measuring What Matters<a class="headerlink" href="#agent-benchmarking-measuring-what-matters" title="Link to this heading">#</a></h1>
+<p><strong>Duration:</strong> 25 minutes</p>
+<p><strong>Learning Objectives:</strong></p>
+<ul class="simple">
+<li><p>Understand why traditional LLM evals don’t work for agents</p></li>
+<li><p>Design task-based benchmarks with clear success criteria</p></li>
+<li><p>Build a benchmark suite for coding agents</p></li>
+<li><p>Run statistically meaningful comparisons</p></li>
+</ul>
+<hr class="docutils" />
+<section id="literature-review">
+<h2>Literature Review<a class="headerlink" href="#literature-review" title="Link to this heading">#</a></h2>
+<p>Agent benchmarking has emerged as a critical research area as the gap between model capabilities and real-world task completion becomes increasingly apparent. SWE-bench exposed what researchers call the “agent gap”—even models that excelled at code completion tasks like HumanEval solved only 1.96% of actual GitHub issues (Jimenez et al., 2023). This paper established the gold standard for agent evaluation: give the model a real issue, let it edit code, and check if tests pass.</p>
+<p>While most benchmarks focus on technical difficulty, GDPval asks a different question: how well do models perform on tasks that matter economically? The benchmark weights tasks by their contribution to GDP across occupations—from accounting to software development (Patwardhan et al., 2025). For finance practitioners, this framing is critical: we don’t just want agents that solve hard problems, we want agents that solve <em>valuable</em> problems. GDPval found that model rankings can shift substantially when economic value replaces difficulty as the metric.</p>
+<p>Recent work has quantified something practitioners have felt intuitively: AI capability on complex tasks is improving exponentially. Kwa et al. (2025) found that the time horizon over which AI agents can reliably complete tasks doubles approximately every 7 months. For agent developers, this means today’s context management challenges may look different in a year—but the fundamental patterns (memory, summarization, goal retention) will remain relevant as tasks grow longer.</p>
+<p>As agents move beyond code to research tasks, DeepResearch Bench provides the first systematic evaluation framework (Du et al., 2025). The benchmark tests whether agents can conduct multi-step research: finding sources, synthesizing information, and producing coherent reports. For finance, where research workflows involve gathering data, analyzing trends, and writing memos, this benchmark category points toward the next frontier of agent evaluation.</p>
+</section>
+<hr class="docutils" />
+<section id="why-agent-benchmarking-is-different">
+<h2>Why Agent Benchmarking is Different<a class="headerlink" href="#why-agent-benchmarking-is-different" title="Link to this heading">#</a></h2>
+<section id="traditional-llm-evaluation">
+<h3>Traditional LLM Evaluation<a class="headerlink" href="#traditional-llm-evaluation" title="Link to this heading">#</a></h3>
+<p>Tools like <a class="reference external" href="https://github.com/EleutherAI/lm-evaluation-harness">lm-eval-harness</a> test <strong>model knowledge</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Question</span><span class="p">:</span> <span class="s2">&quot;What is the capital of France?&quot;</span>
+<span class="n">Expected</span><span class="p">:</span> <span class="s2">&quot;Paris&quot;</span>
+<span class="n">Score</span><span class="p">:</span> <span class="n">Exact</span> <span class="n">match</span> <span class="ow">or</span> <span class="n">semantic</span> <span class="n">similarity</span>
+</pre></div>
+</div>
+<p>These benchmarks measure:</p>
+<ul class="simple">
+<li><p>Factual knowledge (MMLU)</p></li>
+<li><p>Reasoning ability (GSM8K)</p></li>
+<li><p>Code completion (HumanEval)</p></li>
+</ul>
+</section>
+<section id="agent-evaluation-is-different">
+<h3>Agent Evaluation is Different<a class="headerlink" href="#agent-evaluation-is-different" title="Link to this heading">#</a></h3>
+<p>Agents are evaluated on <strong>task completion</strong>, not knowledge retrieval:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Task: &quot;Read file.py, find the bug, fix it, run tests&quot;
+Expected: Tests pass
+Score: Did the task succeed?
+</pre></div>
+</div>
+<p>Agent benchmarks must:</p>
+<ul class="simple">
+<li><p>Execute multi-step sequences</p></li>
+<li><p>Verify real-world effects (files changed, tests pass)</p></li>
+<li><p>Handle probabilistic behavior</p></li>
+<li><p>Measure goal retention over time</p></li>
+</ul>
+</section>
+<section id="key-insight">
+<h3>Key Insight<a class="headerlink" href="#key-insight" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><p><strong>We can’t use lm-eval-harness for agents—we need task-based benchmarks.</strong></p>
+<p>This insight comes from Jimenez et al. (2023), who found that even models scoring well on traditional benchmarks solved only 1.96% of real GitHub issues. The gap between “knows how to code” and “can actually fix bugs” is enormous.</p>
+</div></blockquote>
+<p><img alt="Single-turn vs Multi-turn Evaluation" src="../_images/agent_eval_single_vs_multi_turn.png" /></p>
+<p><em>Traditional LLM evals test single-turn knowledge retrieval, while agent evals must handle multi-turn interactions with tool use. Source: <a class="reference external" href="https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents">Anthropic - Demystifying Evals for AI Agents</a></em></p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="agent-benchmark-design">
+<h2>Agent Benchmark Design<a class="headerlink" href="#agent-benchmark-design" title="Link to this heading">#</a></h2>
+<section id="anatomy-of-a-benchmark-task">
+<h3>Anatomy of a Benchmark Task<a class="headerlink" href="#anatomy-of-a-benchmark-task" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;simple_file_read&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Test basic file operations with memory&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;steps&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;List files in the project&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Read the main Python file&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;What files did you just read?&quot;</span>  <span class="c1"># Tests memory</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;success_criteria&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">responses</span><span class="p">:</span> <span class="s2">&quot;main.py&quot;</span> <span class="ow">in</span> <span class="n">responses</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="required-components">
+<h3>Required Components<a class="headerlink" href="#required-components" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Component</p></th>
+<th class="head"><p>Purpose</p></th>
+<th class="head"><p>Example</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>name</strong></p></td>
+<td><p>Unique identifier</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;goal_retention&quot;</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>steps</strong></p></td>
+<td><p>Ordered user inputs</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[&quot;Set</span> <span class="pre">goal&quot;,</span> <span class="pre">&quot;Do</span> <span class="pre">work&quot;,</span> <span class="pre">&quot;What</span> <span class="pre">was</span> <span class="pre">goal?&quot;]</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>success_criteria</strong></p></td>
+<td><p>Automated validation</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">lambda</span> <span class="pre">r:</span> <span class="pre">&quot;SOFR&quot;</span> <span class="pre">in</span> <span class="pre">r[-1]</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>expected_behavior</strong></p></td>
+<td><p>Notes per version</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">{&quot;v0&quot;:</span> <span class="pre">&quot;Fails</span> <span class="pre">step</span> <span class="pre">3&quot;}</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><img alt="Components of Agent Evaluations" src="../_images/agent_eval_components.png" /></p>
+<p><em>Agent evaluations have three key components: the task definition, the agent under test, and the scoring mechanism. Source: <a class="reference external" href="https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents">Anthropic - Demystifying Evals for AI Agents</a></em></p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="benchmark-categories">
+<h2>Benchmark Categories<a class="headerlink" href="#benchmark-categories" title="Link to this heading">#</a></h2>
+<p>Design tasks across multiple categories to test different capabilities:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Category</p></th>
+<th class="head"><p># Tasks</p></th>
+<th class="head"><p>What It Tests</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Simple file operations</p></td>
+<td><p>3</p></td>
+<td><p>Basic tool use</p></td>
+</tr>
+<tr class="row-odd"><td><p>Multi-step analysis</p></td>
+<td><p>3</p></td>
+<td><p>Chaining, reasoning</p></td>
+</tr>
+<tr class="row-even"><td><p>ChartBook workflows</p></td>
+<td><p>2</p></td>
+<td><p>Large context handling</p></td>
+</tr>
+<tr class="row-odd"><td><p>Goal retention</p></td>
+<td><p>2</p></td>
+<td><p>Memory under pressure</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="category-1-simple-file-operations">
+<h3>Category 1: Simple File Operations<a class="headerlink" href="#category-1-simple-file-operations" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;file_read_write&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;steps&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;List files in the project&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Read README.md&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Add a new section to README.md about installation&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Show me what you added&quot;</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;success_criteria&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">r</span><span class="p">:</span> <span class="s2">&quot;installation&quot;</span> <span class="ow">in</span> <span class="n">r</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="category-2-multi-step-analysis">
+<h3>Category 2: Multi-Step Analysis<a class="headerlink" href="#category-2-multi-step-analysis" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;multi_step_analysis&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;steps&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;Get the ChartBook docs for yield_curve/repo_public&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;What columns are related to repo rates?&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Load 10 days of those columns&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Calculate the average spread between SOFR and EFFR&quot;</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;success_criteria&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">r</span><span class="p">:</span> <span class="nb">any</span><span class="p">(</span>
+        <span class="n">char</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">r</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># Response contains numbers</span>
+    <span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="category-3-chartbook-workflows">
+<h3>Category 3: ChartBook Workflows<a class="headerlink" href="#category-3-chartbook-workflows" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;chartbook_analysis_workflow&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Complete analysis using ChartBook data&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;steps&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;List available ChartBook dataframes&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Get the documentation for yield_curve/repo_public&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Based on the docs, what columns show overnight rates?&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Load the last 30 days of SOFR and EFFR&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;What&#39;s the average spread between them?&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Write a brief summary to analysis.md&quot;</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;success_criteria&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">r</span><span class="p">:</span> <span class="p">(</span>
+        <span class="s2">&quot;SOFR&quot;</span> <span class="ow">in</span> <span class="n">r</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="ow">and</span>
+        <span class="s2">&quot;EFFR&quot;</span> <span class="ow">in</span> <span class="n">r</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="ow">and</span>
+        <span class="nb">any</span><span class="p">(</span><span class="n">char</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">r</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span> <span class="ow">and</span>
+        <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;analysis.md&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span>
+    <span class="p">),</span>
+    <span class="s2">&quot;expected_behavior&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;v0&quot;</span><span class="p">:</span> <span class="s2">&quot;Fails at step 3 - forgets docs&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;v1&quot;</span><span class="p">:</span> <span class="s2">&quot;May succeed but context grows large&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;v2&quot;</span><span class="p">:</span> <span class="s2">&quot;Should offload docs, maintain efficiency&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;claude_code&quot;</span><span class="p">:</span> <span class="s2">&quot;Handles smoothly&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="category-4-goal-retention">
+<h3>Category 4: Goal Retention<a class="headerlink" href="#category-4-goal-retention" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;goal_retention&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Test if agent remembers goal after context pressure&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;steps&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;Your goal is to analyze SOFR trends. Start by getting docs.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Now get docs for another dataframe&quot;</span><span class="p">,</span>      <span class="c1"># Context pressure</span>
+        <span class="s2">&quot;Load some data&quot;</span><span class="p">,</span>                           <span class="c1"># More pressure</span>
+        <span class="s2">&quot;What was your original goal?&quot;</span>              <span class="c1"># Tests retention</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;success_criteria&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">r</span><span class="p">:</span> <span class="s2">&quot;SOFR&quot;</span> <span class="ow">in</span> <span class="n">r</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="the-benchmark-runner">
+<h2>The Benchmark Runner<a class="headerlink" href="#the-benchmark-runner" title="Link to this heading">#</a></h2>
+<section id="architecture">
+<h3>Architecture<a class="headerlink" href="#architecture" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
+│  Task Suite     │ ──→ │  Runner         │ ──→ │  Results JSON   │
+│  (10+ tasks)    │     │  (5 runs each)  │     │  (statistics)   │
+└─────────────────┘     └─────────────────┘     └─────────────────┘
+                               │
+                               ↓
+                        ┌─────────────────┐
+                        │  Fresh Agent    │
+                        │  per run        │
+                        └─────────────────┘
+</pre></div>
+</div>
+<p><img alt="Coding Agent Flow" src="../_images/coding_agent_flow.png" /></p>
+<p><em>A production coding agent workflow for resolving GitHub issues—the kind of multi-step task that benchmarks like SWE-bench evaluate. Source: <a class="reference external" href="https://www.anthropic.com/research/building-effective-agents">Anthropic - Building Effective Agents</a></em></p>
+</section>
+<section id="implementation">
+<h3>Implementation<a class="headerlink" href="#implementation" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span>
+
+<span class="k">def</span> <span class="nf">run_agent_turn</span><span class="p">(</span><span class="n">agent</span><span class="p">,</span> <span class="n">messages</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">user_input</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Execute one turn and return response.&quot;&quot;&quot;</span>
+    <span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="n">user_input</span><span class="p">))</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;messages&quot;</span><span class="p">:</span> <span class="n">messages</span><span class="p">})</span>
+    <span class="n">assistant_message</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="s2">&quot;messages&quot;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">content</span>
+    <span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s2">&quot;assistant&quot;</span><span class="p">,</span> <span class="n">assistant_message</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">assistant_message</span>
+
+<span class="k">def</span> <span class="nf">run_benchmark</span><span class="p">(</span>
+    <span class="n">agent_factory</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span>
+    <span class="n">tasks</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">],</span>
+    <span class="n">n_runs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Run benchmark suite multiple times for statistical significance.&quot;&quot;&quot;</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">tasks</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Running task: </span><span class="si">{</span><span class="n">task</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">run</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_runs</span><span class="p">):</span>
+            <span class="c1"># Fresh agent each run - no cross-contamination</span>
+            <span class="n">agent</span> <span class="o">=</span> <span class="n">agent_factory</span><span class="p">()</span>
+            <span class="n">messages</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">responses</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="c1"># Execute each step</span>
+            <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="n">task</span><span class="p">[</span><span class="s2">&quot;steps&quot;</span><span class="p">]:</span>
+                <span class="n">response</span> <span class="o">=</span> <span class="n">run_agent_turn</span><span class="p">(</span><span class="n">agent</span><span class="p">,</span> <span class="n">messages</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span>
+                <span class="n">responses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+
+            <span class="c1"># Evaluate success</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">success</span> <span class="o">=</span> <span class="n">task</span><span class="p">[</span><span class="s2">&quot;success_criteria&quot;</span><span class="p">](</span><span class="n">responses</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">success</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Run </span><span class="si">{</span><span class="n">run</span><span class="si">}</span><span class="s2">: Error evaluating - </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+            <span class="c1"># Record results</span>
+            <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                <span class="s2">&quot;task&quot;</span><span class="p">:</span> <span class="n">task</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;run&quot;</span><span class="p">:</span> <span class="n">run</span><span class="p">,</span>
+                <span class="s2">&quot;success&quot;</span><span class="p">:</span> <span class="n">success</span><span class="p">,</span>
+                <span class="s2">&quot;num_steps&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">task</span><span class="p">[</span><span class="s2">&quot;steps&quot;</span><span class="p">]),</span>
+                <span class="s2">&quot;context_tokens&quot;</span><span class="p">:</span> <span class="n">estimate_tokens</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">messages</span><span class="p">)),</span>
+            <span class="p">})</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Run </span><span class="si">{</span><span class="n">run</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="s1">&#39;PASS&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">success</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;FAIL&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="why-multiple-runs">
+<h3>Why Multiple Runs?<a class="headerlink" href="#why-multiple-runs" title="Link to this heading">#</a></h3>
+<p>Agents are <strong>probabilistic</strong>—the same input can produce different outputs:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Run 1: Agent uses tool A, then B → Success
+Run 2: Agent uses tool B, then A → Success
+Run 3: Agent hallucinates a tool → Failure
+Run 4: Agent gives up early → Failure
+Run 5: Agent uses tool A, then B → Success
+
+Success rate: 60% (3/5)
+</pre></div>
+</div>
+<p>Single runs can be misleading. <strong>5 runs minimum</strong> for meaningful statistics.</p>
+<p><img alt="Evaluator-Optimizer Pattern" src="../_images/evaluator_optimizer.png" /></p>
+<p><em>The evaluator-optimizer pattern shows how iterative refinement with feedback loops can improve agent outputs—a concept directly relevant to understanding why multiple benchmark runs reveal different behaviors. Source: <a class="reference external" href="https://www.anthropic.com/research/building-effective-agents">Anthropic - Building Effective Agents</a></em></p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="metrics-to-track">
+<h2>Metrics to Track<a class="headerlink" href="#metrics-to-track" title="Link to this heading">#</a></h2>
+<section id="primary-metrics">
+<h3>Primary Metrics<a class="headerlink" href="#primary-metrics" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Metric</p></th>
+<th class="head"><p>Formula</p></th>
+<th class="head"><p>What It Measures</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Task Success Rate</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">successes</span> <span class="pre">/</span> <span class="pre">total_runs</span></code></p></td>
+<td><p>Overall capability</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Goal Retention</strong></p></td>
+<td><p>Success on retention tasks</p></td>
+<td><p>Memory under pressure</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Context Efficiency</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tokens_used</span> <span class="pre">/</span> <span class="pre">successful_tasks</span></code></p></td>
+<td><p>Resource usage</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="computing-metrics">
+<h3>Computing Metrics<a class="headerlink" href="#computing-metrics" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">compute_metrics</span><span class="p">(</span><span class="n">results</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute benchmark metrics from results.&quot;&quot;&quot;</span>
+    <span class="n">metrics</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="c1"># Overall success rate</span>
+    <span class="n">metrics</span><span class="p">[</span><span class="s2">&quot;success_rate&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s2">&quot;success&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+    <span class="c1"># Success rate by task category</span>
+    <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">results</span><span class="p">[</span><span class="s2">&quot;task&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
+        <span class="n">task_results</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;task&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">task</span><span class="p">]</span>
+        <span class="n">metrics</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">task</span><span class="si">}</span><span class="s2">_success_rate&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">task_results</span><span class="p">[</span><span class="s2">&quot;success&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+    <span class="c1"># Context efficiency (tokens per success)</span>
+    <span class="n">successful</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;success&quot;</span><span class="p">]]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">successful</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">metrics</span><span class="p">[</span><span class="s2">&quot;tokens_per_success&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">successful</span><span class="p">[</span><span class="s2">&quot;context_tokens&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">metrics</span><span class="p">[</span><span class="s2">&quot;tokens_per_success&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">metrics</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="expected-results-preview">
+<h2>Expected Results Preview<a class="headerlink" href="#expected-results-preview" title="Link to this heading">#</a></h2>
+<p>This is what students will discover when running benchmarks:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Agent</p></th>
+<th class="head"><p>Simple Tasks</p></th>
+<th class="head"><p>Multi-Step</p></th>
+<th class="head"><p>Goal Retention</p></th>
+<th class="head"><p>Tokens/Success</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>v0 (no memory)</p></td>
+<td><p>~100%</p></td>
+<td><p>~20%</p></td>
+<td><p>0%</p></td>
+<td><p>Low</p></td>
+</tr>
+<tr class="row-odd"><td><p>v1 (memory)</p></td>
+<td><p>~100%</p></td>
+<td><p>~70%</p></td>
+<td><p>~50%</p></td>
+<td><p>High</p></td>
+</tr>
+<tr class="row-even"><td><p>v2 (context mgmt)</p></td>
+<td><p>~100%</p></td>
+<td><p>~85%</p></td>
+<td><p>~80%</p></td>
+<td><p>Medium</p></td>
+</tr>
+<tr class="row-odd"><td><p>Claude Code</p></td>
+<td><p>~100%</p></td>
+<td><p>~95%</p></td>
+<td><p>~95%</p></td>
+<td><p>Optimized</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="interpreting-results">
+<h3>Interpreting Results<a class="headerlink" href="#interpreting-results" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><p><strong>Why does v0 perform well on simple tasks?</strong></p>
+<p>Simple tasks complete in one turn—no memory needed.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>What explains the v1 → v2 jump in goal retention?</strong></p>
+<p>Summarization preserves goals even when context fills with tool results.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Why the gap between v2 and Claude Code?</strong></p>
+<p>Production systems have more sophisticated strategies: better summarization, smarter offloading, persistent memory across sessions.</p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="running-your-benchmarks">
+<h2>Running Your Benchmarks<a class="headerlink" href="#running-your-benchmarks" title="Link to this heading">#</a></h2>
+<section id="setup">
+<h3>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># benchmark_tasks.py</span>
+
+<span class="n">TASKS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c1"># Simple file operations</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;file_list_read&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;steps&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;List files&quot;</span><span class="p">,</span> <span class="s2">&quot;Read main.py&quot;</span><span class="p">,</span> <span class="s2">&quot;What did you read?&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;success_criteria&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">r</span><span class="p">:</span> <span class="s2">&quot;main.py&quot;</span> <span class="ow">in</span> <span class="n">r</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="p">},</span>
+    <span class="c1"># ... add 9 more tasks</span>
+<span class="p">]</span>
+
+<span class="c1"># Factories for each agent version</span>
+<span class="k">def</span> <span class="nf">create_v0_agent</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;No memory baseline.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">create_react_agent</span><span class="p">(</span><span class="n">llm</span><span class="p">,</span> <span class="n">tools</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">create_v1_agent</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;With memory.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">FlawedCodeV1</span><span class="p">(</span><span class="n">llm</span><span class="p">,</span> <span class="n">tools</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">create_v2_agent</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;With context management.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">FlawedCodeV2</span><span class="p">(</span><span class="n">llm</span><span class="p">,</span> <span class="n">tools</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="run">
+<h3>Run<a class="headerlink" href="#run" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># run_benchmarks.py</span>
+
+<span class="kn">from</span> <span class="nn">benchmark_tasks</span> <span class="kn">import</span> <span class="n">TASKS</span><span class="p">,</span> <span class="n">create_v0_agent</span><span class="p">,</span> <span class="n">create_v1_agent</span><span class="p">,</span> <span class="n">create_v2_agent</span>
+
+<span class="c1"># Run all versions</span>
+<span class="n">v0_results</span> <span class="o">=</span> <span class="n">run_benchmark</span><span class="p">(</span><span class="n">create_v0_agent</span><span class="p">,</span> <span class="n">TASKS</span><span class="p">,</span> <span class="n">n_runs</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">v1_results</span> <span class="o">=</span> <span class="n">run_benchmark</span><span class="p">(</span><span class="n">create_v1_agent</span><span class="p">,</span> <span class="n">TASKS</span><span class="p">,</span> <span class="n">n_runs</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">v2_results</span> <span class="o">=</span> <span class="n">run_benchmark</span><span class="p">(</span><span class="n">create_v2_agent</span><span class="p">,</span> <span class="n">TASKS</span><span class="p">,</span> <span class="n">n_runs</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="c1"># Save results</span>
+<span class="n">v0_results</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="s2">&quot;results/v0_results.json&quot;</span><span class="p">)</span>
+<span class="n">v1_results</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="s2">&quot;results/v1_results.json&quot;</span><span class="p">)</span>
+<span class="n">v2_results</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="s2">&quot;results/v2_results.json&quot;</span><span class="p">)</span>
+
+<span class="c1"># Compute and display metrics</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">results</span> <span class="ow">in</span> <span class="p">[(</span><span class="s2">&quot;v0&quot;</span><span class="p">,</span> <span class="n">v0_results</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;v1&quot;</span><span class="p">,</span> <span class="n">v1_results</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;v2&quot;</span><span class="p">,</span> <span class="n">v2_results</span><span class="p">)]:</span>
+    <span class="n">metrics</span> <span class="o">=</span> <span class="n">compute_metrics</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> Metrics:&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">metric</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">metrics</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">metric</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">value</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">metric</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="homework-preview">
+<h2>Homework Preview<a class="headerlink" href="#homework-preview" title="Link to this heading">#</a></h2>
+<section id="part-1-implement-flawedcode-v2-40">
+<h3>Part 1: Implement FlawedCode v2 (40%)<a class="headerlink" href="#part-1-implement-flawedcode-v2-40" title="Link to this heading">#</a></h3>
+<p>Starting from v1, add:</p>
+<ul class="simple">
+<li><p><strong>Result Offloading</strong> (15%) - Save large results to scratch/</p></li>
+<li><p><strong>Summarization</strong> (15%) - Compress at 80% context</p></li>
+<li><p><strong>ChartBook Tools</strong> (10%) - Integrate financial data</p></li>
+</ul>
+</section>
+<section id="part-2-design-benchmark-suite-20">
+<h3>Part 2: Design Benchmark Suite (20%)<a class="headerlink" href="#part-2-design-benchmark-suite-20" title="Link to this heading">#</a></h3>
+<p>Create 10+ tasks across categories:</p>
+<ul class="simple">
+<li><p>3 simple file operations</p></li>
+<li><p>3 multi-step analysis</p></li>
+<li><p>2 ChartBook workflows</p></li>
+<li><p>2 goal retention</p></li>
+</ul>
+</section>
+<section id="part-3-run-benchmarks-30">
+<h3>Part 3: Run Benchmarks (30%)<a class="headerlink" href="#part-3-run-benchmarks-30" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Test v0, v1, v2, Claude Code</p></li>
+<li><p>5 runs per task</p></li>
+<li><p>Same model (gpt-4o-mini) for v0-v2</p></li>
+</ul>
+</section>
+<section id="part-4-analysis-report-10">
+<h3>Part 4: Analysis Report (10%)<a class="headerlink" href="#part-4-analysis-report-10" title="Link to this heading">#</a></h3>
+<p>Write <code class="docutils literal notranslate"><span class="pre">ANALYSIS.md</span></code> with:</p>
+<ul class="simple">
+<li><p>Results table</p></li>
+<li><p>Key findings</p></li>
+<li><p>Claude Code gap analysis</p></li>
+<li><p>Recommendations for v3</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="hands-on-exercise-design-3-tasks">
+<h2>Hands-On Exercise: Design 3 Tasks<a class="headerlink" href="#hands-on-exercise-design-3-tasks" title="Link to this heading">#</a></h2>
+<p>Create benchmark tasks for these scenarios:</p>
+<ol class="arabic simple">
+<li><p><strong>Bug fix workflow</strong> - Find and fix a bug, verify with tests</p></li>
+<li><p><strong>Data analysis</strong> - Load ChartBook data, compute statistics, save results</p></li>
+<li><p><strong>Multi-file refactor</strong> - Rename a function across multiple files</p></li>
+</ol>
+<p>For each task, define:</p>
+<ul class="simple">
+<li><p>Steps (4-6 user inputs)</p></li>
+<li><p>Success criteria (automated validation)</p></li>
+<li><p>Expected behavior per version</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="key-takeaways">
+<h2>Key Takeaways<a class="headerlink" href="#key-takeaways" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Agent benchmarking requires task-based evaluation</strong> - Not knowledge tests</p></li>
+<li><p><strong>Multiple runs are essential</strong> - Agents are probabilistic</p></li>
+<li><p><strong>Systematic comparison reveals what improvements matter</strong> - v0 → v1 → v2</p></li>
+<li><p><strong>The production gap is real but reducible</strong> - Study Claude Code’s strategies</p></li>
+<li><p><strong>Design for automation</strong> - Success criteria must be programmatic</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="checkpoint-questions">
+<h2>Checkpoint Questions<a class="headerlink" href="#checkpoint-questions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>How many benchmark tasks will you need for the homework?</p></li>
+<li><p>What makes a good success criterion?</p></li>
+<li><p>Why use the same cheap model (gpt-4o-mini) for v0-v2?</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="additional-resources">
+<h2>Additional Resources<a class="headerlink" href="#additional-resources" title="Link to this heading">#</a></h2>
+<section id="academic-papers">
+<h3>Academic Papers<a class="headerlink" href="#academic-papers" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Jimenez et al. (2023)</strong> - <a class="reference external" href="https://arxiv.org/abs/2310.06770">SWE-bench: Can Language Models Resolve Real-World GitHub Issues?</a> - The foundational agent benchmark showing the gap between model capabilities and real task completion</p></li>
+<li><p><strong>Patwardhan et al. (2025)</strong> - <a class="reference external" href="https://arxiv.org/abs/2510.04374">GDPval: Evaluating AI Model Performance on Real-World Economically Valuable Tasks</a> - Benchmarking focused on economic value rather than difficulty</p></li>
+<li><p><strong>Kwa et al. (2025)</strong> - <a class="reference external" href="https://arxiv.org/abs/2503.14499">Measuring AI Ability to Complete Long Tasks</a> - Documents exponential improvement in long-horizon task completion</p></li>
+<li><p><strong>Du et al. (2025)</strong> - <a class="reference external" href="https://arxiv.org/abs/2506.11763">DeepResearch Bench: A Comprehensive Benchmark for Deep Research Agents</a> - Evaluation framework for research-oriented agents</p></li>
+</ul>
+</section>
+<section id="tools-frameworks">
+<h3>Tools &amp; Frameworks<a class="headerlink" href="#tools-frameworks" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/THUDM/AgentBench">AgentBench</a> - Comprehensive agent evaluation suite</p></li>
+<li><p><a class="reference external" href="https://smith.langchain.com/">LangSmith</a> - Tracing and evaluation for LangChain agents</p></li>
+<li><p><a class="reference external" href="https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents">Anthropic - Demystifying Evals for AI Agents</a> - Practical guidance on agent evaluation</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="next-steps">
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
+<p>You’re ready for the homework! Implement v2, design your benchmark suite, and discover what context management actually improves.</p>
+<p><strong>Deliverables:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>homework/
+├── flawed_code_v0.py       # No-memory baseline
+├── flawed_code_v1.py       # Memory (provided)
+├── flawed_code_v2.py       # Your implementation
+├── tools_v2.py             # Tools with offloading
+├── context_manager.py      # Offloading + summarization logic
+├── benchmark_tasks.py      # Task definitions
+├── run_benchmarks.py       # Benchmark runner
+├── results/                # JSON results from runs
+└── ANALYSIS.md             # Your findings
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Du, M., et al. (2025). “DeepResearch Bench: A Comprehensive Benchmark for Deep Research Agents.” <a class="reference external" href="https://arxiv.org/abs/2506.11763">https://arxiv.org/abs/2506.11763</a></p></li>
+<li><p>Jimenez, C.E., Yang, J., Wettig, A., et al. (2023). “SWE-bench: Can Language Models Resolve Real-World GitHub Issues?” ICLR 2024. <a class="reference external" href="https://arxiv.org/abs/2310.06770">https://arxiv.org/abs/2310.06770</a></p></li>
+<li><p>Kwa, T., et al. (2025). “Measuring AI Ability to Complete Long Tasks.” <a class="reference external" href="https://arxiv.org/abs/2503.14499">https://arxiv.org/abs/2503.14499</a></p></li>
+<li><p>Patwardhan, T., et al. (2025). “GDPval: Evaluating AI Model Performance on Real-World Economically Valuable Tasks.” <a class="reference external" href="https://arxiv.org/abs/2510.04374">https://arxiv.org/abs/2510.04374</a></p></li>
+</ul>
+</section>
+</section>
+
+<div class="section ablog__blog_comments">
+   
+</div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="context_management.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Context Management for Deep Agents</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../discussion_03.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Discussion 3: AI Application Development &amp; Financial Data Integration</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#literature-review">Literature Review</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-agent-benchmarking-is-different">Why Agent Benchmarking is Different</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#traditional-llm-evaluation">Traditional LLM Evaluation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#agent-evaluation-is-different">Agent Evaluation is Different</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-insight">Key Insight</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agent-benchmark-design">Agent Benchmark Design</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#anatomy-of-a-benchmark-task">Anatomy of a Benchmark Task</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#required-components">Required Components</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#benchmark-categories">Benchmark Categories</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#category-1-simple-file-operations">Category 1: Simple File Operations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#category-2-multi-step-analysis">Category 2: Multi-Step Analysis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#category-3-chartbook-workflows">Category 3: ChartBook Workflows</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#category-4-goal-retention">Category 4: Goal Retention</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-benchmark-runner">The Benchmark Runner</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture">Architecture</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">Implementation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-multiple-runs">Why Multiple Runs?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metrics-to-track">Metrics to Track</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#primary-metrics">Primary Metrics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#computing-metrics">Computing Metrics</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-results-preview">Expected Results Preview</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpreting-results">Interpreting Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-your-benchmarks">Running Your Benchmarks</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run">Run</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-preview">Homework Preview</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-implement-flawedcode-v2-40">Part 1: Implement FlawedCode v2 (40%)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-design-benchmark-suite-20">Part 2: Design Benchmark Suite (20%)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-run-benchmarks-30">Part 3: Run Benchmarks (30%)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-4-analysis-report-10">Part 4: Analysis Report (10%)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-exercise-design-3-tasks">Hands-On Exercise: Design 3 Tasks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">Key Takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint-questions">Checkpoint Questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-resources">Additional Resources</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#academic-papers">Academic Papers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tools-frameworks">Tools &amp; Frameworks</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next Steps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jeremiah Bejarano
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, Jeremiah Bejarano.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,856 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Image Attributions &#8212; Full Stack Quantitative Finance</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=f23691d7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=7a7908ec"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'discussions/assets/IMAGE_ATTRIBUTIONS';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../_static/custom.js?v=c0d9a6f1"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>   
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="Full Stack Quantitative Finance - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="Full Stack Quantitative Finance - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../index.html">
+                    Generative and Agentic AI for Finance
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../README.html">Course Syllabus: FINM 32900, Winter 2025</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Course Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Discussions 📖</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../discussion_01.html">Discussion 1: The New Quant - LLMs in Finance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../gen_ai_tech_stack.html">The Generative AI Tech Stack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../llms_transforming_finance.html">LLMs Transforming Finance: The New Quant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_and_structured_outputs.html">API Basics and Structured Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ai_copilots_intro.html">AI Copilots: Claude Code and Cursor</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../discussion_02.html">Discussion 2: Building and Benchmarking Coding Agents</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../agent_fundamentals.html">Agent Fundamentals: From ReAct to LangGraph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../building_flawed_code.html">Building FlawedCode: A Minimal Claude Code Clone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chartbook_integration.html">ChartBook Integration: Connecting Agents to Financial Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../context_management.html">Context Management for Deep Agents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../agent_benchmarking.html">Agent Benchmarking: Measuring What Matters</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../discussion_03.html">Discussion 3: AI Application Development &amp; Financial Data Integration</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chat_applications_overview.html">Chat Applications Overview: AI in Financial Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro_to_nextjs.html">Introduction to Next.js and Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro_to_chatkit.html">Building a Financial Research Assistant with ChatKit</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../discussion_04.html">Discussion 4: Text Representation &amp; Embeddings</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../vector_embeddings_and_search.html"><strong>The Architecture of Meaning: From Vector Embeddings to Reasoning-Based Retrieval</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vector_embeddings_literature.html">Essential papers on embeddings and vector databases for AI/ML</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Homework 📝</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../HW0.html">Homework 0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../HW1.html">Homework 1: Lopez-Lira Replication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../HW2.html">Homework 2: Embedding-Based Return Prediction</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../final_project.html">Final Project</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../FinalProject/final_project_rubric.html">Final Project Instructions and Rubric</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../FinalProject/potential_final_projects.html">List of Potential Final Projects</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Misc 📌</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../acknowledgments.html">Acknowledgments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../appendix.html">Appendix</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project/issues/new?title=Issue%20on%20page%20%2Fdiscussions/assets/IMAGE_ATTRIBUTIONS.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/discussions/assets/IMAGE_ATTRIBUTIONS.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Image Attributions</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#context-vs-prompt-engineering-png">context_vs_prompt_engineering.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#system-prompt-calibration-png">system_prompt_calibration.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langgraph-agent-workflow-png">langgraph_agent_workflow.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langgraph-flow-diagram-png">langgraph_flow_diagram.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agentic-ai-roadmap-png">agentic_ai_roadmap.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#react-overview-png">react_overview.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#react-comparison-png">react_comparison.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#augmented-llm-png">augmented_llm.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#autonomous-agent-png">autonomous_agent.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#routing-workflow-png">routing_workflow.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#orchestrator-workers-png">orchestrator_workers.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prompt-chaining-png">prompt_chaining.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluator-optimizer-png">evaluator_optimizer.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coding-agent-flow-png">coding_agent_flow.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parallelization-png">parallelization.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#context-offload-tool-results-png">context_offload_tool_results.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#context-offload-tool-inputs-png">context_offload_tool_inputs.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#context-token-usage-chart-png">context_token_usage_chart.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#context-engineering-strategies-png">context_engineering_strategies.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#context-token-accumulation-png">context_token_accumulation.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#context-summarization-points-png">context_summarization_points.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#context-multi-agent-isolation-png">context_multi_agent_isolation.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agent-eval-single-vs-multi-turn-png">agent_eval_single_vs_multi_turn.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agent-eval-components-png">agent_eval_components.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#promptfoo-comparison-table-png">promptfoo_comparison_table.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#promptfoo-cli-results-png">promptfoo_cli_results.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cot-standard-vs-reasoning-png">cot_standard_vs_reasoning.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fingpt-framework-png">fingpt_framework.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#claude-code-product-jpg">claude_code_product.jpg</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chatkit-interface-example-png">chatkit_interface_example.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#function-calling-flow-svg">function_calling_flow.svg</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chatkit-implementation-workflow-png">chatkit_implementation_workflow.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nextjs-nested-layouts-png">nextjs_nested_layouts.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nextjs-nested-route-png">nextjs_nested_route.png</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                   <section class="tex2jax_ignore mathjax_ignore" id="image-attributions">
+<h1>Image Attributions<a class="headerlink" href="#image-attributions" title="Link to this heading">#</a></h1>
+<p>This file documents the sources of images used in the FINM 33200 textbook.</p>
+<section id="context-vs-prompt-engineering-png">
+<h2>context_vs_prompt_engineering.png<a class="headerlink" href="#context-vs-prompt-engineering-png" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Source:</strong> <a class="reference external" href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents">Anthropic - Effective Context Engineering for AI Agents</a></p></li>
+<li><p><strong>Description:</strong> Diagram comparing prompt engineering (discrete) vs context engineering (iterative)</p></li>
+<li><p><strong>Original URL:</strong> <code class="docutils literal notranslate"><span class="pre">https://cdn.sanity.io/images/4zrzovbb/website/faa261102e46c7f090a2402a49000ffae18c5dd6-2292x1290.png</span></code></p></li>
+</ul>
+</section>
+<section id="system-prompt-calibration-png">
+<h2>system_prompt_calibration.png<a class="headerlink" href="#system-prompt-calibration-png" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Source:</strong> <a class="reference external" href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents">Anthropic - Effective Context Engineering for AI Agents</a></p></li>
+<li><p><strong>Description:</strong> System prompt calibration showing the Goldilocks zone</p></li>
+<li><p><strong>Original URL:</strong> <code class="docutils literal notranslate"><span class="pre">https://cdn.sanity.io/images/4zrzovbb/website/0442fe138158e84ffce92bed1624dd09f37ac46f-2292x1288.png</span></code></p></li>
+</ul>
+</section>
+<section id="langgraph-agent-workflow-png">
+<h2>langgraph_agent_workflow.png<a class="headerlink" href="#langgraph-agent-workflow-png" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Source:</strong> <a class="reference external" href="https://github.com/lucasboscatti/sales-ai-agent-langgraph">GitHub - sales-ai-agent-langgraph</a></p></li>
+<li><p><strong>Description:</strong> LangGraph agent workflow diagram</p></li>
+<li><p><strong>Original URL:</strong> <code class="docutils literal notranslate"><span class="pre">https://raw.githubusercontent.com/lucasboscatti/sales-ai-agent-langgraph/main/assets/agent_workflow.png</span></code></p></li>
+</ul>
+</section>
+<section id="langgraph-flow-diagram-png">
+<h2>langgraph_flow_diagram.png<a class="headerlink" href="#langgraph-flow-diagram-png" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Source:</strong> <a class="reference external" href="https://github.com/lucasboscatti/sales-ai-agent-langgraph">GitHub - sales-ai-agent-langgraph</a></p></li>
+<li><p><strong>Description:</strong> LangGraph flow visualization</p></li>
+<li><p><strong>Original URL:</strong> <code class="docutils literal notranslate"><span class="pre">https://raw.githubusercontent.com/lucasboscatti/sales-ai-agent-langgraph/main/assets/graph.png</span></code></p></li>
+</ul>
+</section>
+<section id="agentic-ai-roadmap-png">
+<h2>agentic_ai_roadmap.png<a class="headerlink" href="#agentic-ai-roadmap-png" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Source:</strong> <a class="reference external" href="https://github.com/mohd-faizy/Agentic_AI_using_LangGraph">GitHub - Agentic_AI_using_LangGraph</a></p></li>
+<li><p><strong>Description:</strong> Agentic AI architecture roadmap</p></li>
+<li><p><strong>Original URL:</strong> <code class="docutils literal notranslate"><span class="pre">https://raw.githubusercontent.com/mohd-faizy/Agentic_AI_using_LangGraph/main/_img/agentic-AI-roadmap.png</span></code></p></li>
+</ul>
+</section>
+<section id="react-overview-png">
+<h2>react_overview.png<a class="headerlink" href="#react-overview-png" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Source:</strong> <a class="reference external" href="https://research.google/blog/react-synergizing-reasoning-and-acting-in-language-models/">Google Research - ReAct Paper</a></p></li>
+<li><p><strong>Description:</strong> ReAct pattern overview showing thought-action-observation loop</p></li>
+<li><p><strong>Original URL:</strong> <code class="docutils literal notranslate"><span class="pre">https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiuuYg9Pduep9GkUfjloNVOiy3qjpPbT017GKlgGEGMaLNu_TCheEeJ7r8Qok6-0BK3KMfLvsN2vSgFQ8xOvnHM9CAb4Ix4I62bcN2oXFWfqAJzGAGbVqbeCyVktu3h9Dyf5ameRe54LEr32Emp0nG52iofpNOTXCxMY12K7fvmDZNPPmfJaT5zo1OBQA/s16000/Screen%20Shot%202022-11-08%20at%208.53.49%20AM.png</span></code></p></li>
+</ul>
+</section>
+<section id="react-comparison-png">
+<h2>react_comparison.png<a class="headerlink" href="#react-comparison-png" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Source:</strong> <a class="reference external" href="https://research.google/blog/react-synergizing-reasoning-and-acting-in-language-models/">Google Research - ReAct Paper</a></p></li>
+<li><p><strong>Description:</strong> Comparison of Standard, CoT, Act-only, and ReAct approaches on HotPotQA</p></li>
+<li><p><strong>Original URL:</strong> <code class="docutils literal notranslate"><span class="pre">https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhoAazr9qsoobs5Nkp7_uxjml4AEWA9iwUfoNfJpcJEnj2ZOdrTXptaf9R2CyRK7Qif64zcPbywR6AeIOaeZs19vQ7OH6n-6vEyh1exiHXC965OSoNX4bsGjuIZ3Po9CuJb-LhDYyYTQr1rZum-FZ285gi11jsuiAG58C8MzifUPj8VCC_-2N3k3Fsosg/s16000/HotPotQA.png</span></code></p></li>
+</ul>
+</section>
+<section id="augmented-llm-png">
+<h2>augmented_llm.png<a class="headerlink" href="#augmented-llm-png" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Source:</strong> <a class="reference external" href="https://www.anthropic.com/research/building-effective-agents">Anthropic - Building Effective Agents</a></p></li>
+<li><p><strong>Description:</strong> The augmented LLM building block with retrieval, tools, and memory</p></li>
+<li><p><strong>Original URL:</strong> <code class="docutils literal notranslate"><span class="pre">https://cdn.sanity.io/images/4zrzovbb/website/d3083d3f40bb2b6f477901cc9a240738d3dd1371-2401x1000.png</span></code></p></li>
+</ul>
+</section>
+<section id="autonomous-agent-png">
+<h2>autonomous_agent.png<a class="headerlink" href="#autonomous-agent-png" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Source:</strong> <a class="reference external" href="https://www.anthropic.com/research/building-effective-agents">Anthropic - Building Effective Agents</a></p></li>
+<li><p><strong>Description:</strong> Autonomous agent architecture with environment interaction loop</p></li>
+<li><p><strong>Original URL:</strong> <code class="docutils literal notranslate"><span class="pre">https://cdn.sanity.io/images/4zrzovbb/website/58d9f10c985c4eb5d53798dea315f7bb5ab6249e-2401x1000.png</span></code></p></li>
+</ul>
+</section>
+<section id="routing-workflow-png">
+<h2>routing_workflow.png<a class="headerlink" href="#routing-workflow-png" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Source:</strong> <a class="reference external" href="https://www.anthropic.com/research/building-effective-agents">Anthropic - Building Effective Agents</a></p></li>
+<li><p><strong>Description:</strong> Routing workflow for multi-tool agent decision making</p></li>
+<li><p><strong>Original URL:</strong> <code class="docutils literal notranslate"><span class="pre">https://cdn.sanity.io/images/4zrzovbb/website/5c0c0e9fe4def0b584c04d37849941da55e5e71c-2401x1000.png</span></code></p></li>
+</ul>
+</section>
+<section id="orchestrator-workers-png">
+<h2>orchestrator_workers.png<a class="headerlink" href="#orchestrator-workers-png" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Source:</strong> <a class="reference external" href="https://www.anthropic.com/research/building-effective-agents">Anthropic - Building Effective Agents</a></p></li>
+<li><p><strong>Description:</strong> Orchestrator-workers workflow for dynamic task delegation</p></li>
+<li><p><strong>Original URL:</strong> <code class="docutils literal notranslate"><span class="pre">https://cdn.sanity.io/images/4zrzovbb/website/8985fc683fae4780fb34eab1365ab78c7e51bc8e-2401x1000.png</span></code></p></li>
+</ul>
+</section>
+<section id="prompt-chaining-png">
+<h2>prompt_chaining.png<a class="headerlink" href="#prompt-chaining-png" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Source:</strong> <a class="reference external" href="https://www.anthropic.com/research/building-effective-agents">Anthropic - Building Effective Agents</a></p></li>
+<li><p><strong>Description:</strong> Prompt chaining workflow showing sequential LLM calls without persistent state</p></li>
+<li><p><strong>Original URL:</strong> <code class="docutils literal notranslate"><span class="pre">https://cdn.sanity.io/images/4zrzovbb/website/7418719e3dab222dccb379b8879e1dc08ad34c78-2401x1000.png</span></code></p></li>
+</ul>
+</section>
+<section id="evaluator-optimizer-png">
+<h2>evaluator_optimizer.png<a class="headerlink" href="#evaluator-optimizer-png" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Source:</strong> <a class="reference external" href="https://www.anthropic.com/research/building-effective-agents">Anthropic - Building Effective Agents</a></p></li>
+<li><p><strong>Description:</strong> Evaluator-optimizer workflow showing iterative refinement with feedback loops</p></li>
+<li><p><strong>Original URL:</strong> <code class="docutils literal notranslate"><span class="pre">https://cdn.sanity.io/images/4zrzovbb/website/14f51e6406ccb29e695da48b17017e899a6119c7-2401x1000.png</span></code></p></li>
+</ul>
+</section>
+<section id="coding-agent-flow-png">
+<h2>coding_agent_flow.png<a class="headerlink" href="#coding-agent-flow-png" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Source:</strong> <a class="reference external" href="https://www.anthropic.com/research/building-effective-agents">Anthropic - Building Effective Agents</a></p></li>
+<li><p><strong>Description:</strong> High-level execution flow for resolving GitHub issues through code modifications</p></li>
+<li><p><strong>Original URL:</strong> <code class="docutils literal notranslate"><span class="pre">https://cdn.sanity.io/images/4zrzovbb/website/4b9a1f4eb63d5962a6e1746ac26bbc857cf3474f-2400x1666.png</span></code></p></li>
+</ul>
+</section>
+<section id="parallelization-png">
+<h2>parallelization.png<a class="headerlink" href="#parallelization-png" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Source:</strong> <a class="reference external" href="https://www.anthropic.com/research/building-effective-agents">Anthropic - Building Effective Agents</a></p></li>
+<li><p><strong>Description:</strong> Parallelization workflow showing concurrent subtask execution patterns</p></li>
+<li><p><strong>Original URL:</strong> <code class="docutils literal notranslate"><span class="pre">https://cdn.sanity.io/images/4zrzovbb/website/406bb032ca007fd1624f261af717d70e6ca86286-2401x1000.png</span></code></p></li>
+</ul>
+</section>
+<section id="context-offload-tool-results-png">
+<h2>context_offload_tool_results.png<a class="headerlink" href="#context-offload-tool-results-png" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Source:</strong> <a class="reference external" href="https://blog.langchain.com/context-management-for-deepagents/">LangChain - Context Management for Deep Agents</a></p></li>
+<li><p><strong>Description:</strong> How tool responses exceeding 20K tokens are offloaded to filesystem with preview references</p></li>
+<li><p><strong>Original URL:</strong> <code class="docutils literal notranslate"><span class="pre">https://www.blog.langchain.com/content/images/2026/01/Screenshot-2026-01-26-at-10.18.38---AM.png</span></code></p></li>
+</ul>
+</section>
+<section id="context-offload-tool-inputs-png">
+<h2>context_offload_tool_inputs.png<a class="headerlink" href="#context-offload-tool-inputs-png" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Source:</strong> <a class="reference external" href="https://blog.langchain.com/context-management-for-deepagents/">LangChain - Context Management for Deep Agents</a></p></li>
+<li><p><strong>Description:</strong> Truncation of older tool calls when context crosses 85% capacity</p></li>
+<li><p><strong>Original URL:</strong> <code class="docutils literal notranslate"><span class="pre">https://www.blog.langchain.com/content/images/2026/01/Screenshot-2026-01-23-at-2.25.16---PM.png</span></code></p></li>
+</ul>
+</section>
+<section id="context-token-usage-chart-png">
+<h2>context_token_usage_chart.png<a class="headerlink" href="#context-token-usage-chart-png" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Source:</strong> <a class="reference external" href="https://blog.langchain.com/context-management-for-deepagents/">LangChain - Context Management for Deep Agents</a></p></li>
+<li><p><strong>Description:</strong> Token usage patterns over time during agent runs showing compression events</p></li>
+<li><p><strong>Original URL:</strong> <code class="docutils literal notranslate"><span class="pre">https://www.blog.langchain.com/content/images/2026/01/Screenshot-2026-01-23-at-3.03.57---PM-1.png</span></code></p></li>
+</ul>
+</section>
+<section id="context-engineering-strategies-png">
+<h2>context_engineering_strategies.png<a class="headerlink" href="#context-engineering-strategies-png" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Source:</strong> <a class="reference external" href="https://blog.langchain.com/context-engineering-for-agents/">LangChain - Context Engineering for Agents</a></p></li>
+<li><p><strong>Description:</strong> Four primary strategies for managing context: write, select, compress, isolate</p></li>
+<li><p><strong>Original URL:</strong> <code class="docutils literal notranslate"><span class="pre">https://www.blog.langchain.com/content/images/2025/07/image.png</span></code></p></li>
+</ul>
+</section>
+<section id="context-token-accumulation-png">
+<h2>context_token_accumulation.png<a class="headerlink" href="#context-token-accumulation-png" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Source:</strong> <a class="reference external" href="https://blog.langchain.com/context-engineering-for-agents/">LangChain - Context Engineering for Agents</a></p></li>
+<li><p><strong>Description:</strong> Token accumulation across multiple agent turns visualizing context growth</p></li>
+<li><p><strong>Original URL:</strong> <code class="docutils literal notranslate"><span class="pre">https://www.blog.langchain.com/content/images/2025/07/image-3.png</span></code></p></li>
+</ul>
+</section>
+<section id="context-summarization-points-png">
+<h2>context_summarization_points.png<a class="headerlink" href="#context-summarization-points-png" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Source:</strong> <a class="reference external" href="https://blog.langchain.com/context-engineering-for-agents/">LangChain - Context Engineering for Agents</a></p></li>
+<li><p><strong>Description:</strong> Multiple points where summarization can be applied in agent workflows</p></li>
+<li><p><strong>Original URL:</strong> <code class="docutils literal notranslate"><span class="pre">https://www.blog.langchain.com/content/images/2025/07/image-7.png</span></code></p></li>
+</ul>
+</section>
+<section id="context-multi-agent-isolation-png">
+<h2>context_multi_agent_isolation.png<a class="headerlink" href="#context-multi-agent-isolation-png" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Source:</strong> <a class="reference external" href="https://blog.langchain.com/context-engineering-for-agents/">LangChain - Context Engineering for Agents</a></p></li>
+<li><p><strong>Description:</strong> Context distribution and isolation across specialized sub-agents</p></li>
+<li><p><strong>Original URL:</strong> <code class="docutils literal notranslate"><span class="pre">https://www.blog.langchain.com/content/images/2025/07/image-8.png</span></code></p></li>
+</ul>
+</section>
+<section id="agent-eval-single-vs-multi-turn-png">
+<h2>agent_eval_single_vs_multi_turn.png<a class="headerlink" href="#agent-eval-single-vs-multi-turn-png" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Source:</strong> <a class="reference external" href="https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents">Anthropic - Demystifying Evals for AI Agents</a></p></li>
+<li><p><strong>Description:</strong> Comparison of single-turn LLM evals vs multi-turn agent evals with tool use</p></li>
+<li><p><strong>Original URL:</strong> <code class="docutils literal notranslate"><span class="pre">https://www-cdn.anthropic.com/images/4zrzovbb/website/bd42e7b2f3e9bb5218142796d3ede4816588dec0-4584x2834.png</span></code></p></li>
+</ul>
+</section>
+<section id="agent-eval-components-png">
+<h2>agent_eval_components.png<a class="headerlink" href="#agent-eval-components-png" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Source:</strong> <a class="reference external" href="https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents">Anthropic - Demystifying Evals for AI Agents</a></p></li>
+<li><p><strong>Description:</strong> Key components that make up agent evaluations: task, agent, scorer</p></li>
+<li><p><strong>Original URL:</strong> <code class="docutils literal notranslate"><span class="pre">https://www-cdn.anthropic.com/images/4zrzovbb/website/0205b36f9639fc27f2f6566f73cb56b06f59d555-4584x2580.png</span></code></p></li>
+</ul>
+</section>
+<section id="promptfoo-comparison-table-png">
+<h2>promptfoo_comparison_table.png<a class="headerlink" href="#promptfoo-comparison-table-png" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Source:</strong> <a class="reference external" href="https://github.com/promptfoo/promptfoo">Promptfoo - GitHub</a></p></li>
+<li><p><strong>Description:</strong> Promptfoo side-by-side comparison table showing prompt evaluation across multiple models</p></li>
+<li><p><strong>Original URL:</strong> <code class="docutils literal notranslate"><span class="pre">https://github.com/promptfoo/promptfoo/assets/310310/ce5a7817-da82-4484-b26d-32474f1cabc5</span></code></p></li>
+</ul>
+</section>
+<section id="promptfoo-cli-results-png">
+<h2>promptfoo_cli_results.png<a class="headerlink" href="#promptfoo-cli-results-png" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Source:</strong> <a class="reference external" href="https://github.com/promptfoo/promptfoo">Promptfoo - GitHub</a></p></li>
+<li><p><strong>Description:</strong> Promptfoo command-line evaluation interface showing PASS/FAIL results</p></li>
+<li><p><strong>Original URL:</strong> <code class="docutils literal notranslate"><span class="pre">https://user-images.githubusercontent.com/310310/236690475-b05205e8-483e-4a6d-bb84-41c2b06a1247.png</span></code></p></li>
+</ul>
+</section>
+<section id="cot-standard-vs-reasoning-png">
+<h2>cot_standard_vs_reasoning.png<a class="headerlink" href="#cot-standard-vs-reasoning-png" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Source:</strong> <a class="reference external" href="https://research.google/blog/language-models-perform-reasoning-via-chain-of-thought/">Google Research - Chain of Thought</a></p></li>
+<li><p><strong>Description:</strong> Comparison of standard prompting vs chain-of-thought showing how intermediate reasoning steps improve performance</p></li>
+<li><p><strong>Original URL:</strong> <code class="docutils literal notranslate"><span class="pre">https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgVgTjwA0IzKekrQoMziCmDXjO10QKjdDdzK1Oj8bZToPOI6VjVzTKXZ6vnWvAGOdVnWznJK2ZZjfBuTLojobayI_yrvlFzE3dCErF2j5wKLGFWAkuGP9-r-hMrqFivnjYhbCIu7HFINSmHu4wUjlKHfJxWHZ8Y7CYUowWvxTeRJhQEAUswGh2fUd3VHA/s2500/chainofthought.png</span></code></p></li>
+</ul>
+</section>
+<section id="fingpt-framework-png">
+<h2>fingpt_framework.png<a class="headerlink" href="#fingpt-framework-png" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Source:</strong> <a class="reference external" href="https://github.com/AI4Finance-Foundation/FinGPT">AI4Finance Foundation - FinGPT</a></p></li>
+<li><p><strong>Description:</strong> Full-stack FinLLM framework showing data source, engineering, LLMs, task, and application layers</p></li>
+<li><p><strong>Original URL:</strong> <code class="docutils literal notranslate"><span class="pre">https://raw.githubusercontent.com/AI4Finance-Foundation/FinGPT/master/figs/FinGPT_framework_20240301.png</span></code></p></li>
+</ul>
+</section>
+<section id="claude-code-product-jpg">
+<h2>claude_code_product.jpg<a class="headerlink" href="#claude-code-product-jpg" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Source:</strong> <a class="reference external" href="https://www.anthropic.com/claude-code">Anthropic</a></p></li>
+<li><p><strong>Description:</strong> Claude Code product image showing terminal-based AI assistant</p></li>
+<li><p><strong>Original URL:</strong> <code class="docutils literal notranslate"><span class="pre">https://cdn.prod.website-files.com/6889473510b50328dbb70ae6/68c469d41149ace562bfd24d_og-claude-product-claude-code.jpg</span></code></p></li>
+</ul>
+</section>
+<section id="chatkit-interface-example-png">
+<h2>chatkit_interface_example.png<a class="headerlink" href="#chatkit-interface-example-png" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Source:</strong> <a class="reference external" href="https://www.eesel.ai/blog/openai-chatkit">EESEL AI - ChatKit Guide</a></p></li>
+<li><p><strong>Description:</strong> Example chat interface built with OpenAI’s ChatKit framework</p></li>
+<li><p><strong>Original URL:</strong> <code class="docutils literal notranslate"><span class="pre">https://website-cms.eesel.ai/wp-content/uploads/2025/10/01-ChatKit-An-example-of-an-interface-built-using-ChatKit.png</span></code></p></li>
+</ul>
+</section>
+<section id="function-calling-flow-svg">
+<h2>function_calling_flow.svg<a class="headerlink" href="#function-calling-flow-svg" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Source:</strong> <a class="reference external" href="https://symflower.com/en/company/blog/2025/function-calling-llm-agents/">Symflower - Function Calling in LLM Agents</a></p></li>
+<li><p><strong>Description:</strong> Diagram showing how LLMs interact with Agent Scaffolding to perform tool calls</p></li>
+<li><p><strong>Original URL:</strong> <code class="docutils literal notranslate"><span class="pre">https://symflower.com/en/company/blog/2025/function-calling-llm-agents/images/tool-call.svg</span></code></p></li>
+</ul>
+</section>
+<section id="chatkit-implementation-workflow-png">
+<h2>chatkit_implementation_workflow.png<a class="headerlink" href="#chatkit-implementation-workflow-png" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Source:</strong> <a class="reference external" href="https://www.eesel.ai/blog/openai-chatkit">EESEL AI - ChatKit Guide</a></p></li>
+<li><p><strong>Description:</strong> ChatKit implementation workflow: Build Agent, Secure Backend, Embed Frontend</p></li>
+<li><p><strong>Original URL:</strong> <code class="docutils literal notranslate"><span class="pre">https://website-cms.eesel.ai/wp-content/uploads/2025/10/04-WorkflowV2-ChatKit-The-implementation-process-for-ChatKit.png</span></code></p></li>
+</ul>
+</section>
+<section id="nextjs-nested-layouts-png">
+<h2>nextjs_nested_layouts.png<a class="headerlink" href="#nextjs-nested-layouts-png" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Source:</strong> <a class="reference external" href="https://nextjs.org/docs/app/building-your-application/routing">Next.js Documentation</a></p></li>
+<li><p><strong>Description:</strong> Next.js nested layouts showing how folder structure maps to nested layouts and routes</p></li>
+<li><p><strong>Original URL:</strong> <code class="docutils literal notranslate"><span class="pre">https://h8DxKfmAPhn8O0p3.public.blob.vercel-storage.com/docs/light/nested-layouts.png</span></code></p></li>
+</ul>
+</section>
+<section id="nextjs-nested-route-png">
+<h2>nextjs_nested_route.png<a class="headerlink" href="#nextjs-nested-route-png" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Source:</strong> <a class="reference external" href="https://nextjs.org/docs/app/building-your-application/routing">Next.js Documentation</a></p></li>
+<li><p><strong>Description:</strong> Next.js blog nested route example showing how file structure creates URL paths</p></li>
+<li><p><strong>Original URL:</strong> <code class="docutils literal notranslate"><span class="pre">https://h8DxKfmAPhn8O0p3.public.blob.vercel-storage.com/docs/light/blog-nested-route.png</span></code></p></li>
+</ul>
+</section>
+</section>
+
+<div class="section ablog__blog_comments">
+   
+</div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#context-vs-prompt-engineering-png">context_vs_prompt_engineering.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#system-prompt-calibration-png">system_prompt_calibration.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langgraph-agent-workflow-png">langgraph_agent_workflow.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langgraph-flow-diagram-png">langgraph_flow_diagram.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agentic-ai-roadmap-png">agentic_ai_roadmap.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#react-overview-png">react_overview.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#react-comparison-png">react_comparison.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#augmented-llm-png">augmented_llm.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#autonomous-agent-png">autonomous_agent.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#routing-workflow-png">routing_workflow.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#orchestrator-workers-png">orchestrator_workers.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prompt-chaining-png">prompt_chaining.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluator-optimizer-png">evaluator_optimizer.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coding-agent-flow-png">coding_agent_flow.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parallelization-png">parallelization.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#context-offload-tool-results-png">context_offload_tool_results.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#context-offload-tool-inputs-png">context_offload_tool_inputs.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#context-token-usage-chart-png">context_token_usage_chart.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#context-engineering-strategies-png">context_engineering_strategies.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#context-token-accumulation-png">context_token_accumulation.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#context-summarization-points-png">context_summarization_points.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#context-multi-agent-isolation-png">context_multi_agent_isolation.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agent-eval-single-vs-multi-turn-png">agent_eval_single_vs_multi_turn.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agent-eval-components-png">agent_eval_components.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#promptfoo-comparison-table-png">promptfoo_comparison_table.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#promptfoo-cli-results-png">promptfoo_cli_results.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cot-standard-vs-reasoning-png">cot_standard_vs_reasoning.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fingpt-framework-png">fingpt_framework.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#claude-code-product-jpg">claude_code_product.jpg</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chatkit-interface-example-png">chatkit_interface_example.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#function-calling-flow-svg">function_calling_flow.svg</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chatkit-implementation-workflow-png">chatkit_implementation_workflow.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nextjs-nested-layouts-png">nextjs_nested_layouts.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nextjs-nested-route-png">nextjs_nested_route.png</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jeremiah Bejarano
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, Jeremiah Bejarano.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

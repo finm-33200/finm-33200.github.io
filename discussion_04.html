@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Week 4: &#8212; Full Stack Quantitative Finance</title>
+    <title>Discussion 4: Text Representation &amp; Embeddings &#8212; Full Stack Quantitative Finance</title>
   
   
   
@@ -30,9 +30,10 @@
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=f23691d7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -46,12 +47,15 @@
     <script src="_static/copybutton.js?v=f281be69"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'discussion_04';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/custom.js?v=c0d9a6f1"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Homework 0" href="HW0.html" />
-    <link rel="prev" title="Week 3:" href="discussion_03.html" /> 
+    <link rel="next" title="The Architecture of Meaning: From Vector Embeddings to Reasoning-Based Retrieval" href="discussions/vector_embeddings_and_search.html" />
+    <link rel="prev" title="Building a Financial Research Assistant with ChatKit" href="discussions/intro_to_chatkit.html" /> 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>   
   </head>
@@ -175,14 +179,38 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Discussions 📖</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="discussion_01.html">Week 1:</a></li>
-<li class="toctree-l1"><a class="reference internal" href="discussion_02.html">Week 2:</a></li>
-<li class="toctree-l1"><a class="reference internal" href="discussion_03.html">Week 3:</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Week 4:</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="discussion_01.html">Discussion 1: The New Quant - LLMs in Finance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="discussions/gen_ai_tech_stack.html">The Generative AI Tech Stack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/llms_transforming_finance.html">LLMs Transforming Finance: The New Quant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/api_and_structured_outputs.html">API Basics and Structured Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/ai_copilots_intro.html">AI Copilots: Claude Code and Cursor</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="discussion_02.html">Discussion 2: Building and Benchmarking Coding Agents</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="discussions/agent_fundamentals.html">Agent Fundamentals: From ReAct to LangGraph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/building_flawed_code.html">Building FlawedCode: A Minimal Claude Code Clone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/chartbook_integration.html">ChartBook Integration: Connecting Agents to Financial Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/context_management.html">Context Management for Deep Agents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/agent_benchmarking.html">Agent Benchmarking: Measuring What Matters</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="discussion_03.html">Discussion 3: AI Application Development &amp; Financial Data Integration</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="discussions/chat_applications_overview.html">Chat Applications Overview: AI in Financial Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/intro_to_nextjs.html">Introduction to Next.js and Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/intro_to_chatkit.html">Building a Financial Research Assistant with ChatKit</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Discussion 4: Text Representation &amp; Embeddings</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="discussions/vector_embeddings_and_search.html"><strong>The Architecture of Meaning: From Vector Embeddings to Reasoning-Based Retrieval</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/vector_embeddings_literature.html">Essential papers on embeddings and vector databases for AI/ML</a></li>
+</ul>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Homework 📝</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="HW0.html">Homework 0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="HW1.html">Homework 1: Lopez-Lira Replication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="HW2.html">Homework 2: Embedding-Based Return Prediction</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="final_project.html">Final Project</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="FinalProject/final_project_rubric.html">Final Project Instructions and Rubric</a></li>
 <li class="toctree-l2"><a class="reference internal" href="FinalProject/potential_final_projects.html">List of Potential Final Projects</a></li>
@@ -365,7 +393,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -376,11 +406,27 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Week 4:</h1>
+    <h1>Discussion 4: Text Representation & Embeddings</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-objectives">Learning Objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#course-materials">Course Materials</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-resources">Additional Resources</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#papers">Papers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#documentation">Documentation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data">Data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#assessment">Assessment</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -389,8 +435,58 @@ document.write(`
                 
 <div id="searchbox"></div>
                 <article class="bd-article">
-                   <section class="tex2jax_ignore mathjax_ignore" id="week-4">
-<h1>Week 4:<a class="headerlink" href="#week-4" title="Link to this heading">#</a></h1>
+                   <section class="tex2jax_ignore mathjax_ignore" id="discussion-4-text-representation-embeddings">
+<h1>Discussion 4: Text Representation &amp; Embeddings<a class="headerlink" href="#discussion-4-text-representation-embeddings" title="Link to this heading">#</a></h1>
+<p><strong>Duration:</strong> 3 hours
+<strong>Format:</strong> Hands-on workshop</p>
+<p>This session explores how text becomes numbers—the representations that underlie everything from topic models to LLM embeddings. We trace the progression from bag-of-words (Bybee et al. 2024) to contextual embeddings (Chen et al. 2022) and see how each representation captures increasingly rich information from financial text. Students build embedding pipelines using both BERT and OpenAI’s <code class="docutils literal notranslate"><span class="pre">text-embedding-3-large</span></code>.</p>
+<section id="learning-objectives">
+<h2>Learning Objectives<a class="headerlink" href="#learning-objectives" title="Link to this heading">#</a></h2>
+<p>By the end of this session, you will be able to:</p>
+<ul class="simple">
+<li><p><strong>Explain the progression</strong> from bag-of-words to Word2Vec to contextual embeddings</p></li>
+<li><p><strong>Use the OpenAI Embeddings API</strong> to generate dense vector representations of text</p></li>
+<li><p><strong>Use HuggingFace Transformers</strong> to extract BERT embeddings</p></li>
+<li><p><strong>Compare text representation methods</strong> and understand their trade-offs for financial applications</p></li>
+<li><p><strong>Connect embeddings to return prediction</strong> following Chen, Kelly &amp; Xiu (2022)</p></li>
+</ul>
+</section>
+<section id="course-materials">
+<h2>Course Materials<a class="headerlink" href="#course-materials" title="Link to this heading">#</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discussions/vector_embeddings_and_search.html"><strong>The Architecture of Meaning: From Vector Embeddings to Reasoning-Based Retrieval</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="discussions/vector_embeddings_literature.html">Essential papers on embeddings and vector databases for AI/ML</a></li>
+</ul>
+</div>
+</section>
+<section id="additional-resources">
+<h2>Additional Resources<a class="headerlink" href="#additional-resources" title="Link to this heading">#</a></h2>
+<section id="papers">
+<h3>Papers<a class="headerlink" href="#papers" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ssrn.com/abstract=4416687">Chen, Kelly &amp; Xiu (2022): Expected Returns and Large Language Models</a></p></li>
+<li><p><a class="reference external" href="https://onlinelibrary.wiley.com/doi/full/10.1111/jofi.13377">Bybee, Kelly, Manela &amp; Xiu (2024): Business News and Business Cycles</a></p></li>
+</ul>
+</section>
+<section id="documentation">
+<h3>Documentation<a class="headerlink" href="#documentation" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://platform.openai.com/docs/guides/embeddings">OpenAI Embeddings Guide</a></p></li>
+<li><p><a class="reference external" href="https://huggingface.co/docs/transformers/">HuggingFace Transformers</a></p></li>
+</ul>
+</section>
+<section id="data">
+<h3>Data<a class="headerlink" href="#data" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://structureofnews.com/">Structure of News</a> — Pre-constructed topic attention time series from Bybee et al.</p></li>
+</ul>
+</section>
+</section>
+<section id="assessment">
+<h2>Assessment<a class="headerlink" href="#assessment" title="Link to this heading">#</a></h2>
+<p>See <a class="reference internal" href="HW2.html"><span class="std std-doc">Homework 2: Embedding-Based Return Prediction</span></a> for the assignment associated with this session.</p>
+</section>
 </section>
 
 <div class="section ablog__blog_comments">
@@ -408,20 +504,20 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="discussion_03.html"
+       href="discussions/intro_to_chatkit.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Week 3:</p>
+        <p class="prev-next-title">Building a Financial Research Assistant with ChatKit</p>
       </div>
     </a>
     <a class="right-next"
-       href="HW0.html"
+       href="discussions/vector_embeddings_and_search.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Homework 0</p>
+        <p class="prev-next-title"><strong>The Architecture of Meaning: From Vector Embeddings to Reasoning-Based Retrieval</strong></p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -431,6 +527,29 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-objectives">Learning Objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#course-materials">Course Materials</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-resources">Additional Resources</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#papers">Papers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#documentation">Documentation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data">Data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#assessment">Assessment</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

@@ -1,0 +1,1830 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Building a Financial Research Assistant with ChatKit &#8212; Full Stack Quantitative Finance</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=f23691d7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=7a7908ec"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'discussions/intro_to_chatkit';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/custom.js?v=c0d9a6f1"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Discussion 4: Text Representation &amp; Embeddings" href="../discussion_04.html" />
+    <link rel="prev" title="Introduction to Next.js and Deployment" href="intro_to_nextjs.html" /> 
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>   
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Full Stack Quantitative Finance - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Full Stack Quantitative Finance - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Generative and Agentic AI for Finance
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../README.html">Course Syllabus: FINM 32900, Winter 2025</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Course Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Discussions 📖</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_01.html">Discussion 1: The New Quant - LLMs in Finance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="gen_ai_tech_stack.html">The Generative AI Tech Stack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="llms_transforming_finance.html">LLMs Transforming Finance: The New Quant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_and_structured_outputs.html">API Basics and Structured Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ai_copilots_intro.html">AI Copilots: Claude Code and Cursor</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_02.html">Discussion 2: Building and Benchmarking Coding Agents</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="agent_fundamentals.html">Agent Fundamentals: From ReAct to LangGraph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building_flawed_code.html">Building FlawedCode: A Minimal Claude Code Clone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chartbook_integration.html">ChartBook Integration: Connecting Agents to Financial Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="context_management.html">Context Management for Deep Agents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agent_benchmarking.html">Agent Benchmarking: Measuring What Matters</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../discussion_03.html">Discussion 3: AI Application Development &amp; Financial Data Integration</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="chat_applications_overview.html">Chat Applications Overview: AI in Financial Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_to_nextjs.html">Introduction to Next.js and Deployment</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Building a Financial Research Assistant with ChatKit</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_04.html">Discussion 4: Text Representation &amp; Embeddings</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="vector_embeddings_and_search.html"><strong>The Architecture of Meaning: From Vector Embeddings to Reasoning-Based Retrieval</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="vector_embeddings_literature.html">Essential papers on embeddings and vector databases for AI/ML</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Homework 📝</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../HW0.html">Homework 0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HW1.html">Homework 1: Lopez-Lira Replication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HW2.html">Homework 2: Embedding-Based Return Prediction</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../final_project.html">Final Project</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/final_project_rubric.html">Final Project Instructions and Rubric</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/potential_final_projects.html">List of Potential Final Projects</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Misc 📌</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../acknowledgments.html">Acknowledgments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../appendix.html">Appendix</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project/issues/new?title=Issue%20on%20page%20%2Fdiscussions/intro_to_chatkit.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/discussions/intro_to_chatkit.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Building a Financial Research Assistant with ChatKit</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-were-building">What We’re Building</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-setting-up-chatkit-starter-app-20-minutes">Part 1: Setting Up ChatKit Starter App (20 minutes)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-clone-the-starter-app">Step 1: Clone the Starter App</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-configure-environment-variables">Step 2: Configure Environment Variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-create-a-chatkit-workflow">Step 3: Create a ChatKit Workflow</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#option-a-using-chatkit-studio-visual-builder">Option A: Using ChatKit Studio (Visual Builder)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#option-b-using-the-api-programmatic">Option B: Using the API (Programmatic)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-run-the-app">Step 4: Run the App</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-the-starter-app-structure">Understanding the Starter App Structure</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-integrating-financial-data-sources-30-minutes">Part 2: Integrating Financial Data Sources (30 minutes)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-required-packages">Install Required Packages</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-financial-data-api-routes">Create Financial Data API Routes</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sec-filings-api">SEC Filings API</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#stock-price-api">Stock Price API</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#company-information-api">Company Information API</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-creating-chatkit-tools-25-minutes">Part 3: Creating ChatKit Tools (25 minutes)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-chatkit-tools">Understanding ChatKit Tools</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#define-tools-in-your-workflow">Define Tools in Your Workflow</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#handle-tool-calls-in-your-chat-api">Handle Tool Calls in Your Chat API</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#update-the-frontend-to-use-custom-chat">Update the Frontend to Use Custom Chat</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-4-customization-enhancement-20-minutes">Part 4: Customization &amp; Enhancement (20 minutes)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#add-citations-and-sources">Add Citations and Sources</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#add-rich-formatting">Add Rich Formatting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#add-error-handling-loading-states">Add Error Handling &amp; Loading States</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-5-deployment-testing-10-minutes">Part 5: Deployment &amp; Testing (10 minutes)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#final-checklist-before-deployment">Final Checklist Before Deployment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deploy-to-vercel">Deploy to Vercel</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#set-production-environment-variables">Set Production Environment Variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#test-in-production">Test in Production</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-features-optional-extensions">Advanced Features (Optional Extensions)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-company-comparison">1. Multi-Company Comparison</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#historical-analysis">2. Historical Analysis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#news-integration">3. News Integration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization">4. Visualization</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resources-documentation">Resources &amp; Documentation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chatkit-resources">ChatKit Resources</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#financial-data-apis">Financial Data APIs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tools-libraries">Tools &amp; Libraries</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-resources">Learning Resources</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#common-issues-troubleshooting">Common Issues &amp; Troubleshooting</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#issue-api-key-invalid">Issue: “API Key Invalid”</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#issue-sec-api-returns-403">Issue: “SEC API Returns 403”</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#issue-yahoo-finance-returns-no-data">Issue: “Yahoo Finance Returns No Data”</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#issue-chatkit-not-streaming">Issue: “ChatKit Not Streaming”</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#issue-tool-not-being-called">Issue: “Tool Not Being Called”</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#assessment-exercises">Assessment &amp; Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-add-a-new-tool">Exercise 1: Add a New Tool</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-company-comparison">Exercise 2: Company Comparison</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-portfolio-tracker">Exercise 3: Portfolio Tracker</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">Key Takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps-further-learning">Next Steps &amp; Further Learning</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#immediate-next-steps">Immediate Next Steps</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-topics">Advanced Topics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#production-considerations">Production Considerations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#congratulations">Congratulations! 🎉</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feedback-questions">Feedback &amp; Questions</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                   <section class="tex2jax_ignore mathjax_ignore" id="building-a-financial-research-assistant-with-chatkit">
+<h1>Building a Financial Research Assistant with ChatKit<a class="headerlink" href="#building-a-financial-research-assistant-with-chatkit" title="Link to this heading">#</a></h1>
+<p><strong>Duration:</strong> 1 hour 45 minutes
+<strong>Learning Objectives:</strong></p>
+<ul class="simple">
+<li><p>Set up and run the ChatKit starter app</p></li>
+<li><p>Understand ChatKit configuration and workflows</p></li>
+<li><p>Integrate SEC EDGAR and Yahoo Finance APIs</p></li>
+<li><p>Build custom tools for financial data retrieval</p></li>
+<li><p>Deploy a production-ready financial assistant</p></li>
+</ul>
+<p><img alt="Augmented LLM Architecture" src="../_images/augmented_llm.png" /></p>
+<p><em>The augmented LLM: your assistant will combine an LLM with tools (SEC EDGAR, Yahoo Finance) and retrieval capabilities. Source: <a class="reference external" href="https://www.anthropic.com/research/building-effective-agents">Anthropic - Building Effective Agents</a></em></p>
+<hr class="docutils" />
+<section id="what-were-building">
+<h2>What We’re Building<a class="headerlink" href="#what-were-building" title="Link to this heading">#</a></h2>
+<p>A <strong>Company Research Assistant</strong> that can:</p>
+<ul class="simple">
+<li><p>Answer questions about any public company</p></li>
+<li><p>Pull data from SEC filings (10-K, 10-Q, 8-K)</p></li>
+<li><p>Fetch current stock prices and market data</p></li>
+<li><p>Provide sources for all information</p></li>
+<li><p>Stream responses in real-time</p></li>
+</ul>
+<p><strong>Example interactions:</strong></p>
+<ul class="simple">
+<li><p>“What was Apple’s revenue in the most recent quarter?”</p></li>
+<li><p>“Show me Tesla’s latest 10-K filing summary”</p></li>
+<li><p>“Compare Microsoft and Google’s profit margins”</p></li>
+<li><p>“What’s the current stock price of NVIDIA?”</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="part-1-setting-up-chatkit-starter-app-20-minutes">
+<h2>Part 1: Setting Up ChatKit Starter App (20 minutes)<a class="headerlink" href="#part-1-setting-up-chatkit-starter-app-20-minutes" title="Link to this heading">#</a></h2>
+<section id="prerequisites">
+<h3>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading">#</a></h3>
+<p>Make sure you have:</p>
+<ul class="simple">
+<li><p>OpenAI API key (<a class="reference external" href="https://platform.openai.com/api-keys">get one here</a>)</p></li>
+<li><p>Node.js 18.17+ installed</p></li>
+<li><p>Git installed</p></li>
+</ul>
+</section>
+<section id="step-1-clone-the-starter-app">
+<h3>Step 1: Clone the Starter App<a class="headerlink" href="#step-1-clone-the-starter-app" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Clone the repository</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/openai/openai-chatkit-starter-app.git
+<span class="nb">cd</span><span class="w"> </span>openai-chatkit-starter-app
+
+<span class="c1"># Install dependencies</span>
+npm<span class="w"> </span>install
+</pre></div>
+</div>
+</section>
+<section id="step-2-configure-environment-variables">
+<h3>Step 2: Configure Environment Variables<a class="headerlink" href="#step-2-configure-environment-variables" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create environment file</span>
+cp<span class="w"> </span>.env.example<span class="w"> </span>.env.local
+</pre></div>
+</div>
+<p>Edit <code class="docutils literal notranslate"><span class="pre">.env.local</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># .env.local</span>
+<span class="nv">OPENAI_API_KEY</span><span class="o">=</span>sk-proj-xxxxxxxxxxxxxxxxxxxxx
+<span class="nv">CHATKIT_WORKFLOW_ID</span><span class="o">=</span>your-workflow-id<span class="w">  </span><span class="c1"># We&#39;ll set this up next</span>
+</pre></div>
+</div>
+</section>
+<section id="step-3-create-a-chatkit-workflow">
+<h3>Step 3: Create a ChatKit Workflow<a class="headerlink" href="#step-3-create-a-chatkit-workflow" title="Link to this heading">#</a></h3>
+<p>ChatKit uses <strong>workflows</strong> to define how your assistant behaves. You can create workflows in two ways:</p>
+<section id="option-a-using-chatkit-studio-visual-builder">
+<h4>Option A: Using ChatKit Studio (Visual Builder)<a class="headerlink" href="#option-a-using-chatkit-studio-visual-builder" title="Link to this heading">#</a></h4>
+<ol class="arabic simple">
+<li><p>Go to <a class="reference external" href="https://chatkit.studio/">ChatKit Studio</a></p></li>
+<li><p>Sign in with your OpenAI account</p></li>
+<li><p>Click <strong>“New Workflow”</strong></p></li>
+<li><p>Give it a name: “Company Research Assistant”</p></li>
+<li><p>Add a system prompt:</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">You</span> <span class="n">are</span> <span class="n">a</span> <span class="n">financial</span> <span class="n">research</span> <span class="n">assistant</span> <span class="n">that</span> <span class="n">helps</span> <span class="n">users</span> <span class="n">research</span> <span class="n">public</span> <span class="n">companies</span><span class="o">.</span>
+
+<span class="n">You</span> <span class="n">have</span> <span class="n">access</span> <span class="n">to</span> <span class="n">tools</span> <span class="n">that</span> <span class="n">can</span><span class="p">:</span>
+<span class="mf">1.</span> <span class="n">Fetch</span> <span class="n">SEC</span> <span class="n">filings</span> <span class="p">(</span><span class="mi">10</span><span class="o">-</span><span class="n">K</span><span class="p">,</span> <span class="mi">10</span><span class="o">-</span><span class="n">Q</span><span class="p">,</span> <span class="mi">8</span><span class="o">-</span><span class="n">K</span><span class="p">)</span> <span class="k">for</span> <span class="nb">any</span> <span class="n">company</span>
+<span class="mf">2.</span> <span class="n">Get</span> <span class="n">current</span> <span class="n">stock</span> <span class="n">prices</span> <span class="ow">and</span> <span class="n">market</span> <span class="n">data</span>
+<span class="mf">3.</span> <span class="n">Search</span> <span class="n">company</span> <span class="n">information</span>
+
+<span class="n">When</span> <span class="n">answering</span> <span class="n">questions</span><span class="p">:</span>
+<span class="o">-</span> <span class="n">Always</span> <span class="n">cite</span> <span class="n">your</span> <span class="n">sources</span> <span class="p">(</span><span class="n">which</span> <span class="n">SEC</span> <span class="n">filing</span> <span class="ow">or</span> <span class="n">data</span> <span class="n">source</span><span class="p">)</span>
+<span class="o">-</span> <span class="n">Be</span> <span class="n">precise</span> <span class="k">with</span> <span class="n">numbers</span> <span class="ow">and</span> <span class="n">dates</span>
+<span class="o">-</span> <span class="n">Explain</span> <span class="n">financial</span> <span class="n">terms</span> <span class="k">if</span> <span class="n">the</span> <span class="n">user</span> <span class="n">might</span> <span class="ow">not</span> <span class="n">know</span> <span class="n">them</span>
+<span class="o">-</span> <span class="n">Suggest</span> <span class="n">follow</span><span class="o">-</span><span class="n">up</span> <span class="n">questions</span> <span class="n">the</span> <span class="n">user</span> <span class="n">might</span> <span class="n">find</span> <span class="n">helpful</span>
+
+<span class="n">If</span> <span class="n">you</span> <span class="n">don</span><span class="s1">&#39;t have enough information, explain what additional data would help.</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="6">
+<li><p>Copy the <strong>Workflow ID</strong> from the URL or settings</p></li>
+<li><p>Paste it into <code class="docutils literal notranslate"><span class="pre">.env.local</span></code></p></li>
+</ol>
+</section>
+<section id="option-b-using-the-api-programmatic">
+<h4>Option B: Using the API (Programmatic)<a class="headerlink" href="#option-b-using-the-api-programmatic" title="Link to this heading">#</a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># We&#39;ll use the pre-configured workflow for now</span>
+<span class="c1"># You can customize it later through the dashboard</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="step-4-run-the-app">
+<h3>Step 4: Run the App<a class="headerlink" href="#step-4-run-the-app" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>npm<span class="w"> </span>run<span class="w"> </span>dev
+</pre></div>
+</div>
+<p>Visit <a class="reference external" href="http://localhost:3000">http://localhost:3000</a></p>
+<p>You should see the ChatKit interface! Try asking a question.</p>
+</section>
+<section id="understanding-the-starter-app-structure">
+<h3>Understanding the Starter App Structure<a class="headerlink" href="#understanding-the-starter-app-structure" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>openai-chatkit-starter-app/
+|-- app/
+|   |-- api/
+|   |   `-- chatkit/
+|   |       `-- sessions/
+|   |           `-- route.ts       # Creates chat sessions
+|   |-- layout.tsx                 # Root layout
+|   `-- page.tsx                   # Main chat page
+|-- components/
+|   `-- ChatKitPanel.tsx           # ChatKit component
+|-- hooks/
+|   `-- useChatKit.ts              # ChatKit React hook
+|-- lib/
+|   `-- config.ts                  # Starter prompts &amp; config
+`-- .env.local                     # Environment variables
+</pre></div>
+</div>
+<p><strong>Key files we’ll modify:</strong></p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">lib/config.ts</span></code> - Starter prompts and app config</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">components/ChatKitPanel.tsx</span></code> - UI customization</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">app/api/chatkit/sessions/route.ts</span></code> - Session creation</p></li>
+</ol>
+</section>
+</section>
+<hr class="docutils" />
+<section id="part-2-integrating-financial-data-sources-30-minutes">
+<h2>Part 2: Integrating Financial Data Sources (30 minutes)<a class="headerlink" href="#part-2-integrating-financial-data-sources-30-minutes" title="Link to this heading">#</a></h2>
+<p>Now let’s add the ability to fetch real financial data!</p>
+<section id="install-required-packages">
+<h3>Install Required Packages<a class="headerlink" href="#install-required-packages" title="Link to this heading">#</a></h3>
+<p>We’ll use Node.js libraries to access financial data:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># For SEC filings - we&#39;ll use the SEC API directly</span>
+npm<span class="w"> </span>install<span class="w"> </span>node-fetch
+
+<span class="c1"># For stock data - yfinance alternative for Node.js</span>
+npm<span class="w"> </span>install<span class="w"> </span>yahoo-finance2
+</pre></div>
+</div>
+</section>
+<section id="create-financial-data-api-routes">
+<h3>Create Financial Data API Routes<a class="headerlink" href="#create-financial-data-api-routes" title="Link to this heading">#</a></h3>
+<section id="sec-filings-api">
+<h4>SEC Filings API<a class="headerlink" href="#sec-filings-api" title="Link to this heading">#</a></h4>
+<div class="highlight-jsx notranslate"><div class="highlight"><pre><span></span><span class="c1">// app/api/sec/filings/route.ts</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">NextResponse</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;next/server&#39;</span><span class="p">;</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">GET</span><span class="p">(</span><span class="nx">request</span><span class="o">:</span><span class="w"> </span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">searchParams</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">URL</span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">url</span><span class="p">);</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">ticker</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">searchParams</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;ticker&#39;</span><span class="p">)</span><span class="o">?</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">();</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">formType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">searchParams</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;formType&#39;</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="s1">&#39;10-Q&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1">// 10-Q, 10-K, 8-K</span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">ticker</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">NextResponse</span><span class="p">.</span><span class="nx">json</span><span class="p">(</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nx">error</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Ticker required&#39;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nx">status</span><span class="o">:</span><span class="w"> </span><span class="mf">400</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Step 1: Get CIK (Central Index Key) from ticker</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">cikResponse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span>
+<span class="w">      </span><span class="s1">&#39;https://www.sec.gov/files/company_tickers.json&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">headers</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="s1">&#39;User-Agent&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Company Research Assistant contact@yourschool.edu&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">);</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">companies</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">cikResponse</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">company</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">values</span><span class="p">(</span><span class="nx">companies</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span>
+<span class="w">      </span><span class="p">(</span><span class="nx">c</span><span class="o">:</span><span class="w"> </span><span class="nx">any</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">c</span><span class="p">.</span><span class="nx">ticker</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="nx">ticker</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">any</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">company</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nx">NextResponse</span><span class="p">.</span><span class="nx">json</span><span class="p">(</span>
+<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">error</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Company not found&#39;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">status</span><span class="o">:</span><span class="w"> </span><span class="mf">404</span><span class="w"> </span><span class="p">}</span>
+<span class="w">      </span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Step 2: Get recent filings for this company</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">cik</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">String</span><span class="p">(</span><span class="nx">company</span><span class="p">.</span><span class="nx">cik_str</span><span class="p">).</span><span class="nx">padStart</span><span class="p">(</span><span class="mf">10</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;0&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">submissionsResponse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span>
+<span class="w">      </span><span class="sb">`https://data.sec.gov/submissions/CIK</span><span class="si">${</span><span class="nx">cik</span><span class="si">}</span><span class="sb">.json`</span><span class="p">,</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">headers</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="s1">&#39;User-Agent&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Company Research Assistant contact@yourschool.edu&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">);</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">submissions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">submissionsResponse</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+
+<span class="w">    </span><span class="c1">// Step 3: Filter for the requested form type</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">recentFilings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">submissions</span><span class="p">.</span><span class="nx">filings</span><span class="p">.</span><span class="nx">recent</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">filingIndices</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">recentFilings</span><span class="p">.</span><span class="nx">form</span>
+<span class="w">      </span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">form</span><span class="o">:</span><span class="w"> </span><span class="nx">string</span><span class="p">,</span><span class="w"> </span><span class="nx">index</span><span class="o">:</span><span class="w"> </span><span class="nx">number</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span>
+<span class="w">        </span><span class="nx">form</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="nx">formType</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="nx">index</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">-</span><span class="mf">1</span>
+<span class="w">      </span><span class="p">)</span>
+<span class="w">      </span><span class="p">.</span><span class="nx">filter</span><span class="p">((</span><span class="nx">index</span><span class="o">:</span><span class="w"> </span><span class="nx">number</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">index</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="o">-</span><span class="mf">1</span><span class="p">)</span>
+<span class="w">      </span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="mf">5</span><span class="p">);</span><span class="w"> </span><span class="c1">// Get last 5 filings</span>
+
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">filings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">filingIndices</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">index</span><span class="o">:</span><span class="w"> </span><span class="nx">number</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">({</span>
+<span class="w">      </span><span class="nx">form</span><span class="o">:</span><span class="w"> </span><span class="nx">recentFilings</span><span class="p">.</span><span class="nx">form</span><span class="p">[</span><span class="nx">index</span><span class="p">],</span>
+<span class="w">      </span><span class="nx">filingDate</span><span class="o">:</span><span class="w"> </span><span class="nx">recentFilings</span><span class="p">.</span><span class="nx">filingDate</span><span class="p">[</span><span class="nx">index</span><span class="p">],</span>
+<span class="w">      </span><span class="nx">accessionNumber</span><span class="o">:</span><span class="w"> </span><span class="nx">recentFilings</span><span class="p">.</span><span class="nx">accessionNumber</span><span class="p">[</span><span class="nx">index</span><span class="p">],</span>
+<span class="w">      </span><span class="nx">primaryDocument</span><span class="o">:</span><span class="w"> </span><span class="nx">recentFilings</span><span class="p">.</span><span class="nx">primaryDocument</span><span class="p">[</span><span class="nx">index</span><span class="p">],</span>
+<span class="w">      </span><span class="nx">reportDate</span><span class="o">:</span><span class="w"> </span><span class="nx">recentFilings</span><span class="p">.</span><span class="nx">reportDate</span><span class="p">[</span><span class="nx">index</span><span class="p">],</span>
+<span class="w">      </span><span class="nx">url</span><span class="o">:</span><span class="w"> </span><span class="sb">`https://www.sec.gov/Archives/edgar/data/</span><span class="si">${</span><span class="nx">company</span><span class="p">.</span><span class="nx">cik_str</span><span class="si">}</span><span class="sb">/</span><span class="si">${</span><span class="nx">recentFilings</span><span class="p">.</span><span class="nx">accessionNumber</span><span class="p">[</span><span class="nx">index</span><span class="p">].</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/-/g</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="si">}</span><span class="sb">/</span><span class="si">${</span><span class="nx">recentFilings</span><span class="p">.</span><span class="nx">primaryDocument</span><span class="p">[</span><span class="nx">index</span><span class="p">]</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span>
+<span class="w">    </span><span class="p">}));</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">NextResponse</span><span class="p">.</span><span class="nx">json</span><span class="p">({</span>
+<span class="w">      </span><span class="nx">company</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="nx">company</span><span class="p">.</span><span class="nx">title</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">ticker</span><span class="o">:</span><span class="w"> </span><span class="nx">company</span><span class="p">.</span><span class="nx">ticker</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">cik</span><span class="o">:</span><span class="w"> </span><span class="nx">company</span><span class="p">.</span><span class="nx">cik_str</span><span class="p">,</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nx">filings</span><span class="p">,</span>
+<span class="w">    </span><span class="p">});</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;SEC API Error:&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">error</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">NextResponse</span><span class="p">.</span><span class="nx">json</span><span class="p">(</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nx">error</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Failed to fetch SEC data&#39;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nx">status</span><span class="o">:</span><span class="w"> </span><span class="mf">500</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Test it:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span><span class="s2">&quot;http://localhost:3000/api/sec/filings?ticker=AAPL&amp;formType=10-Q&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="stock-price-api">
+<h4>Stock Price API<a class="headerlink" href="#stock-price-api" title="Link to this heading">#</a></h4>
+<div class="highlight-jsx notranslate"><div class="highlight"><pre><span></span><span class="c1">// app/api/stock/price/route.ts</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">NextResponse</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;next/server&#39;</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="nx">yahooFinance</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;yahoo-finance2&#39;</span><span class="p">;</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">GET</span><span class="p">(</span><span class="nx">request</span><span class="o">:</span><span class="w"> </span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">searchParams</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">URL</span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">url</span><span class="p">);</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">ticker</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">searchParams</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;ticker&#39;</span><span class="p">)</span><span class="o">?</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">();</span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">ticker</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">NextResponse</span><span class="p">.</span><span class="nx">json</span><span class="p">(</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nx">error</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Ticker required&#39;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nx">status</span><span class="o">:</span><span class="w"> </span><span class="mf">400</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Get quote data</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">quote</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">yahooFinance</span><span class="p">.</span><span class="nx">quote</span><span class="p">(</span><span class="nx">ticker</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Get historical data (last 30 days)</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">endDate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">();</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">startDate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">();</span>
+<span class="w">    </span><span class="nx">startDate</span><span class="p">.</span><span class="nx">setDate</span><span class="p">(</span><span class="nx">startDate</span><span class="p">.</span><span class="nx">getDate</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">30</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">historicalData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">yahooFinance</span><span class="p">.</span><span class="nx">historical</span><span class="p">(</span><span class="nx">ticker</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">period1</span><span class="o">:</span><span class="w"> </span><span class="nx">startDate</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">period2</span><span class="o">:</span><span class="w"> </span><span class="nx">endDate</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">interval</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;1d&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="p">});</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">NextResponse</span><span class="p">.</span><span class="nx">json</span><span class="p">({</span>
+<span class="w">      </span><span class="nx">ticker</span><span class="o">:</span><span class="w"> </span><span class="nx">ticker</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="nx">quote</span><span class="p">.</span><span class="nx">longName</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">quote</span><span class="p">.</span><span class="nx">shortName</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">price</span><span class="o">:</span><span class="w"> </span><span class="nx">quote</span><span class="p">.</span><span class="nx">regularMarketPrice</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">change</span><span class="o">:</span><span class="w"> </span><span class="nx">quote</span><span class="p">.</span><span class="nx">regularMarketChange</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">changePercent</span><span class="o">:</span><span class="w"> </span><span class="nx">quote</span><span class="p">.</span><span class="nx">regularMarketChangePercent</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">dayHigh</span><span class="o">:</span><span class="w"> </span><span class="nx">quote</span><span class="p">.</span><span class="nx">regularMarketDayHigh</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">dayLow</span><span class="o">:</span><span class="w"> </span><span class="nx">quote</span><span class="p">.</span><span class="nx">regularMarketDayLow</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">volume</span><span class="o">:</span><span class="w"> </span><span class="nx">quote</span><span class="p">.</span><span class="nx">regularMarketVolume</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">marketCap</span><span class="o">:</span><span class="w"> </span><span class="nx">quote</span><span class="p">.</span><span class="nx">marketCap</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">fiftyTwoWeekHigh</span><span class="o">:</span><span class="w"> </span><span class="nx">quote</span><span class="p">.</span><span class="nx">fiftyTwoWeekHigh</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">fiftyTwoWeekLow</span><span class="o">:</span><span class="w"> </span><span class="nx">quote</span><span class="p">.</span><span class="nx">fiftyTwoWeekLow</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">historical</span><span class="o">:</span><span class="w"> </span><span class="nx">historicalData</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="o">-</span><span class="mf">7</span><span class="p">),</span><span class="w"> </span><span class="c1">// Last 7 days</span>
+<span class="w">      </span><span class="nx">currency</span><span class="o">:</span><span class="w"> </span><span class="nx">quote</span><span class="p">.</span><span class="nx">currency</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">exchange</span><span class="o">:</span><span class="w"> </span><span class="nx">quote</span><span class="p">.</span><span class="nx">fullExchangeName</span><span class="p">,</span>
+<span class="w">    </span><span class="p">});</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;Yahoo Finance Error:&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">error</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">NextResponse</span><span class="p">.</span><span class="nx">json</span><span class="p">(</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nx">error</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Failed to fetch stock data&#39;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nx">status</span><span class="o">:</span><span class="w"> </span><span class="mf">500</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Test it:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span><span class="s2">&quot;http://localhost:3000/api/stock/price?ticker=AAPL&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="company-information-api">
+<h3>Company Information API<a class="headerlink" href="#company-information-api" title="Link to this heading">#</a></h3>
+<div class="highlight-jsx notranslate"><div class="highlight"><pre><span></span><span class="c1">// app/api/company/info/route.ts</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">NextResponse</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;next/server&#39;</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="nx">yahooFinance</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;yahoo-finance2&#39;</span><span class="p">;</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">GET</span><span class="p">(</span><span class="nx">request</span><span class="o">:</span><span class="w"> </span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">searchParams</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">URL</span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">url</span><span class="p">);</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">ticker</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">searchParams</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;ticker&#39;</span><span class="p">)</span><span class="o">?</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">();</span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">ticker</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">NextResponse</span><span class="p">.</span><span class="nx">json</span><span class="p">(</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nx">error</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Ticker required&#39;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nx">status</span><span class="o">:</span><span class="w"> </span><span class="mf">400</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">quoteSummary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">yahooFinance</span><span class="p">.</span><span class="nx">quoteSummary</span><span class="p">(</span><span class="nx">ticker</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">modules</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;assetProfile&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;summaryDetail&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;financialData&#39;</span><span class="p">],</span>
+<span class="w">    </span><span class="p">});</span>
+
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">profile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">quoteSummary</span><span class="p">.</span><span class="nx">assetProfile</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">financials</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">quoteSummary</span><span class="p">.</span><span class="nx">financialData</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">NextResponse</span><span class="p">.</span><span class="nx">json</span><span class="p">({</span>
+<span class="w">      </span><span class="nx">ticker</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="nx">profile</span><span class="o">?</span><span class="p">.</span><span class="nx">longName</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">description</span><span class="o">:</span><span class="w"> </span><span class="nx">profile</span><span class="o">?</span><span class="p">.</span><span class="nx">longBusinessSummary</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">sector</span><span class="o">:</span><span class="w"> </span><span class="nx">profile</span><span class="o">?</span><span class="p">.</span><span class="nx">sector</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">industry</span><span class="o">:</span><span class="w"> </span><span class="nx">profile</span><span class="o">?</span><span class="p">.</span><span class="nx">industry</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">website</span><span class="o">:</span><span class="w"> </span><span class="nx">profile</span><span class="o">?</span><span class="p">.</span><span class="nx">website</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">employees</span><span class="o">:</span><span class="w"> </span><span class="nx">profile</span><span class="o">?</span><span class="p">.</span><span class="nx">fullTimeEmployees</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">headquarters</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">city</span><span class="o">:</span><span class="w"> </span><span class="nx">profile</span><span class="o">?</span><span class="p">.</span><span class="nx">city</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">state</span><span class="o">:</span><span class="w"> </span><span class="nx">profile</span><span class="o">?</span><span class="p">.</span><span class="nx">state</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">country</span><span class="o">:</span><span class="w"> </span><span class="nx">profile</span><span class="o">?</span><span class="p">.</span><span class="nx">country</span><span class="p">,</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nx">financials</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">revenue</span><span class="o">:</span><span class="w"> </span><span class="nx">financials</span><span class="o">?</span><span class="p">.</span><span class="nx">totalRevenue</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">profitMargins</span><span class="o">:</span><span class="w"> </span><span class="nx">financials</span><span class="o">?</span><span class="p">.</span><span class="nx">profitMargins</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">grossMargins</span><span class="o">:</span><span class="w"> </span><span class="nx">financials</span><span class="o">?</span><span class="p">.</span><span class="nx">grossMargins</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">ebitda</span><span class="o">:</span><span class="w"> </span><span class="nx">financials</span><span class="o">?</span><span class="p">.</span><span class="nx">ebitda</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">debtToEquity</span><span class="o">:</span><span class="w"> </span><span class="nx">financials</span><span class="o">?</span><span class="p">.</span><span class="nx">debtToEquity</span><span class="p">,</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">    </span><span class="p">});</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;Company Info Error:&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">error</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">NextResponse</span><span class="p">.</span><span class="nx">json</span><span class="p">(</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nx">error</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Failed to fetch company information&#39;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nx">status</span><span class="o">:</span><span class="w"> </span><span class="mf">500</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="part-3-creating-chatkit-tools-25-minutes">
+<h2>Part 3: Creating ChatKit Tools (25 minutes)<a class="headerlink" href="#part-3-creating-chatkit-tools-25-minutes" title="Link to this heading">#</a></h2>
+<p>Now we’ll connect these APIs to ChatKit using <strong>function calling</strong>.</p>
+<section id="understanding-chatkit-tools">
+<h3>Understanding ChatKit Tools<a class="headerlink" href="#understanding-chatkit-tools" title="Link to this heading">#</a></h3>
+<p>ChatKit tools allow the AI to call your API endpoints. When the user asks a question, the AI can:</p>
+<ol class="arabic simple">
+<li><p>Decide which tool to call</p></li>
+<li><p>Extract parameters (like ticker symbol)</p></li>
+<li><p>Call your API</p></li>
+<li><p>Use the results to formulate an answer</p></li>
+</ol>
+<p><img alt="Function Calling Flow" src="../_images/function_calling_flow.svg" /></p>
+<p><em>How function calling works: The LLM requests a tool call, the Agent Scaffolding executes it, and returns the result. Source: <a class="reference external" href="https://symflower.com/en/company/blog/2025/function-calling-llm-agents/">Symflower</a></em></p>
+</section>
+<section id="define-tools-in-your-workflow">
+<h3>Define Tools in Your Workflow<a class="headerlink" href="#define-tools-in-your-workflow" title="Link to this heading">#</a></h3>
+<p>You can define tools in ChatKit Studio or programmatically. Here’s how to do it programmatically:</p>
+<div class="highlight-jsx notranslate"><div class="highlight"><pre><span></span><span class="c1">// lib/tools.ts</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">financialTools</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;function&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">function</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;get_sec_filings&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">description</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Retrieve SEC filings (10-K, 10-Q, 8-K) for a public company&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">parameters</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;object&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">properties</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nx">ticker</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;string&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="nx">description</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;The stock ticker symbol (e.g., AAPL, MSFT)&#39;</span><span class="p">,</span>
+<span class="w">          </span><span class="p">},</span>
+<span class="w">          </span><span class="nx">formType</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;string&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="kr">enum</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;10-K&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;10-Q&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;8-K&#39;</span><span class="p">],</span>
+<span class="w">            </span><span class="nx">description</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;The type of SEC filing to retrieve&#39;</span><span class="p">,</span>
+<span class="w">          </span><span class="p">},</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nx">required</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;ticker&#39;</span><span class="p">],</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;function&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">function</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;get_stock_price&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">description</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Get current stock price and market data for a company&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">parameters</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;object&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">properties</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nx">ticker</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;string&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="nx">description</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;The stock ticker symbol (e.g., AAPL, MSFT)&#39;</span><span class="p">,</span>
+<span class="w">          </span><span class="p">},</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nx">required</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;ticker&#39;</span><span class="p">],</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;function&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">function</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;get_company_info&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">description</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Get detailed company information including business description, financials, and headquarters&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">parameters</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;object&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">properties</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nx">ticker</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;string&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="nx">description</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;The stock ticker symbol (e.g., AAPL, MSFT)&#39;</span><span class="p">,</span>
+<span class="w">          </span><span class="p">},</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nx">required</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;ticker&#39;</span><span class="p">],</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="p">];</span>
+</pre></div>
+</div>
+<p><img alt="Routing Workflow" src="../_images/routing_workflow.png" /></p>
+<p><em>Multi-tool routing: The LLM analyzes the user query and routes to the appropriate tool (SEC filings, stock prices, or company info). Source: <a class="reference external" href="https://www.anthropic.com/research/building-effective-agents">Anthropic - Building Effective Agents</a></em></p>
+</section>
+<section id="handle-tool-calls-in-your-chat-api">
+<h3>Handle Tool Calls in Your Chat API<a class="headerlink" href="#handle-tool-calls-in-your-chat-api" title="Link to this heading">#</a></h3>
+<div class="highlight-jsx notranslate"><div class="highlight"><pre><span></span><span class="c1">// app/api/chat/route.ts</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">NextResponse</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;next/server&#39;</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="nx">OpenAI</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;openai&#39;</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">financialTools</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@/lib/tools&#39;</span><span class="p">;</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">openai</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">OpenAI</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">apiKey</span><span class="o">:</span><span class="w"> </span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">OPENAI_API_KEY</span><span class="p">,</span>
+<span class="p">});</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">POST</span><span class="p">(</span><span class="nx">request</span><span class="o">:</span><span class="w"> </span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">messages</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">request</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+
+<span class="w">  </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Initial request with tools</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">openai</span><span class="p">.</span><span class="nx">chat</span><span class="p">.</span><span class="nx">completions</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
+<span class="w">      </span><span class="nx">model</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;gpt-4-turbo-preview&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">messages</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nx">role</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;system&#39;</span><span class="p">,</span>
+<span class="w">          </span><span class="nx">content</span><span class="o">:</span><span class="w"> </span><span class="sb">`You are a financial research assistant. Use your tools to fetch real-time data about companies when users ask questions.</span>
+
+<span class="sb">Always cite your sources and be precise with numbers.`</span><span class="p">,</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">...</span><span class="nx">messages</span><span class="p">,</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">      </span><span class="nx">tools</span><span class="o">:</span><span class="w"> </span><span class="nx">financialTools</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">tool_choice</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;auto&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="p">});</span>
+
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">responseMessage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">choices</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="nx">message</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Check if the model wants to call a function</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">responseMessage</span><span class="p">.</span><span class="nx">tool_calls</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="c1">// Execute tool calls</span>
+<span class="w">      </span><span class="kd">const</span><span class="w"> </span><span class="nx">toolResults</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nb">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span>
+<span class="w">        </span><span class="nx">responseMessage</span><span class="p">.</span><span class="nx">tool_calls</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">toolCall</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="kd">const</span><span class="w"> </span><span class="nx">functionName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">toolCall</span><span class="p">.</span><span class="kd">function</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
+<span class="w">          </span><span class="kd">const</span><span class="w"> </span><span class="nx">functionArgs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">toolCall</span><span class="p">.</span><span class="kd">function</span><span class="p">.</span><span class="nx">arguments</span><span class="p">);</span>
+
+<span class="w">          </span><span class="kd">let</span><span class="w"> </span><span class="nx">result</span><span class="p">;</span>
+<span class="w">          </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="nx">functionName</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="s1">&#39;get_sec_filings&#39;</span><span class="o">:</span>
+<span class="w">              </span><span class="kd">const</span><span class="w"> </span><span class="nx">secRes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span>
+<span class="w">                </span><span class="sb">`</span><span class="si">${</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">NEXT_PUBLIC_BASE_URL</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="s1">&#39;http://localhost:3000&#39;</span><span class="si">}</span><span class="sb">/api/sec/filings?ticker=</span><span class="si">${</span><span class="nx">functionArgs</span><span class="p">.</span><span class="nx">ticker</span><span class="si">}</span><span class="sb">&amp;formType=</span><span class="si">${</span><span class="nx">functionArgs</span><span class="p">.</span><span class="nx">formType</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="s1">&#39;10-Q&#39;</span><span class="si">}</span><span class="sb">`</span>
+<span class="w">              </span><span class="p">);</span>
+<span class="w">              </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">secRes</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+<span class="w">              </span><span class="k">break</span><span class="p">;</span>
+
+<span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="s1">&#39;get_stock_price&#39;</span><span class="o">:</span>
+<span class="w">              </span><span class="kd">const</span><span class="w"> </span><span class="nx">stockRes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span>
+<span class="w">                </span><span class="sb">`</span><span class="si">${</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">NEXT_PUBLIC_BASE_URL</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="s1">&#39;http://localhost:3000&#39;</span><span class="si">}</span><span class="sb">/api/stock/price?ticker=</span><span class="si">${</span><span class="nx">functionArgs</span><span class="p">.</span><span class="nx">ticker</span><span class="si">}</span><span class="sb">`</span>
+<span class="w">              </span><span class="p">);</span>
+<span class="w">              </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">stockRes</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+<span class="w">              </span><span class="k">break</span><span class="p">;</span>
+
+<span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="s1">&#39;get_company_info&#39;</span><span class="o">:</span>
+<span class="w">              </span><span class="kd">const</span><span class="w"> </span><span class="nx">infoRes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span>
+<span class="w">                </span><span class="sb">`</span><span class="si">${</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">NEXT_PUBLIC_BASE_URL</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="s1">&#39;http://localhost:3000&#39;</span><span class="si">}</span><span class="sb">/api/company/info?ticker=</span><span class="si">${</span><span class="nx">functionArgs</span><span class="p">.</span><span class="nx">ticker</span><span class="si">}</span><span class="sb">`</span>
+<span class="w">              </span><span class="p">);</span>
+<span class="w">              </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">infoRes</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+<span class="w">              </span><span class="k">break</span><span class="p">;</span>
+
+<span class="w">            </span><span class="k">default</span><span class="o">:</span>
+<span class="w">              </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">error</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Unknown function&#39;</span><span class="w"> </span><span class="p">};</span>
+<span class="w">          </span><span class="p">}</span>
+
+<span class="w">          </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">tool_call_id</span><span class="o">:</span><span class="w"> </span><span class="nx">toolCall</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
+<span class="w">            </span><span class="nx">role</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;tool&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="nx">functionName</span><span class="p">,</span>
+<span class="w">            </span><span class="nx">content</span><span class="o">:</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">result</span><span class="p">),</span>
+<span class="w">          </span><span class="p">};</span>
+<span class="w">        </span><span class="p">})</span>
+<span class="w">      </span><span class="p">);</span>
+
+<span class="w">      </span><span class="c1">// Send tool results back to the model</span>
+<span class="w">      </span><span class="kd">const</span><span class="w"> </span><span class="nx">secondResponse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">openai</span><span class="p">.</span><span class="nx">chat</span><span class="p">.</span><span class="nx">completions</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
+<span class="w">        </span><span class="nx">model</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;gpt-4-turbo-preview&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">messages</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">role</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;system&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="nx">content</span><span class="o">:</span><span class="w"> </span><span class="sb">`You are a financial research assistant. Use your tools to fetch real-time data about companies when users ask questions.`</span><span class="p">,</span>
+<span class="w">          </span><span class="p">},</span>
+<span class="w">          </span><span class="p">...</span><span class="nx">messages</span><span class="p">,</span>
+<span class="w">          </span><span class="nx">responseMessage</span><span class="p">,</span>
+<span class="w">          </span><span class="p">...</span><span class="nx">toolResults</span><span class="p">,</span>
+<span class="w">        </span><span class="p">],</span>
+<span class="w">      </span><span class="p">});</span>
+
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nx">NextResponse</span><span class="p">.</span><span class="nx">json</span><span class="p">({</span>
+<span class="w">        </span><span class="nx">message</span><span class="o">:</span><span class="w"> </span><span class="nx">secondResponse</span><span class="p">.</span><span class="nx">choices</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="nx">message</span><span class="p">.</span><span class="nx">content</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">toolCalls</span><span class="o">:</span><span class="w"> </span><span class="nx">responseMessage</span><span class="p">.</span><span class="nx">tool_calls</span><span class="p">,</span>
+<span class="w">      </span><span class="p">});</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">NextResponse</span><span class="p">.</span><span class="nx">json</span><span class="p">({</span>
+<span class="w">      </span><span class="nx">message</span><span class="o">:</span><span class="w"> </span><span class="nx">responseMessage</span><span class="p">.</span><span class="nx">content</span><span class="p">,</span>
+<span class="w">    </span><span class="p">});</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;Chat API Error:&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">error</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">NextResponse</span><span class="p">.</span><span class="nx">json</span><span class="p">(</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nx">error</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Failed to process chat request&#39;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nx">status</span><span class="o">:</span><span class="w"> </span><span class="mf">500</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="update-the-frontend-to-use-custom-chat">
+<h3>Update the Frontend to Use Custom Chat<a class="headerlink" href="#update-the-frontend-to-use-custom-chat" title="Link to this heading">#</a></h3>
+<div class="highlight-jsx notranslate"><div class="highlight"><pre><span></span><span class="c1">// app/page.tsx</span>
+<span class="s1">&#39;use client&#39;</span><span class="p">;</span>
+
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">useState</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;react&#39;</span><span class="p">;</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">Home</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">messages</span><span class="p">,</span><span class="w"> </span><span class="nx">setMessages</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useState</span><span class="p">&lt;</span><span class="nt">any</span><span class="err">[]</span><span class="p">&gt;([]);</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">input</span><span class="p">,</span><span class="w"> </span><span class="nx">setInput</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useState</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">loading</span><span class="p">,</span><span class="w"> </span><span class="nx">setLoading</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useState</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">sendMessage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">input</span><span class="p">.</span><span class="nx">trim</span><span class="p">())</span><span class="w"> </span><span class="k">return</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">newMessage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">role</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;user&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">content</span><span class="o">:</span><span class="w"> </span><span class="nx">input</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">updatedMessages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[...</span><span class="nx">messages</span><span class="p">,</span><span class="w"> </span><span class="nx">newMessage</span><span class="p">];</span>
+<span class="w">    </span><span class="nx">setMessages</span><span class="p">(</span><span class="nx">updatedMessages</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">setInput</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">setLoading</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="kd">const</span><span class="w"> </span><span class="nx">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;/api/chat&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">method</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;POST&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">headers</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;application/json&#39;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">        </span><span class="nx">body</span><span class="o">:</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span><span class="w"> </span><span class="nx">messages</span><span class="o">:</span><span class="w"> </span><span class="nx">updatedMessages</span><span class="w"> </span><span class="p">}),</span>
+<span class="w">      </span><span class="p">});</span>
+
+<span class="w">      </span><span class="kd">const</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+
+<span class="w">      </span><span class="nx">setMessages</span><span class="p">([</span>
+<span class="w">        </span><span class="p">...</span><span class="nx">updatedMessages</span><span class="p">,</span>
+<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">role</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;assistant&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">content</span><span class="o">:</span><span class="w"> </span><span class="nx">data</span><span class="p">.</span><span class="nx">message</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="p">]);</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;Error:&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">error</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">finally</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">setLoading</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">};</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="p">&lt;</span><span class="nt">div</span><span class="w"> </span><span class="na">className</span><span class="o">=</span><span class="s">&quot;flex flex-col h-screen max-w-4xl mx-auto p-4&quot;</span><span class="p">&gt;</span>
+<span class="w">      </span><span class="p">&lt;</span><span class="nt">h1</span><span class="w"> </span><span class="na">className</span><span class="o">=</span><span class="s">&quot;text-2xl font-bold mb-4&quot;</span><span class="p">&gt;</span><span class="nx">Company</span><span class="w"> </span><span class="nx">Research</span><span class="w"> </span><span class="nx">Assistant</span><span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+
+<span class="w">      </span><span class="p">{</span><span class="cm">/* Messages */</span><span class="p">}</span>
+<span class="w">      </span><span class="p">&lt;</span><span class="nt">div</span><span class="w"> </span><span class="na">className</span><span class="o">=</span><span class="s">&quot;flex-1 overflow-y-auto mb-4 space-y-4&quot;</span><span class="p">&gt;</span>
+<span class="w">        </span><span class="p">{</span><span class="nx">messages</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">msg</span><span class="p">,</span><span class="w"> </span><span class="nx">idx</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">(</span>
+<span class="w">          </span><span class="p">&lt;</span><span class="nt">div</span>
+<span class="w">            </span><span class="na">key</span><span class="o">=</span><span class="p">{</span><span class="nx">idx</span><span class="p">}</span>
+<span class="w">            </span><span class="na">className</span><span class="o">=</span><span class="p">{</span><span class="sb">`p-4 rounded-lg </span><span class="si">${</span>
+<span class="w">              </span><span class="nx">msg</span><span class="p">.</span><span class="nx">role</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s1">&#39;user&#39;</span>
+<span class="w">                </span><span class="o">?</span><span class="w"> </span><span class="s1">&#39;bg-blue-100 ml-auto max-w-[80%]&#39;</span>
+<span class="w">                </span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;bg-gray-100 mr-auto max-w-[80%]&#39;</span>
+<span class="w">            </span><span class="si">}</span><span class="sb">`</span><span class="p">}</span>
+<span class="w">          </span><span class="p">&gt;</span>
+<span class="w">            </span><span class="p">&lt;</span><span class="nt">div</span><span class="w"> </span><span class="na">className</span><span class="o">=</span><span class="s">&quot;font-semibold mb-1&quot;</span><span class="p">&gt;</span>
+<span class="w">              </span><span class="p">{</span><span class="nx">msg</span><span class="p">.</span><span class="nx">role</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s1">&#39;user&#39;</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s1">&#39;You&#39;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Assistant&#39;</span><span class="p">}</span>
+<span class="w">            </span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="w">            </span><span class="p">&lt;</span><span class="nt">div</span><span class="w"> </span><span class="na">className</span><span class="o">=</span><span class="s">&quot;whitespace-pre-wrap&quot;</span><span class="p">&gt;{</span><span class="nx">msg</span><span class="p">.</span><span class="nx">content</span><span class="p">}&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="w">          </span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="w">        </span><span class="p">))}</span>
+<span class="w">        </span><span class="p">{</span><span class="nx">loading</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">(</span>
+<span class="w">          </span><span class="p">&lt;</span><span class="nt">div</span><span class="w"> </span><span class="na">className</span><span class="o">=</span><span class="s">&quot;bg-gray-100 p-4 rounded-lg max-w-[80%]&quot;</span><span class="p">&gt;</span>
+<span class="w">            </span><span class="p">&lt;</span><span class="nt">div</span><span class="w"> </span><span class="na">className</span><span class="o">=</span><span class="s">&quot;animate-pulse&quot;</span><span class="p">&gt;</span><span class="nx">Thinking</span><span class="p">...&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="w">          </span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="w">        </span><span class="p">)}</span>
+<span class="w">      </span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="w">      </span><span class="p">{</span><span class="cm">/* Input */</span><span class="p">}</span>
+<span class="w">      </span><span class="p">&lt;</span><span class="nt">div</span><span class="w"> </span><span class="na">className</span><span class="o">=</span><span class="s">&quot;flex gap-2&quot;</span><span class="p">&gt;</span>
+<span class="w">        </span><span class="p">&lt;</span><span class="nt">input</span>
+<span class="w">          </span><span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span>
+<span class="w">          </span><span class="na">value</span><span class="o">=</span><span class="p">{</span><span class="nx">input</span><span class="p">}</span>
+<span class="w">          </span><span class="na">onChange</span><span class="o">=</span><span class="p">{(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">setInput</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">)}</span>
+<span class="w">          </span><span class="na">onKeyPress</span><span class="o">=</span><span class="p">{(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">e</span><span class="p">.</span><span class="nx">key</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s1">&#39;Enter&#39;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">sendMessage</span><span class="p">()}</span>
+<span class="w">          </span><span class="na">placeholder</span><span class="o">=</span><span class="s">&quot;Ask about any public company...&quot;</span>
+<span class="w">          </span><span class="na">className</span><span class="o">=</span><span class="s">&quot;flex-1 p-3 border rounded-lg&quot;</span>
+<span class="w">          </span><span class="na">disabled</span><span class="o">=</span><span class="p">{</span><span class="nx">loading</span><span class="p">}</span>
+<span class="w">        </span><span class="p">/&gt;</span>
+<span class="w">        </span><span class="p">&lt;</span><span class="nt">button</span>
+<span class="w">          </span><span class="na">onClick</span><span class="o">=</span><span class="p">{</span><span class="nx">sendMessage</span><span class="p">}</span>
+<span class="w">          </span><span class="na">disabled</span><span class="o">=</span><span class="p">{</span><span class="nx">loading</span><span class="p">}</span>
+<span class="w">          </span><span class="na">className</span><span class="o">=</span><span class="s">&quot;px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:bg-gray-300&quot;</span>
+<span class="w">        </span><span class="p">&gt;</span>
+<span class="w">          </span><span class="nx">Send</span>
+<span class="w">        </span><span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="w">      </span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="w">      </span><span class="p">{</span><span class="cm">/* Suggested Questions */</span><span class="p">}</span>
+<span class="w">      </span><span class="p">&lt;</span><span class="nt">div</span><span class="w"> </span><span class="na">className</span><span class="o">=</span><span class="s">&quot;mt-4 flex flex-wrap gap-2&quot;</span><span class="p">&gt;</span>
+<span class="w">        </span><span class="p">{[</span>
+<span class="w">          </span><span class="s2">&quot;What&#39;s Apple&#39;s current stock price?&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="s2">&quot;Show me Microsoft&#39;s latest 10-K&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="s2">&quot;Tell me about NVIDIA&#39;s business&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="p">].</span><span class="nx">map</span><span class="p">((</span><span class="nx">suggestion</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">(</span>
+<span class="w">          </span><span class="p">&lt;</span><span class="nt">button</span>
+<span class="w">            </span><span class="na">key</span><span class="o">=</span><span class="p">{</span><span class="nx">suggestion</span><span class="p">}</span>
+<span class="w">            </span><span class="na">onClick</span><span class="o">=</span><span class="p">{()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">setInput</span><span class="p">(</span><span class="nx">suggestion</span><span class="p">)}</span>
+<span class="w">            </span><span class="na">className</span><span class="o">=</span><span class="s">&quot;px-3 py-1 text-sm bg-gray-200 hover:bg-gray-300 rounded&quot;</span>
+<span class="w">          </span><span class="p">&gt;</span>
+<span class="w">            </span><span class="p">{</span><span class="nx">suggestion</span><span class="p">}</span>
+<span class="w">          </span><span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="w">        </span><span class="p">))}</span>
+<span class="w">      </span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="w">    </span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="part-4-customization-enhancement-20-minutes">
+<h2>Part 4: Customization &amp; Enhancement (20 minutes)<a class="headerlink" href="#part-4-customization-enhancement-20-minutes" title="Link to this heading">#</a></h2>
+<section id="add-citations-and-sources">
+<h3>Add Citations and Sources<a class="headerlink" href="#add-citations-and-sources" title="Link to this heading">#</a></h3>
+<p>Update your system prompt to always include sources:</p>
+<div class="highlight-jsx notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">systemPrompt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sb">`You are a financial research assistant that helps users research public companies.</span>
+
+<span class="sb">When providing information:</span>
+<span class="sb">1. Always cite your sources with specific details:</span>
+<span class="sb">   - For SEC filings: Include form type (10-K/10-Q), date filed, and which section</span>
+<span class="sb">   - For stock data: Include timestamp and exchange</span>
+<span class="sb">   - For company info: Specify it&#39;s from company profile</span>
+
+<span class="sb">2. Format financial numbers clearly:</span>
+<span class="sb">   - Use appropriate units (millions, billions)</span>
+<span class="sb">   - Include currency symbols</span>
+<span class="sb">   - Show percentage changes</span>
+
+<span class="sb">3. Be conversational but precise:</span>
+<span class="sb">   - Explain jargon when needed</span>
+<span class="sb">   - Suggest related questions</span>
+<span class="sb">   - Admit when data is unavailable</span>
+
+<span class="sb">Example response format:</span>
+<span class="sb">&quot;According to Apple&#39;s 10-Q filed on August 3, 2024, their revenue for Q3 2024 was $85.8 billion, representing a 5% increase year-over-year.</span>
+
+<span class="sb">Current stock price (NASDAQ, as of [timestamp]): $182.45, up 2.3% today.</span>
+
+<span class="sb">Would you like me to compare this to their competitors or analyze their profit margins?&quot;`</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="add-rich-formatting">
+<h3>Add Rich Formatting<a class="headerlink" href="#add-rich-formatting" title="Link to this heading">#</a></h3>
+<p>Create components for displaying financial data:</p>
+<div class="highlight-jsx notranslate"><div class="highlight"><pre><span></span><span class="c1">// components/StockCard.tsx</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">StockCard</span><span class="p">({</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="p">}</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="nx">any</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">isPositive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">data</span><span class="p">.</span><span class="nx">change</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="p">&lt;</span><span class="nt">div</span><span class="w"> </span><span class="na">className</span><span class="o">=</span><span class="s">&quot;border rounded-lg p-4 bg-white shadow-sm&quot;</span><span class="p">&gt;</span>
+<span class="w">      </span><span class="p">&lt;</span><span class="nt">div</span><span class="w"> </span><span class="na">className</span><span class="o">=</span><span class="s">&quot;flex justify-between items-start&quot;</span><span class="p">&gt;</span>
+<span class="w">        </span><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="w">          </span><span class="p">&lt;</span><span class="nt">h3</span><span class="w"> </span><span class="na">className</span><span class="o">=</span><span class="s">&quot;text-xl font-bold&quot;</span><span class="p">&gt;{</span><span class="nx">data</span><span class="p">.</span><span class="nx">ticker</span><span class="p">}&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+<span class="w">          </span><span class="p">&lt;</span><span class="nt">p</span><span class="w"> </span><span class="na">className</span><span class="o">=</span><span class="s">&quot;text-gray-600&quot;</span><span class="p">&gt;{</span><span class="nx">data</span><span class="p">.</span><span class="nx">name</span><span class="p">}&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="w">        </span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="w">        </span><span class="p">&lt;</span><span class="nt">div</span><span class="w"> </span><span class="na">className</span><span class="o">=</span><span class="s">&quot;text-right&quot;</span><span class="p">&gt;</span>
+<span class="w">          </span><span class="p">&lt;</span><span class="nt">div</span><span class="w"> </span><span class="na">className</span><span class="o">=</span><span class="s">&quot;text-2xl font-bold&quot;</span><span class="p">&gt;</span>
+<span class="w">            </span><span class="nx">$</span><span class="p">{</span><span class="nx">data</span><span class="p">.</span><span class="nx">price</span><span class="p">.</span><span class="nx">toFixed</span><span class="p">(</span><span class="mf">2</span><span class="p">)}</span>
+<span class="w">          </span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="w">          </span><span class="p">&lt;</span><span class="nt">div</span>
+<span class="w">            </span><span class="na">className</span><span class="o">=</span><span class="p">{</span><span class="sb">`text-sm </span><span class="si">${</span>
+<span class="w">              </span><span class="nx">isPositive</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s1">&#39;text-green-600&#39;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;text-red-600&#39;</span>
+<span class="w">            </span><span class="si">}</span><span class="sb">`</span><span class="p">}</span>
+<span class="w">          </span><span class="p">&gt;</span>
+<span class="w">            </span><span class="p">{</span><span class="nx">isPositive</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s1">&#39;+&#39;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">}</span>
+<span class="w">            </span><span class="p">{</span><span class="nx">data</span><span class="p">.</span><span class="nx">change</span><span class="p">.</span><span class="nx">toFixed</span><span class="p">(</span><span class="mf">2</span><span class="p">)}</span><span class="w"> </span><span class="p">(</span>
+<span class="w">            </span><span class="p">{</span><span class="nx">data</span><span class="p">.</span><span class="nx">changePercent</span><span class="p">.</span><span class="nx">toFixed</span><span class="p">(</span><span class="mf">2</span><span class="p">)}</span><span class="o">%</span><span class="p">)</span>
+<span class="w">          </span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="w">        </span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="w">      </span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="w">      </span><span class="p">&lt;</span><span class="nt">div</span><span class="w"> </span><span class="na">className</span><span class="o">=</span><span class="s">&quot;mt-4 grid grid-cols-2 gap-4 text-sm&quot;</span><span class="p">&gt;</span>
+<span class="w">        </span><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="w">          </span><span class="p">&lt;</span><span class="nt">span</span><span class="w"> </span><span class="na">className</span><span class="o">=</span><span class="s">&quot;text-gray-600&quot;</span><span class="p">&gt;</span><span class="nx">Day</span><span class="w"> </span><span class="nx">Range</span><span class="o">:</span><span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+<span class="w">          </span><span class="p">&lt;</span><span class="nt">div</span><span class="w"> </span><span class="na">className</span><span class="o">=</span><span class="s">&quot;font-medium&quot;</span><span class="p">&gt;</span>
+<span class="w">            </span><span class="nx">$</span><span class="p">{</span><span class="nx">data</span><span class="p">.</span><span class="nx">dayLow</span><span class="p">}</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">$</span><span class="p">{</span><span class="nx">data</span><span class="p">.</span><span class="nx">dayHigh</span><span class="p">}</span>
+<span class="w">          </span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="w">        </span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="w">        </span><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="w">          </span><span class="p">&lt;</span><span class="nt">span</span><span class="w"> </span><span class="na">className</span><span class="o">=</span><span class="s">&quot;text-gray-600&quot;</span><span class="p">&gt;</span><span class="mf">52</span><span class="nx">W</span><span class="w"> </span><span class="nx">Range</span><span class="o">:</span><span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+<span class="w">          </span><span class="p">&lt;</span><span class="nt">div</span><span class="w"> </span><span class="na">className</span><span class="o">=</span><span class="s">&quot;font-medium&quot;</span><span class="p">&gt;</span>
+<span class="w">            </span><span class="nx">$</span><span class="p">{</span><span class="nx">data</span><span class="p">.</span><span class="nx">fiftyTwoWeekLow</span><span class="p">}</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">$</span><span class="p">{</span><span class="nx">data</span><span class="p">.</span><span class="nx">fiftyTwoWeekHigh</span><span class="p">}</span>
+<span class="w">          </span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="w">        </span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="w">      </span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="w">    </span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="add-error-handling-loading-states">
+<h3>Add Error Handling &amp; Loading States<a class="headerlink" href="#add-error-handling-loading-states" title="Link to this heading">#</a></h3>
+<div class="highlight-jsx notranslate"><div class="highlight"><pre><span></span><span class="c1">// Example with better UX</span>
+<span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">error</span><span class="p">,</span><span class="w"> </span><span class="nx">setError</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useState</span><span class="p">&lt;</span><span class="nt">string</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="na">null</span><span class="p">&gt;(</span><span class="kc">null</span><span class="p">);</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">sendMessage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">setError</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+<span class="w">  </span><span class="c1">// ... existing code</span>
+
+<span class="w">  </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;/api/chat&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">method</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;POST&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">headers</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;application/json&#39;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="nx">body</span><span class="o">:</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span><span class="w"> </span><span class="nx">messages</span><span class="o">:</span><span class="w"> </span><span class="nx">updatedMessages</span><span class="w"> </span><span class="p">}),</span>
+<span class="w">    </span><span class="p">});</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">response</span><span class="p">.</span><span class="nx">ok</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span><span class="s1">&#39;Failed to get response&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+<span class="w">    </span><span class="c1">// ... existing code</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">setError</span><span class="p">(</span><span class="s1">&#39;Sorry, something went wrong. Please try again.&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;Error:&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">error</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="c1">// In your JSX</span>
+<span class="p">{</span><span class="nx">error</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="p">&lt;</span><span class="nt">div</span><span class="w"> </span><span class="na">className</span><span class="o">=</span><span class="s">&quot;bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded&quot;</span><span class="p">&gt;</span>
+<span class="w">    </span><span class="p">{</span><span class="nx">error</span><span class="p">}</span>
+<span class="w">  </span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">)}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="part-5-deployment-testing-10-minutes">
+<h2>Part 5: Deployment &amp; Testing (10 minutes)<a class="headerlink" href="#part-5-deployment-testing-10-minutes" title="Link to this heading">#</a></h2>
+<section id="final-checklist-before-deployment">
+<h3>Final Checklist Before Deployment<a class="headerlink" href="#final-checklist-before-deployment" title="Link to this heading">#</a></h3>
+<ul class="contains-task-list simple">
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Environment variables set in <code class="docutils literal notranslate"><span class="pre">.env.local</span></code></p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> All API endpoints working locally</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Error handling in place</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Loading states implemented</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Responsive design tested</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> API rate limits considered</p></li>
+</ul>
+</section>
+<section id="deploy-to-vercel">
+<h3>Deploy to Vercel<a class="headerlink" href="#deploy-to-vercel" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Commit your changes</span>
+git<span class="w"> </span>add<span class="w"> </span>.
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Add financial research assistant with ChatKit&quot;</span>
+
+<span class="c1"># Push to GitHub</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>main
+
+<span class="c1"># Deploy via Vercel dashboard or CLI</span>
+vercel<span class="w"> </span>--prod
+</pre></div>
+</div>
+</section>
+<section id="set-production-environment-variables">
+<h3>Set Production Environment Variables<a class="headerlink" href="#set-production-environment-variables" title="Link to this heading">#</a></h3>
+<p>In Vercel dashboard:</p>
+<ol class="arabic simple">
+<li><p>Go to <strong>Settings</strong> -&gt; <strong>Environment Variables</strong></p></li>
+<li><p>Add:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">OPENAI_API_KEY</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CHATKIT_WORKFLOW_ID</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">NEXT_PUBLIC_BASE_URL</span></code> (your production URL)</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="test-in-production">
+<h3>Test in Production<a class="headerlink" href="#test-in-production" title="Link to this heading">#</a></h3>
+<p>Try these queries:</p>
+<ol class="arabic simple">
+<li><p>“What’s Tesla’s current stock price?”</p></li>
+<li><p>“Show me Apple’s latest quarterly filing”</p></li>
+<li><p>“Tell me about Microsoft’s business and recent performance”</p></li>
+</ol>
+</section>
+</section>
+<hr class="docutils" />
+<section id="advanced-features-optional-extensions">
+<h2>Advanced Features (Optional Extensions)<a class="headerlink" href="#advanced-features-optional-extensions" title="Link to this heading">#</a></h2>
+<section id="multi-company-comparison">
+<h3>1. Multi-Company Comparison<a class="headerlink" href="#multi-company-comparison" title="Link to this heading">#</a></h3>
+<div class="highlight-jsx notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;function&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="kd">function</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;compare_companies&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">description</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Compare financial metrics of multiple companies&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">parameters</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;object&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">properties</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">tickers</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;array&#39;</span><span class="p">,</span>
+<span class="w">          </span><span class="nx">items</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;string&#39;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">          </span><span class="nx">description</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Array of ticker symbols to compare&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nx">metrics</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;array&#39;</span><span class="p">,</span>
+<span class="w">          </span><span class="nx">items</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;string&#39;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">          </span><span class="nx">description</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Metrics to compare (revenue, profitMargins, etc.)&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nx">required</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;tickers&#39;</span><span class="p">],</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="historical-analysis">
+<h3>2. Historical Analysis<a class="headerlink" href="#historical-analysis" title="Link to this heading">#</a></h3>
+<p>Add support for historical financial statements using the SEC’s XBRL data:</p>
+<div class="highlight-jsx notranslate"><div class="highlight"><pre><span></span><span class="c1">// Fetch historical financial data</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">getHistoricalFinancials</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">ticker</span><span class="o">:</span><span class="w"> </span><span class="nx">string</span><span class="p">,</span><span class="w"> </span><span class="nx">years</span><span class="o">:</span><span class="w"> </span><span class="nx">number</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// Use SEC&#39;s Company Facts API</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">cik</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">getCIKFromTicker</span><span class="p">(</span><span class="nx">ticker</span><span class="p">);</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span>
+<span class="w">    </span><span class="sb">`https://data.sec.gov/api/xbrl/companyfacts/CIK</span><span class="si">${</span><span class="nx">cik</span><span class="si">}</span><span class="sb">.json`</span><span class="p">,</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">headers</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="s1">&#39;User-Agent&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Company Research Assistant contact@yourschool.edu&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">);</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+
+<span class="w">  </span><span class="c1">// Extract financial metrics over time</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">processFinancialFacts</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span><span class="w"> </span><span class="nx">years</span><span class="p">);</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</section>
+<section id="news-integration">
+<h3>3. News Integration<a class="headerlink" href="#news-integration" title="Link to this heading">#</a></h3>
+<p>Add recent news using a news API:</p>
+<div class="highlight-jsx notranslate"><div class="highlight"><pre><span></span><span class="c1">// app/api/news/route.ts</span>
+<span class="c1">// Use NewsAPI, Finnhub, or Alpha Vantage</span>
+</pre></div>
+</div>
+</section>
+<section id="visualization">
+<h3>4. Visualization<a class="headerlink" href="#visualization" title="Link to this heading">#</a></h3>
+<p>Add charts using <a class="reference external" href="https://recharts.org/">Recharts</a> or <a class="reference external" href="https://www.chartjs.org/">Chart.js</a>:</p>
+<div class="highlight-jsx notranslate"><div class="highlight"><pre><span></span><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">LineChart</span><span class="p">,</span><span class="w"> </span><span class="nx">Line</span><span class="p">,</span><span class="w"> </span><span class="nx">XAxis</span><span class="p">,</span><span class="w"> </span><span class="nx">YAxis</span><span class="p">,</span><span class="w"> </span><span class="nx">CartesianGrid</span><span class="p">,</span><span class="w"> </span><span class="nx">Tooltip</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;recharts&#39;</span><span class="p">;</span>
+
+<span class="p">&lt;</span><span class="nt">LineChart</span><span class="w"> </span><span class="na">data</span><span class="o">=</span><span class="p">{</span><span class="nx">historicalData</span><span class="p">}</span><span class="w"> </span><span class="na">width</span><span class="o">=</span><span class="p">{</span><span class="mf">600</span><span class="p">}</span><span class="w"> </span><span class="na">height</span><span class="o">=</span><span class="p">{</span><span class="mf">300</span><span class="p">}&gt;</span>
+<span class="w">  </span><span class="p">&lt;</span><span class="nt">CartesianGrid</span><span class="w"> </span><span class="na">strokeDasharray</span><span class="o">=</span><span class="s">&quot;3 3&quot;</span><span class="w"> </span><span class="p">/&gt;</span>
+<span class="w">  </span><span class="p">&lt;</span><span class="nt">XAxis</span><span class="w"> </span><span class="na">dataKey</span><span class="o">=</span><span class="s">&quot;date&quot;</span><span class="w"> </span><span class="p">/&gt;</span>
+<span class="w">  </span><span class="p">&lt;</span><span class="nt">YAxis</span><span class="w"> </span><span class="p">/&gt;</span>
+<span class="w">  </span><span class="p">&lt;</span><span class="nt">Tooltip</span><span class="w"> </span><span class="p">/&gt;</span>
+<span class="w">  </span><span class="p">&lt;</span><span class="nt">Line</span><span class="w"> </span><span class="na">type</span><span class="o">=</span><span class="s">&quot;monotone&quot;</span><span class="w"> </span><span class="na">dataKey</span><span class="o">=</span><span class="s">&quot;price&quot;</span><span class="w"> </span><span class="na">stroke</span><span class="o">=</span><span class="s">&quot;#8884d8&quot;</span><span class="w"> </span><span class="p">/&gt;</span>
+<span class="p">&lt;/</span><span class="nt">LineChart</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="resources-documentation">
+<h2>Resources &amp; Documentation<a class="headerlink" href="#resources-documentation" title="Link to this heading">#</a></h2>
+<section id="chatkit-resources">
+<h3>ChatKit Resources<a class="headerlink" href="#chatkit-resources" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://openai.github.io/chatkit-js/">ChatKit Documentation</a></p></li>
+<li><p><a class="reference external" href="https://github.com/openai/chatkit-js">ChatKit GitHub</a></p></li>
+<li><p><a class="reference external" href="https://github.com/openai/openai-chatkit-starter-app">Starter App</a></p></li>
+<li><p><a class="reference external" href="https://github.com/openai/openai-chatkit-advanced-samples">Advanced Samples</a></p></li>
+</ul>
+</section>
+<section id="financial-data-apis">
+<h3>Financial Data APIs<a class="headerlink" href="#financial-data-apis" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.sec.gov/search-filings/edgar-application-programming-interfaces">SEC EDGAR API Documentation</a></p></li>
+<li><p><a class="reference external" href="https://www.sec.gov/developer">SEC EDGAR Developer Resources</a></p></li>
+<li><p><a class="reference external" href="https://github.com/gadicc/node-yahoo-finance2">Yahoo Finance2 Docs</a></p></li>
+<li><p><a class="reference external" href="https://www.alphavantage.co/">Alpha Vantage</a> - Alternative stock API</p></li>
+</ul>
+</section>
+<section id="tools-libraries">
+<h3>Tools &amp; Libraries<a class="headerlink" href="#tools-libraries" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://platform.openai.com/docs/guides/function-calling">OpenAI Function Calling Guide</a></p></li>
+<li><p><a class="reference external" href="https://nextjs.org/docs/app/building-your-application/routing/route-handlers">Next.js API Routes</a></p></li>
+<li><p><a class="reference external" href="https://vercel.com/docs/deployments/overview">Vercel Deployment</a></p></li>
+</ul>
+</section>
+<section id="learning-resources">
+<h3>Learning Resources<a class="headerlink" href="#learning-resources" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.investor.gov/introduction-investing/investing-basics/glossary/forms-10-k-10-q-and-8-k">SEC Filing Types Explained</a></p></li>
+<li><p><a class="reference external" href="https://www.sec.gov/oiea/investor-alerts-and-bulletins/how-read-10-k10-q">Reading Financial Statements</a></p></li>
+<li><p><a class="reference external" href="https://www.investopedia.com/financial-ratios-4689817">Understanding Stock Metrics</a></p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="common-issues-troubleshooting">
+<h2>Common Issues &amp; Troubleshooting<a class="headerlink" href="#common-issues-troubleshooting" title="Link to this heading">#</a></h2>
+<section id="issue-api-key-invalid">
+<h3>Issue: “API Key Invalid”<a class="headerlink" href="#issue-api-key-invalid" title="Link to this heading">#</a></h3>
+<p><strong>Solution:</strong></p>
+<ul class="simple">
+<li><p>Check <code class="docutils literal notranslate"><span class="pre">.env.local</span></code> has correct <code class="docutils literal notranslate"><span class="pre">OPENAI_API_KEY</span></code></p></li>
+<li><p>Restart dev server after changing env variables</p></li>
+<li><p>Ensure no extra spaces in the key</p></li>
+</ul>
+</section>
+<section id="issue-sec-api-returns-403">
+<h3>Issue: “SEC API Returns 403”<a class="headerlink" href="#issue-sec-api-returns-403" title="Link to this heading">#</a></h3>
+<p><strong>Solution:</strong></p>
+<ul class="simple">
+<li><p>Add a proper User-Agent header (required by SEC)</p></li>
+<li><p>Use format: <code class="docutils literal notranslate"><span class="pre">'User-Agent':</span> <span class="pre">'YourAppName</span> <span class="pre">contact&#64;email.com'</span></code></p></li>
+</ul>
+</section>
+<section id="issue-yahoo-finance-returns-no-data">
+<h3>Issue: “Yahoo Finance Returns No Data”<a class="headerlink" href="#issue-yahoo-finance-returns-no-data" title="Link to this heading">#</a></h3>
+<p><strong>Solution:</strong></p>
+<ul class="simple">
+<li><p>Verify ticker symbol is correct</p></li>
+<li><p>Some international stocks may not be available</p></li>
+<li><p>Check the ticker format (use Yahoo’s format, e.g., <code class="docutils literal notranslate"><span class="pre">BRK-B</span></code> for Berkshire Hathaway)</p></li>
+</ul>
+</section>
+<section id="issue-chatkit-not-streaming">
+<h3>Issue: “ChatKit Not Streaming”<a class="headerlink" href="#issue-chatkit-not-streaming" title="Link to this heading">#</a></h3>
+<p><strong>Solution:</strong></p>
+<ul class="simple">
+<li><p>Ensure you’re using <code class="docutils literal notranslate"><span class="pre">stream:</span> <span class="pre">true</span></code> in OpenAI API call</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">StreamingTextResponse</span></code> from Vercel AI SDK</p></li>
+<li><p>Check network tab for SSE (Server-Sent Events) connection</p></li>
+</ul>
+</section>
+<section id="issue-tool-not-being-called">
+<h3>Issue: “Tool Not Being Called”<a class="headerlink" href="#issue-tool-not-being-called" title="Link to this heading">#</a></h3>
+<p><strong>Solution:</strong></p>
+<ul class="simple">
+<li><p>Check tool description is clear and specific</p></li>
+<li><p>Verify function parameters match expected format</p></li>
+<li><p>Look at the system prompt - it should encourage tool usage</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="assessment-exercises">
+<h2>Assessment &amp; Exercises<a class="headerlink" href="#assessment-exercises" title="Link to this heading">#</a></h2>
+<section id="exercise-1-add-a-new-tool">
+<h3>Exercise 1: Add a New Tool<a class="headerlink" href="#exercise-1-add-a-new-tool" title="Link to this heading">#</a></h3>
+<p>Create a tool that fetches insider trading data from SEC Form 4.</p>
+<p><strong>Hints:</strong></p>
+<ul class="simple">
+<li><p>Use SEC’s EDGAR search for Form 4 filings</p></li>
+<li><p>Parse XML data from the filings</p></li>
+<li><p>Return recent insider purchases/sales</p></li>
+</ul>
+</section>
+<section id="exercise-2-company-comparison">
+<h3>Exercise 2: Company Comparison<a class="headerlink" href="#exercise-2-company-comparison" title="Link to this heading">#</a></h3>
+<p>Extend the assistant to compare two companies side-by-side.</p>
+<p><strong>Requirements:</strong></p>
+<ul class="simple">
+<li><p>Accept multiple ticker symbols</p></li>
+<li><p>Fetch data for all companies</p></li>
+<li><p>Present comparison in a table format</p></li>
+</ul>
+</section>
+<section id="exercise-3-portfolio-tracker">
+<h3>Exercise 3: Portfolio Tracker<a class="headerlink" href="#exercise-3-portfolio-tracker" title="Link to this heading">#</a></h3>
+<p>Build a feature that lets users track multiple stocks.</p>
+<p><strong>Requirements:</strong></p>
+<ul class="simple">
+<li><p>Store user’s portfolio (use local storage or database)</p></li>
+<li><p>Calculate total value and gains/losses</p></li>
+<li><p>Show daily changes</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="key-takeaways">
+<h2>Key Takeaways<a class="headerlink" href="#key-takeaways" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>ChatKit</strong> dramatically simplifies building AI chat interfaces</p></li>
+<li><p><strong>Function calling</strong> allows AI to access real-time data</p></li>
+<li><p><strong>SEC EDGAR</strong> provides comprehensive company filing data</p></li>
+<li><p><strong>Yahoo Finance</strong> offers market data without authentication</p></li>
+<li><p><strong>Vercel deployment</strong> makes production hosting trivial</p></li>
+<li><p><strong>Proper error handling</strong> and citations build user trust</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="next-steps-further-learning">
+<h2>Next Steps &amp; Further Learning<a class="headerlink" href="#next-steps-further-learning" title="Link to this heading">#</a></h2>
+<section id="immediate-next-steps">
+<h3>Immediate Next Steps<a class="headerlink" href="#immediate-next-steps" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Customize the UI</strong> to match your style</p></li>
+<li><p><strong>Add more tools</strong> (news, competitors, industry data)</p></li>
+<li><p><strong>Implement authentication</strong> for user-specific features</p></li>
+<li><p><strong>Add data caching</strong> to reduce API calls</p></li>
+</ol>
+</section>
+<section id="advanced-topics">
+<h3>Advanced Topics<a class="headerlink" href="#advanced-topics" title="Link to this heading">#</a></h3>
+<p><img alt="FinGPT Framework" src="../_images/fingpt_framework.png" /></p>
+<p><em>The FinGPT framework shows how financial LLM applications integrate data sources, engineering, and domain-specific tasks. Source: <a class="reference external" href="https://github.com/AI4Finance-Foundation/FinGPT">AI4Finance Foundation</a></em></p>
+<ol class="arabic simple">
+<li><p><strong>RAG (Retrieval Augmented Generation)</strong> for document search</p></li>
+<li><p><strong>Vector databases</strong> for semantic search of filings</p></li>
+<li><p><strong>Real-time updates</strong> with WebSockets</p></li>
+<li><p><strong>Multi-modal inputs</strong> (analyze financial charts/images)</p></li>
+<li><p><strong>Fine-tuning</strong> models for financial domain</p></li>
+</ol>
+</section>
+<section id="production-considerations">
+<h3>Production Considerations<a class="headerlink" href="#production-considerations" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Rate limiting</strong> to prevent API abuse</p></li>
+<li><p><strong>Caching strategies</strong> for frequently requested data</p></li>
+<li><p><strong>Monitoring &amp; logging</strong> with tools like Sentry</p></li>
+<li><p><strong>A/B testing</strong> different prompts and tools</p></li>
+<li><p><strong>Compliance</strong> - ensure SEC fair disclosure rules</p></li>
+</ol>
+</section>
+</section>
+<hr class="docutils" />
+<section id="congratulations">
+<h2>Congratulations! 🎉<a class="headerlink" href="#congratulations" title="Link to this heading">#</a></h2>
+<p>You’ve built a production-ready financial research assistant using:</p>
+<ul class="simple">
+<li><p>✓ Next.js for full-stack development</p></li>
+<li><p>✓ ChatKit for AI chat interface</p></li>
+<li><p>✓ SEC EDGAR for financial filings</p></li>
+<li><p>✓ Yahoo Finance for market data</p></li>
+<li><p>✓ Vercel for deployment</p></li>
+</ul>
+<p><strong>What you can do now:</strong></p>
+<ul class="simple">
+<li><p>Extend it with more data sources</p></li>
+<li><p>Add visualization and analytics</p></li>
+<li><p>Build a portfolio tracker</p></li>
+<li><p>Create alerts for company events</p></li>
+<li><p>Share it with others!</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="feedback-questions">
+<h2>Feedback &amp; Questions<a class="headerlink" href="#feedback-questions" title="Link to this heading">#</a></h2>
+<p><strong>Questions to consider:</strong></p>
+<ul class="simple">
+<li><p>What other financial data would be useful?</p></li>
+<li><p>How could we improve the user experience?</p></li>
+<li><p>What features would make this production-ready?</p></li>
+<li><p>How can we ensure data accuracy and reliability?</p></li>
+</ul>
+<p><strong>Resources for help:</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://community.openai.com/">OpenAI Developer Forum</a></p></li>
+<li><p><a class="reference external" href="https://nextjs.org/discord">Next.js Discord</a></p></li>
+<li><p><a class="reference external" href="https://reddit.com/r/financialprogramming">r/FinancialProgramming</a></p></li>
+</ul>
+</section>
+</section>
+
+<div class="section ablog__blog_comments">
+   
+</div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="intro_to_nextjs.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Introduction to Next.js and Deployment</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../discussion_04.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Discussion 4: Text Representation &amp; Embeddings</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-were-building">What We’re Building</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-setting-up-chatkit-starter-app-20-minutes">Part 1: Setting Up ChatKit Starter App (20 minutes)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-clone-the-starter-app">Step 1: Clone the Starter App</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-configure-environment-variables">Step 2: Configure Environment Variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-create-a-chatkit-workflow">Step 3: Create a ChatKit Workflow</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#option-a-using-chatkit-studio-visual-builder">Option A: Using ChatKit Studio (Visual Builder)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#option-b-using-the-api-programmatic">Option B: Using the API (Programmatic)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-run-the-app">Step 4: Run the App</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-the-starter-app-structure">Understanding the Starter App Structure</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-integrating-financial-data-sources-30-minutes">Part 2: Integrating Financial Data Sources (30 minutes)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-required-packages">Install Required Packages</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-financial-data-api-routes">Create Financial Data API Routes</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sec-filings-api">SEC Filings API</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#stock-price-api">Stock Price API</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#company-information-api">Company Information API</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-creating-chatkit-tools-25-minutes">Part 3: Creating ChatKit Tools (25 minutes)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-chatkit-tools">Understanding ChatKit Tools</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#define-tools-in-your-workflow">Define Tools in Your Workflow</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#handle-tool-calls-in-your-chat-api">Handle Tool Calls in Your Chat API</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#update-the-frontend-to-use-custom-chat">Update the Frontend to Use Custom Chat</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-4-customization-enhancement-20-minutes">Part 4: Customization &amp; Enhancement (20 minutes)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#add-citations-and-sources">Add Citations and Sources</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#add-rich-formatting">Add Rich Formatting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#add-error-handling-loading-states">Add Error Handling &amp; Loading States</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-5-deployment-testing-10-minutes">Part 5: Deployment &amp; Testing (10 minutes)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#final-checklist-before-deployment">Final Checklist Before Deployment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deploy-to-vercel">Deploy to Vercel</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#set-production-environment-variables">Set Production Environment Variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#test-in-production">Test in Production</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-features-optional-extensions">Advanced Features (Optional Extensions)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-company-comparison">1. Multi-Company Comparison</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#historical-analysis">2. Historical Analysis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#news-integration">3. News Integration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization">4. Visualization</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resources-documentation">Resources &amp; Documentation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chatkit-resources">ChatKit Resources</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#financial-data-apis">Financial Data APIs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tools-libraries">Tools &amp; Libraries</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-resources">Learning Resources</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#common-issues-troubleshooting">Common Issues &amp; Troubleshooting</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#issue-api-key-invalid">Issue: “API Key Invalid”</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#issue-sec-api-returns-403">Issue: “SEC API Returns 403”</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#issue-yahoo-finance-returns-no-data">Issue: “Yahoo Finance Returns No Data”</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#issue-chatkit-not-streaming">Issue: “ChatKit Not Streaming”</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#issue-tool-not-being-called">Issue: “Tool Not Being Called”</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#assessment-exercises">Assessment &amp; Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-add-a-new-tool">Exercise 1: Add a New Tool</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-company-comparison">Exercise 2: Company Comparison</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-portfolio-tracker">Exercise 3: Portfolio Tracker</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">Key Takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps-further-learning">Next Steps &amp; Further Learning</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#immediate-next-steps">Immediate Next Steps</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-topics">Advanced Topics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#production-considerations">Production Considerations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#congratulations">Congratulations! 🎉</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feedback-questions">Feedback &amp; Questions</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jeremiah Bejarano
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, Jeremiah Bejarano.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

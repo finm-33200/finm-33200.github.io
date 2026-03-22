@@ -1,0 +1,1298 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Introduction to Next.js and Deployment &#8212; Full Stack Quantitative Finance</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=f23691d7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=7a7908ec"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'discussions/intro_to_nextjs';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/custom.js?v=c0d9a6f1"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Building a Financial Research Assistant with ChatKit" href="intro_to_chatkit.html" />
+    <link rel="prev" title="Chat Applications Overview: AI in Financial Services" href="chat_applications_overview.html" /> 
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>   
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Full Stack Quantitative Finance - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Full Stack Quantitative Finance - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Generative and Agentic AI for Finance
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../README.html">Course Syllabus: FINM 32900, Winter 2025</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Course Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Discussions 📖</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_01.html">Discussion 1: The New Quant - LLMs in Finance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="gen_ai_tech_stack.html">The Generative AI Tech Stack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="llms_transforming_finance.html">LLMs Transforming Finance: The New Quant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_and_structured_outputs.html">API Basics and Structured Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ai_copilots_intro.html">AI Copilots: Claude Code and Cursor</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_02.html">Discussion 2: Building and Benchmarking Coding Agents</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="agent_fundamentals.html">Agent Fundamentals: From ReAct to LangGraph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building_flawed_code.html">Building FlawedCode: A Minimal Claude Code Clone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chartbook_integration.html">ChartBook Integration: Connecting Agents to Financial Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="context_management.html">Context Management for Deep Agents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agent_benchmarking.html">Agent Benchmarking: Measuring What Matters</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../discussion_03.html">Discussion 3: AI Application Development &amp; Financial Data Integration</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="chat_applications_overview.html">Chat Applications Overview: AI in Financial Services</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Introduction to Next.js and Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_to_chatkit.html">Building a Financial Research Assistant with ChatKit</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_04.html">Discussion 4: Text Representation &amp; Embeddings</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="vector_embeddings_and_search.html"><strong>The Architecture of Meaning: From Vector Embeddings to Reasoning-Based Retrieval</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="vector_embeddings_literature.html">Essential papers on embeddings and vector databases for AI/ML</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Homework 📝</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../HW0.html">Homework 0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HW1.html">Homework 1: Lopez-Lira Replication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HW2.html">Homework 2: Embedding-Based Return Prediction</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../final_project.html">Final Project</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/final_project_rubric.html">Final Project Instructions and Rubric</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/potential_final_projects.html">List of Potential Final Projects</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Misc 📌</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../acknowledgments.html">Acknowledgments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../appendix.html">Appendix</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project/issues/new?title=Issue%20on%20page%20%2Fdiscussions/intro_to_nextjs.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/discussions/intro_to_nextjs.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Introduction to Next.js and Deployment</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-next-js">What is Next.js?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-next-js-for-ai-applications">Why Next.js for AI Applications?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-js-fundamentals">Next.js Fundamentals</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#project-structure">Project Structure</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#routing-in-next-js">Routing in Next.js</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#server-vs-client-components">Server vs. Client Components</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#server-components-default">Server Components (default)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#client-components">Client Components</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-your-first-next-js-project">Setting Up Your First Next.js Project</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-new-project">Create a New Project</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#project-structure-created">Project Structure Created</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-dependencies">Install Dependencies</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-development-server">Run Development Server</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#environment-variables-api-keys">Environment Variables &amp; API Keys</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-environment-variables">Why Environment Variables?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-environment-variables">Setting Up Environment Variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#security-best-practices">Security Best Practices</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#api-routes-in-next-js">API Routes in Next.js</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-an-api-route">Creating an API Route</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#real-example-stock-price-endpoint">Real Example: Stock Price Endpoint</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deploying-to-vercel">Deploying to Vercel</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deployment-steps">Deployment Steps</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#push-to-github">1. Push to GitHub</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#import-to-vercel">2. Import to Vercel</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#configure-environment-variables">3. Configure Environment Variables</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#access-your-app">4. Access Your App</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#continuous-deployment">Continuous Deployment</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vercel-cli-optional-but-useful">Vercel CLI (Optional but Useful)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#useful-commands">Useful Commands</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#common-next-js-patterns-for-ai-apps">Common Next.js Patterns for AI Apps</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#streaming-responses">1. Streaming Responses</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#error-handling">2. Error Handling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cors-for-external-access">3. CORS for External Access</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resources-further-learning">Resources &amp; Further Learning</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#official-documentation">Official Documentation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#video-tutorials">Video Tutorials</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-projects">Example Projects</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-exercise-create-a-simple-api">Hands-On Exercise: Create a Simple API</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-create-the-route">Step 1: Create the Route</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-test-it">Step 2: Test It</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-call-from-frontend">Step 3: Call from Frontend</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">Key Takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint-questions">Checkpoint Questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next Steps</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                   <section class="tex2jax_ignore mathjax_ignore" id="introduction-to-next-js-and-deployment">
+<h1>Introduction to Next.js and Deployment<a class="headerlink" href="#introduction-to-next-js-and-deployment" title="Link to this heading">#</a></h1>
+<p><strong>Duration:</strong> 45 minutes
+<strong>Learning Objectives:</strong></p>
+<ul class="simple">
+<li><p>Understand Next.js fundamentals and why it’s popular</p></li>
+<li><p>Learn the difference between client and server components</p></li>
+<li><p>Set up a Next.js project from scratch</p></li>
+<li><p>Configure environment variables securely</p></li>
+<li><p>Deploy a Next.js application to Vercel</p></li>
+</ul>
+<hr class="docutils" />
+<section id="what-is-next-js">
+<h2>What is Next.js?<a class="headerlink" href="#what-is-next-js" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://nextjs.org/">Next.js</a> is a React framework that provides a complete solution for building modern web applications. It’s particularly popular for AI applications because of its:</p>
+<ul class="simple">
+<li><p><strong>Full-stack capabilities</strong> - Frontend + API routes in one project</p></li>
+<li><p><strong>Performance optimization</strong> - Automatic code splitting and optimization</p></li>
+<li><p><strong>Developer experience</strong> - Fast Refresh, TypeScript support</p></li>
+<li><p><strong>Deployment simplicity</strong> - Built by Vercel, optimized for their platform</p></li>
+</ul>
+<section id="why-next-js-for-ai-applications">
+<h3>Why Next.js for AI Applications?<a class="headerlink" href="#why-next-js-for-ai-applications" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>API Routes</strong>: Create backend endpoints without a separate server</p></li>
+<li><p><strong>Environment Variables</strong>: Secure API key management</p></li>
+<li><p><strong>Server Components</strong>: Reduce client-side JavaScript, faster loads</p></li>
+<li><p><strong>Streaming</strong>: Perfect for AI response streaming</p></li>
+<li><p><strong>Edge Functions</strong>: Deploy globally for low latency</p></li>
+</ol>
+</section>
+</section>
+<hr class="docutils" />
+<section id="next-js-fundamentals">
+<h2>Next.js Fundamentals<a class="headerlink" href="#next-js-fundamentals" title="Link to this heading">#</a></h2>
+<section id="project-structure">
+<h3>Project Structure<a class="headerlink" href="#project-structure" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>my-nextjs-app/
+|-- app/                    # App Router (Next.js 13+)
+|   |-- page.tsx           # Home page (/)
+|   |-- layout.tsx         # Root layout
+|   `-- api/               # API routes
+|       `-- chat/
+|           `-- route.ts   # /api/chat endpoint
+|-- components/            # React components
+|-- lib/                   # Utility functions
+|-- public/                # Static assets
+|-- .env.local            # Environment variables (gitignored)
+|-- next.config.js        # Next.js configuration
+`-- package.json          # Dependencies
+</pre></div>
+</div>
+</section>
+<section id="routing-in-next-js">
+<h3>Routing in Next.js<a class="headerlink" href="#routing-in-next-js" title="Link to this heading">#</a></h3>
+<p>Next.js uses <strong>file-based routing</strong>. The file structure in <code class="docutils literal notranslate"><span class="pre">app/</span></code> determines your URLs:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>File Path</p></th>
+<th class="head"><p>URL</p></th>
+<th class="head"><p>Purpose</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">app/page.tsx</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/</span></code></p></td>
+<td><p>Home page</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">app/about/page.tsx</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/about</span></code></p></td>
+<td><p>About page</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">app/api/chat/route.ts</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/api/chat</span></code></p></td>
+<td><p>API endpoint</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">app/dashboard/[id]/page.tsx</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/dashboard/123</span></code></p></td>
+<td><p>Dynamic route</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The diagram below shows how Next.js nested routes map directly to folder structure:</p>
+<p><img alt="Next.js Nested Route" src="../_images/nextjs_nested_route.png" /></p>
+<p><em>File-based routing in action: the folder structure <code class="docutils literal notranslate"><span class="pre">app/blog/[slug]/page.tsx</span></code> creates the URL pattern <code class="docutils literal notranslate"><span class="pre">/blog/:slug</span></code>. Source: <a class="reference external" href="https://nextjs.org/docs/app/building-your-application/routing">Next.js Documentation</a></em></p>
+<p>Next.js also supports <strong>nested layouts</strong>, allowing you to share UI between routes while preserving state:</p>
+<p><img alt="Next.js Nested Layouts" src="../_images/nextjs_nested_layouts.png" /></p>
+<p><em>Nested layouts let parent routes wrap child routes. The root layout wraps the dashboard layout, which wraps individual dashboard pages. Source: <a class="reference external" href="https://nextjs.org/docs/app/building-your-application/routing">Next.js Documentation</a></em></p>
+</section>
+<section id="server-vs-client-components">
+<h3>Server vs. Client Components<a class="headerlink" href="#server-vs-client-components" title="Link to this heading">#</a></h3>
+<p>Next.js 13+ introduced a new paradigm:</p>
+<section id="server-components-default">
+<h4>Server Components (default)<a class="headerlink" href="#server-components-default" title="Link to this heading">#</a></h4>
+<div class="highlight-jsx notranslate"><div class="highlight"><pre><span></span><span class="c1">// app/page.tsx</span>
+<span class="c1">// This runs on the server</span>
+<span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">Page</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">fetchData</span><span class="p">();</span><span class="w"> </span><span class="c1">// Can directly access database</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;{</span><span class="nx">data</span><span class="p">}&lt;/</span><span class="nt">div</span><span class="p">&gt;;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Advantages:</strong></p>
+<ul class="simple">
+<li><p>Direct database access</p></li>
+<li><p>Smaller client bundle</p></li>
+<li><p>Better SEO</p></li>
+<li><p>Secure (API keys never exposed)</p></li>
+</ul>
+</section>
+<section id="client-components">
+<h4>Client Components<a class="headerlink" href="#client-components" title="Link to this heading">#</a></h4>
+<div class="highlight-jsx notranslate"><div class="highlight"><pre><span></span><span class="c1">// components/ChatInterface.tsx</span>
+<span class="s1">&#39;use client&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1">// This directive makes it a client component</span>
+
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">useState</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;react&#39;</span><span class="p">;</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">ChatInterface</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">message</span><span class="p">,</span><span class="w"> </span><span class="nx">setMessage</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useState</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">&lt;</span><span class="nt">input</span><span class="w"> </span><span class="na">value</span><span class="o">=</span><span class="p">{</span><span class="nx">message</span><span class="p">}</span><span class="w"> </span><span class="na">onChange</span><span class="o">=</span><span class="p">{(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">setMessage</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">)}</span><span class="w"> </span><span class="p">/&gt;;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>When to use:</strong></p>
+<ul class="simple">
+<li><p>Need interactivity (onClick, onChange)</p></li>
+<li><p>Use React hooks (useState, useEffect)</p></li>
+<li><p>Access browser APIs</p></li>
+</ul>
+<p><strong>Rule of thumb:</strong> Use Server Components by default, Client Components when you need interactivity.</p>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="setting-up-your-first-next-js-project">
+<h2>Setting Up Your First Next.js Project<a class="headerlink" href="#setting-up-your-first-next-js-project" title="Link to this heading">#</a></h2>
+<section id="prerequisites">
+<h3>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading">#</a></h3>
+<p>Make sure you have installed:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://nodejs.org/">Node.js</a> 18.17 or later</p></li>
+<li><p>npm, yarn, or pnpm</p></li>
+</ul>
+</section>
+<section id="create-a-new-project">
+<h3>Create a New Project<a class="headerlink" href="#create-a-new-project" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Using create-next-app (recommended)</span>
+npx<span class="w"> </span>create-next-app@latest<span class="w"> </span>company-research-assistant
+
+<span class="c1"># You&#39;ll be prompted with:</span>
+<span class="c1">#  Would you like to use TypeScript? Yes</span>
+<span class="c1">#  Would you like to use ESLint? Yes</span>
+<span class="c1">#  Would you like to use Tailwind CSS? Yes</span>
+<span class="c1">#  Would you like to use `src/` directory? No</span>
+<span class="c1">#  Would you like to use App Router? Yes (recommended)</span>
+<span class="c1">#  Would you like to customize the default import alias? No</span>
+
+<span class="nb">cd</span><span class="w"> </span>company-research-assistant
+</pre></div>
+</div>
+</section>
+<section id="project-structure-created">
+<h3>Project Structure Created<a class="headerlink" href="#project-structure-created" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>company-research-assistant/
+|-- app/
+|   |-- favicon.ico
+|   |-- globals.css
+|   |-- layout.tsx
+|   `-- page.tsx
+|-- public/
+|-- .gitignore
+|-- next.config.js
+|-- package.json
+|-- README.md
+|-- tailwind.config.ts
+`-- tsconfig.json
+</pre></div>
+</div>
+</section>
+<section id="install-dependencies">
+<h3>Install Dependencies<a class="headerlink" href="#install-dependencies" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>npm<span class="w"> </span>install
+</pre></div>
+</div>
+</section>
+<section id="run-development-server">
+<h3>Run Development Server<a class="headerlink" href="#run-development-server" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>npm<span class="w"> </span>run<span class="w"> </span>dev
+</pre></div>
+</div>
+<p>Visit <a class="reference external" href="http://localhost:3000">http://localhost:3000</a> to see your app!</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="environment-variables-api-keys">
+<h2>Environment Variables &amp; API Keys<a class="headerlink" href="#environment-variables-api-keys" title="Link to this heading">#</a></h2>
+<section id="why-environment-variables">
+<h3>Why Environment Variables?<a class="headerlink" href="#why-environment-variables" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Security</strong>: Keep API keys out of source code</p></li>
+<li><p><strong>Flexibility</strong>: Different keys for dev/staging/production</p></li>
+<li><p><strong>Best practice</strong>: Never commit secrets to git</p></li>
+</ul>
+</section>
+<section id="setting-up-environment-variables">
+<h3>Setting Up Environment Variables<a class="headerlink" href="#setting-up-environment-variables" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Create <code class="docutils literal notranslate"><span class="pre">.env.local</span></code></strong> in project root:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># .env.local (this file is gitignored by default)</span>
+<span class="nv">OPENAI_API_KEY</span><span class="o">=</span>sk-proj-xxxxxxxxxxxxx
+<span class="nv">NEXT_PUBLIC_APP_NAME</span><span class="o">=</span>Company<span class="w"> </span>Research<span class="w"> </span>Assistant
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p><strong>Naming Convention</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">NEXT_PUBLIC_*</span></code> - Exposed to browser (use for non-sensitive config)</p></li>
+<li><p>No prefix - Server-only (use for API keys)</p></li>
+</ul>
+</li>
+<li><p><strong>Access in Server Components</strong>:</p></li>
+</ol>
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="c1">// app/api/chat/route.ts</span>
+<span class="k">export</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">POST</span><span class="p">(</span><span class="nx">req</span><span class="o">:</span><span class="w"> </span><span class="kt">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">apiKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">OPENAI_API_KEY</span><span class="p">;</span><span class="w"> </span><span class="c1">// Secure</span>
+<span class="w">  </span><span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p><strong>Access in Client Components</strong>:</p></li>
+</ol>
+<div class="highlight-jsx notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;use client&#39;</span><span class="p">;</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">Header</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">appName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">NEXT_PUBLIC_APP_NAME</span><span class="p">;</span><span class="w"> </span><span class="c1">// Only NEXT_PUBLIC_ vars work here</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;{</span><span class="nx">appName</span><span class="p">}&lt;/</span><span class="nt">h1</span><span class="p">&gt;;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="security-best-practices">
+<h3>Security Best Practices<a class="headerlink" href="#security-best-practices" title="Link to this heading">#</a></h3>
+<p>✓ <strong>DO:</strong></p>
+<ul class="simple">
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">.env.local</span></code> to <code class="docutils literal notranslate"><span class="pre">.gitignore</span></code> (done automatically)</p></li>
+<li><p>Use server-side API routes for sensitive operations</p></li>
+<li><p>Provide <code class="docutils literal notranslate"><span class="pre">.env.example</span></code> for other developers</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># .env.example (commit this to git)</span>
+<span class="nv">OPENAI_API_KEY</span><span class="o">=</span>your_openai_api_key_here
+</pre></div>
+</div>
+<p>✗ <strong>DON’T:</strong></p>
+<ul class="simple">
+<li><p>Commit <code class="docutils literal notranslate"><span class="pre">.env.local</span></code> to git</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">NEXT_PUBLIC_</span></code> for API keys</p></li>
+<li><p>Hardcode secrets in code</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="api-routes-in-next-js">
+<h2>API Routes in Next.js<a class="headerlink" href="#api-routes-in-next-js" title="Link to this heading">#</a></h2>
+<p>API routes let you create backend endpoints in the same project.</p>
+<section id="creating-an-api-route">
+<h3>Creating an API Route<a class="headerlink" href="#creating-an-api-route" title="Link to this heading">#</a></h3>
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="c1">// app/api/hello/route.ts</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">NextResponse</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;next/server&#39;</span><span class="p">;</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">GET</span><span class="p">(</span><span class="nx">request</span><span class="o">:</span><span class="w"> </span><span class="kt">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">NextResponse</span><span class="p">.</span><span class="nx">json</span><span class="p">({</span><span class="w"> </span><span class="nx">message</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Hello from Next.js API!&#39;</span><span class="w"> </span><span class="p">});</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">POST</span><span class="p">(</span><span class="nx">request</span><span class="o">:</span><span class="w"> </span><span class="kt">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">body</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">request</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+<span class="w">  </span><span class="c1">// Process the request</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">NextResponse</span><span class="p">.</span><span class="nx">json</span><span class="p">({</span><span class="w"> </span><span class="nx">received</span><span class="o">:</span><span class="w"> </span><span class="kt">body</span><span class="w"> </span><span class="p">});</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Access at: <code class="docutils literal notranslate"><span class="pre">http://localhost:3000/api/hello</span></code></p>
+</section>
+<section id="real-example-stock-price-endpoint">
+<h3>Real Example: Stock Price Endpoint<a class="headerlink" href="#real-example-stock-price-endpoint" title="Link to this heading">#</a></h3>
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="c1">// app/api/stock/route.ts</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">NextResponse</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;next/server&#39;</span><span class="p">;</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">GET</span><span class="p">(</span><span class="nx">request</span><span class="o">:</span><span class="w"> </span><span class="kt">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">searchParams</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">URL</span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">url</span><span class="p">);</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">ticker</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">searchParams</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;ticker&#39;</span><span class="p">);</span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">ticker</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">NextResponse</span><span class="p">.</span><span class="nx">json</span><span class="p">({</span><span class="w"> </span><span class="nx">error</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Ticker required&#39;</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">status</span><span class="o">:</span><span class="w"> </span><span class="kt">400</span><span class="w"> </span><span class="p">});</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="c1">// In practice, you&#39;d call Yahoo Finance API here</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">mockData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">ticker</span><span class="o">:</span><span class="w"> </span><span class="kt">ticker.toUpperCase</span><span class="p">(),</span>
+<span class="w">    </span><span class="nx">price</span><span class="o">:</span><span class="w"> </span><span class="kt">175.43</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">change</span><span class="o">:</span><span class="w"> </span><span class="kt">2.15</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">changePercent</span><span class="o">:</span><span class="w"> </span><span class="kt">1.24</span>
+<span class="w">  </span><span class="p">};</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">NextResponse</span><span class="p">.</span><span class="nx">json</span><span class="p">(</span><span class="nx">mockData</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Call from your frontend:</p>
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;/api/stock?ticker=AAPL&#39;</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="deploying-to-vercel">
+<h2>Deploying to Vercel<a class="headerlink" href="#deploying-to-vercel" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://vercel.com">Vercel</a> is the platform built by the creators of Next.js. It offers:</p>
+<ul class="simple">
+<li><p><strong>Zero-config deployment</strong> for Next.js</p></li>
+<li><p><strong>Automatic HTTPS</strong> and custom domains</p></li>
+<li><p><strong>Edge network</strong> for global performance</p></li>
+<li><p><strong>Preview deployments</strong> for every git push</p></li>
+<li><p><strong>Generous free tier</strong> for personal projects</p></li>
+</ul>
+<section id="deployment-steps">
+<h3>Deployment Steps<a class="headerlink" href="#deployment-steps" title="Link to this heading">#</a></h3>
+<section id="push-to-github">
+<h4>1. Push to GitHub<a class="headerlink" href="#push-to-github" title="Link to this heading">#</a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialize git (if not already done)</span>
+git<span class="w"> </span>init
+git<span class="w"> </span>add<span class="w"> </span>.
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Initial commit&quot;</span>
+
+<span class="c1"># Create a new repository on GitHub, then:</span>
+git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>origin<span class="w"> </span>https://github.com/yourusername/company-research-assistant.git
+git<span class="w"> </span>branch<span class="w"> </span>-M<span class="w"> </span>main
+git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>main
+</pre></div>
+</div>
+</section>
+<section id="import-to-vercel">
+<h4>2. Import to Vercel<a class="headerlink" href="#import-to-vercel" title="Link to this heading">#</a></h4>
+<ol class="arabic simple">
+<li><p>Go to <a class="reference external" href="https://vercel.com">vercel.com</a> and sign up/login</p></li>
+<li><p>Click <strong>“Add New…”</strong> -&gt; <strong>“Project”</strong></p></li>
+<li><p><strong>Import</strong> your GitHub repository</p></li>
+<li><p>Vercel auto-detects Next.js settings ✨</p></li>
+<li><p>Click <strong>“Deploy”</strong></p></li>
+</ol>
+</section>
+<section id="configure-environment-variables">
+<h4>3. Configure Environment Variables<a class="headerlink" href="#configure-environment-variables" title="Link to this heading">#</a></h4>
+<p>In Vercel dashboard:</p>
+<ol class="arabic simple">
+<li><p>Go to <strong>Settings</strong> -&gt; <strong>Environment Variables</strong></p></li>
+<li><p>Add your variables:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">OPENAI_API_KEY</span></code> = <code class="docutils literal notranslate"><span class="pre">sk-proj-xxxxx</span></code></p></li>
+</ul>
+</li>
+<li><p>Click <strong>Save</strong></p></li>
+<li><p>Redeploy for changes to take effect</p></li>
+</ol>
+</section>
+<section id="access-your-app">
+<h4>4. Access Your App<a class="headerlink" href="#access-your-app" title="Link to this heading">#</a></h4>
+<p>Your app will be live at: <code class="docutils literal notranslate"><span class="pre">https://your-project.vercel.app</span></code></p>
+</section>
+</section>
+<section id="continuous-deployment">
+<h3>Continuous Deployment<a class="headerlink" href="#continuous-deployment" title="Link to this heading">#</a></h3>
+<p>Every time you push to GitHub:</p>
+<ul class="simple">
+<li><p><strong>Main branch</strong> -&gt; Production deployment</p></li>
+<li><p><strong>Other branches</strong> -&gt; Preview deployments</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make changes</span>
+git<span class="w"> </span>add<span class="w"> </span>.
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Add new feature&quot;</span>
+git<span class="w"> </span>push
+
+<span class="c1"># Vercel automatically deploys!</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="vercel-cli-optional-but-useful">
+<h2>Vercel CLI (Optional but Useful)<a class="headerlink" href="#vercel-cli-optional-but-useful" title="Link to this heading">#</a></h2>
+<p>Install the Vercel CLI for local development:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>npm<span class="w"> </span>i<span class="w"> </span>-g<span class="w"> </span>vercel
+</pre></div>
+</div>
+<section id="useful-commands">
+<h3>Useful Commands<a class="headerlink" href="#useful-commands" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Deploy from terminal</span>
+vercel
+
+<span class="c1"># Deploy to production</span>
+vercel<span class="w"> </span>--prod
+
+<span class="c1"># Link local project to Vercel project</span>
+vercel<span class="w"> </span>link
+
+<span class="c1"># Pull environment variables from Vercel</span>
+vercel<span class="w"> </span>env<span class="w"> </span>pull
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="common-next-js-patterns-for-ai-apps">
+<h2>Common Next.js Patterns for AI Apps<a class="headerlink" href="#common-next-js-patterns-for-ai-apps" title="Link to this heading">#</a></h2>
+<section id="streaming-responses">
+<h3>1. Streaming Responses<a class="headerlink" href="#streaming-responses" title="Link to this heading">#</a></h3>
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="c1">// app/api/chat/route.ts</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">OpenAIStream</span><span class="p">,</span><span class="w"> </span><span class="nx">StreamingTextResponse</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;ai&#39;</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Configuration</span><span class="p">,</span><span class="w"> </span><span class="nx">OpenAIApi</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;openai-edge&#39;</span><span class="p">;</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Configuration</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">apiKey</span><span class="o">:</span><span class="w"> </span><span class="kt">process.env.OPENAI_API_KEY</span><span class="p">,</span>
+<span class="p">});</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">openai</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">OpenAIApi</span><span class="p">(</span><span class="nx">config</span><span class="p">);</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">POST</span><span class="p">(</span><span class="nx">req</span><span class="o">:</span><span class="w"> </span><span class="kt">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">messages</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">req</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">openai</span><span class="p">.</span><span class="nx">createChatCompletion</span><span class="p">({</span>
+<span class="w">    </span><span class="nx">model</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;gpt-4&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">stream</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">messages</span><span class="p">,</span>
+<span class="w">  </span><span class="p">});</span>
+
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">stream</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">OpenAIStream</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">StreamingTextResponse</span><span class="p">(</span><span class="nx">stream</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="error-handling">
+<h3>2. Error Handling<a class="headerlink" href="#error-handling" title="Link to this heading">#</a></h3>
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="k">export</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">POST</span><span class="p">(</span><span class="nx">req</span><span class="o">:</span><span class="w"> </span><span class="kt">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">body</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">req</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+<span class="w">    </span><span class="c1">// ... process request</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">NextResponse</span><span class="p">.</span><span class="nx">json</span><span class="p">({</span><span class="w"> </span><span class="nx">success</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="w"> </span><span class="p">});</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;API Error:&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">error</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">NextResponse</span><span class="p">.</span><span class="nx">json</span><span class="p">(</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nx">error</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Internal server error&#39;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nx">status</span><span class="o">:</span><span class="w"> </span><span class="kt">500</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="cors-for-external-access">
+<h3>3. CORS for External Access<a class="headerlink" href="#cors-for-external-access" title="Link to this heading">#</a></h3>
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="k">export</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">GET</span><span class="p">(</span><span class="nx">req</span><span class="o">:</span><span class="w"> </span><span class="kt">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">NextResponse</span><span class="p">.</span><span class="nx">json</span><span class="p">({</span><span class="w"> </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;example&#39;</span><span class="w"> </span><span class="p">});</span>
+
+<span class="w">  </span><span class="c1">// Add CORS headers</span>
+<span class="w">  </span><span class="nx">response</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;Access-Control-Allow-Origin&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;*&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="nx">response</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;Access-Control-Allow-Methods&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;GET, POST, OPTIONS&#39;</span><span class="p">);</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">response</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="resources-further-learning">
+<h2>Resources &amp; Further Learning<a class="headerlink" href="#resources-further-learning" title="Link to this heading">#</a></h2>
+<section id="official-documentation">
+<h3>Official Documentation<a class="headerlink" href="#official-documentation" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://nextjs.org/docs">Next.js Documentation</a></p></li>
+<li><p><a class="reference external" href="https://nextjs.org/learn">Next.js Learn Course</a> - Interactive tutorial</p></li>
+<li><p><a class="reference external" href="https://vercel.com/docs">Vercel Documentation</a></p></li>
+<li><p><a class="reference external" href="https://nextjs.org/docs/app/building-your-application/upgrading/app-router-migration">App Router Migration Guide</a></p></li>
+</ul>
+</section>
+<section id="video-tutorials">
+<h3>Video Tutorials<a class="headerlink" href="#video-tutorials" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=wm5gMKuwSYk">Next.js 14 Crash Course</a> by Traversy Media</p></li>
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=ZVnjOPwW4ZA">Next.js for Beginners</a> by freeCodeCamp</p></li>
+</ul>
+</section>
+<section id="example-projects">
+<h3>Example Projects<a class="headerlink" href="#example-projects" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/vercel/next.js/tree/canary/examples">Next.js Examples</a> - Official examples</p></li>
+<li><p><a class="reference external" href="https://vercel.com/templates">Vercel Templates</a> - Production-ready templates</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="hands-on-exercise-create-a-simple-api">
+<h2>Hands-On Exercise: Create a Simple API<a class="headerlink" href="#hands-on-exercise-create-a-simple-api" title="Link to this heading">#</a></h2>
+<p><strong>Task:</strong> Create an API endpoint that returns company information.</p>
+<section id="step-1-create-the-route">
+<h3>Step 1: Create the Route<a class="headerlink" href="#step-1-create-the-route" title="Link to this heading">#</a></h3>
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="c1">// app/api/company/route.ts</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">NextResponse</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;next/server&#39;</span><span class="p">;</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">companies</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">AAPL</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Apple Inc.&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">sector</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Technology&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">founded</span><span class="o">:</span><span class="w"> </span><span class="kt">1976</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="nx">MSFT</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Microsoft Corporation&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">sector</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Technology&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">founded</span><span class="o">:</span><span class="w"> </span><span class="kt">1975</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="nx">JPM</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;JPMorgan Chase &amp; Co.&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">sector</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Financials&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">founded</span><span class="o">:</span><span class="w"> </span><span class="kt">1799</span><span class="w"> </span><span class="p">},</span>
+<span class="p">};</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">GET</span><span class="p">(</span><span class="nx">request</span><span class="o">:</span><span class="w"> </span><span class="kt">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">searchParams</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">URL</span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">url</span><span class="p">);</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">ticker</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">searchParams</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;ticker&#39;</span><span class="p">)</span><span class="o">?</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">();</span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">ticker</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">NextResponse</span><span class="p">.</span><span class="nx">json</span><span class="p">(</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nx">error</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Ticker parameter required&#39;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nx">status</span><span class="o">:</span><span class="w"> </span><span class="kt">400</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">company</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">companies</span><span class="p">[</span><span class="nx">ticker</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">keyof</span><span class="w"> </span><span class="ow">typeof</span><span class="w"> </span><span class="nx">companies</span><span class="p">];</span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">company</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">NextResponse</span><span class="p">.</span><span class="nx">json</span><span class="p">(</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nx">error</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Company not found&#39;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nx">status</span><span class="o">:</span><span class="w"> </span><span class="kt">404</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">NextResponse</span><span class="p">.</span><span class="nx">json</span><span class="p">(</span><span class="nx">company</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="step-2-test-it">
+<h3>Step 2: Test It<a class="headerlink" href="#step-2-test-it" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># In your browser or terminal</span>
+curl<span class="w"> </span>http://localhost:3000/api/company?ticker<span class="o">=</span>AAPL
+</pre></div>
+</div>
+<p>Expected response:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Apple Inc.&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;sector&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Technology&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;founded&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1976</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="step-3-call-from-frontend">
+<h3>Step 3: Call from Frontend<a class="headerlink" href="#step-3-call-from-frontend" title="Link to this heading">#</a></h3>
+<div class="highlight-jsx notranslate"><div class="highlight"><pre><span></span><span class="c1">// app/page.tsx</span>
+<span class="s1">&#39;use client&#39;</span><span class="p">;</span>
+
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">useState</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;react&#39;</span><span class="p">;</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">Home</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">ticker</span><span class="p">,</span><span class="w"> </span><span class="nx">setTicker</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useState</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">company</span><span class="p">,</span><span class="w"> </span><span class="nx">setCompany</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useState</span><span class="p">&lt;</span><span class="nt">any</span><span class="p">&gt;(</span><span class="kc">null</span><span class="p">);</span>
+
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">fetchCompany</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span><span class="sb">`/api/company?ticker=</span><span class="si">${</span><span class="nx">ticker</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+<span class="w">    </span><span class="nx">setCompany</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+<span class="w">  </span><span class="p">};</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="p">&lt;</span><span class="nt">div</span><span class="w"> </span><span class="na">className</span><span class="o">=</span><span class="s">&quot;p-8&quot;</span><span class="p">&gt;</span>
+<span class="w">      </span><span class="p">&lt;</span><span class="nt">input</span>
+<span class="w">        </span><span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span>
+<span class="w">        </span><span class="na">value</span><span class="o">=</span><span class="p">{</span><span class="nx">ticker</span><span class="p">}</span>
+<span class="w">        </span><span class="na">onChange</span><span class="o">=</span><span class="p">{(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">setTicker</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">)}</span>
+<span class="w">        </span><span class="na">placeholder</span><span class="o">=</span><span class="s">&quot;Enter ticker (e.g., AAPL)&quot;</span>
+<span class="w">        </span><span class="na">className</span><span class="o">=</span><span class="s">&quot;border p-2 mr-2&quot;</span>
+<span class="w">      </span><span class="p">/&gt;</span>
+<span class="w">      </span><span class="p">&lt;</span><span class="nt">button</span><span class="w"> </span><span class="na">onClick</span><span class="o">=</span><span class="p">{</span><span class="nx">fetchCompany</span><span class="p">}</span><span class="w"> </span><span class="na">className</span><span class="o">=</span><span class="s">&quot;bg-blue-500 text-white px-4 py-2&quot;</span><span class="p">&gt;</span>
+<span class="w">        </span><span class="nx">Search</span>
+<span class="w">      </span><span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+
+<span class="w">      </span><span class="p">{</span><span class="nx">company</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="nx">company</span><span class="p">.</span><span class="nx">error</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">(</span>
+<span class="w">        </span><span class="p">&lt;</span><span class="nt">div</span><span class="w"> </span><span class="na">className</span><span class="o">=</span><span class="s">&quot;mt-4&quot;</span><span class="p">&gt;</span>
+<span class="w">          </span><span class="p">&lt;</span><span class="nt">h2</span><span class="w"> </span><span class="na">className</span><span class="o">=</span><span class="s">&quot;text-xl font-bold&quot;</span><span class="p">&gt;{</span><span class="nx">company</span><span class="p">.</span><span class="nx">name</span><span class="p">}&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+<span class="w">          </span><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span><span class="nx">Sector</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="nx">company</span><span class="p">.</span><span class="nx">sector</span><span class="p">}&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="w">          </span><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span><span class="nx">Founded</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="nx">company</span><span class="p">.</span><span class="nx">founded</span><span class="p">}&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="w">        </span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="w">      </span><span class="p">)}</span>
+<span class="w">    </span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="key-takeaways">
+<h2>Key Takeaways<a class="headerlink" href="#key-takeaways" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Next.js</strong> combines frontend and backend in one framework</p></li>
+<li><p><strong>File-based routing</strong> makes creating pages and APIs intuitive</p></li>
+<li><p><strong>Server Components</strong> are the default and more secure</p></li>
+<li><p><strong>Environment variables</strong> keep API keys safe</p></li>
+<li><p><strong>Vercel deployment</strong> is automatic and effortless</p></li>
+<li><p><strong>API routes</strong> eliminate the need for a separate backend</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="checkpoint-questions">
+<h2>Checkpoint Questions<a class="headerlink" href="#checkpoint-questions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>What’s the difference between Server and Client Components?</p></li>
+<li><p>Where should you store your OpenAI API key?</p></li>
+<li><p>How do you create an API endpoint in Next.js?</p></li>
+<li><p>What happens when you push code to GitHub with Vercel connected?</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="next-steps">
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
+<p>Now that you understand Next.js basics, we’ll integrate <strong>ChatKit</strong> to build our financial research assistant!</p>
+</section>
+</section>
+
+<div class="section ablog__blog_comments">
+   
+</div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="chat_applications_overview.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chat Applications Overview: AI in Financial Services</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="intro_to_chatkit.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Building a Financial Research Assistant with ChatKit</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-next-js">What is Next.js?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-next-js-for-ai-applications">Why Next.js for AI Applications?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-js-fundamentals">Next.js Fundamentals</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#project-structure">Project Structure</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#routing-in-next-js">Routing in Next.js</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#server-vs-client-components">Server vs. Client Components</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#server-components-default">Server Components (default)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#client-components">Client Components</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-your-first-next-js-project">Setting Up Your First Next.js Project</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-new-project">Create a New Project</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#project-structure-created">Project Structure Created</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-dependencies">Install Dependencies</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-development-server">Run Development Server</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#environment-variables-api-keys">Environment Variables &amp; API Keys</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-environment-variables">Why Environment Variables?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-environment-variables">Setting Up Environment Variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#security-best-practices">Security Best Practices</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#api-routes-in-next-js">API Routes in Next.js</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-an-api-route">Creating an API Route</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#real-example-stock-price-endpoint">Real Example: Stock Price Endpoint</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deploying-to-vercel">Deploying to Vercel</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deployment-steps">Deployment Steps</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#push-to-github">1. Push to GitHub</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#import-to-vercel">2. Import to Vercel</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#configure-environment-variables">3. Configure Environment Variables</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#access-your-app">4. Access Your App</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#continuous-deployment">Continuous Deployment</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vercel-cli-optional-but-useful">Vercel CLI (Optional but Useful)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#useful-commands">Useful Commands</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#common-next-js-patterns-for-ai-apps">Common Next.js Patterns for AI Apps</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#streaming-responses">1. Streaming Responses</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#error-handling">2. Error Handling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cors-for-external-access">3. CORS for External Access</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resources-further-learning">Resources &amp; Further Learning</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#official-documentation">Official Documentation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#video-tutorials">Video Tutorials</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-projects">Example Projects</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-exercise-create-a-simple-api">Hands-On Exercise: Create a Simple API</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-create-the-route">Step 1: Create the Route</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-test-it">Step 2: Test It</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-call-from-frontend">Step 3: Call from Frontend</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">Key Takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint-questions">Checkpoint Questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next Steps</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jeremiah Bejarano
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, Jeremiah Bejarano.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
