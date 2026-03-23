@@ -1,0 +1,884 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>LLMs for Return Prediction: Prompts vs. Embeddings &#8212; Full Stack Quantitative Finance</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=f23691d7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=7a7908ec"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'discussions/expected_returns_llms';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/custom.js?v=c0d9a6f1"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="ChartBook: Cataloging Research for Humans and AI" href="chartbook_research_catalog.html" />
+    <link rel="prev" title="LLMs Transforming Finance: The New Quant" href="llms_transforming_finance.html" /> 
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>   
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Full Stack Quantitative Finance - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Full Stack Quantitative Finance - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Generative and Agentic AI for Finance
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../README.html">Course Syllabus: FINM 32900, Winter 2025</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Course Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Discussions 📖</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../discussion_01.html">Discussion 1: The New Quant - LLMs in Finance</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="llms_transforming_finance.html">LLMs Transforming Finance: The New Quant</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">LLMs for Return Prediction: Prompts vs. Embeddings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chartbook_research_catalog.html">ChartBook: Cataloging Research for Humans and AI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_and_structured_outputs.html">API Basics and Structured Outputs</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../subject_to_change_after_this_week.html">WARNING: Notes subject to change after this week</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_02.html">Discussion 2: LLM Fundamentals 1</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="ai_copilots_intro.html">AI Copilots: Claude Code and Cursor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gen_ai_tech_stack.html">The Generative AI Tech Stack</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../discussion_03.html">Discussion 3: LLM Fundamentals 2</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../discussion_04.html">Discussion 4:</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">LLMs for Return Prediction: Prompts vs. Embeddings</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Homework 📝</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../HW0.html">Homework 0: Set Up Your Environment</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/01_data_sources_overview_ipynb.html">Data Sources &amp; Strategy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/02_gdelt_sp500_filtering_ipynb.html">GDELT Filtering &amp; Data Quality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/03_crosswalk_quality_ipynb.html">Crosswalk Quality</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../HW1.html">Homework 1: Lopez-Lira Replication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HW2.html">Homework 2:</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../final_project.html">Final Project</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/final_project_rubric.html">Final Project Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/potential_final_projects.html">Potential Final Project Ideas</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exams 📋</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../exam_prep.html">Exam Preparation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Misc 📌</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../acknowledgments.html">Acknowledgments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../appendix.html">Appendix</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project/issues/new?title=Issue%20on%20page%20%2Fdiscussions/expected_returns_llms.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/discussions/expected_returns_llms.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>LLMs for Return Prediction: Prompts vs. Embeddings</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#llms-are-statistical-prediction-models">LLMs Are Statistical Prediction Models</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-words-to-numbers">From Words to Numbers</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#training-for-prediction">Training for Prediction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-memorization-machine">A Memorization Machine</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chatgpt-and-investing">ChatGPT and Investing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#limitations-of-prompt-based-approaches">Limitations of Prompt-Based Approaches</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-embedding-approach">The Embedding Approach</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prompts-vs-embeddings">Prompts vs. Embeddings</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-prompting-approach-lopez-lira-tang-2023">The Prompting Approach: Lopez-Lira &amp; Tang (2023)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-setup">The Setup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-prompt">The Prompt</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#results">Results</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#markets-learning">Markets Learning</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-embedding-approach-chen-kelly-xiu-2022">The Embedding Approach: Chen, Kelly &amp; Xiu (2022)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#empirical-approach">Empirical Approach</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data">Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prediction-methodology">Prediction Methodology</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-returns">Expected Returns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-llm-benchmarks">Pre-LLM Benchmarks</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#daily-predictions">Daily Predictions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#portfolio-performance">Portfolio Performance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#polyglot-portfolios">Polyglot Portfolios</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nonlinear-prediction">Nonlinear Prediction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-do-llms-outperform-word-based-methods">Why Do LLMs Outperform Word-Based Methods?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#monthly-predictions">Monthly Predictions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-frequency-signal">Multi-Frequency Signal</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-models">Multiple Models</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#diversity-across-language-models">Diversity Across Language Models</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusions">Conclusions</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                   <section class="tex2jax_ignore mathjax_ignore" id="llms-for-return-prediction-prompts-vs-embeddings">
+<h1>LLMs for Return Prediction: Prompts vs. Embeddings<a class="headerlink" href="#llms-for-return-prediction-prompts-vs-embeddings" title="Link to this heading">#</a></h1>
+<p><em>These notes draw on two papers that represent two fundamentally different approaches to using LLMs for stock return prediction:</em></p>
+<blockquote>
+<div><p>Lopez-Lira, A., &amp; Tang, Y. (2023). <a class="reference download internal" download="" href="../_downloads/39b2e08d633043ca610d2fde88f16f11/lopez-lira_tang_2023.pdf"><span class="xref download myst">Can ChatGPT Forecast Stock Price Movements? Return Predictability and Large Language Models.</span></a> <em>SSRN Electronic Journal.</em> <a class="reference external" href="https://doi.org/10.2139/ssrn.4412788">https://doi.org/10.2139/ssrn.4412788</a></p>
+</div></blockquote>
+<blockquote>
+<div><p>Chen, Y., Kelly, B., &amp; Xiu, D. (2022). <a class="reference download internal" download="" href="../_downloads/b8c204e66d3cee16f5eef713601e9cae/chen_kelly_xiu_2022_expected_returns_and_large_language_models.pdf"><span class="xref download myst">Expected Returns and Large Language Models.</span></a> <a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4416687">https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4416687</a></p>
+</div></blockquote>
+<p><em>Lopez-Lira &amp; Tang take the <strong>prompting</strong> approach: ask ChatGPT directly whether a headline is good or bad for a stock, and trade on the answer. Chen, Kelly &amp; Xiu take the <strong>embedding</strong> approach: extract the model’s internal numerical representations and feed them into a return prediction model. As we’ll see, both work — and they capture different information.</em></p>
+<p><em>Slide images below are reproduced from the authors’ presentation slides. Sources: Lopez-Lira, “Can ChatGPT Forecast Stock Price Movements?”, 2024; Chen, Kelly, Xiu, “Expected Returns and Large Language Models,” 2023. For illustrative purposes only.</em></p>
+<hr class="docutils" />
+<section id="llms-are-statistical-prediction-models">
+<h2>LLMs Are Statistical Prediction Models<a class="headerlink" href="#llms-are-statistical-prediction-models" title="Link to this heading">#</a></h2>
+<p>One important thing to keep in mind whenever we work with AI is that language models are not magic. They are not intelligence. They are statistical prediction models. If we can remember that, we’ll be able to make much better decisions about how to interact with them and how to learn from them.</p>
+<p>Consider this real conversation with ChatGPT — a simple knock-knock joke:</p>
+<p><img alt="ChatGPT knock-knock joke conversation" src="../_images/slide_02.png" /></p>
+<p><em>Source: Chen, Kelly, Xiu, “Expected Returns and Large Language Models,” 2023. For illustrative purposes only.</em></p>
+<p>This is the classic “orange you going to continue the joke” setup — a play on the word “orange” sounding like “aren’t you.” What’s unusual about this joke is that it restarts in the middle. ChatGPT knows right away how to respond to “knock knock.” It knows to say “orange who?” But when the joke restarts, ChatGPT initially tries to correct the user, thinking the structure is wrong. After being told to bear with it, the model preempts the punchline: “Orange you going to continue the joke?”</p>
+<p>The key insight here: GPT is trained to solve exactly this type of problem. It looks very similar to the kinds of problems we spend time on in finance. There’s a sequence, and the task is to forecast the next item in that sequence. If these were inflation prints, you’d say, “I know how to approach that — I’m going to build a statistical prediction model.” That is all GPT does. It approaches language with a statistical prediction model.</p>
+<section id="from-words-to-numbers">
+<h3>From Words to Numbers<a class="headerlink" href="#from-words-to-numbers" title="Link to this heading">#</a></h3>
+<p>How do you do statistics on words? It’s actually straightforward. You give the computer a vocabulary and represent each word with an indicator variable — a big list of zeros except for a one in the position of the word you want to represent.</p>
+<p><img alt="Caddyshack example: word prediction" src="../_images/slide_03.png" /></p>
+<p><em>Source: Chen, Kelly, Xiu, “Expected Returns and Large Language Models,” 2023. For illustrative purposes only.</em></p>
+<p>Using the famous Bill Murray quote from Caddyshack — “Cinderella story, out of nowhere, former greenskeeper, now about to become the Masters ___” — we can represent each word as one of these indicator vectors. Once we go from textual representations to numerical representations, we can do statistics again.</p>
+<p><img alt="Word indicator vectors" src="../_images/slide_04.png" /></p>
+<p><em>Source: Chen, Kelly, Xiu, “Expected Returns and Large Language Models,” 2023. For illustrative purposes only.</em></p>
+<p>Just like forecasting a time series of inflation, we can try to build a model that relates past observations to future observations. We represent the sequence of words with a sequence of indicator vectors, and then we build a prediction model.</p>
+<p><img alt="Sequence prediction with word vectors" src="../_images/slide_05.png" /></p>
+<p><em>Source: Chen, Kelly, Xiu, “Expected Returns and Large Language Models,” 2023. For illustrative purposes only.</em></p>
+<p>The model learns weights that, when applied to the indicator vectors of recent words, produce a probability distribution over the vocabulary for the next word. Training ceases when the model’s fits are optimized. In a nutshell, that is how language models work.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="training-for-prediction">
+<h2>Training for Prediction<a class="headerlink" href="#training-for-prediction" title="Link to this heading">#</a></h2>
+<p>This might seem too simple to be powerful. Why do language models work so well? Two reasons.</p>
+<p><strong>Reason 1: Extraordinary amounts of data.</strong> GPT was trained on about 500 billion observations. When we train our inflation models, we might have a couple hundred observations. 500 billion is hard for the human mind to comprehend. Consider this: Wikipedia alone would be enough to build a powerful language model, but it represents less than 1% of GPT’s training data. The model has seen essentially all of the freely capturable text on the internet — about 400 billion observations from Common Crawl alone — plus all of Google Books and other curated sources. It has seen enough examples to know nearly everything that can be said.</p>
+<p><strong>Reason 2: Massive model capacity.</strong> The model doesn’t look like a simple linear regression. Instead of a few parameters, it has a trillion parameters or more. With 500 billion observations and a trillion parameters, that’s about 200 parameters per data point. Each data point is a sequence of words followed by a masked word, and those 200 parameters can capture very subtle correlation structures in the word vectors. Language is extremely repetitive, so the effective number of parameters per unique pattern is much higher, allowing the model to memorize even obscure language patterns.</p>
+<section id="a-memorization-machine">
+<h3>A Memorization Machine<a class="headerlink" href="#a-memorization-machine" title="Link to this heading">#</a></h3>
+<p>ChatGPT is a word prediction model. All language models are just word prediction models. There is no AI that exists that is anything other than a prediction model of some sort. It happens to be the case that language is interesting because if you memorize language, it makes for a pretty good chatbot. Language is so predictable — the signal-to-noise ratio is so high — that it’s really easy to guess the next word somebody is going to say. If you memorize past patterns, you start to look like a human talking.</p>
+<p>The question is: <strong>can this work for investing?</strong></p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="chatgpt-and-investing">
+<h2>ChatGPT and Investing<a class="headerlink" href="#chatgpt-and-investing" title="Link to this heading">#</a></h2>
+<section id="limitations-of-prompt-based-approaches">
+<h3>Limitations of Prompt-Based Approaches<a class="headerlink" href="#limitations-of-prompt-based-approaches" title="Link to this heading">#</a></h3>
+<p>One way to extract investment signals from language models is through prompts: feed some text into the model and query it with specific questions about the nature of that text. For example, you might give it a news article about Tesla and ask whether it’s a good investment.</p>
+<p><img alt="Limitations of prompting" src="../_images/slide_08.png" /></p>
+<p><em>Source: Chen, Kelly, Xiu, “Expected Returns and Large Language Models,” 2023. For illustrative purposes only.</em></p>
+<p>Prompt-based approaches can be powerful, but they have important limitations:</p>
+<ol class="arabic simple">
+<li><p><strong>You need a researcher to design the prompts.</strong> Just like any model building in economics, your models are only as good as the researcher’s design. If you know the right questions to ask, prompt-based approaches could be optimal. But if you don’t know the right questions, they could totally miss the mark. This is analogous to the difference between hypothesis-driven and data-driven research — a bias-variance tradeoff. Prompts are highly biased models. They work if our biases happen to be correct, and they fail if they’re misspecified.</p></li>
+<li><p><strong>Biases in the training text.</strong> If you ask a specific question, you might mean something, but the way you use language might differ from how it was used in the model’s training data. You’ll get answers out, but they won’t correspond to what you were looking for.</p></li>
+<li><p><strong>Not all models support prompts.</strong> Many powerful language models don’t have the kind of prompt capabilities you might expect.</p></li>
+</ol>
+</section>
+<section id="the-embedding-approach">
+<h3>The Embedding Approach<a class="headerlink" href="#the-embedding-approach" title="Link to this heading">#</a></h3>
+<p>Instead of asking questions, there’s an alternative: go inside the model and extract its internal numerical representations.</p>
+<p><img alt="Embeddings: distilling meaning from text" src="../_images/slide_09.png" /></p>
+<p><em>Source: Chen, Kelly, Xiu, “Expected Returns and Large Language Models,” 2023. For illustrative purposes only.</em></p>
+<p>What do those trillion parameters in GPT actually do? They learn to take words and compress them down to their meaning. This meaning lives in a lower-dimensional space — analogous to principal components. Maybe “Cinderella” is not useful to think of as the word itself, but rather as living somewhere on a human spectrum, a gender spectrum, a literature-versus-reality spectrum, and so forth.</p>
+<p>The model compresses language down to a numerical representation that tries to faithfully summarize what the content actually means. It has learned that the best way to forecast the next word is to first compress to a meaning representation, forecast the meaning of the next word, and only then decompress back to pick out a particular word.</p>
+<p>The key insight: even before you ask a question, the model is already producing meaning representations of the text you feed it. So instead of asking “is this good news or bad news?”, you can go into the model and pull out the numerical representation directly, then reroute it into a statistical return prediction model. You don’t need a prompt to do this — you just need the capability to access the model’s internal representation.</p>
+</section>
+<section id="prompts-vs-embeddings">
+<h3>Prompts vs. Embeddings<a class="headerlink" href="#prompts-vs-embeddings" title="Link to this heading">#</a></h3>
+<p><img alt="Contrasting prompts and embeddings" src="../_images/slide_10.png" /></p>
+<p><em>Source: Chen, Kelly, Xiu, “Expected Returns and Large Language Models,” 2023. For illustrative purposes only.</em></p>
+<p>These two approaches can be thought of in several ways:</p>
+<ul class="simple">
+<li><p><strong>Searching for specific content vs. capturing general content.</strong> Prompts ask for specific things; embeddings capture a faithful numerical representation without asking for anything in particular.</p></li>
+<li><p><strong>Fishing with a rod vs. fishing with a net.</strong> A prompt is precise — if you engineer the right one, you can nail the answer without distraction. But if you don’t fully know what drives future returns (and who does?), you want an open-minded net.</p></li>
+<li><p><strong>Bias-variance tradeoff.</strong> The prompt approach is biased but can be precise. The embedding approach is less biased but may capture noise along with signal.</p></li>
+</ul>
+<p>If you can engineer the right prompts, great. But if you’re willing to admit that you don’t fully know what drives future returns, then you want to capture information broadly and let the prediction model figure out what’s useful. That’s what embeddings do.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="the-prompting-approach-lopez-lira-tang-2023">
+<h2>The Prompting Approach: Lopez-Lira &amp; Tang (2023)<a class="headerlink" href="#the-prompting-approach-lopez-lira-tang-2023" title="Link to this heading">#</a></h2>
+<p>Let’s explore the prompting road first. Lopez-Lira &amp; Tang (2023) ask the simplest possible question: can you just ask ChatGPT whether a news headline is good or bad for a stock’s price, and trade on the answer?</p>
+<section id="the-setup">
+<h3>The Setup<a class="headerlink" href="#the-setup" title="Link to this heading">#</a></h3>
+<p>The idea is disarmingly simple. Take a news headline about a company, feed it to ChatGPT through the API, and ask it to classify the headline as positive, negative, or neutral for the stock price. Then go long the stocks with good news and short the stocks with bad news.</p>
+<p>A critical design choice: the sample period starts in October 2021, after GPT’s training data knowledge cutoff (September 2021). This avoids look-ahead bias — the model can’t have memorized the outcomes.</p>
+<p>One thing to emphasize: this is not done through the ChatGPT chat interface. To run this at scale across thousands of headlines per day, you need the API.</p>
+<p><img alt="ChatGPT interface" src="../_images/slide_041.png" /></p>
+<p><em>Source: Lopez-Lira, “Can ChatGPT Forecast Stock Price Movements?”, 2024. For illustrative purposes only.</em></p>
+<p><img alt="ChatGPT API code example" src="../_images/slide_07.png" /></p>
+<p><em>Source: Lopez-Lira, “Can ChatGPT Forecast Stock Price Movements?”, 2024. For illustrative purposes only.</em></p>
+</section>
+<section id="the-prompt">
+<h3>The Prompt<a class="headerlink" href="#the-prompt" title="Link to this heading">#</a></h3>
+<p>The prompt is straightforward:</p>
+<blockquote>
+<div><p>Forget all your previous instructions. Pretend you are a financial expert. You are a financial expert with stock recommendation experience. Answer “YES” if good news, “NO” if bad news, or “UNKNOWN” if uncertain in the first line. Then elaborate with one short and concise sentence on the next line. Is this headline good or bad for the stock price of _company_name_ in the _term_ term?</p>
+<p>Headline: _headline_</p>
+</div></blockquote>
+<p>For example, given the headline <strong>“Cigna Calls Off Humana Pursuit, Plans Big Stock Buyback”</strong>, the prompt asks whether this is good or bad for <strong>Humana</strong> in the <strong>short</strong> term. GPT-4 responds:</p>
+<blockquote>
+<div><p><strong>NO.</strong> The termination of Cigna’s pursuit could potentially decrease Humana’s stock price as it may be perceived as a loss of a potential acquisition premium.</p>
+</div></blockquote>
+<p>This is a sensible answer — the kind of reasoning you’d expect from a finance professional. The model understands that losing an acquirer is bad for the target’s stock, despite the headline containing the positive-sounding word “buyback” (which applies to Cigna, not Humana). A simple dictionary-based approach would likely get this wrong.</p>
+</section>
+<section id="results">
+<h3>Results<a class="headerlink" href="#results" title="Link to this heading">#</a></h3>
+<p>The strategy works. A long-short portfolio based on GPT-4’s assessments of overnight news turns <span class="math notranslate nohighlight">\(1 into roughly \)</span>7 over the sample period (October 2021 to early 2024), before transaction costs.</p>
+<p><img alt="Cumulative returns of investing $1 (no transaction costs)" src="../_images/slide_24.png" /></p>
+<p><em>Source: Lopez-Lira, “Can ChatGPT Forecast Stock Price Movements?”, 2024. For illustrative purposes only.</em></p>
+<p>The long-short strategy achieves an annualized Sharpe ratio of 3.28. Most of the predictability comes from the short side, consistent with limits-to-arbitrage arguments — it’s harder to trade on bad news, so the signal persists longer.</p>
+<p>A key finding: <strong>financial reasoning is an emerging capacity of larger language models.</strong> The table below shows that GPT-4 dramatically outperforms smaller models. GPT-1, GPT-2, and FinBERT actually have <em>negative</em> Sharpe ratios — they’re worse than random. Only models above a certain complexity threshold can predict returns with the correct sign.</p>
+<p><img alt="Average next day's return by prediction score across models" src="../_images/slide_37.png" /></p>
+<p><em>Source: Lopez-Lira, “Can ChatGPT Forecast Stock Price Movements?”, 2024. For illustrative purposes only.</em></p>
+</section>
+<section id="markets-learning">
+<h3>Markets Learning<a class="headerlink" href="#markets-learning" title="Link to this heading">#</a></h3>
+<p>An important question: does this predictability persist? As LLMs become widely adopted, you’d expect markets to incorporate information faster, reducing the exploitable signal. Lopez-Lira &amp; Tang find evidence of exactly this — the annualized Sharpe ratio of the overnight news strategy has been declining over time, from roughly 6 in late 2021 to about 2 by 2023.</p>
+<p><img alt="Markets learning: declining Sharpe ratios over time" src="../_images/slide_32.png" /></p>
+<p><em>Source: Lopez-Lira, “Can ChatGPT Forecast Stock Price Movements?”, 2024. For illustrative purposes only.</em></p>
+<p>This is consistent with market efficiency improving as more participants adopt these tools. The signal is real, but it’s being competed away.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="the-embedding-approach-chen-kelly-xiu-2022">
+<h2>The Embedding Approach: Chen, Kelly &amp; Xiu (2022)<a class="headerlink" href="#the-embedding-approach-chen-kelly-xiu-2022" title="Link to this heading">#</a></h2>
+<p>Now let’s turn to the embedding approach, which takes a fundamentally different path. Rather than asking a question and getting a text answer, Chen, Kelly &amp; Xiu go inside the model and extract its internal numerical representations.</p>
+</section>
+<section id="empirical-approach">
+<h2>Empirical Approach<a class="headerlink" href="#empirical-approach" title="Link to this heading">#</a></h2>
+<section id="data">
+<h3>Data<a class="headerlink" href="#data" title="Link to this heading">#</a></h3>
+<p>The empirical analysis uses about 25 years of news text for single-name companies from Thompson/Reuters Refinitiv — a large, dense dataset with typical newswire data, press releases, and more.</p>
+<p><img alt="Data overview" src="../_images/slide_12.png" /></p>
+<p><em>Source: Chen, Kelly, Xiu, “Expected Returns and Large Language Models,” 2023. For illustrative purposes only.</em></p>
+<p>One particularly interesting aspect of the data is its international coverage. There is substantial data across many countries, including foreign-language news. From the perspective of most large language models, the language doesn’t really matter — these models are polyglot by nature.</p>
+</section>
+<section id="prediction-methodology">
+<h3>Prediction Methodology<a class="headerlink" href="#prediction-methodology" title="Link to this heading">#</a></h3>
+<p>The paper considers a wide range of language models, not just ChatGPT. There is an entire universe of language models produced by different teams, with different assumptions, but they all share the same basic structure: take in text, run it through a prediction structure (usually many layers of sophisticated neural networks), and somewhere before producing a word forecast, maintain an internal numerical representation of useful information.</p>
+<p><img alt="The world of LLMs" src="../_images/slide_13.png" /></p>
+<p><em>Source: Chen, Kelly, Xiu, “Expected Returns and Large Language Models,” 2023. For illustrative purposes only.</em></p>
+<p>For each model, the approach is to go into the model and pull out the <strong>embedding layer</strong> — typically the last numerical representation at the end of the neural network. Once a news article is fed into a language model, out comes a vector of predictive signals, typically about a thousand dimensions. That vector is the “net” that summarizes the information content of the article.</p>
+</section>
+<section id="expected-returns">
+<h3>Expected Returns<a class="headerlink" href="#expected-returns" title="Link to this heading">#</a></h3>
+<p>Once we have the embedding vector <span class="math notranslate nohighlight">\(x_{i,t}\)</span> for each article, the rest is straightforward — build return prediction models as with any other numerical data. The paper looks at two prediction tasks:</p>
+<ol class="arabic simple">
+<li><p><strong>Sentiment analysis</strong> — treated as a classification problem: <span class="math notranslate nohighlight">\(E(y_{i,t} | x_{i,t}) = \sigma(x'_{i,t} \beta)\)</span>, where <span class="math notranslate nohighlight">\(y_{i,t}\)</span> is a binary label (the sign of three-day cumulative returns surrounding the news event).</p></li>
+<li><p><strong>Return prediction</strong> — treated as a panel regression: <span class="math notranslate nohighlight">\(E(r_{i,t+1} | x_{i,t}) = x'_{i,t} \theta\)</span>, where <span class="math notranslate nohighlight">\(r_{i,t+1}\)</span> is the return of stock <span class="math notranslate nohighlight">\(i\)</span> on day <span class="math notranslate nohighlight">\(t+1\)</span>.</p></li>
+</ol>
+<p>For the high-dimensional embedding features, ridge regression is used. Alternatively, a neural network model can be employed.</p>
+</section>
+<section id="pre-llm-benchmarks">
+<h3>Pre-LLM Benchmarks<a class="headerlink" href="#pre-llm-benchmarks" title="Link to this heading">#</a></h3>
+<p>Before LLMs, there were simpler text-based methods for financial prediction.</p>
+<p><strong>Bag-of-Words Methods</strong> represent an article as a vector of word counts:</p>
+<ul class="simple">
+<li><p><strong>LMMD</strong> (Loughran &amp; MacDonald, 2011): A hand-constructed finance sentiment dictionary. Researchers at Notre Dame built their own dictionary more relevant for finance than the general-purpose psychological dictionaries that came before. The advantage: no estimation required — the sentiment weights come from the dictionary itself.</p></li>
+<li><p><strong>SESTM</strong> (Ke, Kelly, &amp; Xiu, 2020): A machine learning topic-sentiment model that generalizes dictionary methods by building a custom dictionary problem by problem, learning what goes in the dictionary and what weights to assign.</p></li>
+</ul>
+<p><strong>Early Word Embeddings</strong> are a more sophisticated “PCA” of word indicator vectors:</p>
+<ul class="simple">
+<li><p><strong>Word2vec</strong> (Mikolov et al., 2013): A two-layer neural network model to generate embedding vectors.</p></li>
+</ul>
+<p>These are all <strong>word-level</strong> methods. They don’t know anything about the context in which a word is used. What’s really powerful about LLM embeddings is that they take into account things like negation, subtlety, and context within an entire document.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="daily-predictions">
+<h2>Daily Predictions<a class="headerlink" href="#daily-predictions" title="Link to this heading">#</a></h2>
+<section id="portfolio-performance">
+<h3>Portfolio Performance<a class="headerlink" href="#portfolio-performance" title="Link to this heading">#</a></h3>
+<p>Using a rolling training window, the model estimates coefficients on the embeddings. Then, one period out of sample, new articles arrive, and these coefficients are applied to the embeddings of the new articles. The resulting expected returns serve as a signal for sorting stocks into decile long-short portfolios.</p>
+<p><img alt="Portfolio performance (daily prediction)" src="../_images/slide_17.png" /></p>
+<p><em>Source: Chen, Kelly, Xiu, “Expected Returns and Large Language Models,” 2023. For illustrative purposes only.</em></p>
+<p>The results are striking. The annualized Sharpe ratios for equal-weighted strategies show that this is a powerful way to extract information from text. ChatGPT achieves a Sharpe ratio of 4.62, LLAMA2 reaches 4.16, and even simpler models like BERT and Word2vec show ratios above 3. The LLM-based methods consistently outperform the traditional word-based approaches (SESTM at 3.43, LMMD at 2.29).</p>
+<p>These daily Sharpe ratios should be interpreted as measures of predictive association — the extent of predictability in the data — rather than as tradable strategies, since daily trading at scale is difficult.</p>
+</section>
+<section id="polyglot-portfolios">
+<h3>Polyglot Portfolios<a class="headerlink" href="#polyglot-portfolios" title="Link to this heading">#</a></h3>
+<p>Since LLMs can embed news articles in any language, the same methodology works across countries.</p>
+<p><img alt="Polyglot portfolios" src="../_images/slide_18.png" /></p>
+<p><em>Source: Chen, Kelly, Xiu, “Expected Returns and Large Language Models,” 2023. For illustrative purposes only.</em></p>
+<p>A clear pattern emerges: the more stocks available in a given country, the better the trading strategy performs. More data means better training for the return prediction models. This relationship is strongest for the LLM-based methods (LLAMA2, LLAMA, RoBERTa) and weaker for traditional word-based methods (Word2vec, SESTM).</p>
+</section>
+<section id="nonlinear-prediction">
+<h3>Nonlinear Prediction<a class="headerlink" href="#nonlinear-prediction" title="Link to this heading">#</a></h3>
+<p>If embeddings contain rich information, should they only be used in linear models? Why not consider nonlinear functions — tree-based methods or neural networks?</p>
+<p><img alt="Complexity / nonlinear prediction" src="../_images/slide_19.png" /></p>
+<p><em>Source: Chen, Kelly, Xiu, “Expected Returns and Large Language Models,” 2023. For illustrative purposes only.</em></p>
+<p>It turns out there is a lot of richness in these vectors. Using them in a linear way understates the amount of accessible information. With a neural network-based method, the Sharpe ratio climbs from about 4.7 to 5.83. The embeddings contain nonlinear predictive content that simple linear models leave on the table.</p>
+</section>
+<section id="why-do-llms-outperform-word-based-methods">
+<h3>Why Do LLMs Outperform Word-Based Methods?<a class="headerlink" href="#why-do-llms-outperform-word-based-methods" title="Link to this heading">#</a></h3>
+<p>The key difference is <strong>context</strong>. Word-based methods don’t know the context in which a word is used. How can we demonstrate this?</p>
+<p><img alt="British Airways negation example" src="../_images/slide_20.png" /></p>
+<p><em>Source: Chen, Kelly, Xiu, “Expected Returns and Large Language Models,” 2023. For illustrative purposes only.</em></p>
+<p>Consider this news article about British Airways and Brexit. The word “raise” shows up — in any dictionary-based approach, “raise” is a typical signal for a strong future return. But in this article, it’s talking about “raising issues” regarding British Airways’ ability to operate in the EU after Brexit. A bag-of-words model scores this as a very positive article, but the actual sentiment is negative. The context-based LLM methods correctly interpret the usage.</p>
+<p><img alt="Negation portfolios" src="../_images/slide_21.png" /></p>
+<p><em>Source: Chen, Kelly, Xiu, “Expected Returns and Large Language Models,” 2023. For illustrative purposes only.</em></p>
+<p>To test this systematically, the paper separates articles with and without negation terms (“not,” “didn’t,” etc.). For the more sophisticated LLM-based models (shown in red boxes), performance doesn’t differ much between articles with and without negation — negation doesn’t give them a hard time. But for word-based methods, there is a significant degradation when negation terms are present. This confirms that context understanding is a major advantage of LLM embeddings.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="monthly-predictions">
+<h2>Monthly Predictions<a class="headerlink" href="#monthly-predictions" title="Link to this heading">#</a></h2>
+<section id="multi-frequency-signal">
+<h3>Multi-Frequency Signal<a class="headerlink" href="#multi-frequency-signal" title="Link to this heading">#</a></h3>
+<p>A natural question about daily signals: are they implementable? Daily trading at scale is hard. But it turns out there are multiple frequency components in the text-based signal.</p>
+<p><img alt="Monthly portfolio performance" src="../_images/slide_23.png" /></p>
+<p><em>Source: Chen, Kelly, Xiu, “Expected Returns and Large Language Models,” 2023. For illustrative purposes only.</em></p>
+<p>When forecasting one month ahead, using only the most recent day’s news produces no monthly profitability — the signal decays too quickly. But as you start averaging embeddings over longer and longer periods (3 months, 6 months, 12 months, up to 36 months), the performance of the monthly trading strategy improves. The Sharpe ratio peaks around 12-24 months of lookback.</p>
+<p>This reveals something interesting: there are <strong>two prominent frequencies</strong> in text data. One signal moves around very quickly (daily), and another moves much more slowly — something like business cycle frequencies. The slow-moving signal can be captured and traded on at monthly horizons out of sample.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="multiple-models">
+<h2>Multiple Models<a class="headerlink" href="#multiple-models" title="Link to this heading">#</a></h2>
+<section id="diversity-across-language-models">
+<h3>Diversity Across Language Models<a class="headerlink" href="#diversity-across-language-models" title="Link to this heading">#</a></h3>
+<p>A major advantage of the current landscape is that there isn’t just one language model. Different models are built by different teams with different assumptions, and they produce different trading strategies.</p>
+<p><img alt="Diversity in language models" src="../_images/slide_25.png" /></p>
+<p><em>Source: Chen, Kelly, Xiu, “Expected Returns and Large Language Models,” 2023. For illustrative purposes only.</em></p>
+<p>The correlation matrix of returns across long-short strategies reveals meaningful diversity. ChatGPT and LLAMA strategies are about 60% correlated. Even two versions of LLAMA produce strategies that are only about 80% correlated. The traditional bag-of-words approaches (SESTM, LMMD) are even less correlated with the LLM-based strategies.</p>
+<p>Importantly, these models don’t displace word-based methods, and word-based methods certainly don’t displace LLMs. They all give different perspectives on what the language in an article has to tell you. This is a reflection of statistical complexity: these models are not trained for returns — they’re trained to predict words. By the time we translate them into return predictions with finite financial data, different models learn different things.</p>
+<p>The upshot: when you have a bunch of strategies with high Sharpe ratios and partial correlations, put them together. A simple equal-weighted ensemble of all models achieves a Sharpe ratio of 5.11 — better than the best individual model (4.62). A more sophisticated ensemble would do even better.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="conclusions">
+<h2>Conclusions<a class="headerlink" href="#conclusions" title="Link to this heading">#</a></h2>
+<p><img alt="Conclusions (visual)" src="../_images/slide_26.png" /></p>
+<p><em>Source: Chen, Kelly, Xiu, “Expected Returns and Large Language Models,” 2023. For illustrative purposes only.</em></p>
+<p>The main takeaways from these two papers:</p>
+<p><strong>From Lopez-Lira &amp; Tang (prompting approach):</strong></p>
+<ul class="simple">
+<li><p><strong>Prompting is simple and effective.</strong> Just asking ChatGPT “is this good or bad news?” produces a tradable signal with a Sharpe ratio of 3.28.</p></li>
+<li><p><strong>Financial reasoning is an emerging capacity.</strong> Only models above a certain complexity threshold (GPT-3.5 and above) can predict returns with the correct sign. Smaller models like GPT-1, GPT-2, and FinBERT fail completely.</p></li>
+<li><p><strong>Markets are learning.</strong> The Sharpe ratio of the prompting strategy has been declining as LLM adoption increases, consistent with improving market efficiency.</p></li>
+</ul>
+<p><strong>From Chen, Kelly &amp; Xiu (embedding approach):</strong></p>
+<ul class="simple">
+<li><p><strong>Embeddings from LLMs are effective.</strong> They provide a comprehensive numerical representation of all the meaning in text — not specific meaning, but all of it. The embedding acts as an open-minded funnel for capturing many different potential predictors for returns, without needing to know the nature of the text-based predictors in advance.</p></li>
+<li><p><strong>Strong out-of-sample success</strong> compared to existing predictive signals in the literature.</p></li>
+<li><p><strong>Larger LLMs perform better</strong> on average.</p></li>
+<li><p><strong>Polyglot methodology.</strong> The approach works across languages and countries.</p></li>
+<li><p><strong>Multiple frequencies in news signals.</strong> There is both a fast (daily) and slow (business cycle) return prediction component in news text.</p></li>
+<li><p><strong>Many models to choose from.</strong> Not all are accessible with prompts. The best strategy is an ensemble of many LLMs.</p></li>
+</ul>
+<p><strong>Across both papers:</strong></p>
+<ul class="simple">
+<li><p><strong>Combination of approaches is likely optimal.</strong> There are benefits to both prompt-based and embedding-based approaches. This is a finite-data setting, and Bayesian approaches that combine prior information (prompts) with data-driven models (embeddings) tend to dominate out of sample.</p></li>
+</ul>
+</section>
+</section>
+
+<div class="section ablog__blog_comments">
+   
+</div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="llms_transforming_finance.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">LLMs Transforming Finance: The New Quant</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="chartbook_research_catalog.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">ChartBook: Cataloging Research for Humans and AI</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#llms-are-statistical-prediction-models">LLMs Are Statistical Prediction Models</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-words-to-numbers">From Words to Numbers</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#training-for-prediction">Training for Prediction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-memorization-machine">A Memorization Machine</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chatgpt-and-investing">ChatGPT and Investing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#limitations-of-prompt-based-approaches">Limitations of Prompt-Based Approaches</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-embedding-approach">The Embedding Approach</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prompts-vs-embeddings">Prompts vs. Embeddings</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-prompting-approach-lopez-lira-tang-2023">The Prompting Approach: Lopez-Lira &amp; Tang (2023)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-setup">The Setup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-prompt">The Prompt</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#results">Results</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#markets-learning">Markets Learning</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-embedding-approach-chen-kelly-xiu-2022">The Embedding Approach: Chen, Kelly &amp; Xiu (2022)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#empirical-approach">Empirical Approach</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data">Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prediction-methodology">Prediction Methodology</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-returns">Expected Returns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-llm-benchmarks">Pre-LLM Benchmarks</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#daily-predictions">Daily Predictions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#portfolio-performance">Portfolio Performance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#polyglot-portfolios">Polyglot Portfolios</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nonlinear-prediction">Nonlinear Prediction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-do-llms-outperform-word-based-methods">Why Do LLMs Outperform Word-Based Methods?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#monthly-predictions">Monthly Predictions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-frequency-signal">Multi-Frequency Signal</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-models">Multiple Models</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#diversity-across-language-models">Diversity Across Language Models</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusions">Conclusions</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jeremiah Bejarano
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, Jeremiah Bejarano.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,7 +1,5 @@
 # API Basics and Structured Outputs
 
-**Duration:** 30 minutes reading
-
 **Learning Objectives:**
 - Understand the OpenAI API message format (system, user, assistant)
 - Use OpenRouter for multi-model access

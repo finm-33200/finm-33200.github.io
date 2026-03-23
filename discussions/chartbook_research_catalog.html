@@ -1,0 +1,844 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ChartBook: Cataloging Research for Humans and AI &#8212; Full Stack Quantitative Finance</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=f23691d7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=7a7908ec"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'discussions/chartbook_research_catalog';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/custom.js?v=c0d9a6f1"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="API Basics and Structured Outputs" href="api_and_structured_outputs.html" />
+    <link rel="prev" title="LLMs for Return Prediction: Prompts vs. Embeddings" href="expected_returns_llms.html" /> 
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>   
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Full Stack Quantitative Finance - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Full Stack Quantitative Finance - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Generative and Agentic AI for Finance
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../README.html">Course Syllabus: FINM 32900, Winter 2025</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Course Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Discussions 📖</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../discussion_01.html">Discussion 1: The New Quant - LLMs in Finance</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="llms_transforming_finance.html">LLMs Transforming Finance: The New Quant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="expected_returns_llms.html">LLMs for Return Prediction: Prompts vs. Embeddings</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">ChartBook: Cataloging Research for Humans and AI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_and_structured_outputs.html">API Basics and Structured Outputs</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../subject_to_change_after_this_week.html">WARNING: Notes subject to change after this week</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_02.html">Discussion 2: LLM Fundamentals 1</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="ai_copilots_intro.html">AI Copilots: Claude Code and Cursor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gen_ai_tech_stack.html">The Generative AI Tech Stack</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../discussion_03.html">Discussion 3: LLM Fundamentals 2</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_04.html">Discussion 4:</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="expected_returns_llms.html">LLMs for Return Prediction: Prompts vs. Embeddings</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Homework 📝</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../HW0.html">Homework 0: Set Up Your Environment</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/01_data_sources_overview_ipynb.html">Data Sources &amp; Strategy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/02_gdelt_sp500_filtering_ipynb.html">GDELT Filtering &amp; Data Quality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/03_crosswalk_quality_ipynb.html">Crosswalk Quality</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../HW1.html">Homework 1: Lopez-Lira Replication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HW2.html">Homework 2:</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../final_project.html">Final Project</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/final_project_rubric.html">Final Project Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/potential_final_projects.html">Potential Final Project Ideas</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exams 📋</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../exam_prep.html">Exam Preparation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Misc 📌</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../acknowledgments.html">Acknowledgments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../appendix.html">Appendix</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project/issues/new?title=Issue%20on%20page%20%2Fdiscussions/chartbook_research_catalog.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/discussions/chartbook_research_catalog.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>ChartBook: Cataloging Research for Humans and AI</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-research-repository-problem">The Research Repository Problem</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-this-matters-for-ai-workflows">Why This Matters for AI Workflows</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-chartbook">What is ChartBook?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#core-concepts">Core Concepts</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-features">Key Features</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cli-reference">CLI Reference</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#listing-whats-available">Listing What’s Available</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-data">Working with Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-documentation">Building Documentation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#catalog-management">Catalog Management</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-api">Python API</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-data">Loading Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-documentation">Loading Documentation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#in-class-exercise-news-headlines-dataset">In-Class Exercise: News Headlines Dataset</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clone-the-repository">Clone the Repository</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#background">Background</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-ravenpack-problem">The RavenPack Problem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-solution-scrape-and-fuzzy-match">The Solution: Scrape and Fuzzy-Match</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explore-with-chartbook">Explore with ChartBook</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">Key Takeaways</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                   <section class="tex2jax_ignore mathjax_ignore" id="chartbook-cataloging-research-for-humans-and-ai">
+<h1>ChartBook: Cataloging Research for Humans and AI<a class="headerlink" href="#chartbook-cataloging-research-for-humans-and-ai" title="Link to this heading">#</a></h1>
+<p><strong>Learning Objectives:</strong></p>
+<ul class="simple">
+<li><p>Understand why coding agents create a research management problem</p></li>
+<li><p>Install ChartBook and explore its CLI and Python API</p></li>
+<li><p>Distinguish between Pipeline (single project) and Catalog (multi-pipeline) project types</p></li>
+<li><p>Use ChartBook to programmatically discover and load datasets across repositories</p></li>
+</ul>
+<hr class="docutils" />
+<section id="the-research-repository-problem">
+<h2>The Research Repository Problem<a class="headerlink" href="#the-research-repository-problem" title="Link to this heading">#</a></h2>
+<p>With coding agents like Claude Code, you will create far more repositories than you ever did before. Each project produces cleaned datasets, derived data, charts, and documentation. Within a few months, you’ll have dozens of repositories — and finding what you built last quarter becomes a real problem.</p>
+<p>This isn’t just a human problem. When you ask an AI agent to start a new analysis, it needs to know what data you’ve already cleaned, what transformations you’ve already built, and what datasets are available across your projects. Without a catalog, the agent starts from scratch every time.</p>
+<p><strong>ChartBook</strong> solves this by making every project’s outputs — datasets, charts, and documentation — discoverable through a CLI and Python API, by both humans and AI agents.</p>
+<section id="why-this-matters-for-ai-workflows">
+<h3>Why This Matters for AI Workflows<a class="headerlink" href="#why-this-matters-for-ai-workflows" title="Link to this heading">#</a></h3>
+<p>The key insight is that ChartBook is designed not only to help <em>you</em> catalog your prior research, but to make it easy for <em>AI agents</em> to discover and use your datasets. An AI agent can:</p>
+<ul class="simple">
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">chartbook</span> <span class="pre">ls</span></code> to see every pipeline and dataset you’ve ever created</p></li>
+<li><p>Call <code class="docutils literal notranslate"><span class="pre">chartbook</span> <span class="pre">data</span> <span class="pre">get-docs</span></code> to pull the full data dictionary for any dataset</p></li>
+<li><p>Use the Python API to load cleaned data directly from another repository</p></li>
+<li><p>Browse your chart catalog to understand what analyses already exist</p></li>
+</ul>
+<p>This is the infrastructure you need when coding agents multiply your repository count by 10x. You need tools that let you — and your AI — programmatically manage all of your research.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="what-is-chartbook">
+<h2>What is ChartBook?<a class="headerlink" href="#what-is-chartbook" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://github.com/backofficedev/chartbook">ChartBook</a> is a developer platform for cataloging data science and research projects. It organizes your work into a structured, searchable catalog with automatic documentation generation.</p>
+<p><strong>Links:</strong> <a class="reference external" href="https://pypi.org/project/chartbook/">PyPI</a> | <a class="reference external" href="https://backofficedev.github.io/chartbook/">Documentation</a> | <a class="reference external" href="https://github.com/backofficedev/chartbook">GitHub</a></p>
+<section id="core-concepts">
+<h3>Core Concepts<a class="headerlink" href="#core-concepts" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Concept</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Example</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Pipeline</strong></p></td>
+<td><p>A single research project with data, charts, and docs</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">news_headlines</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Catalog</strong></p></td>
+<td><p>An aggregation of multiple pipelines</p></td>
+<td><p>Your master research catalog</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Dataframe</strong></p></td>
+<td><p>A dataset (parquet) with metadata and documentation</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">scraped_headlines_with_rp_metadata</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Chart</strong></p></td>
+<td><p>A visualization exported from a pipeline</p></td>
+<td><p>Interactive Plotly HTML charts</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="key-features">
+<h3>Key Features<a class="headerlink" href="#key-features" title="Link to this heading">#</a></h3>
+<p><strong>For Humans:</strong></p>
+<ul class="simple">
+<li><p>Export cleaned datasets from each project as documented parquet files</p></li>
+<li><p>Browse charts and data summaries across all your projects in a generated HTML site</p></li>
+<li><p>Automate data refresh with <code class="docutils literal notranslate"><span class="pre">dodo.py</span></code> task runners</p></li>
+<li><p>Track data governance: licenses, access permissions, provider contacts</p></li>
+</ul>
+<p><strong>For AI Agents:</strong></p>
+<ul class="simple">
+<li><p>CLI commands that agents can call to discover datasets and load documentation</p></li>
+<li><p>Python API for programmatic data access across repositories</p></li>
+<li><p>Auto-generated <code class="docutils literal notranslate"><span class="pre">llms.txt</span></code> files for LLM-friendly project summaries</p></li>
+<li><p>Data dictionaries loadable in a single function call — no manual copy-paste</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Recommended: install with pipx for CLI use</span>
+pipx<span class="w"> </span>install<span class="w"> </span>chartbook
+
+<span class="c1"># Or install with pip (includes data loading)</span>
+pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;chartbook[all]&quot;</span>
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="cli-reference">
+<h2>CLI Reference<a class="headerlink" href="#cli-reference" title="Link to this heading">#</a></h2>
+<p>ChartBook’s CLI is designed to be used by both humans and AI agents. Here are the key commands:</p>
+<section id="listing-whats-available">
+<h3>Listing What’s Available<a class="headerlink" href="#listing-whats-available" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># List all pipelines in your catalog</span>
+chartbook<span class="w"> </span>ls
+
+<span class="c1"># List dataframes in a specific pipeline</span>
+chartbook<span class="w"> </span>ls<span class="w"> </span>--pipeline<span class="w"> </span>NEWS_HEADLINES
+
+<span class="c1"># List charts</span>
+chartbook<span class="w"> </span>ls<span class="w"> </span>--charts
+</pre></div>
+</div>
+</section>
+<section id="working-with-data">
+<h3>Working with Data<a class="headerlink" href="#working-with-data" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the file path to a dataframe&#39;s parquet file</span>
+chartbook<span class="w"> </span>data<span class="w"> </span>get-path<span class="w"> </span>--pipeline<span class="w"> </span>NEWS_HEADLINES<span class="w"> </span>--dataframe<span class="w"> </span>scraped_headlines
+
+<span class="c1"># Print the full data documentation (data dictionary, metadata, governance)</span>
+chartbook<span class="w"> </span>data<span class="w"> </span>get-docs<span class="w"> </span>--pipeline<span class="w"> </span>NEWS_HEADLINES<span class="w"> </span>--dataframe<span class="w"> </span>scraped_headlines
+</pre></div>
+</div>
+</section>
+<section id="building-documentation">
+<h3>Building Documentation<a class="headerlink" href="#building-documentation" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Generate an HTML documentation site for your project</span>
+chartbook<span class="w"> </span>build
+
+<span class="c1"># Open the built docs in your browser</span>
+chartbook<span class="w"> </span>browse
+</pre></div>
+</div>
+</section>
+<section id="catalog-management">
+<h3>Catalog Management<a class="headerlink" href="#catalog-management" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialize a global catalog</span>
+chartbook<span class="w"> </span>catalog<span class="w"> </span>init
+
+<span class="c1"># Add a pipeline to your catalog</span>
+chartbook<span class="w"> </span>catalog<span class="w"> </span>add<span class="w"> </span>/path/to/my/project
+
+<span class="c1"># Build the catalog documentation (aggregates all pipelines)</span>
+chartbook<span class="w"> </span>catalog<span class="w"> </span>build
+
+<span class="c1"># Browse the catalog</span>
+chartbook<span class="w"> </span>catalog<span class="w"> </span>browse
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="python-api">
+<h2>Python API<a class="headerlink" href="#python-api" title="Link to this heading">#</a></h2>
+<p>The Python API lets you load data and documentation from any cataloged pipeline — this is what makes ChartBook powerful for cross-project work and AI agent workflows.</p>
+<section id="loading-data">
+<h3>Loading Data<a class="headerlink" href="#loading-data" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">chartbook</span> <span class="kn">import</span> <span class="n">data</span>
+
+<span class="c1"># Load a dataframe as pandas</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">pipeline</span><span class="o">=</span><span class="s2">&quot;NEWS_HEADLINES&quot;</span><span class="p">,</span> <span class="n">dataframe</span><span class="o">=</span><span class="s2">&quot;scraped_headlines&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;pandas&quot;</span><span class="p">)</span>
+
+<span class="c1"># Load as Polars LazyFrame (default, more efficient for large datasets)</span>
+<span class="n">lf</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">pipeline</span><span class="o">=</span><span class="s2">&quot;NEWS_HEADLINES&quot;</span><span class="p">,</span> <span class="n">dataframe</span><span class="o">=</span><span class="s2">&quot;scraped_headlines&quot;</span><span class="p">)</span>
+
+<span class="c1"># Get the resolved file path</span>
+<span class="n">path</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get_data_path</span><span class="p">(</span><span class="n">pipeline</span><span class="o">=</span><span class="s2">&quot;NEWS_HEADLINES&quot;</span><span class="p">,</span> <span class="n">dataframe</span><span class="o">=</span><span class="s2">&quot;scraped_headlines&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="loading-documentation">
+<h3>Loading Documentation<a class="headerlink" href="#loading-documentation" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the full data dictionary as a string</span>
+<span class="n">docs</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get_docs</span><span class="p">(</span><span class="n">pipeline</span><span class="o">=</span><span class="s2">&quot;NEWS_HEADLINES&quot;</span><span class="p">,</span> <span class="n">dataframe</span><span class="o">=</span><span class="s2">&quot;scraped_headlines&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">docs</span><span class="p">)</span>
+
+<span class="c1"># Get the path to the documentation file</span>
+<span class="n">docs_path</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get_docs_path</span><span class="p">(</span><span class="n">pipeline</span><span class="o">=</span><span class="s2">&quot;NEWS_HEADLINES&quot;</span><span class="p">,</span> <span class="n">dataframe</span><span class="o">=</span><span class="s2">&quot;scraped_headlines&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This is especially powerful for AI agents: instead of manually describing your data to the LLM, the agent can call <code class="docutils literal notranslate"><span class="pre">data.get_docs()</span></code> to pull the complete data dictionary automatically.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="in-class-exercise-news-headlines-dataset">
+<h2>In-Class Exercise: News Headlines Dataset<a class="headerlink" href="#in-class-exercise-news-headlines-dataset" title="Link to this heading">#</a></h2>
+<p>We’ll demonstrate ChartBook by working with a real research pipeline that you’ll use throughout this course.</p>
+<section id="clone-the-repository">
+<h3>Clone the Repository<a class="headerlink" href="#clone-the-repository" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/finm-33200/news_headlines
+<span class="nb">cd</span><span class="w"> </span>news_headlines
+</pre></div>
+</div>
+</section>
+<section id="background">
+<h3>Background<a class="headerlink" href="#background" title="Link to this heading">#</a></h3>
+<p>The <a class="reference external" href="https://github.com/finm-33200/news_headlines">news_headlines</a> repository curates firm-level news headlines for S&amp;P 500 companies from multiple sources. This dataset is critical for replicating two key papers in our upcoming homework assignments:</p>
+<ul class="simple">
+<li><p><strong>HW1</strong> — <a class="reference download internal" download="" href="../_downloads/39b2e08d633043ca610d2fde88f16f11/lopez-lira_tang_2023.pdf"><span class="xref download myst">Lopez-Lira &amp; Tang (2023)</span></a>: Sentiment classification of headlines using LLMs</p></li>
+<li><p><strong>HW2</strong> — <a class="reference download internal" download="" href="../_downloads/b8c204e66d3cee16f5eef713601e9cae/chen_kelly_xiu_2022_expected_returns_and_large_language_models.pdf"><span class="xref download myst">Chen, Kelly &amp; Xiu (2022)</span></a>: Embedding-based return prediction</p></li>
+</ul>
+</section>
+<section id="the-ravenpack-problem">
+<h3>The RavenPack Problem<a class="headerlink" href="#the-ravenpack-problem" title="Link to this heading">#</a></h3>
+<p><a class="reference external" href="https://www.ravenpack.com/">RavenPack</a> provides the best entity-tagged financial news headlines available. Their data includes company identifiers, sentiment scores, relevance ratings, and topic classifications — exactly what you need to connect headlines to stock returns.</p>
+<p><strong>The catch:</strong> RavenPack’s terms of use prohibit uploading their headline text to third-party LLMs like OpenAI’s API. You can’t just take RavenPack headlines and send them to GPT-4 for sentiment classification.</p>
+</section>
+<section id="the-solution-scrape-and-fuzzy-match">
+<h3>The Solution: Scrape and Fuzzy-Match<a class="headerlink" href="#the-solution-scrape-and-fuzzy-match" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">news_headlines</span></code> pipeline implements a creative workaround:</p>
+<ol class="arabic simple">
+<li><p><strong>Scrape headlines independently</strong> from free sources — GDELT (via Google BigQuery) and free newswire services (Dow Jones Newswires, PR Newswire, Business Wire, GlobeNewswire)</p></li>
+<li><p><strong>Send the scraped headlines to OpenAI</strong> — these are independently sourced, so there are no licensing restrictions</p></li>
+<li><p><strong>Fuzzy-match the scraped headlines to RavenPack</strong> — transfer RavenPack’s entity metadata (company IDs, relevance scores, topic tags) to the independently-sourced headlines</p></li>
+<li><p><strong>Use the metadata to connect headlines to stocks</strong> — now you have headlines you can send to LLMs, tagged with the companies they’re about</p></li>
+</ol>
+<p>The fuzzy match quality is high enough that the matched headlines are essentially identical — the same news event reported by the same wire service, just sourced through different channels. This gives you the best of both worlds: RavenPack’s metadata infrastructure with freely usable headline text.</p>
+</section>
+<section id="explore-with-chartbook">
+<h3>Explore with ChartBook<a class="headerlink" href="#explore-with-chartbook" title="Link to this heading">#</a></h3>
+<p>Once you’ve cloned the repository, use ChartBook to explore its contents:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># See what datasets are available</span>
+chartbook<span class="w"> </span>ls
+
+<span class="c1"># Read the documentation for the main output dataset</span>
+chartbook<span class="w"> </span>data<span class="w"> </span>get-docs<span class="w"> </span>--pipeline<span class="w"> </span>NEWS_HEADLINES<span class="w"> </span>--dataframe<span class="w"> </span>scraped_headlines_with_rp_metadata
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">chartbook</span> <span class="kn">import</span> <span class="n">data</span>
+
+<span class="c1"># Load the dataset</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
+    <span class="n">pipeline</span><span class="o">=</span><span class="s2">&quot;NEWS_HEADLINES&quot;</span><span class="p">,</span>
+    <span class="n">dataframe</span><span class="o">=</span><span class="s2">&quot;scraped_headlines_with_rp_metadata&quot;</span><span class="p">,</span>
+    <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;pandas&quot;</span>
+<span class="p">)</span>
+
+<span class="c1"># See what columns are available</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="key-takeaways">
+<h2>Key Takeaways<a class="headerlink" href="#key-takeaways" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Coding agents multiply your repositories</strong> — you need infrastructure to manage the outputs across all of them</p></li>
+<li><p><strong>ChartBook makes research discoverable</strong> — both humans and AI agents can find and load datasets programmatically</p></li>
+<li><p><strong>The CLI is designed for AI</strong> — agents can call <code class="docutils literal notranslate"><span class="pre">chartbook</span> <span class="pre">ls</span></code> and <code class="docutils literal notranslate"><span class="pre">chartbook</span> <span class="pre">data</span> <span class="pre">get-docs</span></code> to discover what data exists and understand its schema</p></li>
+<li><p><strong>Data licensing requires creative solutions</strong> — the RavenPack workaround shows how to respect terms of use while still leveraging LLMs</p></li>
+<li><p><strong>The news_headlines dataset</strong> will be used throughout this course for homework assignments on sentiment analysis and embedding-based return prediction</p></li>
+</ol>
+<p><em>Later in the course, we’ll wrap ChartBook’s API as <a class="reference internal" href="chartbook_integration.html"><span class="std std-doc">LangChain tools</span></a> to build agents that can autonomously discover and analyze financial data.</em></p>
+</section>
+</section>
+
+<div class="section ablog__blog_comments">
+   
+</div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="expected_returns_llms.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">LLMs for Return Prediction: Prompts vs. Embeddings</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="api_and_structured_outputs.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">API Basics and Structured Outputs</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-research-repository-problem">The Research Repository Problem</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-this-matters-for-ai-workflows">Why This Matters for AI Workflows</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-chartbook">What is ChartBook?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#core-concepts">Core Concepts</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-features">Key Features</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cli-reference">CLI Reference</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#listing-whats-available">Listing What’s Available</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-data">Working with Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-documentation">Building Documentation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#catalog-management">Catalog Management</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-api">Python API</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-data">Loading Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-documentation">Loading Documentation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#in-class-exercise-news-headlines-dataset">In-Class Exercise: News Headlines Dataset</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clone-the-repository">Clone the Repository</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#background">Background</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-ravenpack-problem">The RavenPack Problem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-solution-scrape-and-fuzzy-match">The Solution: Scrape and Fuzzy-Match</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explore-with-chartbook">Explore with ChartBook</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">Key Takeaways</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jeremiah Bejarano
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, Jeremiah Bejarano.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

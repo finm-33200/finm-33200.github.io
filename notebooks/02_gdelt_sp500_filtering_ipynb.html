@@ -1,0 +1,1417 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>GDELT Filtering &amp; Data Quality &#8212; Full Stack Quantitative Finance</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=f23691d7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=7a7908ec"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/02_gdelt_sp500_filtering_ipynb';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/custom.js?v=c0d9a6f1"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Crosswalk Quality" href="03_crosswalk_quality_ipynb.html" />
+    <link rel="prev" title="Data Sources &amp; Strategy" href="01_data_sources_overview_ipynb.html" /> 
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>   
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Full Stack Quantitative Finance - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Full Stack Quantitative Finance - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Generative and Agentic AI for Finance
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../README.html">Course Syllabus: FINM 32900, Winter 2025</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Course Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Discussions 📖</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_01.html">Discussion 1: The New Quant - LLMs in Finance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/llms_transforming_finance.html">LLMs Transforming Finance: The New Quant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/expected_returns_llms.html">LLMs for Return Prediction: Prompts vs. Embeddings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/chartbook_research_catalog.html">ChartBook: Cataloging Research for Humans and AI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/api_and_structured_outputs.html">API Basics and Structured Outputs</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../subject_to_change_after_this_week.html">WARNING: Notes subject to change after this week</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_02.html">Discussion 2: LLM Fundamentals 1</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/ai_copilots_intro.html">AI Copilots: Claude Code and Cursor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/gen_ai_tech_stack.html">The Generative AI Tech Stack</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../discussion_03.html">Discussion 3: LLM Fundamentals 2</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_04.html">Discussion 4:</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/expected_returns_llms.html">LLMs for Return Prediction: Prompts vs. Embeddings</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Homework 📝</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../HW0.html">Homework 0: Set Up Your Environment</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="01_data_sources_overview_ipynb.html">Data Sources &amp; Strategy</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">GDELT Filtering &amp; Data Quality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_crosswalk_quality_ipynb.html">Crosswalk Quality</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../HW1.html">Homework 1: Lopez-Lira Replication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HW2.html">Homework 2:</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../final_project.html">Final Project</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/final_project_rubric.html">Final Project Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/potential_final_projects.html">Potential Final Project Ideas</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exams 📋</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../exam_prep.html">Exam Preparation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Misc 📌</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../acknowledgments.html">Acknowledgments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../appendix.html">Appendix</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project/issues/new?title=Issue%20on%20page%20%2Fnotebooks/02_gdelt_sp500_filtering_ipynb.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/02_gdelt_sp500_filtering_ipynb.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>GDELT Filtering & Data Quality</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-data-loading">1. Setup &amp; Data Loading</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-result-ravenpack-headline-coverage">Key Result: RavenPack Headline Coverage</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#short-normalized-names-high-false-positive-risk">Short normalized names — high false-positive risk</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-filtering-funnel">2. The Filtering Funnel</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coverage-what-matched">3. Coverage: What Matched</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-false-positive-problem">4. The False Positive Problem</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-false-positive-headlines-look-like">What false-positive headlines look like</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quantifying-the-damage">Quantifying the damage</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spot-check-do-the-clean-matches-look-right">5. Spot-Check: Do the Clean Matches Look Right?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#full-data-lake-coverage">6. Full Data Lake Coverage</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#monthly-headline-counts">Monthly headline counts</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distinct-s-p-500-companies-per-year">Distinct S&amp;P 500 companies per year</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">7. Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bottom-line">Bottom Line</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                   <section class="tex2jax_ignore mathjax_ignore" id="gdelt-filtering-data-quality">
+<h1>GDELT Filtering &amp; Data Quality<a class="headerlink" href="#gdelt-filtering-data-quality" title="Link to this heading">#</a></h1>
+<p><a class="reference external" href="https://www.gdeltproject.org/">GDELT</a> (Global Database of Events,
+Language, and Tone) is a free, open project that monitors news worldwide —
+roughly <strong>400,000+ English-language articles per day</strong> from the open web.
+All data is freely available on <strong>Google BigQuery</strong>.</p>
+<p>To use GDELT for firm-level finance, we filter its firehose down to
+articles mentioning S&amp;P 500 companies. We upload a small lookup table
+(~4,500 rows) to BigQuery and <strong>JOIN server-side</strong> against the GKG
+(Global Knowledge Graph) table on normalized company names. The full
+query and post-processing logic are in <code class="docutils literal notranslate"><span class="pre">pull_gdelt_sp500_headlines.py</span></code>.</p>
+<p>This notebook examines the <strong>quality</strong> of that filtering: how much data
+survives each filter stage, which companies match, and where false
+positives appear.</p>
+<section id="setup-data-loading">
+<h2>1. Setup &amp; Data Loading<a class="headerlink" href="#setup-data-loading" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.dates</span> <span class="k">as</span> <span class="nn">mdates</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">polars</span> <span class="k">as</span> <span class="nn">pl</span>
+<span class="kn">from</span> <span class="nn">google.cloud</span> <span class="kn">import</span> <span class="n">bigquery</span>
+<span class="kn">from</span> <span class="nn">pull_gdelt_sp500_headlines</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">GDELT_SP500_DIR</span><span class="p">,</span>
+    <span class="n">SAMPLE_MONTH</span><span class="p">,</span>
+    <span class="n">filter_to_month</span><span class="p">,</span>
+    <span class="n">load_gdelt_sp500_headlines</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">settings</span> <span class="kn">import</span> <span class="n">config</span>
+
+<span class="n">DATA_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">config</span><span class="p">(</span><span class="s2">&quot;DATA_DIR&quot;</span><span class="p">))</span>
+<span class="n">GCP_PROJECT</span> <span class="o">=</span> <span class="n">config</span><span class="p">(</span><span class="s2">&quot;GCP_PROJECT&quot;</span><span class="p">)</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">bigquery</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="n">project</span><span class="o">=</span><span class="n">GCP_PROJECT</span><span class="p">)</span>
+
+<span class="c1"># Derive date range from the sample month</span>
+<span class="n">_sm_dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">SAMPLE_MONTH</span><span class="p">,</span> <span class="s2">&quot;%Y-%m&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
+<span class="n">SAMPLE_START</span> <span class="o">=</span> <span class="n">_sm_dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">_sm_dt</span><span class="o">.</span><span class="n">month</span> <span class="o">==</span> <span class="mi">12</span><span class="p">:</span>
+    <span class="n">SAMPLE_END</span> <span class="o">=</span> <span class="n">_sm_dt</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="n">_sm_dt</span><span class="o">.</span><span class="n">year</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span>
+        <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">SAMPLE_END</span> <span class="o">=</span> <span class="n">_sm_dt</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">month</span><span class="o">=</span><span class="n">_sm_dt</span><span class="o">.</span><span class="n">month</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/homebrew/Caskroom/mambaforge/base/lib/python3.10/site-packages/google/api_core/_python_version_support.py:275: FutureWarning: You are using a Python version (3.10.14) which Google will stop supporting in new releases of google.api_core once it reaches its end of life (2026-10-04). Please upgrade to the latest Python version, or at least Python 3.11, to continue receiving updates for google.api_core past that date.
+  warnings.warn(message, FutureWarning)
+/opt/homebrew/Caskroom/mambaforge/base/lib/python3.10/site-packages/google/auth/_default.py:114: UserWarning: Your application has authenticated using end user credentials from Google Cloud SDK without a quota project. You might receive a &quot;quota exceeded&quot; or &quot;API not enabled&quot; error. See the following page for troubleshooting: https://cloud.google.com/docs/authentication/adc-troubleshooting/user-creds. 
+  warnings.warn(_CLOUD_SDK_CREDENTIALS_WARNING)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">gd_sp</span> <span class="o">=</span> <span class="n">filter_to_month</span><span class="p">(</span><span class="n">load_gdelt_sp500_headlines</span><span class="p">(),</span> <span class="n">SAMPLE_MONTH</span><span class="p">)</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+<span class="n">lookup</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">DATA_DIR</span> <span class="o">/</span> <span class="s2">&quot;sp500_names_lookup.parquet&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sample month: </span><span class="si">{</span><span class="n">SAMPLE_MONTH</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">SAMPLE_START</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">SAMPLE_END</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;S&amp;P 500-filtered headlines (1 month): </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">gd_sp</span><span class="p">)</span><span class="si">:</span><span class="s2">&gt;10,</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;S&amp;P 500 names lookup rows:            </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">lookup</span><span class="p">)</span><span class="si">:</span><span class="s2">&gt;10,</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample month: 2025-01 (2025-01-01 to 2025-02-01)
+S&amp;P 500-filtered headlines (1 month):    447,910
+S&amp;P 500 names lookup rows:                 4,530
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="key-result-ravenpack-headline-coverage">
+<h2>Key Result: RavenPack Headline Coverage<a class="headerlink" href="#key-result-ravenpack-headline-coverage" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">_cw</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">DATA_DIR</span> <span class="o">/</span> <span class="s2">&quot;newswire_ravenpack_crosswalk.parquet&quot;</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">pull_free_newswires</span> <span class="kn">import</span> <span class="n">load_newswire_headlines</span> <span class="k">as</span> <span class="n">_load_nw</span>
+
+<span class="n">_nw_total_urls</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">_load_nw</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">to_date</span><span class="p">())</span>
+    <span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">_cw</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">_cw</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;source_url&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">n_unique</span><span class="p">())</span>
+    <span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">item</span><span class="p">()</span>
+<span class="p">)</span>
+<span class="n">_nw_matched_urls</span> <span class="o">=</span> <span class="n">_cw</span><span class="p">[</span><span class="s2">&quot;nw_source_url&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">n_unique</span><span class="p">()</span>
+<span class="n">_nw_match_rate</span> <span class="o">=</span> <span class="n">_nw_matched_urls</span> <span class="o">/</span> <span class="n">_nw_total_urls</span> <span class="o">*</span> <span class="mi">100</span>
+
+<span class="n">_rp_full</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">pl</span><span class="o">.</span><span class="n">scan_parquet</span><span class="p">(</span><span class="n">DATA_DIR</span> <span class="o">/</span> <span class="s2">&quot;ravenpack_djpr.parquet&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;timestamp_utc&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">Date</span><span class="p">)</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">))</span>
+    <span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">_cw</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">_cw</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;rp_story_id&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">_rp_total_stories</span> <span class="o">=</span> <span class="n">_rp_full</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;rp_story_id&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">n_unique</span><span class="p">())</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+<span class="n">_rp_matched_stories</span> <span class="o">=</span> <span class="n">_cw</span><span class="p">[</span><span class="s2">&quot;rp_story_id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">n_unique</span><span class="p">()</span>
+<span class="n">_rp_match_rate</span> <span class="o">=</span> <span class="n">_rp_matched_stories</span> <span class="o">/</span> <span class="n">_rp_total_stories</span> <span class="o">*</span> <span class="mi">100</span>
+
+<span class="n">pl</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;metric&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;RP headlines matched&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;NW headlines matched&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;GDELT match rate&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Crosswalk pairs&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Date range&quot;</span><span class="p">,</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">_rp_match_rate</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">% (</span><span class="si">{</span><span class="n">_rp_matched_stories</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> / </span><span class="si">{</span><span class="n">_rp_total_stories</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">_nw_match_rate</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">% (</span><span class="si">{</span><span class="n">_nw_matched_urls</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> / </span><span class="si">{</span><span class="n">_nw_total_urls</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;~7% (different source ecosystems)&quot;</span><span class="p">,</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">_cw</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">_cw</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">_cw</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">_cw</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">n_unique</span><span class="p">()</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> dates)&quot;</span><span class="p">,</span>
+    <span class="p">],</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (5, 2)</small><table border="1" class="dataframe"><thead><tr><th>metric</th><th>value</th></tr><tr><td>str</td><td>str</td></tr></thead><tbody><tr><td>&quot;RP headlines matched&quot;</td><td>&quot;2.9% (509,932 / 17,636,011)&quot;</td></tr><tr><td>&quot;NW headlines matched&quot;</td><td>&quot;22.5% (532,609 / 2,363,887)&quot;</td></tr><tr><td>&quot;GDELT match rate&quot;</td><td>&quot;~7% (different source ecosyste…</td></tr><tr><td>&quot;Crosswalk pairs&quot;</td><td>&quot;533,265&quot;</td></tr><tr><td>&quot;Date range&quot;</td><td>&quot;2010-03-18 to 2026-02-28 (3,83…</td></tr></tbody></table></div></div></div>
+</div>
+<section id="short-normalized-names-high-false-positive-risk">
+<h3>Short normalized names — high false-positive risk<a class="headerlink" href="#short-normalized-names-high-false-positive-risk" title="Link to this heading">#</a></h3>
+<p>The lookup table normalizes company names by lowercasing, stripping
+punctuation, and removing corporate suffixes (inc, corp, ltd, etc.).
+Names shorter than 5 characters are already filtered out, but some
+boundary cases remain:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">short_names</span> <span class="o">=</span> <span class="n">lookup</span><span class="p">[</span><span class="n">lookup</span><span class="p">[</span><span class="s2">&quot;comnam_norm&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">short_names</span> <span class="o">=</span> <span class="n">short_names</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;comnam_norm&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="s2">&quot;comnam_norm&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Lookup entries with normalized name &lt;= 6 characters: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">short_names</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Examples of short normalized names:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">short_names</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">ticker</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">ticker</span> <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">notna</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">ticker</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;N/A&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  &quot;</span><span class="si">{</span><span class="n">row</span><span class="o">.</span><span class="n">comnam</span><span class="si">}</span><span class="s1">&quot;  →  &quot;</span><span class="si">{</span><span class="n">row</span><span class="o">.</span><span class="n">comnam_norm</span><span class="si">}</span><span class="s1">&quot;  (ticker=</span><span class="si">{</span><span class="n">ticker</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Lookup entries with normalized name &lt;= 6 characters: 413
+
+Examples of short normalized names:
+
+  &quot;A C F INDUSTRIES INC&quot;  →  &quot;a c f&quot;  (ticker=N/A)
+  &quot;A D T CORP&quot;  →  &quot;a d t&quot;  (ticker=ADT)
+  &quot;A E S CORP&quot;  →  &quot;a e s&quot;  (ticker=AESC)
+  &quot;A M F INC&quot;  →  &quot;a m f&quot;  (ticker=AMF)
+  &quot;A M P INC&quot;  →  &quot;a m p&quot;  (ticker=AMP)
+  &quot;A P A CORP&quot;  →  &quot;a p a&quot;  (ticker=APA)
+  &quot;A R A SERVICES INC&quot;  →  &quot;a r a&quot;  (ticker=ARA)
+  &quot;A S A LTD&quot;  →  &quot;a s a&quot;  (ticker=ASA)
+  &quot;A T F INC&quot;  →  &quot;a t f&quot;  (ticker=N/A)
+  &quot;A T I INC&quot;  →  &quot;a t i&quot;  (ticker=ATI)
+  &quot;A T &amp; T INC&quot;  →  &quot;a t t&quot;  (ticker=T)
+  &quot;A V C CORP&quot;  →  &quot;a v c&quot;  (ticker=VIS)
+  &quot;ABBVIE INC&quot;  →  &quot;abbvie&quot;  (ticker=ABBV)
+  &quot;ADIENT PLC&quot;  →  &quot;adient&quot;  (ticker=ADNT)
+  &quot;ADOBE SYSTEMS INC&quot;  →  &quot;adobe&quot;  (ticker=ADBE)
+  &quot;AEICOR INC&quot;  →  &quot;aeicor&quot;  (ticker=AEIC)
+  &quot;AETNA INC&quot;  →  &quot;aetna&quot;  (ticker=AET)
+  &quot;AFLAC INC&quot;  →  &quot;aflac&quot;  (ticker=AFL)
+  &quot;INTERNATIONAL AGRIC CORP&quot;  →  &quot;agric&quot;  (ticker=N/A)
+  &quot;AIRBNB INC&quot;  →  &quot;airbnb&quot;  (ticker=ABNB)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="the-filtering-funnel">
+<h2>2. The Filtering Funnel<a class="headerlink" href="#the-filtering-funnel" title="Link to this heading">#</a></h2>
+<p>Each filter in our BigQuery query cuts the data dramatically. We measure
+each stage with cheap <code class="docutils literal notranslate"><span class="pre">COUNT(*)</span></code> queries against the sample month.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">funnel_queries</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;1. All GKG rows (in partition window)&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        SELECT COUNT(*) AS n</span>
+<span class="s2">        FROM `gdelt-bq.gdeltv2.gkg_partitioned`</span>
+<span class="s2">        WHERE _PARTITIONTIME &gt;= TIMESTAMP(&#39;</span><span class="si">{</span><span class="n">SAMPLE_START</span><span class="si">}</span><span class="s2">&#39;)</span>
+<span class="s2">          AND _PARTITIONTIME &lt; TIMESTAMP(&#39;</span><span class="si">{</span><span class="n">SAMPLE_END</span><span class="si">}</span><span class="s2">&#39;)</span>
+<span class="s2">    &quot;&quot;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;2. Has headline (&lt;PAGE_TITLE&gt;)&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        SELECT COUNT(*) AS n</span>
+<span class="s2">        FROM `gdelt-bq.gdeltv2.gkg_partitioned`</span>
+<span class="s2">        WHERE _PARTITIONTIME &gt;= TIMESTAMP(&#39;</span><span class="si">{</span><span class="n">SAMPLE_START</span><span class="si">}</span><span class="s2">&#39;)</span>
+<span class="s2">          AND _PARTITIONTIME &lt; TIMESTAMP(&#39;</span><span class="si">{</span><span class="n">SAMPLE_END</span><span class="si">}</span><span class="s2">&#39;)</span>
+<span class="s2">          AND Extras LIKE &#39;%&lt;PAGE_TITLE&gt;%&#39;</span>
+<span class="s2">    &quot;&quot;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;3. English only (TranslationInfo IS NULL)&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        SELECT COUNT(*) AS n</span>
+<span class="s2">        FROM `gdelt-bq.gdeltv2.gkg_partitioned`</span>
+<span class="s2">        WHERE _PARTITIONTIME &gt;= TIMESTAMP(&#39;</span><span class="si">{</span><span class="n">SAMPLE_START</span><span class="si">}</span><span class="s2">&#39;)</span>
+<span class="s2">          AND _PARTITIONTIME &lt; TIMESTAMP(&#39;</span><span class="si">{</span><span class="n">SAMPLE_END</span><span class="si">}</span><span class="s2">&#39;)</span>
+<span class="s2">          AND Extras LIKE &#39;%&lt;PAGE_TITLE&gt;%&#39;</span>
+<span class="s2">          AND TranslationInfo IS NULL</span>
+<span class="s2">    &quot;&quot;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;4. Has V2Organizations&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        SELECT COUNT(*) AS n</span>
+<span class="s2">        FROM `gdelt-bq.gdeltv2.gkg_partitioned`</span>
+<span class="s2">        WHERE _PARTITIONTIME &gt;= TIMESTAMP(&#39;</span><span class="si">{</span><span class="n">SAMPLE_START</span><span class="si">}</span><span class="s2">&#39;)</span>
+<span class="s2">          AND _PARTITIONTIME &lt; TIMESTAMP(&#39;</span><span class="si">{</span><span class="n">SAMPLE_END</span><span class="si">}</span><span class="s2">&#39;)</span>
+<span class="s2">          AND Extras LIKE &#39;%&lt;PAGE_TITLE&gt;%&#39;</span>
+<span class="s2">          AND TranslationInfo IS NULL</span>
+<span class="s2">          AND V2Organizations IS NOT NULL</span>
+<span class="s2">          AND V2Organizations != &#39;&#39;</span>
+<span class="s2">    &quot;&quot;&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Filtering funnel for GDELT GKG (</span><span class="si">{</span><span class="n">SAMPLE_START</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">SAMPLE_END</span><span class="si">}</span><span class="s2">):</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;Stage&#39;</span><span class="si">:</span><span class="s2">&lt;45</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;Rows&#39;</span><span class="si">:</span><span class="s2">&gt;12</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;</span><span class="si">% o</span><span class="s1">f prev&#39;</span><span class="si">:</span><span class="s2">&gt;10</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">69</span><span class="p">)</span>
+
+<span class="n">funnel_counts</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">prev_n</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">query</span> <span class="ow">in</span> <span class="n">funnel_queries</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query</span><span class="p">)</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">result</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;n&quot;</span><span class="p">]</span>
+    <span class="n">funnel_counts</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="n">n</span>
+    <span class="n">pct</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">n</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">prev_n</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%&quot;</span> <span class="k">if</span> <span class="n">prev_n</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">label</span><span class="si">:</span><span class="s2">&lt;45</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">n</span><span class="si">:</span><span class="s2">&gt;12,</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">pct</span><span class="si">:</span><span class="s2">&gt;10</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">prev_n</span> <span class="o">=</span> <span class="n">n</span>
+
+<span class="c1"># Add the final stage from the local data</span>
+<span class="n">n_sp500</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">gd_sp</span><span class="p">)</span>
+<span class="n">pct_sp500</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">n_sp500</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">prev_n</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%&quot;</span>
+<span class="n">funnel_counts</span><span class="p">[</span><span class="s2">&quot;5. Matches S&amp;P 500 company name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">n_sp500</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;5. Matches S&amp;P 500 company name&#39;</span><span class="si">:</span><span class="s2">&lt;45</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">n_sp500</span><span class="si">:</span><span class="s2">&gt;12,</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">pct_sp500</span><span class="si">:</span><span class="s2">&gt;10</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Filtering funnel for GDELT GKG (2025-01-01 to 2025-02-01):
+
+Stage                                                 Rows  % of prev
+---------------------------------------------------------------------
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1. All GKG rows (in partition window)           10,858,289           
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2. Has headline (&lt;PAGE_TITLE&gt;)                  10,858,289     100.0%
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3. English only (TranslationInfo IS NULL)        4,024,816      37.1%
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4. Has V2Organizations                           2,839,583      70.6%
+5. Matches S&amp;P 500 company name                    447,910      15.8%
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">labels</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">funnel_counts</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="n">counts</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">funnel_counts</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">bars</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">labels</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">counts</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;steelblue&quot;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">bar</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">bars</span><span class="p">,</span> <span class="n">counts</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+        <span class="n">bar</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span> <span class="o">+</span> <span class="nb">max</span><span class="p">(</span><span class="n">counts</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.01</span><span class="p">,</span>
+        <span class="n">bar</span><span class="o">.</span><span class="n">get_y</span><span class="p">()</span> <span class="o">+</span> <span class="n">bar</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">count</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">va</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+        <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Number of rows&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;GDELT Filtering Funnel (</span><span class="si">{</span><span class="n">SAMPLE_START</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">SAMPLE_END</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">counts</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1.15</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">total_reduction</span> <span class="o">=</span> <span class="n">counts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">counts</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="n">counts</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Total reduction: </span><span class="si">{</span><span class="n">counts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> → </span><span class="si">{</span><span class="n">counts</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">total_reduction</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">× smaller)&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/18ba23b6975c2165fe2ae6bfb93c1b82c3cedff70eedbf9f49bed6c433ef1313.png" src="../_images/18ba23b6975c2165fe2ae6bfb93c1b82c3cedff70eedbf9f49bed6c433ef1313.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Total reduction: 10,858,289 → 447,910 (24× smaller)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="coverage-what-matched">
+<h2>3. Coverage: What Matched<a class="headerlink" href="#coverage-what-matched" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">matched_companies</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">gd_sp</span><span class="o">.</span><span class="n">group_by</span><span class="p">(</span><span class="s2">&quot;matched_company&quot;</span><span class="p">,</span> <span class="s2">&quot;ticker&quot;</span><span class="p">,</span> <span class="s2">&quot;permno&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">len</span><span class="p">()</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s2">&quot;n_headlines&quot;</span><span class="p">))</span>
+    <span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s2">&quot;n_headlines&quot;</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">n_permnos</span> <span class="o">=</span> <span class="n">gd_sp</span><span class="p">[</span><span class="s2">&quot;permno&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">n_unique</span><span class="p">()</span>
+<span class="n">n_companies</span> <span class="o">=</span> <span class="n">matched_companies</span><span class="o">.</span><span class="n">height</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Distinct PERMNOs matched:   </span><span class="si">{</span><span class="n">n_permnos</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Distinct (company, ticker): </span><span class="si">{</span><span class="n">n_companies</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Distinct PERMNOs matched:   934
+Distinct (company, ticker): 1362
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Top 25 companies by headline count:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">matched_companies</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">25</span><span class="p">)</span><span class="o">.</span><span class="n">iter_rows</span><span class="p">():</span>
+    <span class="n">company</span><span class="p">,</span> <span class="n">ticker</span><span class="p">,</span> <span class="n">permno</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="n">row</span>
+    <span class="n">ticker</span> <span class="o">=</span> <span class="n">ticker</span> <span class="k">if</span> <span class="n">ticker</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;N/A&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">n</span><span class="si">:</span><span class="s2">&gt;6,</span><span class="si">}</span><span class="s2">  </span><span class="si">{</span><span class="n">ticker</span><span class="si">:</span><span class="s2">&lt;8s</span><span class="si">}</span><span class="s2">  </span><span class="si">{</span><span class="n">company</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Top 25 companies by headline count:
+
+  157,417  USBC      UNITED STATES BANCORP
+  47,019  FB        FACEBOOK INC
+  25,108  TWTR      TWITTER INC
+  23,139  NFLX      NETFLIX INC
+  16,981  NDAQ      NASDAQ INC
+   8,124  MSFT      MICROSOFT CORP
+   7,854  GOOG      GOOGLE INC
+   7,791  GOOG      GOOGLE INC
+   7,435  NVDA      NVIDIA CORP
+   7,264  GOOGL     GOOGLE INC
+   7,201  NYK       NEW YORK TIMES CO
+   6,938  NYT       NEW YORK TIMES CO
+   5,287  WMT       WALMART INC
+   5,250  AAL       AMERICAN AIRLINES GROUP INC
+   4,735  ETN       EATON CORP
+   4,654  ETN       EATON CORP PLC
+   4,635  JPM       JPMORGAN CHASE &amp; CO
+   4,594  GS        GOLDMAN SACHS GROUP INC
+   4,122  MS        MORGAN STANLEY GROUP INC
+   3,251  WBR       WARNER BROS CO
+   2,662  N/A       BOEING CO
+   2,580  BA        BOEING CO
+   2,408  C         CITIGROUP INC
+   2,330  SBUX      STARBUCKS CORP
+   2,284  CCI       CITIGROUP INC
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="the-false-positive-problem">
+<h2>4. The False Positive Problem<a class="headerlink" href="#the-false-positive-problem" title="Link to this heading">#</a></h2>
+<p>Our normalization strips corporate suffixes like “bancorp” and “corp”.
+This can produce generic names that match far too broadly — e.g.,
+“UNITED STATES BANCORP” normalizes to “united states”, matching every
+US government entity in GDELT.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">SUSPICIOUS_THRESHOLD</span> <span class="o">=</span> <span class="mi">20_000</span>
+
+<span class="n">company_counts</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">gd_sp</span><span class="o">.</span><span class="n">group_by</span><span class="p">(</span><span class="s2">&quot;matched_company&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">len</span><span class="p">()</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s2">&quot;n&quot;</span><span class="p">))</span>
+    <span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s2">&quot;n&quot;</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">top_offenders</span> <span class="o">=</span> <span class="n">company_counts</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span>
+<span class="n">lookup_map</span> <span class="o">=</span> <span class="n">lookup</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="s2">&quot;comnam&quot;</span><span class="p">)[[</span><span class="s2">&quot;comnam&quot;</span><span class="p">,</span> <span class="s2">&quot;comnam_norm&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span>
+    <span class="s2">&quot;comnam&quot;</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;Company&#39;</span><span class="si">:</span><span class="s2">&lt;35</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;Norm. Name&#39;</span><span class="si">:</span><span class="s2">&lt;25</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;Headlines&#39;</span><span class="si">:</span><span class="s2">&gt;10</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">72</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">top_offenders</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">company</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;matched_company&quot;</span><span class="p">]</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;n&quot;</span><span class="p">]</span>
+    <span class="n">norm</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">lookup_map</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">company</span><span class="p">,</span> <span class="s2">&quot;comnam_norm&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="n">company</span> <span class="ow">in</span> <span class="n">lookup_map</span><span class="o">.</span><span class="n">index</span> <span class="k">else</span> <span class="s2">&quot;?&quot;</span>
+    <span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">company</span><span class="si">:</span><span class="s2">&lt;35</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">norm</span><span class="si">:</span><span class="s2">&lt;25</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">n</span><span class="si">:</span><span class="s2">&gt;10,</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Company                             Norm. Name                 Headlines
+------------------------------------------------------------------------
+UNITED STATES BANCORP               united states                157,417
+FACEBOOK INC                        facebook                      47,019
+TWITTER INC                         twitter                       25,108
+NETFLIX INC                         netflix                       23,139
+GOOGLE INC                          google                        22,909
+NASDAQ INC                          nasdaq                        16,981
+NEW YORK TIMES CO                   new york times                14,139
+MICROSOFT CORP                      microsoft                      8,124
+NVIDIA CORP                         nvidia                         7,435
+WALMART INC                         walmart                        5,287
+</pre></div>
+</div>
+</div>
+</div>
+<section id="what-false-positive-headlines-look-like">
+<h3>What false-positive headlines look like<a class="headerlink" href="#what-false-positive-headlines-look-like" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fp_companies</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;UNITED STATES BANCORP&quot;</span><span class="p">]</span>
+<span class="n">big_hitters</span> <span class="o">=</span> <span class="n">company_counts</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;n&quot;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">SUSPICIOUS_THRESHOLD</span><span class="p">)[</span>
+    <span class="s2">&quot;matched_company&quot;</span>
+<span class="p">]</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
+<span class="n">fp_companies</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">dict</span><span class="o">.</span><span class="n">fromkeys</span><span class="p">(</span><span class="n">fp_companies</span> <span class="o">+</span> <span class="n">big_hitters</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">company</span> <span class="ow">in</span> <span class="n">fp_companies</span><span class="p">[:</span><span class="mi">3</span><span class="p">]:</span>
+    <span class="n">subset</span> <span class="o">=</span> <span class="n">gd_sp</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;matched_company&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="n">company</span><span class="p">)</span>
+    <span class="n">norm</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">lookup_map</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">company</span><span class="p">,</span> <span class="s2">&quot;comnam_norm&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="n">company</span> <span class="ow">in</span> <span class="n">lookup_map</span><span class="o">.</span><span class="n">index</span> <span class="k">else</span> <span class="s2">&quot;?&quot;</span>
+    <span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="s1">&#39;=&#39;</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">80</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">company</span><span class="si">}</span><span class="s1">  (normalizes to &quot;</span><span class="si">{</span><span class="n">norm</span><span class="si">}</span><span class="s1">&quot;)&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">subset</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> headlines — sample of clearly irrelevant ones:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;=&#39;</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">80</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">sample</span> <span class="o">=</span> <span class="n">subset</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">subset</span><span class="p">)),</span> <span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">sample</span><span class="o">.</span><span class="n">iter_rows</span><span class="p">(</span><span class="n">named</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="n">matched_org</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;matched_org_raw&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">hl</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;headline&quot;</span><span class="p">][:</span><span class="mi">120</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  org: </span><span class="si">{</span><span class="n">matched_org</span><span class="si">:</span><span class="s2">&lt;30s</span><span class="si">}</span><span class="s2">  headline: </span><span class="si">{</span><span class="n">hl</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>================================================================================
+UNITED STATES BANCORP  (normalizes to &quot;united states&quot;)
+157,417 headlines — sample of clearly irrelevant ones:
+================================================================================
+  org: United States                   headline: The Mill Food Recycler 2025 Review: How This Modern Composter Works
+  org: United States                   headline: Prince William Republicans ring in the new Trump era
+  org: United States                   headline: Rwanda-backed rebels enter outskirts of strategic city in what Congo calls &#39;declaration of war&#39;
+  org: United States                   headline: Could Texas Become a Geothermal Energy Hub?
+  org: United States                   headline: Vance at March for Life: &#39;I Want More Babies in USA&#39; | NewsTalk 590
+  org: United States                   headline: Gallup Poll Shows How Majority of Americans Feel About Trump&#39;s Immigration Plans
+  org: United States                   headline: Minor earthquake: M2.98 quake has struck near Little America in Wyoming
+  org: United States                   headline: 8 Key Skills Public Health Leaders Need To Tackle Health Crisis
+  org: United States                   headline: Middle East live updates: IDF will stay in Gaza&#39;s Philadelphi corridor, source says
+  org: United States                   headline: Woman Warns Never Answer These Questions at the Doctor
+  org: United States                   headline: Venezuela&#39;s Tren de Aragua gang become target of Trump immigrations raids
+  org: United States                   headline: Sudan Army Breaks Paramilitary Siege on Key Base
+  org: United States                   headline: IDF Has Seized Over 3,000 Weapons in Syria Since Dec. 8
+  org: United States                   headline: Bully Beta Skateboard skin (for Playstation 2 version) addon - Bully: Scholarship Edition
+  org: United States                   headline: MTM 100 Rd 22 Caliber Flip-Top Ammo Box $4.09 FREE Returns, FREE S&amp;H Orders$35+
+
+================================================================================
+FACEBOOK INC  (normalizes to &quot;facebook&quot;)
+47,019 headlines — sample of clearly irrelevant ones:
+================================================================================
+  org: Facebook                        headline: Tech exec loses &#39;dream&#39; AI job after ex-girlfriend sends sexually explicit photo to new boss, lawsuit says
+  org: Facebook                        headline: Another push for community-owned CHBC TV in Kelowna
+  org: Facebook                        headline: Nazi-like salute on TikTok leads to resignation of Pennsylvania Republican official
+  org: Facebook                        headline: Shutterstock Returns to 2025 Sundance Film Festival as Official House Photographer and Leadership Sponsor
+  org: Facebook                        headline: Rumors about ICE raids stoke fear amid deportations
+  org: Facebook                        headline: Why I Spent A Full Year Celebrating Made-Up Holidays
+  org: Facebook                        headline: What we know about the New Year&#39;s Day attack in New Orleans
+  org: Facebook                        headline: Busch Gardens Tampa Bay closes early due to weather
+  org: Facebook                        headline: Dump truck smashes into back of NJ Target store
+  org: Facebook                        headline: Jaylin Williams Continues To Step Up, Make Strides for OKC Thunder
+  org: Facebook                        headline: Meta to end fact-checking, replacing it with system similar to Musk&#39;s X
+  org: Facebook                        headline: Marin users of TikTok watchful after Trump delays ban
+  org: Facebook                        headline: &#39;It&#39;s been an honour&#39; - Much-loved Warwick team member retires after more 40 years at family business
+  org: Facebook                        headline: Pemberton&#39;s animal shelter hosting puppy meet  - Pique Newsmagazine
+  org: Facebook                        headline: Dingwall picture detective invite in bid to put names to faces from Ross-shire&#39;s past
+
+================================================================================
+TWITTER INC  (normalizes to &quot;twitter&quot;)
+25,108 headlines — sample of clearly irrelevant ones:
+================================================================================
+  org: Twitter                         headline: Billionaire known for stealing people&#39;s ideas debuts totally new, original salute
+  org: Twitter                         headline: 4 killed, 20 hurt after fireworks explosion in the Honolulu area
+  org: Twitter                         headline: Mahakumbh 2025: A Sangam of Culture &amp; Technology
+  org: Twitter                         headline: Mark Wright pays tribute to beloved grandad
+  org: Twitter                         headline: EA FC 25 patch notes – passing updates arrive in Title Update 7 with finesse shot nerf coming soon
+  org: Twitter                         headline: NDDB supplies 3.39 lakh units of animal vaccines to Kenya this year
+  org: Twitter                         headline: Knife rampage leaves five people wounded outside a warehouse near Asda
+  org: Twitter                         headline: Artist&#39;s 6-year wood collection becomes viral Milwaukee Bucks art
+  org: Twitter                         headline: Manatee County boat ramps open for business
+  org: Twitter                         headline: Donald Trump and Mike Pence Shake Hands During First Interaction in Nearly 4 Years
+  org: Twitter                         headline: Ceasefire disputes between Israel and Hamas, Hezbollah throw region into turmoil
+  org: Twitter                         headline: ITV cancels crime drama McDonald and Dodds after 4 series | Maldon and Burnham Standard
+  org: Twitter                         headline: Brigerton&#39;s Nicola Coughlan Reacts to SAG Nomination: &quot;Absolutely in Shock&quot;
+  org: Twitter                         headline: Kingdom Manga Might Be Getting An English Release
+  org: Twitter                         headline: Kim Kardashian loses 150,000 Instagram followers after posting photo of first lady Melania Trump
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="quantifying-the-damage">
+<h3>Quantifying the damage<a class="headerlink" href="#quantifying-the-damage" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="n">headline_counts</span> <span class="o">=</span> <span class="n">matched_companies</span><span class="p">[</span><span class="s2">&quot;n_headlines&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">headline_counts</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;steelblue&quot;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Headlines per company&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Number of companies&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Distribution of headline counts per company&quot;</span><span class="p">)</span>
+
+<span class="n">ranked</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">headline_counts</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ranked</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">ranked</span><span class="p">,</span> <span class="s2">&quot;o-&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;steelblue&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Company rank&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Headlines&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Rank-frequency plot (log-log)&quot;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/a1893293e22576f95db25065007fa810d2ce7b9eb373f3de267629ec60c5bc32.png" src="../_images/a1893293e22576f95db25065007fa810d2ce7b9eb373f3de267629ec60c5bc32.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">suspicious</span> <span class="o">=</span> <span class="n">matched_companies</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;n_headlines&quot;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">SUSPICIOUS_THRESHOLD</span><span class="p">)</span>
+<span class="n">suspicious_headlines</span> <span class="o">=</span> <span class="n">gd_sp</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+    <span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;matched_company&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">is_in</span><span class="p">(</span><span class="n">suspicious</span><span class="p">[</span><span class="s2">&quot;matched_company&quot;</span><span class="p">])</span>
+<span class="p">)</span>
+
+<span class="n">n_suspicious</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">suspicious_headlines</span><span class="p">)</span>
+<span class="n">n_clean</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">gd_sp</span><span class="p">)</span> <span class="o">-</span> <span class="n">n_suspicious</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Companies with &gt; </span><span class="si">{</span><span class="n">SUSPICIOUS_THRESHOLD</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> headlines/month: </span><span class="si">{</span><span class="n">suspicious</span><span class="o">.</span><span class="n">height</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;Headlines from suspicious matches:    </span><span class="si">{</span><span class="n">n_suspicious</span><span class="si">:</span><span class="s2">&gt;8,</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">n_suspicious</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">gd_sp</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%)&quot;</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;Headlines from remaining companies:   </span><span class="si">{</span><span class="n">n_clean</span><span class="si">:</span><span class="s2">&gt;8,</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">n_clean</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">gd_sp</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%)&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Companies with &gt; 20,000 headlines/month: 4
+Headlines from suspicious matches:     252,683 (56.4%)
+Headlines from remaining companies:    195,227 (43.6%)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/l3/tj6vb0ld2ys1h939jz0qrfrh0000gn/T/ipykernel_1710/1882465742.py:2: DeprecationWarning: `is_in` with a collection of the same datatype is ambiguous and deprecated.
+Please use `implode` to return to previous behavior.
+
+See https://github.com/pola-rs/polars/issues/22149 for more information.
+  suspicious_headlines = gd_sp.filter(
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Suspicious companies:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">suspicious</span><span class="o">.</span><span class="n">iter_rows</span><span class="p">():</span>
+    <span class="n">company</span><span class="p">,</span> <span class="n">ticker</span><span class="p">,</span> <span class="n">permno</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="n">row</span>
+    <span class="n">ticker</span> <span class="o">=</span> <span class="n">ticker</span> <span class="k">if</span> <span class="n">ticker</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;N/A&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">n</span><span class="si">:</span><span class="s2">&gt;6,</span><span class="si">}</span><span class="s2">  </span><span class="si">{</span><span class="n">ticker</span><span class="si">:</span><span class="s2">&lt;8s</span><span class="si">}</span><span class="s2">  </span><span class="si">{</span><span class="n">company</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Suspicious companies:
+
+  157,417  USBC      UNITED STATES BANCORP
+  47,019  FB        FACEBOOK INC
+  25,108  TWTR      TWITTER INC
+  23,139  NFLX      NETFLIX INC
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="spot-check-do-the-clean-matches-look-right">
+<h2>5. Spot-Check: Do the Clean Matches Look Right?<a class="headerlink" href="#spot-check-do-the-clean-matches-look-right" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">clean_sp</span> <span class="o">=</span> <span class="n">gd_sp</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="o">~</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;matched_company&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">is_in</span><span class="p">(</span><span class="n">suspicious</span><span class="p">[</span><span class="s2">&quot;matched_company&quot;</span><span class="p">]))</span>
+
+<span class="k">for</span> <span class="n">company</span> <span class="ow">in</span> <span class="p">[</span>
+    <span class="s2">&quot;APPLE INC&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;MICROSOFT CORP&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;NVIDIA CORP&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;JPMORGAN CHASE &amp; CO&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;WALMART INC&quot;</span><span class="p">,</span>
+<span class="p">]:</span>
+    <span class="n">subset</span> <span class="o">=</span> <span class="n">clean_sp</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;matched_company&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="n">company</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">subset</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">continue</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="s1">&#39;=&#39;</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">70</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">company</span><span class="si">}</span><span class="s2"> — </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">subset</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> headlines&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;=&#39;</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">70</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">subset</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">subset</span><span class="p">)),</span> <span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="n">iter_rows</span><span class="p">(</span><span class="n">named</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  [</span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;ticker&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;headline&#39;</span><span class="p">][:</span><span class="mi">100</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>======================================================================
+APPLE INC — 564 headlines
+======================================================================
+  [AAPL] Expert: The problem is not China&#39;s economy, but those economists and their models
+  [AAPL] Giant companies holding back US economy
+  [AAPL] CCPA issues notice to Apple over iPhone performance issues, Telecom News, ET Telecom
+  [AAPL] Yahoo Finance Review: Best Investment Websites to Research Stocks
+  [AAPL] Chinese AI firm limits registration over &#39;malicious attacks&#39;
+
+======================================================================
+MICROSOFT CORP — 8,124 headlines
+======================================================================
+  [MSFT] Trump warns of &#39;wake-up call&#39; as low-cost Chinese AI jolts sector – The Frontier Post
+  [MSFT] DOOM: The Dark Ages Rumored for Nintendo Switch 2 as Phil Spencer Teases More Multiplatform Support
+  [MSFT] Trump 2nd term live updates: EPA temporarily pauses disbursement of federal aid
+  [MSFT] Bluff Park&#39;s Robin Schultz to run for Hoover City Council third time
+  [MSFT] How to Fix Corrupted Excel Files (.xls, .xlsx) - Top Recovery Solutions
+
+======================================================================
+NVIDIA CORP — 7,435 headlines
+======================================================================
+  [NVDA] DeepSeek Sparks Global Tech Selloff
+  [NVDA] Donald Trump revokes Biden executive order on addressing AI risks
+  [NVDA] China&#39;s DeepSeek-V3 stuns, disrupts and rattles Silicon Valley
+  [NVDA] 3 Must-Watch Semiconductor Stocks as Nvidia Takes a Breather
+  [NVDA] Is Nvidia Stock Going to $190? 1 Wall Street Analyst Thinks So.
+
+======================================================================
+JPMORGAN CHASE &amp; CO — 4,635 headlines
+======================================================================
+  [JPM] Analysts Set SBA Communications Co. (NASDAQ:SBAC) Target Price at $254.92
+  [JPM] Insider Selling: TriNet Group, Inc. (NYSE:TNET) CTO Sells 7,784 Shares of Stock
+  [JPM] IMAX (NYSE:IMAX) Raised to &quot;Buy&quot; at StockNews.com
+  [JPM] Oldfather Financial Services LLC Has $1.91 Million Position in Schwab U.S. Aggregate Bond ETF (NYSEA
+  [JPM] Joby Aviation (NYSE:JOBY) Stock Price Down 0.5%  – What&#39;s Next?
+
+======================================================================
+WALMART INC — 5,287 headlines
+======================================================================
+  [WMT] Travis Kelce Slams Rumor the Chiefs Lost a Game on Purpose to Kick Cincinnati Bengals Out of Playoff
+  [WMT] Recall Alert: Broccoli Bags Pulled in Illinois and Beyond
+  [WMT] Comparing Vladimir Putin&#39;s Popularity to Western Leaders
+  [WMT] What to Cook This Week, January 21, 2025 — TODAY
+  [WMT] Missed out on the viral &#39;Wirkin&#39; bag? Shop alternatives for every budget
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/l3/tj6vb0ld2ys1h939jz0qrfrh0000gn/T/ipykernel_1710/1150694679.py:1: DeprecationWarning: `is_in` with a collection of the same datatype is ambiguous and deprecated.
+Please use `implode` to return to previous behavior.
+
+See https://github.com/pola-rs/polars/issues/22149 for more information.
+  clean_sp = gd_sp.filter(~pl.col(&quot;matched_company&quot;).is_in(suspicious[&quot;matched_company&quot;]))
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="full-data-lake-coverage">
+<h2>6. Full Data Lake Coverage<a class="headerlink" href="#full-data-lake-coverage" title="Link to this heading">#</a></h2>
+<p>The sections above analyzed a single sample month. Now we load the
+full data lake to see temporal coverage and company distribution
+across all available months.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lf</span> <span class="o">=</span> <span class="n">load_gdelt_sp500_headlines</span><span class="p">()</span>
+<span class="n">df_full</span> <span class="o">=</span> <span class="n">lf</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total rows in data lake: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df_full</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Total rows in data lake: 447,910
+</pre></div>
+</div>
+</div>
+</div>
+<section id="monthly-headline-counts">
+<h3>Monthly headline counts<a class="headerlink" href="#monthly-headline-counts" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">monthly</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">df_full</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;gkg_date&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">Date</span><span class="p">)</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">truncate</span><span class="p">(</span><span class="s2">&quot;1mo&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s2">&quot;month&quot;</span><span class="p">))</span>
+    <span class="o">.</span><span class="n">group_by</span><span class="p">(</span><span class="s2">&quot;month&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">len</span><span class="p">()</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s2">&quot;n_headlines&quot;</span><span class="p">))</span>
+    <span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s2">&quot;month&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span>
+    <span class="n">monthly</span><span class="p">[</span><span class="s2">&quot;month&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_list</span><span class="p">(),</span>
+    <span class="n">monthly</span><span class="p">[</span><span class="s2">&quot;n_headlines&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_list</span><span class="p">(),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;steelblue&quot;</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">mdates</span><span class="o">.</span><span class="n">YearLocator</span><span class="p">())</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">mdates</span><span class="o">.</span><span class="n">DateFormatter</span><span class="p">(</span><span class="s2">&quot;%Y&quot;</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Headlines&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;GDELT S&amp;P 500 — headlines per month (data lake)&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Months in data lake: </span><span class="si">{</span><span class="n">monthly</span><span class="o">.</span><span class="n">height</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Date range: </span><span class="si">{</span><span class="n">monthly</span><span class="p">[</span><span class="s1">&#39;month&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">monthly</span><span class="p">[</span><span class="s1">&#39;month&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/29fff42d4be94dd3bfa75cca5d643cd7eae8755d9baf04ec45fe2d0345f1fe81.png" src="../_images/29fff42d4be94dd3bfa75cca5d643cd7eae8755d9baf04ec45fe2d0345f1fe81.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Months in data lake: 1
+Date range: 2025-01-01 to 2025-01-01
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="distinct-s-p-500-companies-per-year">
+<h3>Distinct S&amp;P 500 companies per year<a class="headerlink" href="#distinct-s-p-500-companies-per-year" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">yearly_companies</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">df_full</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;gkg_date&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span><span class="p">()</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s2">&quot;year&quot;</span><span class="p">))</span>
+    <span class="o">.</span><span class="n">group_by</span><span class="p">(</span><span class="s2">&quot;year&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;permno&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">n_unique</span><span class="p">()</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s2">&quot;n_companies&quot;</span><span class="p">))</span>
+    <span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s2">&quot;year&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span>
+    <span class="n">yearly_companies</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_list</span><span class="p">(),</span>
+    <span class="n">yearly_companies</span><span class="p">[</span><span class="s2">&quot;n_companies&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_list</span><span class="p">(),</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;teal&quot;</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Year&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Distinct PERMNOs&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Distinct S&amp;P 500 companies per year in GDELT data lake&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/7c72e18f983d4daafc369238aa6519a1174b5f4eda6b6300b1ef9e8da47e6f41.png" src="../_images/7c72e18f983d4daafc369238aa6519a1174b5f4eda6b6300b1ef9e8da47e6f41.png" />
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="summary">
+<h2>7. Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
+<p><strong>Filtering works but is noisy.</strong> The BigQuery server-side JOIN reduces
+GDELT from millions of raw articles to tens of thousands of S&amp;P 500
+matches per month. However, aggressive name normalization creates false
+positives — especially for companies whose names reduce to common
+phrases after suffix stripping (e.g., “UNITED STATES BANCORP” →
+“united states”).</p>
+<p><strong>GDELT and RavenPack draw from different source ecosystems.</strong> GDELT
+covers the open web (~98%), while RavenPack is ~95% wire services.
+Only ~7% of GDELT headlines match RavenPack on a per-headline basis.
+However, GDELT’s enormous daily volume (hundreds of thousands of
+articles) means it actually covers a <strong>larger fraction of the
+RavenPack universe</strong> than scraped newswires alone. Newswire headlines
+match at a higher per-headline rate but have smaller total volume.
+Both sources are combined in the final crosswalk for maximum coverage
+(see notebook 03 for the per-source breakdown).</p>
+<p><strong>The full data lake</strong> shows consistent coverage from 2015 to present,
+with hundreds of distinct S&amp;P 500 companies matched per year.</p>
+</section>
+<hr class="docutils" />
+<section id="bottom-line">
+<h2>Bottom Line<a class="headerlink" href="#bottom-line" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pl</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;metric&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;RP headlines matched&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;NW headlines matched&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;GDELT match rate&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Crosswalk pairs&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Date range&quot;</span><span class="p">,</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">_rp_match_rate</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">% (</span><span class="si">{</span><span class="n">_rp_matched_stories</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> / </span><span class="si">{</span><span class="n">_rp_total_stories</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">_nw_match_rate</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">% (</span><span class="si">{</span><span class="n">_nw_matched_urls</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> / </span><span class="si">{</span><span class="n">_nw_total_urls</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;~7% (different source ecosystems)&quot;</span><span class="p">,</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">_cw</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">_cw</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">_cw</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">_cw</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">n_unique</span><span class="p">()</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> dates)&quot;</span><span class="p">,</span>
+    <span class="p">],</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (5, 2)</small><table border="1" class="dataframe"><thead><tr><th>metric</th><th>value</th></tr><tr><td>str</td><td>str</td></tr></thead><tbody><tr><td>&quot;RP headlines matched&quot;</td><td>&quot;2.9% (509,932 / 17,636,011)&quot;</td></tr><tr><td>&quot;NW headlines matched&quot;</td><td>&quot;22.5% (532,609 / 2,363,887)&quot;</td></tr><tr><td>&quot;GDELT match rate&quot;</td><td>&quot;~7% (different source ecosyste…</td></tr><tr><td>&quot;Crosswalk pairs&quot;</td><td>&quot;533,265&quot;</td></tr><tr><td>&quot;Date range&quot;</td><td>&quot;2010-03-18 to 2026-02-28 (3,83…</td></tr></tbody></table></div></div></div>
+</div>
+</section>
+</section>
+
+<div class="section ablog__blog_comments">
+   
+</div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="01_data_sources_overview_ipynb.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Data Sources &amp; Strategy</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="03_crosswalk_quality_ipynb.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Crosswalk Quality</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-data-loading">1. Setup &amp; Data Loading</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-result-ravenpack-headline-coverage">Key Result: RavenPack Headline Coverage</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#short-normalized-names-high-false-positive-risk">Short normalized names — high false-positive risk</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-filtering-funnel">2. The Filtering Funnel</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coverage-what-matched">3. Coverage: What Matched</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-false-positive-problem">4. The False Positive Problem</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-false-positive-headlines-look-like">What false-positive headlines look like</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quantifying-the-damage">Quantifying the damage</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spot-check-do-the-clean-matches-look-right">5. Spot-Check: Do the Clean Matches Look Right?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#full-data-lake-coverage">6. Full Data Lake Coverage</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#monthly-headline-counts">Monthly headline counts</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distinct-s-p-500-companies-per-year">Distinct S&amp;P 500 companies per year</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">7. Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bottom-line">Bottom Line</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jeremiah Bejarano
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, Jeremiah Bejarano.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

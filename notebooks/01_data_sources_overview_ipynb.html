@@ -1,0 +1,1495 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Data Sources &amp; Strategy &#8212; Full Stack Quantitative Finance</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=f23691d7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=7a7908ec"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/01_data_sources_overview_ipynb';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/custom.js?v=c0d9a6f1"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="GDELT Filtering &amp; Data Quality" href="02_gdelt_sp500_filtering_ipynb.html" />
+    <link rel="prev" title="Homework 0: Set Up Your Environment" href="../HW0.html" /> 
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>   
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Full Stack Quantitative Finance - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Full Stack Quantitative Finance - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Generative and Agentic AI for Finance
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../README.html">Course Syllabus: FINM 32900, Winter 2025</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Course Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Discussions 📖</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_01.html">Discussion 1: The New Quant - LLMs in Finance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/llms_transforming_finance.html">LLMs Transforming Finance: The New Quant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/expected_returns_llms.html">LLMs for Return Prediction: Prompts vs. Embeddings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/chartbook_research_catalog.html">ChartBook: Cataloging Research for Humans and AI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/api_and_structured_outputs.html">API Basics and Structured Outputs</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../subject_to_change_after_this_week.html">WARNING: Notes subject to change after this week</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_02.html">Discussion 2: LLM Fundamentals 1</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/ai_copilots_intro.html">AI Copilots: Claude Code and Cursor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/gen_ai_tech_stack.html">The Generative AI Tech Stack</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../discussion_03.html">Discussion 3: LLM Fundamentals 2</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_04.html">Discussion 4:</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/expected_returns_llms.html">LLMs for Return Prediction: Prompts vs. Embeddings</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Homework 📝</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../HW0.html">Homework 0: Set Up Your Environment</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Data Sources &amp; Strategy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02_gdelt_sp500_filtering_ipynb.html">GDELT Filtering &amp; Data Quality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_crosswalk_quality_ipynb.html">Crosswalk Quality</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../HW1.html">Homework 1: Lopez-Lira Replication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HW2.html">Homework 2:</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../final_project.html">Final Project</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/final_project_rubric.html">Final Project Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/potential_final_projects.html">Potential Final Project Ideas</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exams 📋</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../exam_prep.html">Exam Preparation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Misc 📌</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../acknowledgments.html">Acknowledgments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../appendix.html">Appendix</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project/issues/new?title=Issue%20on%20page%20%2Fnotebooks/01_data_sources_overview_ipynb.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/01_data_sources_overview_ipynb.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Data Sources & Strategy</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-this-pipeline-exists">Why This Pipeline Exists</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-result-ravenpack-headline-coverage">Key Result: RavenPack Headline Coverage</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ravenpack-ravenpack-djpr-parquet">1. RavenPack — <code class="docutils literal notranslate"><span class="pre">ravenpack_djpr.parquet</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-rows">Example rows</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#date-range">Date range</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#articles-per-month">Articles per month</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#s-p-500-constituents-sp500-constituents-parquet">2. S&amp;P 500 Constituents — <code class="docutils literal notranslate"><span class="pre">sp500_constituents.parquet</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Example rows</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#membership-date-range">Membership date range</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unique-constituents-over-full-history">Unique constituents over full history</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdelt-s-p-500-gdelt-sp500-headlines">3. GDELT S&amp;P 500 — <code class="docutils literal notranslate"><span class="pre">gdelt_sp500_headlines/</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Example rows</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Date range</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#headlines-per-day">Headlines per day</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#free-newswires-newswire-headlines">4. Free Newswires — <code class="docutils literal notranslate"><span class="pre">newswire_headlines/</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Example rows</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#full-headline-examples">Full headline examples</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#newswireravenpack-crosswalk-newswire-ravenpack-crosswalk-parquet">5. Newswire–RavenPack Crosswalk — <code class="docutils literal notranslate"><span class="pre">newswire_ravenpack_crosswalk.parquet</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Example rows</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Date range</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fuzzy-score-distribution">Fuzzy-score distribution</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdelt-vs-scraped-newswires-different-strengths">GDELT vs Scraped Newswires: Different Strengths</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#source-comparison">Source Comparison</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bottom-line">Bottom Line</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                   <section class="tex2jax_ignore mathjax_ignore" id="data-sources-strategy">
+<h1>Data Sources &amp; Strategy<a class="headerlink" href="#data-sources-strategy" title="Link to this heading">#</a></h1>
+<section id="why-this-pipeline-exists">
+<h2>Why This Pipeline Exists<a class="headerlink" href="#why-this-pipeline-exists" title="Link to this heading">#</a></h2>
+<p><strong>RavenPack</strong> is the gold standard for firm-level financial news data:
+every headline is pre-tagged with entity identifiers, relevance scores,
+sentiment, and topic classifications. But its <strong>terms of use prohibit
+uploading headline text to LLMs</strong> like ChatGPT for NLP analysis.</p>
+<p><strong>The workaround:</strong> source headlines independently from free sources,
+then <strong>fuzzy-match</strong> them to RavenPack to inherit its entity metadata.
+Only the independently-sourced headlines get uploaded to LLMs —
+RavenPack’s text stays local, but its metadata travels via the
+crosswalk.</p>
+<p><strong>Three headline sources in this pipeline:</strong></p>
+<ol class="arabic simple">
+<li><p><strong>RavenPack</strong> — the metadata reference. High-quality entity tags and
+sentiment, but headlines cannot be uploaded to LLMs.</p></li>
+<li><p><strong>GDELT</strong> — free, massive, but noisy. Covers the open web, not wire
+services. Only ~7% of its headlines match RavenPack per-headline,
+but its enormous volume makes it the <strong>largest contributor to overall
+RavenPack coverage</strong>.</p></li>
+<li><p><strong>Scraped newswires</strong> (PR Newswire, Business Wire, GlobeNewswire) —
+higher per-headline match rates (same wire services RavenPack draws
+from), but smaller total volume limits their coverage contribution.</p></li>
+</ol>
+<p>Both GDELT and newswire crosswalks are combined to maximize RavenPack
+coverage. The pipeline links each free headline to its best RavenPack
+match, transferring entity IDs and sentiment without violating terms
+of use.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.dates</span> <span class="k">as</span> <span class="nn">mdates</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">polars</span> <span class="k">as</span> <span class="nn">pl</span>
+<span class="kn">from</span> <span class="nn">settings</span> <span class="kn">import</span> <span class="n">config</span>
+
+<span class="n">DATA_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">config</span><span class="p">(</span><span class="s2">&quot;DATA_DIR&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="key-result-ravenpack-headline-coverage">
+<h2>Key Result: RavenPack Headline Coverage<a class="headerlink" href="#key-result-ravenpack-headline-coverage" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">_cw</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">DATA_DIR</span> <span class="o">/</span> <span class="s2">&quot;newswire_ravenpack_crosswalk.parquet&quot;</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">pull_free_newswires</span> <span class="kn">import</span> <span class="n">load_newswire_headlines</span> <span class="k">as</span> <span class="n">_load_nw</span>
+
+<span class="n">_nw_total_urls</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">_load_nw</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">Date</span><span class="p">))</span>
+    <span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">_cw</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">_cw</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;source_url&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">n_unique</span><span class="p">())</span>
+    <span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">item</span><span class="p">()</span>
+<span class="p">)</span>
+<span class="n">_nw_matched_urls</span> <span class="o">=</span> <span class="n">_cw</span><span class="p">[</span><span class="s2">&quot;nw_source_url&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">n_unique</span><span class="p">()</span>
+<span class="n">_nw_match_rate</span> <span class="o">=</span> <span class="n">_nw_matched_urls</span> <span class="o">/</span> <span class="n">_nw_total_urls</span> <span class="o">*</span> <span class="mi">100</span>
+
+<span class="n">_rp_full</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">pl</span><span class="o">.</span><span class="n">scan_parquet</span><span class="p">(</span><span class="n">DATA_DIR</span> <span class="o">/</span> <span class="s2">&quot;ravenpack_djpr.parquet&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;timestamp_utc&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">Date</span><span class="p">)</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">))</span>
+    <span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">_cw</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">_cw</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;rp_story_id&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">_rp_total_stories</span> <span class="o">=</span> <span class="n">_rp_full</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;rp_story_id&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">n_unique</span><span class="p">())</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+<span class="n">_rp_matched_stories</span> <span class="o">=</span> <span class="n">_cw</span><span class="p">[</span><span class="s2">&quot;rp_story_id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">n_unique</span><span class="p">()</span>
+<span class="n">_rp_match_rate</span> <span class="o">=</span> <span class="n">_rp_matched_stories</span> <span class="o">/</span> <span class="n">_rp_total_stories</span> <span class="o">*</span> <span class="mi">100</span>
+
+<span class="n">pl</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;metric&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;RP headlines matched&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;NW headlines matched&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Crosswalk pairs&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Date range&quot;</span><span class="p">,</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">_rp_match_rate</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">% (</span><span class="si">{</span><span class="n">_rp_matched_stories</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> / </span><span class="si">{</span><span class="n">_rp_total_stories</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">_nw_match_rate</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">% (</span><span class="si">{</span><span class="n">_nw_matched_urls</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> / </span><span class="si">{</span><span class="n">_nw_total_urls</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">_cw</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">_cw</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">_cw</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">_cw</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">n_unique</span><span class="p">()</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> dates)&quot;</span><span class="p">,</span>
+    <span class="p">],</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/homebrew/Caskroom/mambaforge/base/lib/python3.10/site-packages/google/api_core/_python_version_support.py:275: FutureWarning: You are using a Python version (3.10.14) which Google will stop supporting in new releases of google.api_core once it reaches its end of life (2026-10-04). Please upgrade to the latest Python version, or at least Python 3.11, to continue receiving updates for google.api_core past that date.
+  warnings.warn(message, FutureWarning)
+</pre></div>
+</div>
+<div class="output text_html"><div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (4, 2)</small><table border="1" class="dataframe"><thead><tr><th>metric</th><th>value</th></tr><tr><td>str</td><td>str</td></tr></thead><tbody><tr><td>&quot;RP headlines matched&quot;</td><td>&quot;2.9% (509,932 / 17,636,011)&quot;</td></tr><tr><td>&quot;NW headlines matched&quot;</td><td>&quot;22.5% (532,609 / 2,363,887)&quot;</td></tr><tr><td>&quot;Crosswalk pairs&quot;</td><td>&quot;533,265&quot;</td></tr><tr><td>&quot;Date range&quot;</td><td>&quot;2010-03-18 to 2026-02-28 (3,83…</td></tr></tbody></table></div></div></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="ravenpack-ravenpack-djpr-parquet">
+<h2>1. RavenPack — <code class="docutils literal notranslate"><span class="pre">ravenpack_djpr.parquet</span></code><a class="headerlink" href="#ravenpack-ravenpack-djpr-parquet" title="Link to this heading">#</a></h2>
+<p>Source script: <code class="docutils literal notranslate"><span class="pre">pull_ravenpack.py</span></code></p>
+<p>One row per news article / entity event from the RavenPack Dow Jones Press
+Release feed. Filtered for US companies (<code class="docutils literal notranslate"><span class="pre">country_code='US'</span></code>),
+high relevance (<span class="math notranslate nohighlight">\(\geq 90\)</span>), and single-firm stories only.</p>
+<p>RavenPack’s strengths: curated entity matching, sentiment scores, and
+topic classification. Its content is <strong>~95% wire services</strong> (Dow Jones,
+PR Newswire, Business Wire, GlobeNewswire). The limitation: headline
+text cannot be uploaded to LLMs under RavenPack’s terms of use.</p>
+<p><strong>Key columns:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Column</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">timestamp_utc</span></code></p></td>
+<td><p>Publication timestamp (UTC)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">rp_entity_id</span></code></p></td>
+<td><p>RavenPack entity identifier</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">entity_name</span></code></p></td>
+<td><p>Company name</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">headline</span></code></p></td>
+<td><p>Article headline text</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">event_sentiment_score</span></code></p></td>
+<td><p>Sentiment score (−1 to +1)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">css</span></code></p></td>
+<td><p>Composite Sentiment Score (0–100)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">relevance</span></code></p></td>
+<td><p>Entity relevance to the article (0–100)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">topic</span></code></p></td>
+<td><p>RavenPack topic classification</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">news_type</span></code></p></td>
+<td><p>News type (e.g. press-release, article)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">source_name</span></code></p></td>
+<td><p>Name of the news source</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rp</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">scan_parquet</span><span class="p">(</span><span class="n">DATA_DIR</span> <span class="o">/</span> <span class="s2">&quot;ravenpack_djpr.parquet&quot;</span><span class="p">)</span>
+<span class="n">n_rows</span> <span class="o">=</span> <span class="n">rp</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">len</span><span class="p">())</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+<span class="n">cols</span> <span class="o">=</span> <span class="n">rp</span><span class="o">.</span><span class="n">collect_schema</span><span class="p">()</span><span class="o">.</span><span class="n">names</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Rows: </span><span class="si">{</span><span class="n">n_rows</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">  |  Columns: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Column names: </span><span class="si">{</span><span class="n">cols</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rows: 40,175,083  |  Columns: 25
+Column names: [&#39;timestamp_utc&#39;, &#39;rp_story_id&#39;, &#39;rp_entity_id&#39;, &#39;entity_type&#39;, &#39;entity_name&#39;, &#39;country_code&#39;, &#39;relevance&#39;, &#39;event_sentiment_score&#39;, &#39;event_relevance&#39;, &#39;event_similarity_key&#39;, &#39;event_similarity_days&#39;, &#39;topic&#39;, &#39;rp_group&#39;, &#39;rp_type&#39;, &#39;sub_type&#39;, &#39;property&#39;, &#39;fact_level&#39;, &#39;category&#39;, &#39;news_type&#39;, &#39;rp_source_id&#39;, &#39;source_name&#39;, &#39;provider_id&#39;, &#39;provider_story_id&#39;, &#39;headline&#39;, &#39;css&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<section id="example-rows">
+<h3>Example rows<a class="headerlink" href="#example-rows" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rp</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (5, 25)</small><table border="1" class="dataframe"><thead><tr><th>timestamp_utc</th><th>rp_story_id</th><th>rp_entity_id</th><th>entity_type</th><th>entity_name</th><th>country_code</th><th>relevance</th><th>event_sentiment_score</th><th>event_relevance</th><th>event_similarity_key</th><th>event_similarity_days</th><th>topic</th><th>rp_group</th><th>rp_type</th><th>sub_type</th><th>property</th><th>fact_level</th><th>category</th><th>news_type</th><th>rp_source_id</th><th>source_name</th><th>provider_id</th><th>provider_story_id</th><th>headline</th><th>css</th></tr><tr><td>datetime[ns]</td><td>str</td><td>str</td><td>str</td><td>str</td><td>str</td><td>f64</td><td>f64</td><td>f64</td><td>str</td><td>f64</td><td>str</td><td>str</td><td>str</td><td>str</td><td>str</td><td>str</td><td>str</td><td>str</td><td>str</td><td>str</td><td>str</td><td>str</td><td>str</td><td>f64</td></tr></thead><tbody><tr><td>2000-01-01 17:52:28</td><td>&quot;52D513EA9040443376A6B1747B0FA8…</td><td>&quot;047E26&quot;</td><td>&quot;COMP&quot;</td><td>&quot;Sprint Corp.&quot;</td><td>&quot;US&quot;</td><td>92.0</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>&quot;FULL-ARTICLE&quot;</td><td>&quot;B5569E&quot;</td><td>&quot;Dow Jones Newswires&quot;</td><td>&quot;DJ&quot;</td><td>&quot;DN20000101000112&quot;</td><td>&quot;Sprint Says No Y2K Rollover Pr…</td><td>-0.06</td></tr><tr><td>2000-01-04 16:20:09</td><td>&quot;EBA7EA21C1F4C4E3DAB00078A0158F…</td><td>&quot;619882&quot;</td><td>&quot;COMP&quot;</td><td>&quot;JPMorgan Chase &amp; Co.&quot;</td><td>&quot;US&quot;</td><td>91.0</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>&quot;TABULAR-MATERIAL&quot;</td><td>&quot;B5569E&quot;</td><td>&quot;Dow Jones Newswires&quot;</td><td>&quot;DJ&quot;</td><td>&quot;DN20000104001275&quot;</td><td>&quot;Chase Manhattan (CMB) Block: 2…</td><td>0.0</td></tr><tr><td>2000-01-04 17:09:31</td><td>&quot;35BAA12B8E5A3EFF50C5D677F53101…</td><td>&quot;619882&quot;</td><td>&quot;COMP&quot;</td><td>&quot;JPMorgan Chase &amp; Co.&quot;</td><td>&quot;US&quot;</td><td>90.0</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>&quot;NEWS-FLASH&quot;</td><td>&quot;B5569E&quot;</td><td>&quot;Dow Jones Newswires&quot;</td><td>&quot;DJ&quot;</td><td>&quot;DN20000104001590&quot;</td><td>&quot;Chase H&amp;Q Starts MotherNature.…</td><td>0.06</td></tr><tr><td>2000-01-04 18:16:36</td><td>&quot;0AA17F1E569B8DEECBD24539957F89…</td><td>&quot;619882&quot;</td><td>&quot;COMP&quot;</td><td>&quot;JPMorgan Chase &amp; Co.&quot;</td><td>&quot;US&quot;</td><td>92.0</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>&quot;TABULAR-MATERIAL&quot;</td><td>&quot;B5569E&quot;</td><td>&quot;Dow Jones Newswires&quot;</td><td>&quot;DJ&quot;</td><td>&quot;DN20000104001889&quot;</td><td>&quot;FHLB $200M 2-Yr Taps Via J.P. …</td><td>0.0</td></tr><tr><td>2000-01-04 19:14:26</td><td>&quot;97B979351D2EE5CF60063AA2F780ED…</td><td>&quot;619882&quot;</td><td>&quot;COMP&quot;</td><td>&quot;JPMorgan Chase &amp; Co.&quot;</td><td>&quot;US&quot;</td><td>91.0</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>&quot;FULL-ARTICLE&quot;</td><td>&quot;B5569E&quot;</td><td>&quot;Dow Jones Newswires&quot;</td><td>&quot;DJ&quot;</td><td>&quot;DN20000104002192&quot;</td><td>&quot;J. P. Morgan Trade Weighted Ef…</td><td>0.0</td></tr></tbody></table></div></div></div>
+</div>
+</section>
+<section id="date-range">
+<h3>Date range<a class="headerlink" href="#date-range" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rp</span><span class="o">.</span><span class="n">select</span><span class="p">(</span>
+    <span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;timestamp_utc&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s2">&quot;earliest&quot;</span><span class="p">),</span>
+    <span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;timestamp_utc&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s2">&quot;latest&quot;</span><span class="p">),</span>
+<span class="p">)</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (1, 2)</small><table border="1" class="dataframe"><thead><tr><th>earliest</th><th>latest</th></tr><tr><td>datetime[ns]</td><td>datetime[ns]</td></tr></thead><tbody><tr><td>2000-01-01 00:24:51</td><td>2026-02-28 23:19:01.856</td></tr></tbody></table></div></div></div>
+</div>
+</section>
+<section id="articles-per-month">
+<h3>Articles per month<a class="headerlink" href="#articles-per-month" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rp_monthly</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">rp</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;timestamp_utc&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">Date</span><span class="p">)</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">))</span>
+    <span class="o">.</span><span class="n">group_by</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">truncate</span><span class="p">(</span><span class="s2">&quot;1mo&quot;</span><span class="p">))</span>
+    <span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">len</span><span class="p">()</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s2">&quot;n_articles&quot;</span><span class="p">))</span>
+    <span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span>
+    <span class="n">rp_monthly</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_list</span><span class="p">(),</span>
+    <span class="n">rp_monthly</span><span class="p">[</span><span class="s2">&quot;n_articles&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_list</span><span class="p">(),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;steelblue&quot;</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">mdates</span><span class="o">.</span><span class="n">YearLocator</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">mdates</span><span class="o">.</span><span class="n">DateFormatter</span><span class="p">(</span><span class="s2">&quot;%Y&quot;</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Articles&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;RavenPack DJPR — articles per month&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/6c91073bbb91cbcfaf57bd692f727c01e1e49421bd22d8689af45a2d499ad6f8.png" src="../_images/6c91073bbb91cbcfaf57bd692f727c01e1e49421bd22d8689af45a2d499ad6f8.png" />
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="s-p-500-constituents-sp500-constituents-parquet">
+<h2>2. S&amp;P 500 Constituents — <code class="docutils literal notranslate"><span class="pre">sp500_constituents.parquet</span></code><a class="headerlink" href="#s-p-500-constituents-sp500-constituents-parquet" title="Link to this heading">#</a></h2>
+<p>Source script: <code class="docutils literal notranslate"><span class="pre">pull_sp500_constituents.py</span></code></p>
+<p>Historical membership list of the S&amp;P 500 index from CRSP
+(<code class="docutils literal notranslate"><span class="pre">crsp_m_indexes.dsp500list_v2</span></code>). Each row is one membership spell
+for a single PERMNO — i.e. the period during which a stock was part
+of the index.</p>
+<p><strong>Key columns:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Column</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">permno</span></code></p></td>
+<td><p>CRSP permanent security identifier</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mbrstartdt</span></code></p></td>
+<td><p>Date the stock entered the S&amp;P 500 (inclusive)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mbrenddt</span></code></p></td>
+<td><p>Date the stock exited the S&amp;P 500 (exclusive)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">indno</span></code></p></td>
+<td><p>Index identifier</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mbrflg</span></code></p></td>
+<td><p>Membership flag</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sp</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">scan_parquet</span><span class="p">(</span><span class="n">DATA_DIR</span> <span class="o">/</span> <span class="s2">&quot;sp500_constituents.parquet&quot;</span><span class="p">)</span>
+<span class="n">n_rows_sp</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">len</span><span class="p">())</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+<span class="n">cols_sp</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">collect_schema</span><span class="p">()</span><span class="o">.</span><span class="n">names</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Rows: </span><span class="si">{</span><span class="n">n_rows_sp</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">  |  Columns: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">cols_sp</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Column names: </span><span class="si">{</span><span class="n">cols_sp</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rows: 8,284  |  Columns: 13
+Column names: [&#39;permno&#39;, &#39;indno&#39;, &#39;mbrstartdt&#39;, &#39;mbrenddt&#39;, &#39;mbrflg&#39;, &#39;indfam&#39;, &#39;comnam&#39;, &#39;ticker&#39;, &#39;ncusip&#39;, &#39;namedt&#39;, &#39;nameenddt&#39;, &#39;siccd&#39;, &#39;exchcd&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id1">
+<h3>Example rows<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sp</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (5, 13)</small><table border="1" class="dataframe"><thead><tr><th>permno</th><th>indno</th><th>mbrstartdt</th><th>mbrenddt</th><th>mbrflg</th><th>indfam</th><th>comnam</th><th>ticker</th><th>ncusip</th><th>namedt</th><th>nameenddt</th><th>siccd</th><th>exchcd</th></tr><tr><td>i64</td><td>i64</td><td>datetime[ns]</td><td>datetime[ns]</td><td>str</td><td>i64</td><td>str</td><td>str</td><td>str</td><td>datetime[ns]</td><td>datetime[ns]</td><td>i64</td><td>i64</td></tr></thead><tbody><tr><td>10006</td><td>1000500</td><td>1957-03-01 00:00:00</td><td>1984-07-18 00:00:00</td><td>&quot;NORM&quot;</td><td>1100500</td><td>&quot;AMERICAN CAR &amp; FDRY CO&quot;</td><td>null</td><td>null</td><td>1925-12-31 00:00:00</td><td>1954-05-31 00:00:00</td><td>3740</td><td>1</td></tr><tr><td>10006</td><td>1000500</td><td>1957-03-01 00:00:00</td><td>1984-07-18 00:00:00</td><td>&quot;NORM&quot;</td><td>1100500</td><td>&quot;A C F INDUSTRIES INC&quot;</td><td>null</td><td>null</td><td>1954-06-01 00:00:00</td><td>1962-07-01 00:00:00</td><td>3740</td><td>1</td></tr><tr><td>10006</td><td>1000500</td><td>1957-03-01 00:00:00</td><td>1984-07-18 00:00:00</td><td>&quot;NORM&quot;</td><td>1100500</td><td>&quot;A C F INDUSTRIES INC&quot;</td><td>&quot;ACF&quot;</td><td>null</td><td>1962-07-02 00:00:00</td><td>1968-01-01 00:00:00</td><td>3743</td><td>1</td></tr><tr><td>10006</td><td>1000500</td><td>1957-03-01 00:00:00</td><td>1984-07-18 00:00:00</td><td>&quot;NORM&quot;</td><td>1100500</td><td>&quot;A C F INDUSTRIES INC&quot;</td><td>&quot;ACF&quot;</td><td>&quot;00080010&quot;</td><td>1968-01-02 00:00:00</td><td>1984-06-28 00:00:00</td><td>3743</td><td>1</td></tr><tr><td>10030</td><td>1000500</td><td>1957-03-01 00:00:00</td><td>1969-01-08 00:00:00</td><td>&quot;NORM&quot;</td><td>1100500</td><td>&quot;AMERICAN BRAKE SHOE &amp; FDRY&quot;</td><td>null</td><td>null</td><td>1925-12-31 00:00:00</td><td>1943-04-26 00:00:00</td><td>3310</td><td>1</td></tr></tbody></table></div></div></div>
+</div>
+</section>
+<section id="membership-date-range">
+<h3>Membership date range<a class="headerlink" href="#membership-date-range" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sp</span><span class="o">.</span><span class="n">select</span><span class="p">(</span>
+    <span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;mbrstartdt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s2">&quot;earliest_start&quot;</span><span class="p">),</span>
+    <span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;mbrstartdt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s2">&quot;latest_start&quot;</span><span class="p">),</span>
+    <span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;mbrenddt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s2">&quot;earliest_end&quot;</span><span class="p">),</span>
+    <span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;mbrenddt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s2">&quot;latest_end&quot;</span><span class="p">),</span>
+<span class="p">)</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (1, 4)</small><table border="1" class="dataframe"><thead><tr><th>earliest_start</th><th>latest_start</th><th>earliest_end</th><th>latest_end</th></tr><tr><td>datetime[ns]</td><td>datetime[ns]</td><td>datetime[ns]</td><td>datetime[ns]</td></tr></thead><tbody><tr><td>1925-12-31 00:00:00</td><td>2026-02-09 00:00:00</td><td>1928-08-24 00:00:00</td><td>2026-02-27 00:00:00</td></tr></tbody></table></div></div></div>
+</div>
+</section>
+<section id="unique-constituents-over-full-history">
+<h3>Unique constituents over full history<a class="headerlink" href="#unique-constituents-over-full-history" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">n_unique</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;permno&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">n_unique</span><span class="p">())</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Distinct PERMNOs that have ever been in the S&amp;P 500: </span><span class="si">{</span><span class="n">n_unique</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Distinct PERMNOs that have ever been in the S&amp;P 500: 1,956
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="gdelt-s-p-500-gdelt-sp500-headlines">
+<h2>3. GDELT S&amp;P 500 — <code class="docutils literal notranslate"><span class="pre">gdelt_sp500_headlines/</span></code><a class="headerlink" href="#gdelt-s-p-500-gdelt-sp500-headlines" title="Link to this heading">#</a></h2>
+<p>Source script: <code class="docutils literal notranslate"><span class="pre">pull_gdelt_sp500_headlines.py</span></code></p>
+<p>Page-title headlines extracted from GDELT’s Global Knowledge Graph 2.0,
+filtered server-side in BigQuery to articles mentioning S&amp;P 500 companies.
+Stored as a Hive-partitioned data lake (<code class="docutils literal notranslate"><span class="pre">year=YYYY/month=MM/data.parquet</span></code>).</p>
+<p>GDELT is <strong>free and massive</strong> (~400k articles/day), but its content comes
+from the <strong>open web</strong> — blogs, aggregators, regional news — not the wire
+services that dominate RavenPack. This means fuzzy-match overlap with
+RavenPack is low (~7%). The false-positive problem and filtering quality
+are explored in notebook 02. We will use GDELT in more depth in a
+separate project.</p>
+<p><strong>Key columns:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Column</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">gkg_date</span></code></p></td>
+<td><p>GKG record timestamp</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">source_url</span></code></p></td>
+<td><p>Full URL of the source article</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">source_name</span></code></p></td>
+<td><p>Domain / common name of the news source</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">headline</span></code></p></td>
+<td><p>Page title extracted from <code class="docutils literal notranslate"><span class="pre">&lt;PAGE_TITLE&gt;</span></code> tags</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">matched_company</span></code></p></td>
+<td><p>S&amp;P 500 company name matched via V2Organizations</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">permno</span></code></p></td>
+<td><p>CRSP permanent security identifier</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ticker</span></code></p></td>
+<td><p>Stock ticker symbol</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pull_gdelt_sp500_headlines</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">SAMPLE_MONTH</span><span class="p">,</span>
+    <span class="n">filter_to_month</span><span class="p">,</span>
+    <span class="n">load_gdelt_sp500_headlines</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">gd</span> <span class="o">=</span> <span class="n">filter_to_month</span><span class="p">(</span><span class="n">load_gdelt_sp500_headlines</span><span class="p">(),</span> <span class="n">SAMPLE_MONTH</span><span class="p">)</span>
+<span class="n">n_rows_gd</span> <span class="o">=</span> <span class="n">gd</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">len</span><span class="p">())</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+<span class="n">cols_gd</span> <span class="o">=</span> <span class="n">gd</span><span class="o">.</span><span class="n">collect_schema</span><span class="p">()</span><span class="o">.</span><span class="n">names</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Rows: </span><span class="si">{</span><span class="n">n_rows_gd</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">  |  Columns: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">cols_gd</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Column names: </span><span class="si">{</span><span class="n">cols_gd</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rows: 447,910  |  Columns: 12
+Column names: [&#39;gkg_date&#39;, &#39;source_url&#39;, &#39;source_name&#39;, &#39;V2Tone&#39;, &#39;V2Organizations&#39;, &#39;matched_org_raw&#39;, &#39;matched_company&#39;, &#39;permno&#39;, &#39;ticker&#39;, &#39;headline&#39;, &#39;year&#39;, &#39;month&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id2">
+<h3>Example rows<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">gd</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (5, 12)</small><table border="1" class="dataframe"><thead><tr><th>gkg_date</th><th>source_url</th><th>source_name</th><th>V2Tone</th><th>V2Organizations</th><th>matched_org_raw</th><th>matched_company</th><th>permno</th><th>ticker</th><th>headline</th><th>year</th><th>month</th></tr><tr><td>datetime[μs, UTC]</td><td>str</td><td>str</td><td>str</td><td>str</td><td>str</td><td>str</td><td>i64</td><td>str</td><td>str</td><td>i64</td><td>i64</td></tr></thead><tbody><tr><td>2025-01-27 18:15:00 UTC</td><td>&quot;https://marxist.com/trump-and-…</td><td>&quot;marxist.com&quot;</td><td>&quot;-3.68271954674221,2.5091056252…</td><td>&quot;Flickr,13421;United States,226…</td><td>&quot;United States&quot;</td><td>&quot;UNITED STATES BANCORP&quot;</td><td>78968</td><td>&quot;USBC&quot;</td><td>&quot;Trump and Starmer: America Fir…</td><td>2025</td><td>1</td></tr><tr><td>2025-01-28 02:15:00 UTC</td><td>&quot;https://abc7.com/post/police-r…</td><td>&quot;abc7.com&quot;</td><td>&quot;-4.13533834586466,0.3759398496…</td><td>&quot;Union Pacific,1130;Union Pacif…</td><td>&quot;Union Pacific&quot;</td><td>&quot;UNION PACIFIC CORP&quot;</td><td>48725</td><td>&quot;UNP&quot;</td><td>&quot;Police respond to mystery behi…</td><td>2025</td><td>1</td></tr><tr><td>2025-01-28 12:15:00 UTC</td><td>&quot;https://english.aawsat.com/tec…</td><td>&quot;aawsat.com&quot;</td><td>&quot;0.126103404791929,4.5397225725…</td><td>&quot;Nvidia,747;Nvidia,878;Nvidia,3…</td><td>&quot;Microsoft&quot;</td><td>&quot;MICROSOFT CORP&quot;</td><td>10107</td><td>&quot;MSFT&quot;</td><td>&quot;Trump Warns of &#x27;Wake-up Call&#x27; …</td><td>2025</td><td>1</td></tr><tr><td>2025-01-06 13:00:00 UTC</td><td>&quot;https://finance.yahoo.com/rese…</td><td>&quot;yahoo.com&quot;</td><td>&quot;0.894854586129754,2.2371364653…</td><td>&quot;Albertsons,2364;National Day O…</td><td>&quot;Albertsons&quot;</td><td>&quot;ALBERTSONS INC&quot;</td><td>50032</td><td>&quot;ABS&quot;</td><td>&quot;Netflix, Inc. (NFLX) Stock For…</td><td>2025</td><td>1</td></tr><tr><td>2025-01-01 19:15:00 UTC</td><td>&quot;https://www.postandcourier.com…</td><td>&quot;postandcourier.com&quot;</td><td>&quot;4.77941176470588,5.88235294117…</td><td>&quot;Facebook,1557&quot;</td><td>&quot;Facebook&quot;</td><td>&quot;FACEBOOK INC&quot;</td><td>13407</td><td>&quot;FB&quot;</td><td>&quot;American Pickers to film in So…</td><td>2025</td><td>1</td></tr></tbody></table></div></div></div>
+</div>
+</section>
+<section id="id3">
+<h3>Date range<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">gd</span><span class="o">.</span><span class="n">select</span><span class="p">(</span>
+    <span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;gkg_date&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s2">&quot;earliest&quot;</span><span class="p">),</span>
+    <span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;gkg_date&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s2">&quot;latest&quot;</span><span class="p">),</span>
+<span class="p">)</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (1, 2)</small><table border="1" class="dataframe"><thead><tr><th>earliest</th><th>latest</th></tr><tr><td>datetime[μs, UTC]</td><td>datetime[μs, UTC]</td></tr></thead><tbody><tr><td>2025-01-01 00:00:00 UTC</td><td>2025-01-31 23:45:00 UTC</td></tr></tbody></table></div></div></div>
+</div>
+</section>
+<section id="headlines-per-day">
+<h3>Headlines per day<a class="headerlink" href="#headlines-per-day" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">gd_collected</span> <span class="o">=</span> <span class="n">gd</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+<span class="n">gd_daily</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">gd_collected</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;gkg_date&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">Date</span><span class="p">)</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">))</span>
+    <span class="o">.</span><span class="n">group_by</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">len</span><span class="p">()</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s2">&quot;n_headlines&quot;</span><span class="p">))</span>
+    <span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span>
+    <span class="n">gd_daily</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_list</span><span class="p">(),</span>
+    <span class="n">gd_daily</span><span class="p">[</span><span class="s2">&quot;n_headlines&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_list</span><span class="p">(),</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;darkorange&quot;</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">mdates</span><span class="o">.</span><span class="n">DateFormatter</span><span class="p">(</span><span class="s2">&quot;%b </span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Headlines&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;GDELT S&amp;P 500 sample (</span><span class="si">{</span><span class="n">SAMPLE_MONTH</span><span class="si">}</span><span class="s2">) — headlines per day&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/d133a0b75f856f33f4dc8e688ffc23bcdc9cac1e7779dc61bc2594b878c59b72.png" src="../_images/d133a0b75f856f33f4dc8e688ffc23bcdc9cac1e7779dc61bc2594b878c59b72.png" />
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="free-newswires-newswire-headlines">
+<h2>4. Free Newswires — <code class="docutils literal notranslate"><span class="pre">newswire_headlines/</span></code><a class="headerlink" href="#free-newswires-newswire-headlines" title="Link to this heading">#</a></h2>
+<p>Source script: <code class="docutils literal notranslate"><span class="pre">pull_free_newswires.py</span></code></p>
+<p>Press release headlines scraped from PR Newswire via sitemap crawling,
+then filtered locally to S&amp;P 500 companies using normalized company
+name substring matching.</p>
+<p>These are the <strong>same wire services that RavenPack draws from</strong>, scraped
+directly from their public-facing websites. This makes scraped newswires
+the <strong>primary headline source</strong> for matching to RavenPack — because
+the underlying press releases are identical, fuzzy-match rates are much
+higher than with GDELT.</p>
+<p><strong>Key columns:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Column</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">date</span></code></p></td>
+<td><p>Publication date (YYYY-MM-DD)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">headline</span></code></p></td>
+<td><p>Press release headline text</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">source_url</span></code></p></td>
+<td><p>Full URL of the press release</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">source_name</span></code></p></td>
+<td><p>Wire service name (PR Newswire)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">matched_company</span></code></p></td>
+<td><p>S&amp;P 500 company name matched via substring</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">permno</span></code></p></td>
+<td><p>CRSP permanent security identifier</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ticker</span></code></p></td>
+<td><p>Stock ticker symbol</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pull_free_newswires</span> <span class="kn">import</span> <span class="n">load_newswire_headlines</span>
+<span class="kn">from</span> <span class="nn">pull_sp500_constituents</span> <span class="kn">import</span> <span class="n">load_sp500_names_lookup</span><span class="p">,</span> <span class="n">normalize_company_name</span>
+
+<span class="n">raw</span> <span class="o">=</span> <span class="n">load_newswire_headlines</span><span class="p">()</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+
+<span class="c1"># Map Hive partition key to human-readable source name</span>
+<span class="k">if</span> <span class="s2">&quot;source&quot;</span> <span class="ow">in</span> <span class="n">raw</span><span class="o">.</span><span class="n">columns</span> <span class="ow">and</span> <span class="s2">&quot;source_name&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">raw</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="n">source_map</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;prnewswire&quot;</span><span class="p">:</span> <span class="s2">&quot;PR Newswire&quot;</span><span class="p">}</span>
+    <span class="n">raw</span> <span class="o">=</span> <span class="n">raw</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
+        <span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;source&quot;</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">replace_strict</span><span class="p">(</span><span class="n">source_map</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;Unknown&quot;</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s2">&quot;source_name&quot;</span><span class="p">)</span>
+    <span class="p">)</span>
+
+<span class="c1"># Filter to S&amp;P 500 companies via normalized name matching</span>
+<span class="n">lookup</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">from_pandas</span><span class="p">(</span><span class="n">load_sp500_names_lookup</span><span class="p">())</span>
+<span class="n">names</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">lookup</span><span class="p">[</span><span class="s2">&quot;comnam_norm&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span> <span class="k">if</span> <span class="n">n</span><span class="p">],</span> <span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+<span class="n">pattern</span> <span class="o">=</span> <span class="s2">&quot;(&quot;</span> <span class="o">+</span> <span class="s2">&quot;|&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">names</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;)&quot;</span>
+
+<span class="n">raw</span> <span class="o">=</span> <span class="n">raw</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
+    <span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;headline&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">map_elements</span><span class="p">(</span><span class="n">normalize_company_name</span><span class="p">,</span> <span class="n">return_dtype</span><span class="o">=</span><span class="n">pl</span><span class="o">.</span><span class="n">Utf8</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s2">&quot;headline_norm&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">nw</span> <span class="o">=</span> <span class="n">raw</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;headline_norm&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="n">pattern</span><span class="p">))</span>
+<span class="n">nw</span> <span class="o">=</span> <span class="n">nw</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
+    <span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;headline_norm&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">group_index</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s2">&quot;matched_norm&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">lookup_dedup</span> <span class="o">=</span> <span class="n">lookup</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;comnam_norm&quot;</span><span class="p">,</span> <span class="s2">&quot;comnam&quot;</span><span class="p">,</span> <span class="s2">&quot;permno&quot;</span><span class="p">,</span> <span class="s2">&quot;ticker&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span>
+    <span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;comnam_norm&quot;</span><span class="p">],</span> <span class="n">keep</span><span class="o">=</span><span class="s2">&quot;first&quot;</span>
+<span class="p">)</span>
+<span class="n">nw</span> <span class="o">=</span> <span class="n">nw</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+    <span class="n">lookup_dedup</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s2">&quot;matched_norm&quot;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s2">&quot;comnam_norm&quot;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span><span class="s2">&quot;comnam&quot;</span><span class="p">:</span> <span class="s2">&quot;matched_company&quot;</span><span class="p">})</span>
+<span class="n">nw</span> <span class="o">=</span> <span class="n">nw</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;headline_norm&quot;</span><span class="p">,</span> <span class="s2">&quot;matched_norm&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lazy</span><span class="p">()</span>
+
+<span class="n">n_rows_nw</span> <span class="o">=</span> <span class="n">nw</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">len</span><span class="p">())</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+<span class="n">cols_nw</span> <span class="o">=</span> <span class="n">nw</span><span class="o">.</span><span class="n">collect_schema</span><span class="p">()</span><span class="o">.</span><span class="n">names</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Rows: </span><span class="si">{</span><span class="n">n_rows_nw</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">  |  Columns: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">cols_nw</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Column names: </span><span class="si">{</span><span class="n">cols_nw</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rows: 766,587  |  Columns: 11
+Column names: [&#39;headline&#39;, &#39;source_url&#39;, &#39;date&#39;, &#39;source&#39;, &#39;year&#39;, &#39;month&#39;, &#39;day&#39;, &#39;source_name&#39;, &#39;matched_company&#39;, &#39;permno&#39;, &#39;ticker&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id4">
+<h3>Example rows<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nw</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (5, 11)</small><table border="1" class="dataframe"><thead><tr><th>headline</th><th>source_url</th><th>date</th><th>source</th><th>year</th><th>month</th><th>day</th><th>source_name</th><th>matched_company</th><th>permno</th><th>ticker</th></tr><tr><td>str</td><td>str</td><td>str</td><td>str</td><td>i64</td><td>i64</td><td>i64</td><td>str</td><td>str</td><td>i64</td><td>str</td></tr></thead><tbody><tr><td>&quot;Brookfield Property Partners C…</td><td>&quot;https://www.globenewswire.com/…</td><td>&quot;2026-02-27&quot;</td><td>&quot;globenewswire&quot;</td><td>2026</td><td>2</td><td>27</td><td>&quot;Unknown&quot;</td><td>&quot;ROPER CORP&quot;</td><td>20343</td><td>&quot;ROP&quot;</td></tr><tr><td>&quot;BBWI FINAL DEADLINE: ROSEN, A …</td><td>&quot;https://www.globenewswire.com/…</td><td>&quot;2026-02-27&quot;</td><td>&quot;globenewswire&quot;</td><td>2026</td><td>2</td><td>27</td><td>&quot;Unknown&quot;</td><td>&quot;BATH &amp; BODY WORKS INC&quot;</td><td>64282</td><td>&quot;BBWI&quot;</td></tr><tr><td>&quot;ROSEN, A LEADING NATIONAL FIRM…</td><td>&quot;https://www.globenewswire.com/…</td><td>&quot;2026-02-27&quot;</td><td>&quot;globenewswire&quot;</td><td>2026</td><td>2</td><td>27</td><td>&quot;Unknown&quot;</td><td>&quot;NATIONAL SYSTEMS CORP&quot;</td><td>47028</td><td>&quot;NSY&quot;</td></tr><tr><td>&quot;NASDAQ: CVLT Investigation Ale…</td><td>&quot;https://www.globenewswire.com/…</td><td>&quot;2026-02-27&quot;</td><td>&quot;globenewswire&quot;</td><td>2026</td><td>2</td><td>27</td><td>&quot;Unknown&quot;</td><td>&quot;NASDAQ INC&quot;</td><td>90601</td><td>&quot;NDAQ&quot;</td></tr><tr><td>&quot;Sanford Heisler Sharp McKnight…</td><td>&quot;https://www.globenewswire.com/…</td><td>&quot;2026-02-27&quot;</td><td>&quot;globenewswire&quot;</td><td>2026</td><td>2</td><td>27</td><td>&quot;Unknown&quot;</td><td>&quot;COMPASS BANCSHARES INC&quot;</td><td>22032</td><td>&quot;CBSS&quot;</td></tr></tbody></table></div></div></div>
+</div>
+</section>
+<section id="full-headline-examples">
+<h3>Full headline examples<a class="headerlink" href="#full-headline-examples" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">nw</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;headline&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="o">.</span><span class="n">collect</span><span class="p">()[</span><span class="s2">&quot;headline&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_list</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  • </span><span class="si">{</span><span class="n">h</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  • Brookfield Property Partners Completes 2025 Annual Filings
+  • BBWI FINAL DEADLINE: ROSEN, A GLOBAL AND LEADING LAW FIRM, Encourages Bath &amp; Body Works, Inc. Investors to Secure Counsel Before Important Deadline in Securities Class Action - BBWI
+  • ROSEN, A LEADING NATIONAL FIRM, Encourages Franklin BSP Realty Trust, Inc. Investors to Secure Counsel Before Important Deadline in Securities Class Action – FBRT
+  • NASDAQ: CVLT Investigation Alert: Kessler Topaz Meltzer &amp; Check, LLP Encourages Commvault Systems, Inc. (NASDAQ: CVLT) Investors to Contact the Firm
+  • Sanford Heisler Sharp McKnight Secures Compassionate Release for Richard Brown in 1988 Kansas City Fire Case
+  • ROSEN, A TRUSTED AND LEADING LAW FIRM, Encourages Richtech Robotics Inc. Investors to Secure Counsel Before Important Deadline in Securities Class Action First Filed by the Firm – RR
+  • J. August to Reopen in Harvard Square
+  • Nordic Naturals and Kate Turner Discuss Why More Than 80% of Americans Are Falling Short on Omega-3s with YourUpdateTV
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="newswireravenpack-crosswalk-newswire-ravenpack-crosswalk-parquet">
+<h2>5. Newswire–RavenPack Crosswalk — <code class="docutils literal notranslate"><span class="pre">newswire_ravenpack_crosswalk.parquet</span></code><a class="headerlink" href="#newswireravenpack-crosswalk-newswire-ravenpack-crosswalk-parquet" title="Link to this heading">#</a></h2>
+<p>Source script: <code class="docutils literal notranslate"><span class="pre">create_newswire_ravenpack_crosswalk.py</span></code></p>
+<p>Fuzzy-matched bridge between free newswire headlines and RavenPack DJ Press
+Release headlines. Each row is the single best RavenPack match for a given
+newswire headline on the same calendar date, kept only when the
+<code class="docutils literal notranslate"><span class="pre">token_sort_ratio</span></code> score is <span class="math notranslate nohighlight">\(\geq 80\)</span>.</p>
+<p><strong>This is the key pipeline output.</strong> It enables enriching free newswire data
+with RavenPack’s entity identifiers and sentiment scores, without uploading
+RavenPack’s headline text to any external service.</p>
+<p><strong>Key columns:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Column</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">date</span></code></p></td>
+<td><p>Calendar date of the matched headlines</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">nw_source_url</span></code></p></td>
+<td><p>URL of the newswire press release</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">nw_headline</span></code></p></td>
+<td><p>Original headline from the newswire source</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">nw_source</span></code></p></td>
+<td><p>Wire service identifier (e.g. <code class="docutils literal notranslate"><span class="pre">prnewswire</span></code>)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">rp_story_id</span></code></p></td>
+<td><p>RavenPack unique story identifier</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">rp_entity_id</span></code></p></td>
+<td><p>RavenPack entity identifier</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">rp_entity_name</span></code></p></td>
+<td><p>Company name as recorded by RavenPack</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">rp_headline</span></code></p></td>
+<td><p>Headline text from RavenPack</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">rp_source_name</span></code></p></td>
+<td><p>News source as classified by RavenPack</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">fuzzy_score</span></code></p></td>
+<td><p>Token-sort-ratio similarity score (80–100)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cw</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">scan_parquet</span><span class="p">(</span><span class="n">DATA_DIR</span> <span class="o">/</span> <span class="s2">&quot;newswire_ravenpack_crosswalk.parquet&quot;</span><span class="p">)</span>
+<span class="n">n_rows_cw</span> <span class="o">=</span> <span class="n">cw</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">len</span><span class="p">())</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+<span class="n">cols_cw</span> <span class="o">=</span> <span class="n">cw</span><span class="o">.</span><span class="n">collect_schema</span><span class="p">()</span><span class="o">.</span><span class="n">names</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Rows: </span><span class="si">{</span><span class="n">n_rows_cw</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">  |  Columns: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">cols_cw</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Column names: </span><span class="si">{</span><span class="n">cols_cw</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rows: 533,265  |  Columns: 10
+Column names: [&#39;date&#39;, &#39;nw_source_url&#39;, &#39;nw_headline&#39;, &#39;nw_source&#39;, &#39;rp_story_id&#39;, &#39;rp_entity_id&#39;, &#39;rp_entity_name&#39;, &#39;rp_headline&#39;, &#39;rp_source_name&#39;, &#39;fuzzy_score&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id5">
+<h3>Example rows<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cw</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (5, 10)</small><table border="1" class="dataframe"><thead><tr><th>date</th><th>nw_source_url</th><th>nw_headline</th><th>nw_source</th><th>rp_story_id</th><th>rp_entity_id</th><th>rp_entity_name</th><th>rp_headline</th><th>rp_source_name</th><th>fuzzy_score</th></tr><tr><td>date</td><td>str</td><td>str</td><td>str</td><td>str</td><td>str</td><td>str</td><td>str</td><td>str</td><td>f64</td></tr></thead><tbody><tr><td>2010-03-18</td><td>&quot;https://www.prnewswire.com/new…</td><td>&quot;Bankrate: Mortgage Rates Post …</td><td>&quot;prnewswire&quot;</td><td>&quot;E64A213B99397C2294402E85A71280…</td><td>&quot;977048&quot;</td><td>&quot;Bankrate Inc.&quot;</td><td>&quot;Bankrate: Mortgage Rates Post …</td><td>&quot;PR Newswire&quot;</td><td>100.0</td></tr><tr><td>2010-09-30</td><td>&quot;https://www.prnewswire.com/new…</td><td>&quot;Miss Tina by Tina Knowles Avai…</td><td>&quot;prnewswire&quot;</td><td>&quot;334F29AA0CB6DFBA98DF2E4E284839…</td><td>&quot;713810&quot;</td><td>&quot;Wal-Mart Stores Inc.&quot;</td><td>&quot;Miss Tina by Tina Knowles Avai…</td><td>&quot;PR Newswire&quot;</td><td>100.0</td></tr><tr><td>2010-11-30</td><td>&quot;https://www.prnewswire.com/new…</td><td>&quot;Knoll to Distribute Residentia…</td><td>&quot;prnewswire&quot;</td><td>&quot;8832B211A6FA9888C74AB03871CE49…</td><td>&quot;8D4AE6&quot;</td><td>&quot;Knoll Inc.&quot;</td><td>&quot;Knoll to Distribute Residentia…</td><td>&quot;PR Newswire&quot;</td><td>100.0</td></tr><tr><td>2010-12-01</td><td>&quot;https://www.prnewswire.com/new…</td><td>&quot;Just In Time for Holiday Shopp…</td><td>&quot;prnewswire&quot;</td><td>&quot;AB5515F66A3AC06D97CC1CA144E94E…</td><td>&quot;385DD4&quot;</td><td>&quot;Marriott International Inc.&quot;</td><td>&quot;Just In Time for Holiday Shopp…</td><td>&quot;PR Newswire&quot;</td><td>100.0</td></tr><tr><td>2010-12-01</td><td>&quot;https://www.prnewswire.com/new…</td><td>&quot;Weber Shandwick President Andy…</td><td>&quot;prnewswire&quot;</td><td>&quot;7863A7BC99C352D63E49EA29B13AFB…</td><td>&quot;E30B34&quot;</td><td>&quot;Interpublic Group Of Cos. Inc.&quot;</td><td>&quot;Weber Shandwick President Andy…</td><td>&quot;PR Newswire&quot;</td><td>100.0</td></tr></tbody></table></div></div></div>
+</div>
+</section>
+<section id="id6">
+<h3>Date range<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cw</span><span class="o">.</span><span class="n">select</span><span class="p">(</span>
+    <span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s2">&quot;earliest&quot;</span><span class="p">),</span>
+    <span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s2">&quot;latest&quot;</span><span class="p">),</span>
+<span class="p">)</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (1, 2)</small><table border="1" class="dataframe"><thead><tr><th>earliest</th><th>latest</th></tr><tr><td>date</td><td>date</td></tr></thead><tbody><tr><td>2010-03-18</td><td>2026-02-28</td></tr></tbody></table></div></div></div>
+</div>
+</section>
+<section id="fuzzy-score-distribution">
+<h3>Fuzzy-score distribution<a class="headerlink" href="#fuzzy-score-distribution" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cw_collected</span> <span class="o">=</span> <span class="n">cw</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;fuzzy_score — mean: </span><span class="si">{</span><span class="n">cw_collected</span><span class="p">[</span><span class="s1">&#39;fuzzy_score&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">,  &quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;median: </span><span class="si">{</span><span class="n">cw_collected</span><span class="p">[</span><span class="s1">&#39;fuzzy_score&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">,  &quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;min: </span><span class="si">{</span><span class="n">cw_collected</span><span class="p">[</span><span class="s1">&#39;fuzzy_score&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">,  &quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;max: </span><span class="si">{</span><span class="n">cw_collected</span><span class="p">[</span><span class="s1">&#39;fuzzy_score&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">cw_collected</span><span class="p">[</span><span class="s2">&quot;fuzzy_score&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_list</span><span class="p">(),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;mediumseagreen&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Fuzzy score&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Count&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Newswire–RavenPack crosswalk — fuzzy-score distribution&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>fuzzy_score — mean: 98.8,  median: 100.0,  min: 80.0,  max: 100.0
+</pre></div>
+</div>
+<img alt="../_images/10cd2da98fb6e12592317fd294a9288c3852938f68c4bdb026012c127e5ea689.png" src="../_images/10cd2da98fb6e12592317fd294a9288c3852938f68c4bdb026012c127e5ea689.png" />
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="gdelt-vs-scraped-newswires-different-strengths">
+<h2>GDELT vs Scraped Newswires: Different Strengths<a class="headerlink" href="#gdelt-vs-scraped-newswires-different-strengths" title="Link to this heading">#</a></h2>
+<p>RavenPack’s content is <strong>~95% wire services</strong> — Dow Jones Newswires,
+PR Newswire, Business Wire, and GlobeNewswire. Scraping these wire
+services directly gives us the <strong>same underlying press releases</strong> that
+RavenPack processes, so the <strong>per-headline match rate is high</strong>.</p>
+<p>GDELT crawls the <strong>open web</strong> — Yahoo Finance, aggregator sites,
+regional news, blogs. Only <strong>~7%</strong> of GDELT’s S&amp;P 500 headlines match
+RavenPack because they draw from fundamentally different source
+ecosystems. However, GDELT’s <strong>sheer volume</strong> (hundreds of thousands
+of articles per day) compensates: despite the low per-headline match
+rate, GDELT actually covers a <strong>larger fraction of the RavenPack
+universe</strong> than newswire alone.</p>
+<p>In short: <strong>newswire matches are more precise; GDELT matches are more
+numerous.</strong> Both sources are needed for maximum RavenPack coverage.
+See notebook 03 (Crosswalk Quality) for the per-source breakdown chart.</p>
+</section>
+<hr class="docutils" />
+<section id="source-comparison">
+<h2>Source Comparison<a class="headerlink" href="#source-comparison" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>RavenPack</p></th>
+<th class="head"><p>GDELT</p></th>
+<th class="head"><p>Scraped Newswires</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Cost</strong></p></td>
+<td><p>Commercial</p></td>
+<td><p>Free (BQ scan costs)</p></td>
+<td><p>Free</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Entity tagging</strong></p></td>
+<td><p>Curated, high quality</p></td>
+<td><p>Raw NLP, noisy</p></td>
+<td><p>None (via crosswalk)</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Primary sources</strong></p></td>
+<td><p>Licensed wire services (~95%)</p></td>
+<td><p>Open web (~98%)</p></td>
+<td><p>Wire services (same as RP)</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Per-headline RP match rate</strong></p></td>
+<td><p>N/A</p></td>
+<td><p>~7% (different ecosystems)</p></td>
+<td><p>Much higher (same sources)</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>RP coverage contribution</strong></p></td>
+<td><p>N/A</p></td>
+<td><p>Larger (volume compensates)</p></td>
+<td><p>Smaller (fewer total headlines)</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>ChatGPT upload?</strong></p></td>
+<td><p>No (terms of use)</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Role in pipeline</strong></p></td>
+<td><p>Metadata reference</p></td>
+<td><p>Largest coverage contributor</p></td>
+<td><p>Higher-precision matches</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="bottom-line">
+<h2>Bottom Line<a class="headerlink" href="#bottom-line" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pl</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;metric&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;RP headlines matched&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;NW headlines matched&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Crosswalk pairs&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Date range&quot;</span><span class="p">,</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">_rp_match_rate</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">% (</span><span class="si">{</span><span class="n">_rp_matched_stories</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> / </span><span class="si">{</span><span class="n">_rp_total_stories</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">_nw_match_rate</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">% (</span><span class="si">{</span><span class="n">_nw_matched_urls</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> / </span><span class="si">{</span><span class="n">_nw_total_urls</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">_cw</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">_cw</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">_cw</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">_cw</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">n_unique</span><span class="p">()</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> dates)&quot;</span><span class="p">,</span>
+    <span class="p">],</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (4, 2)</small><table border="1" class="dataframe"><thead><tr><th>metric</th><th>value</th></tr><tr><td>str</td><td>str</td></tr></thead><tbody><tr><td>&quot;RP headlines matched&quot;</td><td>&quot;2.9% (509,932 / 17,636,011)&quot;</td></tr><tr><td>&quot;NW headlines matched&quot;</td><td>&quot;22.5% (532,609 / 2,363,887)&quot;</td></tr><tr><td>&quot;Crosswalk pairs&quot;</td><td>&quot;533,265&quot;</td></tr><tr><td>&quot;Date range&quot;</td><td>&quot;2010-03-18 to 2026-02-28 (3,83…</td></tr></tbody></table></div></div></div>
+</div>
+</section>
+</section>
+
+<div class="section ablog__blog_comments">
+   
+</div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../HW0.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Homework 0: Set Up Your Environment</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="02_gdelt_sp500_filtering_ipynb.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">GDELT Filtering &amp; Data Quality</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-this-pipeline-exists">Why This Pipeline Exists</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-result-ravenpack-headline-coverage">Key Result: RavenPack Headline Coverage</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ravenpack-ravenpack-djpr-parquet">1. RavenPack — <code class="docutils literal notranslate"><span class="pre">ravenpack_djpr.parquet</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-rows">Example rows</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#date-range">Date range</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#articles-per-month">Articles per month</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#s-p-500-constituents-sp500-constituents-parquet">2. S&amp;P 500 Constituents — <code class="docutils literal notranslate"><span class="pre">sp500_constituents.parquet</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Example rows</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#membership-date-range">Membership date range</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unique-constituents-over-full-history">Unique constituents over full history</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdelt-s-p-500-gdelt-sp500-headlines">3. GDELT S&amp;P 500 — <code class="docutils literal notranslate"><span class="pre">gdelt_sp500_headlines/</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Example rows</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Date range</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#headlines-per-day">Headlines per day</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#free-newswires-newswire-headlines">4. Free Newswires — <code class="docutils literal notranslate"><span class="pre">newswire_headlines/</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Example rows</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#full-headline-examples">Full headline examples</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#newswireravenpack-crosswalk-newswire-ravenpack-crosswalk-parquet">5. Newswire–RavenPack Crosswalk — <code class="docutils literal notranslate"><span class="pre">newswire_ravenpack_crosswalk.parquet</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Example rows</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Date range</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fuzzy-score-distribution">Fuzzy-score distribution</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gdelt-vs-scraped-newswires-different-strengths">GDELT vs Scraped Newswires: Different Strengths</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#source-comparison">Source Comparison</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bottom-line">Bottom Line</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jeremiah Bejarano
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, Jeremiah Bejarano.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

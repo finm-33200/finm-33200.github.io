@@ -1,7 +1,5 @@
 # LLMs Transforming Finance: The New Quant
 
-**Duration:** 40 minutes reading
-
 **Learning Objectives:**
 - Survey 6 categories of LLM applications in quantitative finance
 - Understand why model scale matters for financial tasks
@@ -25,9 +23,65 @@ A growing body of research suggests the emergence of a "new quant"—practitione
 
 For quantitative finance practitioners who routinely process documents, analyze market data, write code, and synthesize research, these tools represent a fundamental change in how work gets done.
 
+### The Generative AI Tech Stack
+
+The generative AI ecosystem is organized in layers: cloud **infrastructure** at the base, **data stores** (including vector databases for embeddings), **foundation models** (GPT-4, Claude, LLaMA), **APIs** for programmatic access, **application frameworks** (LangChain, LlamaIndex) for orchestration, and **user interfaces** (ChatGPT, Cursor, Claude Code) at the top. As practitioners, you'll spend most of your time at the API and Application layers — calling models, structuring prompts, and building workflows — while infrastructure and model training remain abstracted away.
+
 ![Gen AI Stack](assets/gen_ai_stack3.jpg)
 
-*The generative AI technology stack spans infrastructure, data, LLMs, APIs, and applications. Understanding this stack helps contextualize where different LLM-finance applications fit.*
+*The generative AI technology stack spans infrastructure, data, LLMs, APIs, and applications. For a deeper dive into each layer, see [The Generative AI Tech Stack](gen_ai_tech_stack.md).*
+
+---
+
+## Coding Agents & Copilots
+
+The most visible LLM application you've likely encountered is the chatbot — ChatGPT, Claude.ai, Gemini. The second most common is the **coding agent**: AI tools like Claude Code, Cursor, and GitHub Copilot that write, edit, and reason about code alongside you. For quantitative finance practitioners who spend significant time writing code, these tools represent the most immediate productivity shift.
+
+The change has been dramatic. Leading developers report that 70–90% of their code is now AI-generated, with the human role shifting from writing code to reviewing, guiding, and orchestrating AI output. This is no longer early adoption — the tipping point has passed. The question is no longer *whether* to use these tools, but *how well* you can wield them. The edge now comes from understanding what these tools can and can't do, and learning to think outside the box when they fall short.
+
+### Stages of AI Coding Maturity
+
+Some authors online have proposed a framework for thinking about the progression of AI-assisted coding. The stages map naturally onto an organizational metaphor: as you advance, your role shifts from individual contributor writing code to supervisor delegating tasks to director managing an organization of agents.
+
+| Stage | Description | Role |
+|-------|-------------|------|
+| 1–4 | Code completions → IDE-integrated agents (Copilot, Cursor) | Individual contributor |
+| 5 | CLI single agent, YOLO mode (e.g., Claude Code with auto-accept) | Senior IC |
+| 6 | CLI multi-agent: 3–5 parallel instances on different tasks | Supervisor |
+| 7 | 10+ hand-managed agents across worktrees | Director |
+| 8 | Build your own orchestrator coordinating agents programmatically | Executive |
+
+Most developers today are somewhere in Stages 1–5. Stages 6–7 involve running multiple coding agents in parallel — for example, several Claude Code instances in separate terminal panes, each tackling a different feature or bug:
+
+![Multiple Claude Code instances running in parallel](assets/built-a-tmux-sidebar-that-shows-sessions-windows-panes-as-a-v0-kadzodajp6pg1.gif)
+
+*Running multiple Claude Code instances in parallel across tmux panes — an example of Stages 6–7, where the developer supervises several agents working on different tasks simultaneously.*
+
+At Stage 8, developers build dedicated orchestrators. Tools like OpenClaw coordinate multiple coding agents — OpenAI Codex, Claude Code, Gemini CLI — dispatching tasks automatically, running results through CI/CD pipelines, and validating output without manual intervention. The human becomes the "overseer" of an organization of agents.
+
+![OpenClaw Architecture](assets/openclaw_org_chart.jpg)
+
+*OpenClaw orchestrates multiple coding agents with CI/CD integration, illustrating Stage 8 — the developer as executive managing an organization of autonomous agents. Source: [@elvissun](https://x.com/elvissun)*
+
+### AutoResearch: Agents Beyond Code
+
+Coding agents don't just write application code — they can run entire research loops. Karpathy's [autoresearch](https://github.com/karpathy/autoresearch) takes this further: an AI agent reads your training code, forms hypotheses for improvement, modifies the code, runs fixed-length training experiments, and evaluates whether the changes helped — all autonomously. It can run approximately 100 experiments overnight on a single GPU.
+
+[![Karpathy's autoresearch announcement](../assets/karpathy_autoresearch_tweet.jpg)](https://x.com/karpathy/status/2030371219518931079)
+
+*Andrej Karpathy's announcement of autoresearch. [View original tweet.](https://x.com/karpathy/status/2030371219518931079)*
+
+For quantitative finance, this framework could be applied directly to financial time series forecasting — systematically searching over model architectures, feature engineering approaches, and hyperparameters for strategies like those in the [Financial Time Series Forecasting Repository (FTSFR)](https://jeremybejarano.com/ftsfr/).
+
+### The New Programming Paradigm
+
+Andrej Karpathy — founding member of OpenAI, former head of AI at Tesla, and one of the most respected AI researchers and practitioners in the field — captured the current moment in a widely shared post. If someone with Karpathy's depth of experience feels behind, it's a sign that we're all figuring this out together:
+
+> I've never felt this much behind as a programmer. The profession is being dramatically refactored as the bits contributed by the programmer are increasingly sparse and between. I have a sense that I could be 10X more powerful if I just properly string together what has become available over the last ~year and a failure to claim the boost feels decidedly like skill issue. There's a new programmable layer of abstraction to master (in addition to the usual layers below) involving agents, subagents, their prompts, contexts, memory, modes, permissions, tools, plugins, skills, hooks, MCP, LSP, slash commands, workflows, IDE integrations, and a need to build an all-encompassing mental model for strengths and pitfalls of fundamentally stochastic, fallible, unintelligible and changing entities suddenly intermingled with what used to be good old fashioned engineering. Clearly some powerful alien tool was handed around except it comes with no manual and everyone has to figure out how to hold it and operate it, while the resulting magnitude 9 earthquake is rocking the profession. Roll up your sleeves to not fall behind.
+>
+> — Andrej Karpathy ([source](https://x.com/karpathy/status/2004607146781278521))
+
+*For hands-on setup of Claude Code and Cursor — the tools that put you at Stage 5 and beyond — see [AI Copilots: Claude Code and Cursor](ai_copilots_intro.md).*
 
 ---
 
@@ -232,6 +286,12 @@ for headline in headlines:
     )
     print(f"{headline[:50]}... → {response.choices[0].message.content}")
 ```
+
+---
+
+## In-Class Examples
+
+All in-class exercises and code examples for this course are available in the [ai_inclass_examples](https://github.com/finm-33200/ai_inclass_examples) repository. To get started with the OpenAI API and run the Lopez-Lira sentiment classification example above, see the [basic OpenAI hello example](https://github.com/finm-33200/ai_inclass_examples/tree/main/basic_llm_api/02_openai_hello).
 
 ---
 

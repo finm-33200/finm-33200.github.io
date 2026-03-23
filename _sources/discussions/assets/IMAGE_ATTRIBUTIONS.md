@@ -206,3 +206,11 @@ This file documents the sources of images used in the FINM 33200 textbook.
 - **Description:** Next.js blog nested route example showing how file structure creates URL paths
 - **Original URL:** `https://h8DxKfmAPhn8O0p3.public.blob.vercel-storage.com/docs/light/blog-nested-route.png`
 
+## kelly_expected_returns/ (directory)
+
+- **Source:** Chen, Y., Kelly, B., & Xiu, D. (2023). "Expected Returns and Large Language Models." Presentation slides from the Wharton Jacobs Levy Equity Management Center conference.
+- **Paper:** <https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4416687>
+- **Description:** Slide images extracted from Bryan Kelly's presentation on using LLM embeddings for return prediction. Slides cover: LLM mechanics (word prediction, indicator vectors), training scale, prompt vs. embedding approaches, empirical methodology, portfolio performance results, polyglot evidence, nonlinear prediction, negation analysis, multi-frequency signals, and model ensembles.
+- **Files:** `slide_02.png` through `slide_27.png` (section divider slides and appendix excluded)
+- **Usage:** For illustrative and educational purposes only.
+

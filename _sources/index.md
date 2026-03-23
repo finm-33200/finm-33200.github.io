@@ -22,6 +22,7 @@ overview.md
 :maxdepth: 1
 :caption: Discussions 📖
 discussion_01.md
+subject_to_change_after_this_week.md
 discussion_02.md
 discussion_03.md
 discussion_04.md
@@ -34,6 +35,12 @@ HW0.md
 HW1.md
 HW2.md
 final_project.md
+```
+
+```{toctree}
+:maxdepth: 1
+:caption: Exams 📋
+exam_prep.md
 ```
 
 ```{toctree}

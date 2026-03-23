@@ -101,6 +101,10 @@ The schedule will follow the ordering of the chapters listed in the GitHub book
 found here: https://finm-33200.github.io/. Each week is it's own chapter and the
 agenda is listed in the first sub-section of the chapter.
 
+### Exam Preparation
+
+- [Exam Preparation](exam_prep.md)
+
 ### HW Due Dates
 
 - [HW 0: Ungraded. Due ASAP](HW0.md)
