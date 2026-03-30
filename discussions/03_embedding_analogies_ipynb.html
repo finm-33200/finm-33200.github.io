@@ -1,0 +1,2967 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Optional extra: News, Financial Crises, and the Geometry of Meaning &#8212; Generative and Agentic AI for Finance</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=f23691d7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=7a7908ec"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'discussions/03_embedding_analogies_ipynb';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/custom.js?v=c0d9a6f1"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Study Questions" href="review_w02.html" />
+    <link rel="prev" title="From Words to Tokens" href="words_to_tokens.html" /> 
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>   
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Generative and Agentic AI for Finance - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Generative and Agentic AI for Finance - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Generative and Agentic AI for Finance
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../README.html">Course Syllabus: FINM 32900, Winter 2025</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Course Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Discussions 📖</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_01.html">Discussion 1: The New Quant - LLMs in Finance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="llms_transforming_finance.html">LLMs Transforming Finance: The New Quant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="expected_returns_llms.html">LLMs for Return Prediction: Prompts vs. Embeddings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chartbook_research_catalog.html">ChartBook: Cataloging Research for Humans and AI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_and_structured_outputs.html">API Basics and Structured Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="review_w01.html">Study Questions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../discussion_02.html">Discussion 2: Text Representation and Tokenization</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="structure_of_news.html">The Structure of Economic News</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ai_copilots_intro.html">AI Copilots: History and Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="words_to_tokens.html">From Words to Tokens</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Optional extra: News, Financial Crises, and the Geometry of Meaning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="review_w02.html">Study Questions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../subject_to_change_after_this_week.html">WARNING: Notes subject to change after this week</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_03.html">Discussion 3: LLM Fundamentals</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="review_w03.html">Study Questions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../discussion_04.html">Discussion 4:</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Homework 📝</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../HW0.html">Homework 0: Set Up Your Environment</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/01_data_sources_overview_ipynb.html">Data Sources &amp; Strategy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/02_gdelt_sp500_filtering_ipynb.html">GDELT Filtering &amp; Data Quality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/03_crosswalk_quality_ipynb.html">Crosswalk Quality</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../HW1.html">Homework 1: Lopez-Lira, Tang (2023)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/01_data_overview_ipynb.html">Data Sources Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/02_methodology_ipynb.html">NLP Pipeline &amp; Portfolio Construction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/03_replication_results_ipynb.html">Replication Results</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../HW2.html">Homework 2: Chen, Kelly, Xiu (2022)</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../final_project.html">Final Project</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/final_project_rubric.html">Final Project Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/potential_final_projects.html">Potential Final Project Ideas</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exams 📋</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../exam_prep.html">Exam Preparation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Misc 📌</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../acknowledgments.html">Acknowledgments</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../appendix.html">Appendix</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="nanochat_math.html">The Mathematics of Karpathy’s nanochat</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project/issues/new?title=Issue%20on%20page%20%2Fdiscussions/03_embedding_analogies_ipynb.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/discussions/03_embedding_analogies_ipynb.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Optional extra: News, Financial Crises, and the Geometry of Meaning</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-are-word-embeddings">What Are Word Embeddings?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-problem-with-traditional-representations">The Problem with Traditional Representations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-distributional-hypothesis">The Distributional Hypothesis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#word2vec-the-breakthrough-mikolov-et-al-2013">Word2Vec: The Breakthrough (Mikolov et al., 2013)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#glove-a-refinement-pennington-et-al-2014">GloVe: A Refinement (Pennington et al., 2014)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-road-to-modern-llms">The Road to Modern LLMs</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-the-embeddings">Load the Embeddings</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exploring-word-similarity">Exploring Word Similarity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-classic-analogy-king-man-woman">The Classic Analogy: king - man + woman = ?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion-man-brother-woman">Discussion: man : brother :: woman : ?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-does-this-work-the-parallelogram-structure">Why Does This Work? The Parallelogram Structure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-the-embedding-space">Visualizing the Embedding Space</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-analogy-parallelogram-in-2d">The Analogy Parallelogram in 2D</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cosine-similarity-heatmap">Cosine Similarity Heatmap</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#financial-word-clusters">Financial Word Clusters</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#financial-analogies">Financial Analogies</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-words-to-documents-can-embedding-arithmetic-scale-up">From Words to Documents: Can Embedding Arithmetic Scale Up?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-document-level-parallelogram">The Document-Level Parallelogram</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analogy-1-crisis-across-time-u-s-1873-u-s-1974">Analogy 1: Crisis Across Time (U.S. 1873 → U.S. 1974)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analogy-2-crisis-across-countries-u-s-1890-france-1889">Analogy 2: Crisis Across Countries (U.S. 1890 → France 1889)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#robustness-across-embedding-models">Robustness Across Embedding Models</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#document-level-parallelogram-in-2d">Document-Level Parallelogram in 2D</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-these-results-tell-us">What These Results Tell Us</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limitations-and-the-path-to-llms">Limitations and the Path to LLMs</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#static-embeddings-one-vector-per-word">Static Embeddings: One Vector Per Word</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#contextual-embeddings-different-vectors-for-different-contexts">Contextual Embeddings: Different Vectors for Different Contexts</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-here-to-our-paper">From Here to Our Paper</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                   <section class="tex2jax_ignore mathjax_ignore" id="optional-extra-news-financial-crises-and-the-geometry-of-meaning">
+<h1>Optional extra: News, Financial Crises, and the Geometry of Meaning<a class="headerlink" href="#optional-extra-news-financial-crises-and-the-geometry-of-meaning" title="Link to this heading">#</a></h1>
+<p>This notebook introduces <strong>word embeddings</strong> — dense vector representations of words
+that capture semantic relationships through geometry. We demonstrate the classic
+analogy <strong>king - man + woman = queen</strong> using pre-trained GloVe vectors, then explore
+what this means for financial text analysis.</p>
+<p><strong>Why this matters for our project:</strong> The draft paper uses LLM embeddings to extract
+crisis-relevant signals from historical newspaper text. Before working with modern
+contextual embeddings, we need the foundational intuition: words can be points in
+a vector space, and directions in that space encode meaning.</p>
+<hr class="docutils" />
+<section id="what-are-word-embeddings">
+<h2>What Are Word Embeddings?<a class="headerlink" href="#what-are-word-embeddings" title="Link to this heading">#</a></h2>
+<section id="the-problem-with-traditional-representations">
+<h3>The Problem with Traditional Representations<a class="headerlink" href="#the-problem-with-traditional-representations" title="Link to this heading">#</a></h3>
+<p>In traditional NLP, words are represented as <strong>one-hot vectors</strong> — a vocabulary of
+10,000 words means each word is a 10,000-dimensional vector with a single 1 and the
+rest 0s. This has a fatal flaw: every pair of words is equally distant. “king” is no
+more similar to “queen” than it is to “banana.”</p>
+</section>
+<section id="the-distributional-hypothesis">
+<h3>The Distributional Hypothesis<a class="headerlink" href="#the-distributional-hypothesis" title="Link to this heading">#</a></h3>
+<p>The key insight comes from linguist J.R. Firth (1957):</p>
+<blockquote>
+<div><p><em>“You shall know a word by the company it keeps.”</em></p>
+</div></blockquote>
+<p>Words that appear in similar contexts tend to have similar meanings. “King” and “queen”
+appear near words like “throne”, “crown”, “royal” — so they should have similar
+representations.</p>
+</section>
+<section id="word2vec-the-breakthrough-mikolov-et-al-2013">
+<h3>Word2Vec: The Breakthrough (Mikolov et al., 2013)<a class="headerlink" href="#word2vec-the-breakthrough-mikolov-et-al-2013" title="Link to this heading">#</a></h3>
+<p><strong>Word2Vec</strong> was the paper that launched the modern embeddings revolution. Mikolov et al.
+at Google trained a shallow neural network to predict words from their context (or vice
+versa), and discovered that the learned vectors exhibited remarkable algebraic structure:</p>
+<div class="math notranslate nohighlight">
+\[\vec{king} - \vec{man} + \vec{woman} \approx \vec{queen}\]</div>
+<p>This single example — that vector arithmetic can solve analogies — transformed how the
+field thinks about word meaning.</p>
+</section>
+<section id="glove-a-refinement-pennington-et-al-2014">
+<h3>GloVe: A Refinement (Pennington et al., 2014)<a class="headerlink" href="#glove-a-refinement-pennington-et-al-2014" title="Link to this heading">#</a></h3>
+<p><strong>GloVe</strong> (Global Vectors for Word Representation), from Stanford, achieves similar
+results via a different method: factorizing the word-word co-occurrence matrix. The
+resulting vectors are practically interchangeable with Word2Vec for analogy tasks.
+We use GloVe vectors here because the files are easy to work with (plain text,
+no special library needed).</p>
+</section>
+<section id="the-road-to-modern-llms">
+<h3>The Road to Modern LLMs<a class="headerlink" href="#the-road-to-modern-llms" title="Link to this heading">#</a></h3>
+<p>The progression from static to contextual embeddings is:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Year</p></th>
+<th class="head"><p>Model</p></th>
+<th class="head"><p>Key Innovation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>2013</p></td>
+<td><p><strong>Word2Vec</strong></p></td>
+<td><p>Words as vectors; analogy via arithmetic</p></td>
+</tr>
+<tr class="row-odd"><td><p>2014</p></td>
+<td><p><strong>GloVe</strong></p></td>
+<td><p>Co-occurrence matrix factorization</p></td>
+</tr>
+<tr class="row-even"><td><p>2018</p></td>
+<td><p><strong>ELMo</strong></p></td>
+<td><p>Context-dependent word vectors (biLSTM)</p></td>
+</tr>
+<tr class="row-odd"><td><p>2018</p></td>
+<td><p><strong>BERT</strong></p></td>
+<td><p>Transformer-based contextual embeddings</p></td>
+</tr>
+<tr class="row-even"><td><p>2018+</p></td>
+<td><p><strong>GPT family</strong></p></td>
+<td><p>Autoregressive transformers at scale</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The critical limitation of Word2Vec/GloVe — one vector per word regardless of
+context — is exactly what BERT and GPT overcome. We’ll see this concretely below.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="load-the-embeddings">
+<h2>Load the Embeddings<a class="headerlink" href="#load-the-embeddings" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">settings</span> <span class="kn">import</span> <span class="n">config</span>
+
+<span class="n">DATA_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">config</span><span class="p">(</span><span class="s2">&quot;DATA_DIR&quot;</span><span class="p">))</span>
+
+<span class="c1"># Load pre-computed GloVe embeddings (filtered to common words + finance vocabulary)</span>
+<span class="n">embeddings_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">DATA_DIR</span> <span class="o">/</span> <span class="s2">&quot;glove_embeddings.parquet&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Vocabulary size: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">embeddings_df</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> words&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Embedding dimensions: </span><span class="si">{</span><span class="n">embeddings_df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Vocabulary size: 5,018 words
+Embedding dimensions: 50
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Build word -&gt; vector lookup</span>
+<span class="n">dim_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">embeddings_df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;d&quot;</span><span class="p">)]</span>
+
+<span class="n">word_to_vec</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">embeddings_df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">word_to_vec</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;word&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="n">dim_cols</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loaded </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">word_to_vec</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> word vectors&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Example — vector for &#39;king&#39; (first 10 dims): </span><span class="si">{</span><span class="n">word_to_vec</span><span class="p">[</span><span class="s1">&#39;king&#39;</span><span class="p">][:</span><span class="mi">10</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Loaded 5,018 word vectors
+Example — vector for &#39;king&#39; (first 10 dims): [ 0.50451   0.68607  -0.59517  -0.022801  0.60046  -0.13498  -0.08813
+  0.47377  -0.61798  -0.31012 ]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">embeddings_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>word</th>
+      <th>d0</th>
+      <th>d1</th>
+      <th>d2</th>
+      <th>d3</th>
+      <th>d4</th>
+      <th>d5</th>
+      <th>d6</th>
+      <th>d7</th>
+      <th>d8</th>
+      <th>...</th>
+      <th>d40</th>
+      <th>d41</th>
+      <th>d42</th>
+      <th>d43</th>
+      <th>d44</th>
+      <th>d45</th>
+      <th>d46</th>
+      <th>d47</th>
+      <th>d48</th>
+      <th>d49</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>the</td>
+      <td>0.418000</td>
+      <td>0.249680</td>
+      <td>-0.41242</td>
+      <td>0.121700</td>
+      <td>0.345270</td>
+      <td>-0.044457</td>
+      <td>-0.49688</td>
+      <td>-0.178620</td>
+      <td>-0.000660</td>
+      <td>...</td>
+      <td>-0.298710</td>
+      <td>-0.157490</td>
+      <td>-0.347580</td>
+      <td>-0.045637</td>
+      <td>-0.442510</td>
+      <td>0.187850</td>
+      <td>0.002785</td>
+      <td>-0.184110</td>
+      <td>-0.115140</td>
+      <td>-0.785810</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>,</td>
+      <td>0.013441</td>
+      <td>0.236820</td>
+      <td>-0.16899</td>
+      <td>0.409510</td>
+      <td>0.638120</td>
+      <td>0.477090</td>
+      <td>-0.42852</td>
+      <td>-0.556410</td>
+      <td>-0.364000</td>
+      <td>...</td>
+      <td>-0.080262</td>
+      <td>0.630030</td>
+      <td>0.321110</td>
+      <td>-0.467650</td>
+      <td>0.227860</td>
+      <td>0.360340</td>
+      <td>-0.378180</td>
+      <td>-0.566570</td>
+      <td>0.044691</td>
+      <td>0.303920</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>.</td>
+      <td>0.151640</td>
+      <td>0.301770</td>
+      <td>-0.16763</td>
+      <td>0.176840</td>
+      <td>0.317190</td>
+      <td>0.339730</td>
+      <td>-0.43478</td>
+      <td>-0.310860</td>
+      <td>-0.449990</td>
+      <td>...</td>
+      <td>-0.000064</td>
+      <td>0.068987</td>
+      <td>0.087939</td>
+      <td>-0.102850</td>
+      <td>-0.139310</td>
+      <td>0.223140</td>
+      <td>-0.080803</td>
+      <td>-0.356520</td>
+      <td>0.016413</td>
+      <td>0.102160</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>of</td>
+      <td>0.708530</td>
+      <td>0.570880</td>
+      <td>-0.47160</td>
+      <td>0.180480</td>
+      <td>0.544490</td>
+      <td>0.726030</td>
+      <td>0.18157</td>
+      <td>-0.523930</td>
+      <td>0.103810</td>
+      <td>...</td>
+      <td>-0.347270</td>
+      <td>0.284830</td>
+      <td>0.075693</td>
+      <td>-0.062178</td>
+      <td>-0.389880</td>
+      <td>0.229020</td>
+      <td>-0.216170</td>
+      <td>-0.225620</td>
+      <td>-0.093918</td>
+      <td>-0.803750</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>to</td>
+      <td>0.680470</td>
+      <td>-0.039263</td>
+      <td>0.30186</td>
+      <td>-0.177920</td>
+      <td>0.429620</td>
+      <td>0.032246</td>
+      <td>-0.41376</td>
+      <td>0.132280</td>
+      <td>-0.298470</td>
+      <td>...</td>
+      <td>-0.094375</td>
+      <td>0.018324</td>
+      <td>0.210480</td>
+      <td>-0.030880</td>
+      <td>-0.197220</td>
+      <td>0.082279</td>
+      <td>-0.094340</td>
+      <td>-0.073297</td>
+      <td>-0.064699</td>
+      <td>-0.260440</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>and</td>
+      <td>0.268180</td>
+      <td>0.143460</td>
+      <td>-0.27877</td>
+      <td>0.016257</td>
+      <td>0.113840</td>
+      <td>0.699230</td>
+      <td>-0.51332</td>
+      <td>-0.473680</td>
+      <td>-0.330750</td>
+      <td>...</td>
+      <td>-0.069043</td>
+      <td>0.368850</td>
+      <td>0.251680</td>
+      <td>-0.245170</td>
+      <td>0.253810</td>
+      <td>0.136700</td>
+      <td>-0.311780</td>
+      <td>-0.632100</td>
+      <td>-0.250280</td>
+      <td>-0.380970</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>in</td>
+      <td>0.330420</td>
+      <td>0.249950</td>
+      <td>-0.60874</td>
+      <td>0.109230</td>
+      <td>0.036372</td>
+      <td>0.151000</td>
+      <td>-0.55083</td>
+      <td>-0.074239</td>
+      <td>-0.092307</td>
+      <td>...</td>
+      <td>-0.486090</td>
+      <td>-0.008027</td>
+      <td>0.031184</td>
+      <td>-0.365760</td>
+      <td>-0.426990</td>
+      <td>0.421640</td>
+      <td>-0.116660</td>
+      <td>-0.507030</td>
+      <td>-0.027273</td>
+      <td>-0.532850</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>a</td>
+      <td>0.217050</td>
+      <td>0.465150</td>
+      <td>-0.46757</td>
+      <td>0.100820</td>
+      <td>1.013500</td>
+      <td>0.748450</td>
+      <td>-0.53104</td>
+      <td>-0.262560</td>
+      <td>0.168120</td>
+      <td>...</td>
+      <td>0.138130</td>
+      <td>0.369730</td>
+      <td>-0.642890</td>
+      <td>0.024142</td>
+      <td>-0.039315</td>
+      <td>-0.260370</td>
+      <td>0.120170</td>
+      <td>-0.043782</td>
+      <td>0.410130</td>
+      <td>0.179600</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>"</td>
+      <td>0.257690</td>
+      <td>0.456290</td>
+      <td>-0.76974</td>
+      <td>-0.376790</td>
+      <td>0.592720</td>
+      <td>-0.063527</td>
+      <td>0.20545</td>
+      <td>-0.573850</td>
+      <td>-0.290090</td>
+      <td>...</td>
+      <td>0.030498</td>
+      <td>-0.395430</td>
+      <td>-0.385150</td>
+      <td>-1.000200</td>
+      <td>0.087599</td>
+      <td>-0.310090</td>
+      <td>-0.346770</td>
+      <td>-0.314380</td>
+      <td>0.750040</td>
+      <td>0.970650</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>'s</td>
+      <td>0.237270</td>
+      <td>0.404780</td>
+      <td>-0.20547</td>
+      <td>0.588050</td>
+      <td>0.655330</td>
+      <td>0.328670</td>
+      <td>-0.81964</td>
+      <td>-0.232360</td>
+      <td>0.274280</td>
+      <td>...</td>
+      <td>-0.123420</td>
+      <td>0.659610</td>
+      <td>-0.518020</td>
+      <td>-0.829950</td>
+      <td>-0.082739</td>
+      <td>0.281550</td>
+      <td>-0.423000</td>
+      <td>-0.273780</td>
+      <td>-0.007901</td>
+      <td>-0.030231</td>
+    </tr>
+  </tbody>
+</table>
+<p>10 rows × 51 columns</p>
+</div></div></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="exploring-word-similarity">
+<h2>Exploring Word Similarity<a class="headerlink" href="#exploring-word-similarity" title="Link to this heading">#</a></h2>
+<p>The most basic operation on word vectors is <strong>cosine similarity</strong>: how closely two
+vectors point in the same direction, regardless of magnitude. Values range from -1
+(opposite) to +1 (identical direction).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cosine_similarity</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Cosine similarity between two vectors.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">most_similar</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">topn</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Find the topn most similar words by cosine similarity.&quot;&quot;&quot;</span>
+    <span class="n">vec</span> <span class="o">=</span> <span class="n">word_to_vec</span><span class="p">[</span><span class="n">word</span><span class="p">]</span>
+    <span class="n">sims</span> <span class="o">=</span> <span class="p">{</span><span class="n">w</span><span class="p">:</span> <span class="n">cosine_similarity</span><span class="p">(</span><span class="n">vec</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">w</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">word_to_vec</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">w</span> <span class="o">!=</span> <span class="n">word</span><span class="p">}</span>
+    <span class="n">ranked</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">sims</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)[:</span><span class="n">topn</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">ranked</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;word&quot;</span><span class="p">,</span> <span class="s2">&quot;similarity&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># What&#39;s most similar to &quot;king&quot;?</span>
+<span class="n">most_similar</span><span class="p">(</span><span class="s2">&quot;king&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>word</th>
+      <th>similarity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>prince</td>
+      <td>0.823618</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>queen</td>
+      <td>0.783904</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>ii</td>
+      <td>0.774623</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>emperor</td>
+      <td>0.773625</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>son</td>
+      <td>0.766719</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>uncle</td>
+      <td>0.762715</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>kingdom</td>
+      <td>0.754216</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>brother</td>
+      <td>0.749241</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>lord</td>
+      <td>0.738872</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>father</td>
+      <td>0.733572</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># What&#39;s most similar to &quot;crisis&quot;?</span>
+<span class="n">most_similar</span><span class="p">(</span><span class="s2">&quot;crisis&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>word</th>
+      <th>similarity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>economic</td>
+      <td>0.828236</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>fears</td>
+      <td>0.819536</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>crises</td>
+      <td>0.815953</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>wake</td>
+      <td>0.810680</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>continuing</td>
+      <td>0.800332</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>amid</td>
+      <td>0.797913</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>concern</td>
+      <td>0.795947</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>collapse</td>
+      <td>0.793501</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>ongoing</td>
+      <td>0.789457</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>situation</td>
+      <td>0.788831</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># What&#39;s most similar to &quot;bank&quot;?</span>
+<span class="c1"># Note: GloVe assigns ONE vector per word — &quot;bank&quot; (financial institution)</span>
+<span class="c1"># and &quot;bank&quot; (river bank) are merged into the same representation.</span>
+<span class="n">most_similar</span><span class="p">(</span><span class="s2">&quot;bank&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>word</th>
+      <th>similarity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>banks</td>
+      <td>0.869863</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>securities</td>
+      <td>0.799681</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>banking</td>
+      <td>0.796516</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>investment</td>
+      <td>0.784971</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>exchange</td>
+      <td>0.780883</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>financial</td>
+      <td>0.767027</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>credit</td>
+      <td>0.764915</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>capital</td>
+      <td>0.738071</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>currency</td>
+      <td>0.736360</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>investments</td>
+      <td>0.734035</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="the-classic-analogy-king-man-woman">
+<h2>The Classic Analogy: king - man + woman = ?<a class="headerlink" href="#the-classic-analogy-king-man-woman" title="Link to this heading">#</a></h2>
+<p>This is the most famous result in word embeddings. The idea is simple:</p>
+<ol class="arabic simple">
+<li><p>Compute the <strong>difference</strong> <code class="docutils literal notranslate"><span class="pre">king</span> <span class="pre">-</span> <span class="pre">man</span></code> — this captures the concept of “royalty”
+stripped of gender.</p></li>
+<li><p><strong>Add</strong> that difference to <code class="docutils literal notranslate"><span class="pre">woman</span></code> — this applies the “royalty” concept to the
+female gender.</p></li>
+<li><p>Find the <strong>nearest word</strong> to the resulting vector.</p></li>
+</ol>
+<p>If the embedding space has learned the right structure, the answer should be <strong>queen</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">analogy</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">topn</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Solve: a is to b as c is to ?</span>
+
+<span class="sd">    Computes: vec(b) - vec(a) + vec(c) and finds the nearest words.</span>
+
+<span class="sd">    Example: analogy(&quot;man&quot;, &quot;king&quot;, &quot;woman&quot;) asks</span>
+<span class="sd">             &quot;man is to king as woman is to ___?&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">target</span> <span class="o">=</span> <span class="n">word_to_vec</span><span class="p">[</span><span class="n">b</span><span class="p">]</span> <span class="o">-</span> <span class="n">word_to_vec</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">+</span> <span class="n">word_to_vec</span><span class="p">[</span><span class="n">c</span><span class="p">]</span>
+    <span class="n">exclude</span> <span class="o">=</span> <span class="p">{</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">}</span>
+    <span class="n">sims</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">w</span><span class="p">:</span> <span class="n">cosine_similarity</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">w</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">word_to_vec</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">w</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">exclude</span>
+    <span class="p">}</span>
+    <span class="n">ranked</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">sims</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)[:</span><span class="n">topn</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">ranked</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;word&quot;</span><span class="p">,</span> <span class="s2">&quot;similarity&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># THE classic example: man is to king as woman is to ___?</span>
+<span class="n">analogy</span><span class="p">(</span><span class="s2">&quot;man&quot;</span><span class="p">,</span> <span class="s2">&quot;king&quot;</span><span class="p">,</span> <span class="s2">&quot;woman&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>word</th>
+      <th>similarity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>queen</td>
+      <td>0.860958</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>daughter</td>
+      <td>0.768451</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>prince</td>
+      <td>0.764070</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>princess</td>
+      <td>0.751273</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>elizabeth</td>
+      <td>0.750649</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># More analogies</span>
+<span class="n">analogy_examples</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">&quot;man&quot;</span><span class="p">,</span> <span class="s2">&quot;king&quot;</span><span class="p">,</span> <span class="s2">&quot;woman&quot;</span><span class="p">,</span> <span class="s2">&quot;Gender → Royalty&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;man&quot;</span><span class="p">,</span> <span class="s2">&quot;brother&quot;</span><span class="p">,</span> <span class="s2">&quot;woman&quot;</span><span class="p">,</span> <span class="s2">&quot;Gender → Sibling&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;man&quot;</span><span class="p">,</span> <span class="s2">&quot;husband&quot;</span><span class="p">,</span> <span class="s2">&quot;woman&quot;</span><span class="p">,</span> <span class="s2">&quot;Gender → Spouse&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;man&quot;</span><span class="p">,</span> <span class="s2">&quot;father&quot;</span><span class="p">,</span> <span class="s2">&quot;woman&quot;</span><span class="p">,</span> <span class="s2">&quot;Gender → Parent&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;france&quot;</span><span class="p">,</span> <span class="s2">&quot;paris&quot;</span><span class="p">,</span> <span class="s2">&quot;germany&quot;</span><span class="p">,</span> <span class="s2">&quot;Country → Capital&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;france&quot;</span><span class="p">,</span> <span class="s2">&quot;paris&quot;</span><span class="p">,</span> <span class="s2">&quot;japan&quot;</span><span class="p">,</span> <span class="s2">&quot;Country → Capital&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;slow&quot;</span><span class="p">,</span> <span class="s2">&quot;slower&quot;</span><span class="p">,</span> <span class="s2">&quot;fast&quot;</span><span class="p">,</span> <span class="s2">&quot;Comparative&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;good&quot;</span><span class="p">,</span> <span class="s2">&quot;better&quot;</span><span class="p">,</span> <span class="s2">&quot;bad&quot;</span><span class="p">,</span> <span class="s2">&quot;Comparative&quot;</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">analogy_examples</span><span class="p">:</span>
+    <span class="n">top</span> <span class="o">=</span> <span class="n">analogy</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">topn</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+        <span class="s2">&quot;Analogy&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2"> : </span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="s2"> :: </span><span class="si">{</span><span class="n">c</span><span class="si">}</span><span class="s2"> : ?&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Top Answer&quot;</span><span class="p">:</span> <span class="n">top</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;word&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;Similarity&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">top</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;similarity&quot;</span><span class="p">],</span> <span class="mi">4</span><span class="p">),</span>
+        <span class="s2">&quot;Category&quot;</span><span class="p">:</span> <span class="n">label</span><span class="p">,</span>
+    <span class="p">})</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Analogy</th>
+      <th>Top Answer</th>
+      <th>Similarity</th>
+      <th>Category</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>man : king :: woman : ?</td>
+      <td>queen</td>
+      <td>0.8610</td>
+      <td>Gender → Royalty</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>man : brother :: woman : ?</td>
+      <td>daughter</td>
+      <td>0.9374</td>
+      <td>Gender → Sibling</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>man : husband :: woman : ?</td>
+      <td>wife</td>
+      <td>0.9150</td>
+      <td>Gender → Spouse</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>man : father :: woman : ?</td>
+      <td>mother</td>
+      <td>0.9371</td>
+      <td>Gender → Parent</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>france : paris :: germany : ?</td>
+      <td>berlin</td>
+      <td>0.9181</td>
+      <td>Country → Capital</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>france : paris :: japan : ?</td>
+      <td>tokyo</td>
+      <td>0.9190</td>
+      <td>Country → Capital</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>slow : slower :: fast : ?</td>
+      <td>faster</td>
+      <td>0.8346</td>
+      <td>Comparative</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>good : better :: bad : ?</td>
+      <td>worse</td>
+      <td>0.8973</td>
+      <td>Comparative</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<section id="discussion-man-brother-woman">
+<h3>Discussion: man : brother :: woman : ?<a class="headerlink" href="#discussion-man-brother-woman" title="Link to this heading">#</a></h3>
+<p>The analogy table above likely did <strong>not</strong> return “sister” for this one.
+Look at the top-10 results below — why might the arithmetic fail here
+when it works for king/queen?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">analogy</span><span class="p">(</span><span class="s2">&quot;man&quot;</span><span class="p">,</span> <span class="s2">&quot;brother&quot;</span><span class="p">,</span> <span class="s2">&quot;woman&quot;</span><span class="p">,</span> <span class="n">topn</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>word</th>
+      <th>similarity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>daughter</td>
+      <td>0.937444</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>wife</td>
+      <td>0.913468</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>mother</td>
+      <td>0.899247</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>father</td>
+      <td>0.893666</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>niece</td>
+      <td>0.871679</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>son</td>
+      <td>0.868607</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>husband</td>
+      <td>0.859746</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>sister</td>
+      <td>0.855019</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>married</td>
+      <td>0.853591</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>daughters</td>
+      <td>0.825262</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="why-does-this-work-the-parallelogram-structure">
+<h2>Why Does This Work? The Parallelogram Structure<a class="headerlink" href="#why-does-this-work-the-parallelogram-structure" title="Link to this heading">#</a></h2>
+<p>The analogy works because the embedding space encodes semantic relationships as
+<strong>consistent directions</strong>. The vector from “man” to “king” (the “royalty” direction)
+is approximately parallel to the vector from “woman” to “queen.”</p>
+<p>In other words, the four words form a <strong>parallelogram</strong> in the high-dimensional space:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="n">man</span> <span class="o">---------&gt;</span> <span class="n">king</span>
+     <span class="o">|</span>               <span class="o">|</span>
+     <span class="o">|</span> <span class="p">(</span><span class="n">gender</span><span class="p">)</span>       <span class="o">|</span> <span class="p">(</span><span class="n">gender</span><span class="p">)</span>
+     <span class="o">|</span>               <span class="o">|</span>
+     <span class="n">v</span>               <span class="n">v</span>
+   <span class="n">woman</span> <span class="o">--------&gt;</span> <span class="n">queen</span>
+         <span class="p">(</span><span class="n">royalty</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We can verify this by checking that the “gender direction” is consistent across
+the royalty pair:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># The &quot;royalty&quot; direction</span>
+<span class="n">diff_royalty_male</span> <span class="o">=</span> <span class="n">word_to_vec</span><span class="p">[</span><span class="s2">&quot;king&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">word_to_vec</span><span class="p">[</span><span class="s2">&quot;man&quot;</span><span class="p">]</span>
+<span class="n">diff_royalty_female</span> <span class="o">=</span> <span class="n">word_to_vec</span><span class="p">[</span><span class="s2">&quot;queen&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">word_to_vec</span><span class="p">[</span><span class="s2">&quot;woman&quot;</span><span class="p">]</span>
+
+<span class="c1"># The &quot;gender&quot; direction</span>
+<span class="n">diff_gender_common</span> <span class="o">=</span> <span class="n">word_to_vec</span><span class="p">[</span><span class="s2">&quot;woman&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">word_to_vec</span><span class="p">[</span><span class="s2">&quot;man&quot;</span><span class="p">]</span>
+<span class="n">diff_gender_royal</span> <span class="o">=</span> <span class="n">word_to_vec</span><span class="p">[</span><span class="s2">&quot;queen&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">word_to_vec</span><span class="p">[</span><span class="s2">&quot;king&quot;</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Are the &#39;royalty&#39; directions consistent across genders?&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  cos(king-man, queen-woman) = </span><span class="si">{</span><span class="n">cosine_similarity</span><span class="p">(</span><span class="n">diff_royalty_male</span><span class="p">,</span><span class="w"> </span><span class="n">diff_royalty_female</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Are the &#39;gender&#39; directions consistent across royalty?&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  cos(woman-man, queen-king) = </span><span class="si">{</span><span class="n">cosine_similarity</span><span class="p">(</span><span class="n">diff_gender_common</span><span class="p">,</span><span class="w"> </span><span class="n">diff_gender_royal</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Are the &#39;royalty&#39; directions consistent across genders?
+  cos(king-man, queen-woman) = 0.8397
+
+Are the &#39;gender&#39; directions consistent across royalty?
+  cos(woman-man, queen-king) = 0.5970
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="visualizing-the-embedding-space">
+<h2>Visualizing the Embedding Space<a class="headerlink" href="#visualizing-the-embedding-space" title="Link to this heading">#</a></h2>
+<section id="the-analogy-parallelogram-in-2d">
+<h3>The Analogy Parallelogram in 2D<a class="headerlink" href="#the-analogy-parallelogram-in-2d" title="Link to this heading">#</a></h3>
+<p>We project the words <code class="docutils literal notranslate"><span class="pre">king</span></code>, <code class="docutils literal notranslate"><span class="pre">queen</span></code>, <code class="docutils literal notranslate"><span class="pre">man</span></code>, <code class="docutils literal notranslate"><span class="pre">woman</span></code> (plus a few related words) into
+2D using PCA. The parallelogram structure should be visible even after this drastic
+dimensionality reduction from 50 → 2.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
+<span class="kn">import</span> <span class="nn">plotly.graph_objects</span> <span class="k">as</span> <span class="nn">go</span>
+
+<span class="n">analogy_words</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;king&quot;</span><span class="p">,</span> <span class="s2">&quot;queen&quot;</span><span class="p">,</span> <span class="s2">&quot;man&quot;</span><span class="p">,</span> <span class="s2">&quot;woman&quot;</span><span class="p">,</span> <span class="s2">&quot;prince&quot;</span><span class="p">,</span> <span class="s2">&quot;princess&quot;</span><span class="p">,</span> <span class="s2">&quot;boy&quot;</span><span class="p">,</span> <span class="s2">&quot;girl&quot;</span><span class="p">]</span>
+<span class="n">vecs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">word_to_vec</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">analogy_words</span><span class="p">])</span>
+
+<span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">coords</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">vecs</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
+
+<span class="c1"># Plot all words</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span><span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">coords</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">coords</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;markers+text&quot;</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="n">analogy_words</span><span class="p">,</span>
+    <span class="n">textposition</span><span class="o">=</span><span class="s2">&quot;top center&quot;</span><span class="p">,</span>
+    <span class="n">marker</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#636EFA&quot;</span><span class="p">),</span>
+    <span class="n">textfont</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">13</span><span class="p">),</span>
+    <span class="n">showlegend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">))</span>
+
+<span class="c1"># Draw arrows for the &quot;royalty&quot; direction (man→king, woman→queen)</span>
+<span class="k">for</span> <span class="n">i_from</span><span class="p">,</span> <span class="n">i_to</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;#EF553B&quot;</span><span class="p">,</span> <span class="s2">&quot;royalty&quot;</span><span class="p">),</span>  <span class="c1"># man → king</span>
+    <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;#EF553B&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>       <span class="c1"># woman → queen</span>
+    <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;#00CC96&quot;</span><span class="p">,</span> <span class="s2">&quot;gender&quot;</span><span class="p">),</span>   <span class="c1"># man → woman</span>
+    <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;#00CC96&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>       <span class="c1"># king → queen</span>
+<span class="p">]:</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">add_annotation</span><span class="p">(</span>
+        <span class="n">x</span><span class="o">=</span><span class="n">coords</span><span class="p">[</span><span class="n">i_to</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">coords</span><span class="p">[</span><span class="n">i_to</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+        <span class="n">ax</span><span class="o">=</span><span class="n">coords</span><span class="p">[</span><span class="n">i_from</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">ay</span><span class="o">=</span><span class="n">coords</span><span class="p">[</span><span class="n">i_from</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+        <span class="n">xref</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">yref</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">axref</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">ayref</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span>
+        <span class="n">showarrow</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">arrowhead</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">arrowsize</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">arrowwidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">arrowcolor</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<span class="c1"># Manual legend</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span><span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="kc">None</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="kc">None</span><span class="p">],</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;lines&quot;</span><span class="p">,</span>
+    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;#EF553B&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;royalty direction&quot;</span><span class="p">))</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span><span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="kc">None</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="kc">None</span><span class="p">],</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;lines&quot;</span><span class="p">,</span>
+    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;#00CC96&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;gender direction&quot;</span><span class="p">))</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Word Embedding Parallelogram (PCA Projection to 2D)&quot;</span><span class="p">,</span>
+    <span class="n">xaxis_title</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;PC1 (</span><span class="si">{</span><span class="n">pca</span><span class="o">.</span><span class="n">explained_variance_ratio_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2"> variance)&quot;</span><span class="p">,</span>
+    <span class="n">yaxis_title</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;PC2 (</span><span class="si">{</span><span class="n">pca</span><span class="o">.</span><span class="n">explained_variance_ratio_</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2"> variance)&quot;</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">550</span><span class="p">,</span>
+    <span class="n">template</span><span class="o">=</span><span class="s2">&quot;plotly_white&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+</section>
+<section id="cosine-similarity-heatmap">
+<h3>Cosine Similarity Heatmap<a class="headerlink" href="#cosine-similarity-heatmap" title="Link to this heading">#</a></h3>
+<p>A heatmap of pairwise similarities reveals the semantic clustering structure
+at a glance. Words within the same category (royalty, family, finance) should
+show higher mutual similarity.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">heatmap_words</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;king&quot;</span><span class="p">,</span> <span class="s2">&quot;queen&quot;</span><span class="p">,</span> <span class="s2">&quot;prince&quot;</span><span class="p">,</span> <span class="s2">&quot;princess&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;man&quot;</span><span class="p">,</span> <span class="s2">&quot;woman&quot;</span><span class="p">,</span> <span class="s2">&quot;boy&quot;</span><span class="p">,</span> <span class="s2">&quot;girl&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;crisis&quot;</span><span class="p">,</span> <span class="s2">&quot;recession&quot;</span><span class="p">,</span> <span class="s2">&quot;depression&quot;</span><span class="p">,</span> <span class="s2">&quot;recovery&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;stock&quot;</span><span class="p">,</span> <span class="s2">&quot;market&quot;</span><span class="p">,</span> <span class="s2">&quot;bank&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="n">heatmap_vecs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">word_to_vec</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">heatmap_words</span><span class="p">])</span>
+
+<span class="c1"># Compute pairwise cosine similarity matrix</span>
+<span class="n">norms</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">heatmap_vecs</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">sim_matrix</span> <span class="o">=</span> <span class="p">(</span><span class="n">heatmap_vecs</span> <span class="o">@</span> <span class="n">heatmap_vecs</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">norms</span> <span class="o">@</span> <span class="n">norms</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span>
+    <span class="n">sim_matrix</span><span class="p">,</span>
+    <span class="n">xticklabels</span><span class="o">=</span><span class="n">heatmap_words</span><span class="p">,</span>
+    <span class="n">yticklabels</span><span class="o">=</span><span class="n">heatmap_words</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;RdYlBu_r&quot;</span><span class="p">,</span>
+    <span class="n">center</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;.2f&quot;</span><span class="p">,</span>
+    <span class="n">square</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Pairwise Cosine Similarity Between Word Embeddings&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/694d1a76d0269171984b0b192a47e4eb7826524d09efbf8314872689e45278b4.png" src="../_images/694d1a76d0269171984b0b192a47e4eb7826524d09efbf8314872689e45278b4.png" />
+</div>
+</div>
+</section>
+<section id="financial-word-clusters">
+<h3>Financial Word Clusters<a class="headerlink" href="#financial-word-clusters" title="Link to this heading">#</a></h3>
+<p>How well do GloVe embeddings organize financial and economic concepts?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">finance_words</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;crisis&quot;</span><span class="p">,</span> <span class="s2">&quot;recession&quot;</span><span class="p">,</span> <span class="s2">&quot;depression&quot;</span><span class="p">,</span> <span class="s2">&quot;panic&quot;</span><span class="p">,</span> <span class="s2">&quot;crash&quot;</span><span class="p">,</span> <span class="s2">&quot;bust&quot;</span><span class="p">,</span> <span class="s2">&quot;collapse&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;growth&quot;</span><span class="p">,</span> <span class="s2">&quot;boom&quot;</span><span class="p">,</span> <span class="s2">&quot;recovery&quot;</span><span class="p">,</span> <span class="s2">&quot;expansion&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;bank&quot;</span><span class="p">,</span> <span class="s2">&quot;stock&quot;</span><span class="p">,</span> <span class="s2">&quot;market&quot;</span><span class="p">,</span> <span class="s2">&quot;bond&quot;</span><span class="p">,</span> <span class="s2">&quot;debt&quot;</span><span class="p">,</span> <span class="s2">&quot;credit&quot;</span><span class="p">,</span> <span class="s2">&quot;loan&quot;</span><span class="p">,</span> <span class="s2">&quot;mortgage&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;inflation&quot;</span><span class="p">,</span> <span class="s2">&quot;deflation&quot;</span><span class="p">,</span> <span class="s2">&quot;unemployment&quot;</span><span class="p">,</span> <span class="s2">&quot;interest&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="n">finance_vecs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">word_to_vec</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">finance_words</span><span class="p">])</span>
+
+<span class="n">pca_fin</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">fin_coords</span> <span class="o">=</span> <span class="n">pca_fin</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">finance_vecs</span><span class="p">)</span>
+
+<span class="c1"># Color by rough category</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">finance_words</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">w</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;crisis&quot;</span><span class="p">,</span> <span class="s2">&quot;recession&quot;</span><span class="p">,</span> <span class="s2">&quot;depression&quot;</span><span class="p">,</span> <span class="s2">&quot;panic&quot;</span><span class="p">,</span> <span class="s2">&quot;crash&quot;</span><span class="p">,</span> <span class="s2">&quot;bust&quot;</span><span class="p">,</span> <span class="s2">&quot;collapse&quot;</span><span class="p">}:</span>
+        <span class="n">colors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Downturn&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">w</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;growth&quot;</span><span class="p">,</span> <span class="s2">&quot;boom&quot;</span><span class="p">,</span> <span class="s2">&quot;recovery&quot;</span><span class="p">,</span> <span class="s2">&quot;expansion&quot;</span><span class="p">}:</span>
+        <span class="n">colors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Upturn&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">w</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;inflation&quot;</span><span class="p">,</span> <span class="s2">&quot;deflation&quot;</span><span class="p">,</span> <span class="s2">&quot;unemployment&quot;</span><span class="p">,</span> <span class="s2">&quot;interest&quot;</span><span class="p">}:</span>
+        <span class="n">colors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Macro indicator&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">colors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Financial instrument&quot;</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
+
+<span class="n">fin_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;word&quot;</span><span class="p">:</span> <span class="n">finance_words</span><span class="p">,</span>
+    <span class="s2">&quot;PC1&quot;</span><span class="p">:</span> <span class="n">fin_coords</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="s2">&quot;PC2&quot;</span><span class="p">:</span> <span class="n">fin_coords</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="n">colors</span><span class="p">,</span>
+<span class="p">})</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+    <span class="n">fin_df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;PC1&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;PC2&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;word&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;category&quot;</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Financial Terms in Embedding Space (PCA Projection)&quot;</span><span class="p">,</span>
+    <span class="n">labels</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;PC1&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;PC1 (</span><span class="si">{</span><span class="n">pca_fin</span><span class="o">.</span><span class="n">explained_variance_ratio_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2"> variance)&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;PC2&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;PC2 (</span><span class="si">{</span><span class="n">pca_fin</span><span class="o">.</span><span class="n">explained_variance_ratio_</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2"> variance)&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="n">color_discrete_sequence</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;#EF553B&quot;</span><span class="p">,</span> <span class="s2">&quot;#636EFA&quot;</span><span class="p">,</span> <span class="s2">&quot;#00CC96&quot;</span><span class="p">,</span> <span class="s2">&quot;#AB63FA&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">textposition</span><span class="o">=</span><span class="s2">&quot;top center&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="mi">550</span><span class="p">,</span> <span class="n">template</span><span class="o">=</span><span class="s2">&quot;plotly_white&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="financial-analogies">
+<h2>Financial Analogies<a class="headerlink" href="#financial-analogies" title="Link to this heading">#</a></h2>
+<p>Do analogies work for financial concepts the way they do for gender and royalty?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">finance_analogies</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">&quot;recession&quot;</span><span class="p">,</span> <span class="s2">&quot;unemployment&quot;</span><span class="p">,</span> <span class="s2">&quot;growth&quot;</span><span class="p">,</span> <span class="s2">&quot;Recession:Unemployment :: Growth:?&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;stock&quot;</span><span class="p">,</span> <span class="s2">&quot;market&quot;</span><span class="p">,</span> <span class="s2">&quot;bond&quot;</span><span class="p">,</span> <span class="s2">&quot;Stock:Market :: Bond:?&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;inflation&quot;</span><span class="p">,</span> <span class="s2">&quot;prices&quot;</span><span class="p">,</span> <span class="s2">&quot;deflation&quot;</span><span class="p">,</span> <span class="s2">&quot;Inflation:Prices :: Deflation:?&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;bank&quot;</span><span class="p">,</span> <span class="s2">&quot;loan&quot;</span><span class="p">,</span> <span class="s2">&quot;company&quot;</span><span class="p">,</span> <span class="s2">&quot;Bank:Loan :: Company:?&quot;</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">finance_analogies</span><span class="p">:</span>
+    <span class="n">top</span> <span class="o">=</span> <span class="n">analogy</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">topn</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+        <span class="s2">&quot;Analogy&quot;</span><span class="p">:</span> <span class="n">label</span><span class="p">,</span>
+        <span class="s2">&quot;Top 3&quot;</span><span class="p">:</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">top</span><span class="p">[</span><span class="s2">&quot;word&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()),</span>
+    <span class="p">})</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Analogy</th>
+      <th>Top 3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Recession:Unemployment :: Growth:?</td>
+      <td>increase, increased, employment</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Stock:Market :: Bond:?</td>
+      <td>rates, interest, rate</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Inflation:Prices :: Deflation:?</td>
+      <td>markets, market, stocks</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Bank:Loan :: Company:?</td>
+      <td>purchase, contract, acquisition</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Financial analogies are <strong>noisier</strong> than the king/queen example. This makes sense:
+financial concepts are more context-dependent and less cleanly decomposable into
+orthogonal semantic dimensions. A “recession” involves unemployment, falling output,
+credit contraction, and policy responses all at once — there is no single clean
+“direction” the way there is for gender.</p>
+<p>This is one motivation for moving to <strong>contextual embeddings</strong> (BERT, GPT): the
+meaning of “bank” in <em>“the central bank raised rates”</em> is very different from
+<em>“he sat on the river bank”</em>, but GloVe assigns them the <strong>same vector</strong>.</p>
+</section>
+<hr class="docutils" />
+<section id="from-words-to-documents-can-embedding-arithmetic-scale-up">
+<h2>From Words to Documents: Can Embedding Arithmetic Scale Up?<a class="headerlink" href="#from-words-to-documents-can-embedding-arithmetic-scale-up" title="Link to this heading">#</a></h2>
+<p>The financial word analogies above were noisy — single words are too coarse to
+capture the complexity of a banking crisis. But what if we embed <strong>entire
+newspaper articles</strong> instead of individual words?</p>
+<p>Modern contextual embedding models (the descendants of Word2Vec discussed above)
+can produce a single vector for a full document. If the embedding space encodes
+crisis-relevant structure, then the same arithmetic should work at the document
+level:</p>
+<div class="math notranslate nohighlight">
+\[\vec{\text{crisis article}}_A - \vec{\text{tranquil article}}_A + \vec{\text{tranquil article}}_B \approx \vec{\text{crisis article}}_B\]</div>
+<section id="the-document-level-parallelogram">
+<h3>The Document-Level Parallelogram<a class="headerlink" href="#the-document-level-parallelogram" title="Link to this heading">#</a></h3>
+<p>The logic is identical to king − man + woman = queen, but with documents:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    tranquil_A ---------&gt; crisis_A
+         |                    |
+         | (context shift)    | (context shift)
+         |                    |
+         v                    v
+    tranquil_B ---------&gt; crisis_B  (← predicted)
+             (crisis direction)
+</pre></div>
+</div>
+<p>If the “crisis direction” (the vector difference between a crisis article and its
+paired tranquil article) is consistent across different time periods or countries,
+then the arithmetic will land near the correct crisis article.</p>
+<p>We test this with two hand-picked quadruplets from our curated corpus of historical
+newspaper articles.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics.pairwise</span> <span class="kn">import</span> <span class="n">cosine_similarity</span> <span class="k">as</span> <span class="n">pairwise_cosine_similarity</span>
+
+<span class="kn">import</span> <span class="nn">embedding_analysis</span> <span class="k">as</span> <span class="nn">ea</span>
+<span class="kn">from</span> <span class="nn">build_manual_article_catalog</span> <span class="kn">import</span> <span class="n">load_manual_article_catalog</span>
+
+<span class="n">PRIMARY_MODEL</span> <span class="o">=</span> <span class="s2">&quot;openai/text-embedding-3-large&quot;</span>
+
+<span class="n">catalog</span> <span class="o">=</span> <span class="n">load_manual_article_catalog</span><span class="p">()</span>
+<span class="n">doc_embeddings</span> <span class="o">=</span> <span class="n">ea</span><span class="o">.</span><span class="n">load_embeddings</span><span class="p">(</span><span class="n">PRIMARY_MODEL</span><span class="p">)</span>
+<span class="n">doc_df</span> <span class="o">=</span> <span class="n">ea</span><span class="o">.</span><span class="n">merge_embeddings_with_catalog</span><span class="p">(</span><span class="n">doc_embeddings</span><span class="p">,</span> <span class="n">catalog</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loaded </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">doc_df</span><span class="p">)</span><span class="si">}</span><span class="s2"> articles with </span><span class="si">{</span><span class="n">PRIMARY_MODEL</span><span class="si">}</span><span class="s2"> embeddings&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Loaded 1078 articles with openai/text-embedding-3-large embeddings
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">HTML</span>
+
+<span class="n">SCANS_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">config</span><span class="p">(</span><span class="s2">&quot;BASE_DIR&quot;</span><span class="p">))</span> <span class="o">/</span> <span class="s2">&quot;assets&quot;</span> <span class="o">/</span> <span class="s2">&quot;scans&quot;</span>
+
+
+<span class="k">def</span> <span class="nf">show_scans</span><span class="p">(</span><span class="n">scans</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">300</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Display newspaper scan images side by side.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    scans : list of (filename, caption) tuples</span>
+<span class="sd">    width : int, pixel width per image</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">items</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">filename</span><span class="p">,</span> <span class="n">caption</span> <span class="ow">in</span> <span class="n">scans</span><span class="p">:</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">SCANS_DIR</span> <span class="o">/</span> <span class="n">filename</span>
+        <span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s1">&#39;&lt;div style=&quot;text-align:center; margin:0 10px&quot;&gt;&#39;</span>
+            <span class="sa">f</span><span class="s1">&#39;&lt;img src=&quot;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">&quot; width=&quot;</span><span class="si">{</span><span class="n">width</span><span class="si">}</span><span class="s1">&quot;&gt;&lt;br&gt;&#39;</span>
+            <span class="sa">f</span><span class="s1">&#39;&lt;em style=&quot;font-size:0.9em&quot;&gt;</span><span class="si">{</span><span class="n">caption</span><span class="si">}</span><span class="s1">&lt;/em&gt;&lt;/div&gt;&#39;</span>
+        <span class="p">)</span>
+    <span class="n">html</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;&lt;div style=&quot;display:flex; flex-wrap:wrap; align-items:flex-start; gap:10px&quot;&gt;</span><span class="si">{</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">items</span><span class="p">)</span><span class="si">}</span><span class="s1">&lt;/div&gt;&#39;</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="n">html</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ANALOGY_QUADRUPLETS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;US Time Period</span><span class="se">\n</span><span class="s2">(1870s → 1970s)&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;crisis₁₈₇₃ − tranquil₁₈₇₁ + tranquil₁₉₇₂ ≈ crisis₁₉₇₄&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="s2">&quot;12_1873-09-19_p1_sn83016025_00279525358_1873091901_0459&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;A_label&quot;</span><span class="p">:</span> <span class="s2">&quot;US 1873 crisis — Jay Cooke &amp; Co. suspension&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="s2">&quot;15_1871-11-03_p3_sn83045160_00200293022_1871110301_0506&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;B_label&quot;</span><span class="p">:</span> <span class="s2">&quot;US 1871 tranquil — Memphis routine finance&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;C&quot;</span><span class="p">:</span> <span class="s2">&quot;nw_1972_dow_jones_1000_nov&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;C_label&quot;</span><span class="p">:</span> <span class="s2">&quot;US 1972 tranquil — Dow Jones above 1,000&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;D&quot;</span><span class="p">:</span> <span class="s2">&quot;nw_1974_franklin_national_bank_failure&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;D_label&quot;</span><span class="p">:</span> <span class="s2">&quot;US 1974 crisis — Franklin National Bank failure&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;alt_targets&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;Two Bank Failures&quot;</span><span class="p">:</span> <span class="s2">&quot;nw_1974_two_bank_failures_deposit_insurance&quot;</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;US vs France</span><span class="se">\n</span><span class="s2">(1890 vs 1889)&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;us_crisis₁₈₉₀ − us_tranquil₁₈₈₈ + france_tranquil₁₈₈₇ ≈ france_crisis₁₈₈₉&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="s2">&quot;14_1890-11-12_p1_sn85034438_00175048303_1890111201_0301&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;A_label&quot;</span><span class="p">:</span> <span class="s2">&quot;US 1890 crisis — Wall Street panic (Richmond Times)&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="s2">&quot;nw_1888_treasury_surplus_estimate_fy1889&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;B_label&quot;</span><span class="p">:</span> <span class="s2">&quot;US 1888 tranquil — Treasury Secretary surplus estimate&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;C&quot;</span><span class="p">:</span> <span class="s2">&quot;2_1887-12-24_p2_sn82014381_00175036544_1887122401_0428&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;C_label&quot;</span><span class="p">:</span> <span class="s2">&quot;France 1887 tranquil — Bank of France silver coin handling&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;D&quot;</span><span class="p">:</span> <span class="s2">&quot;nw_1889_metaux_dissolution_parliamentary_inquiry&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;D_label&quot;</span><span class="p">:</span> <span class="s2">&quot;France 1889 crisis — Comptoir d&#39;Escompte reconstruction&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;alt_targets&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;Rouvier appeal&quot;</span><span class="p">:</span> <span class="s2">&quot;nw_1889_rouvier_appeal_bank_of_france&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Copper ring collapse&quot;</span><span class="p">:</span> <span class="s2">&quot;nw_1889_copper_ring_collapse_london&quot;</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+
+<span class="c1"># Show article summary</span>
+<span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">analogy_name</span><span class="p">,</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">ANALOGY_QUADRUPLETS</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">role</span><span class="p">,</span> <span class="n">label_key</span> <span class="ow">in</span> <span class="p">[(</span><span class="s2">&quot;King (crisis A)&quot;</span><span class="p">,</span> <span class="s2">&quot;A&quot;</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Man (tranquil A)&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">),</span>
+                            <span class="p">(</span><span class="s2">&quot;Woman (tranquil B)&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Queen (crisis B)&quot;</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">)]:</span>
+        <span class="n">aid</span> <span class="o">=</span> <span class="n">q</span><span class="p">[</span><span class="n">label_key</span><span class="p">]</span>
+        <span class="n">match</span> <span class="o">=</span> <span class="n">doc_df</span><span class="p">[</span><span class="n">doc_df</span><span class="p">[</span><span class="s2">&quot;article_id&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">aid</span><span class="p">]</span>
+        <span class="n">headline</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;headline&quot;</span><span class="p">][:</span><span class="mi">80</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">match</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s2">&quot;(not found)&quot;</span>
+        <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;Analogy&quot;</span><span class="p">:</span> <span class="n">analogy_name</span><span class="p">,</span> <span class="s2">&quot;Role&quot;</span><span class="p">:</span> <span class="n">role</span><span class="p">,</span> <span class="s2">&quot;Label&quot;</span><span class="p">:</span> <span class="n">q</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">label_key</span><span class="si">}</span><span class="s2">_label&quot;</span><span class="p">],</span>
+                      <span class="s2">&quot;Headline&quot;</span><span class="p">:</span> <span class="n">headline</span><span class="p">})</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Analogy</th>
+      <th>Role</th>
+      <th>Label</th>
+      <th>Headline</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>US Time Period\n(1870s → 1970s)</td>
+      <td>King (crisis A)</td>
+      <td>US 1873 crisis — Jay Cooke &amp; Co. suspension</td>
+      <td>THE STOCK PANIC. FAILURE OF JAY COOKE &amp; CO. A ...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>US Time Period\n(1870s → 1970s)</td>
+      <td>Man (tranquil A)</td>
+      <td>US 1871 tranquil — Memphis routine finance</td>
+      <td>FINANCE AND TRADE.</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>US Time Period\n(1870s → 1970s)</td>
+      <td>Woman (tranquil B)</td>
+      <td>US 1972 tranquil — Dow Jones above 1,000</td>
+      <td>Dow Jones Industrial Average Closes Above 1,00...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>US Time Period\n(1870s → 1970s)</td>
+      <td>Queen (crisis B)</td>
+      <td>US 1974 crisis — Franklin National Bank failure</td>
+      <td>Biggest bank failure in nation's history doesn...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>US vs France\n(1890 vs 1889)</td>
+      <td>King (crisis A)</td>
+      <td>US 1890 crisis — Wall Street panic (Richmond T...</td>
+      <td>TERRIFIC EXCITEMENT. THE STREET CONVULSED WITH...</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>US vs France\n(1890 vs 1889)</td>
+      <td>Man (tranquil A)</td>
+      <td>US 1888 tranquil — Treasury Secretary surplus ...</td>
+      <td>Acting Secretary Thompson Estimates Treasury S...</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>US vs France\n(1890 vs 1889)</td>
+      <td>Woman (tranquil B)</td>
+      <td>France 1887 tranquil — Bank of France silver c...</td>
+      <td>Bank of France — Coin Handling and Anti-Counte...</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>US vs France\n(1890 vs 1889)</td>
+      <td>Queen (crisis B)</td>
+      <td>France 1889 crisis — Comptoir d'Escompte recon...</td>
+      <td>Societe des Metaux Shareholders Seek Dissoluti...</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_article_vec</span><span class="p">(</span><span class="n">article_id</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="n">doc_df</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the embedding vector for a given article_id.&quot;&quot;&quot;</span>
+    <span class="n">match</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;article_id&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">article_id</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">match</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Article not found: </span><span class="si">{</span><span class="n">article_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">match</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;embedding&quot;</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">document_analogy</span><span class="p">(</span><span class="n">a_id</span><span class="p">,</span> <span class="n">b_id</span><span class="p">,</span> <span class="n">c_id</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">topn</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Solve: crisis_A − tranquil_A + tranquil_B ≈ ?</span>
+
+<span class="sd">    Returns a DataFrame of the topn nearest articles to the predicted vector.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">target</span> <span class="o">=</span> <span class="n">get_article_vec</span><span class="p">(</span><span class="n">a_id</span><span class="p">,</span> <span class="n">df</span><span class="p">)</span> <span class="o">-</span> <span class="n">get_article_vec</span><span class="p">(</span><span class="n">b_id</span><span class="p">,</span> <span class="n">df</span><span class="p">)</span> <span class="o">+</span> <span class="n">get_article_vec</span><span class="p">(</span><span class="n">c_id</span><span class="p">,</span> <span class="n">df</span><span class="p">)</span>
+    <span class="n">exclude</span> <span class="o">=</span> <span class="p">{</span><span class="n">a_id</span><span class="p">,</span> <span class="n">b_id</span><span class="p">,</span> <span class="n">c_id</span><span class="p">}</span>
+
+    <span class="n">candidates</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="o">~</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;article_id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">exclude</span><span class="p">)]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">X_cand</span> <span class="o">=</span> <span class="n">ea</span><span class="o">.</span><span class="n">embedding_matrix</span><span class="p">(</span><span class="n">candidates</span><span class="p">)</span>
+    <span class="n">sims</span> <span class="o">=</span> <span class="n">pairwise_cosine_similarity</span><span class="p">(</span><span class="n">target</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">X_cand</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+
+    <span class="n">candidates</span> <span class="o">=</span> <span class="n">candidates</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">candidates</span><span class="p">[</span><span class="s2">&quot;similarity&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sims</span>
+    <span class="n">candidates</span> <span class="o">=</span> <span class="n">candidates</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="n">topn</span><span class="p">,</span> <span class="s2">&quot;similarity&quot;</span><span class="p">)</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="n">candidates</span><span class="p">[[</span><span class="s2">&quot;article_id&quot;</span><span class="p">,</span> <span class="s2">&quot;similarity&quot;</span><span class="p">,</span> <span class="s2">&quot;headline&quot;</span><span class="p">,</span> <span class="s2">&quot;article_type&quot;</span><span class="p">,</span>
+                         <span class="s2">&quot;bvx_country&quot;</span><span class="p">,</span> <span class="s2">&quot;bvx_year&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">result</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">result</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;rank&quot;</span>
+    <span class="k">return</span> <span class="n">result</span>
+
+
+<span class="k">def</span> <span class="nf">document_parallelogram_check</span><span class="p">(</span><span class="n">a_id</span><span class="p">,</span> <span class="n">b_id</span><span class="p">,</span> <span class="n">c_id</span><span class="p">,</span> <span class="n">d_id</span><span class="p">,</span> <span class="n">df</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check parallelogram consistency for a document quadruplet.</span>
+
+<span class="sd">    Returns cosine similarities between parallel edge pairs,</span>
+<span class="sd">    mirroring the word-level check for king/queen above.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">vec_a</span> <span class="o">=</span> <span class="n">get_article_vec</span><span class="p">(</span><span class="n">a_id</span><span class="p">,</span> <span class="n">df</span><span class="p">)</span>  <span class="c1"># crisis_A  (king)</span>
+    <span class="n">vec_b</span> <span class="o">=</span> <span class="n">get_article_vec</span><span class="p">(</span><span class="n">b_id</span><span class="p">,</span> <span class="n">df</span><span class="p">)</span>  <span class="c1"># tranquil_A (man)</span>
+    <span class="n">vec_c</span> <span class="o">=</span> <span class="n">get_article_vec</span><span class="p">(</span><span class="n">c_id</span><span class="p">,</span> <span class="n">df</span><span class="p">)</span>  <span class="c1"># tranquil_B (woman)</span>
+    <span class="n">vec_d</span> <span class="o">=</span> <span class="n">get_article_vec</span><span class="p">(</span><span class="n">d_id</span><span class="p">,</span> <span class="n">df</span><span class="p">)</span>  <span class="c1"># crisis_B  (queen)</span>
+
+    <span class="c1"># Crisis direction: (crisis_A − tranquil_A) vs (crisis_B − tranquil_B)</span>
+    <span class="n">crisis_dir_a</span> <span class="o">=</span> <span class="n">vec_a</span> <span class="o">-</span> <span class="n">vec_b</span>
+    <span class="n">crisis_dir_b</span> <span class="o">=</span> <span class="n">vec_d</span> <span class="o">-</span> <span class="n">vec_c</span>
+
+    <span class="c1"># Context shift: (tranquil_B − tranquil_A) vs (crisis_B − crisis_A)</span>
+    <span class="n">shift_tranquil</span> <span class="o">=</span> <span class="n">vec_c</span> <span class="o">-</span> <span class="n">vec_b</span>
+    <span class="n">shift_crisis</span> <span class="o">=</span> <span class="n">vec_d</span> <span class="o">-</span> <span class="n">vec_a</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;crisis_direction&quot;</span><span class="p">:</span> <span class="n">cosine_similarity</span><span class="p">(</span><span class="n">crisis_dir_a</span><span class="p">,</span> <span class="n">crisis_dir_b</span><span class="p">),</span>
+        <span class="s2">&quot;context_shift&quot;</span><span class="p">:</span> <span class="n">cosine_similarity</span><span class="p">(</span><span class="n">shift_tranquil</span><span class="p">,</span> <span class="n">shift_crisis</span><span class="p">),</span>
+    <span class="p">}</span>
+
+
+<span class="k">def</span> <span class="nf">find_article_rank</span><span class="p">(</span><span class="n">a_id</span><span class="p">,</span> <span class="n">b_id</span><span class="p">,</span> <span class="n">c_id</span><span class="p">,</span> <span class="n">target_id</span><span class="p">,</span> <span class="n">df</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Find the rank (1-indexed) of target_id in the analogy results.&quot;&quot;&quot;</span>
+    <span class="n">target</span> <span class="o">=</span> <span class="n">get_article_vec</span><span class="p">(</span><span class="n">a_id</span><span class="p">,</span> <span class="n">df</span><span class="p">)</span> <span class="o">-</span> <span class="n">get_article_vec</span><span class="p">(</span><span class="n">b_id</span><span class="p">,</span> <span class="n">df</span><span class="p">)</span> <span class="o">+</span> <span class="n">get_article_vec</span><span class="p">(</span><span class="n">c_id</span><span class="p">,</span> <span class="n">df</span><span class="p">)</span>
+    <span class="n">exclude</span> <span class="o">=</span> <span class="p">{</span><span class="n">a_id</span><span class="p">,</span> <span class="n">b_id</span><span class="p">,</span> <span class="n">c_id</span><span class="p">}</span>
+    <span class="n">candidates</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="o">~</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;article_id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">exclude</span><span class="p">)]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">X_cand</span> <span class="o">=</span> <span class="n">ea</span><span class="o">.</span><span class="n">embedding_matrix</span><span class="p">(</span><span class="n">candidates</span><span class="p">)</span>
+    <span class="n">sims</span> <span class="o">=</span> <span class="n">pairwise_cosine_similarity</span><span class="p">(</span><span class="n">target</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">X_cand</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    <span class="n">candidates</span> <span class="o">=</span> <span class="n">candidates</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">candidates</span><span class="p">[</span><span class="s2">&quot;similarity&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sims</span>
+    <span class="n">candidates</span> <span class="o">=</span> <span class="n">candidates</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;similarity&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">match</span> <span class="o">=</span> <span class="n">candidates</span><span class="p">[</span><span class="n">candidates</span><span class="p">[</span><span class="s2">&quot;article_id&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">target_id</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">match</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">candidates</span><span class="p">)</span>
+    <span class="n">rank</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">sim</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;similarity&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">rank</span><span class="p">,</span> <span class="n">sim</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">candidates</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="analogy-1-crisis-across-time-u-s-1873-u-s-1974">
+<h3>Analogy 1: Crisis Across Time (U.S. 1873 → U.S. 1974)<a class="headerlink" href="#analogy-1-crisis-across-time-u-s-1873-u-s-1974" title="Link to this heading">#</a></h3>
+<p>Can the “crisis direction” from the 1870s predict the crisis article from the
+1970s — a full century later?</p>
+<ul class="simple">
+<li><p><strong>King</strong>: Jay Cooke &amp; Co. suspension, September 1873 (Panic of 1873)</p></li>
+<li><p><strong>Man</strong>: Memphis routine finance report, November 1871</p></li>
+<li><p><strong>Woman</strong>: Dow Jones closes above 1,000, November 1972</p></li>
+<li><p><strong>Predicted Queen</strong>: crisis₁₈₇₃ − tranquil₁₈₇₁ + tranquil₁₉₇₂ ≈ ?</p></li>
+<li><p><strong>Expected</strong>: Franklin National Bank failure, October 1974</p></li>
+</ul>
+<p>The original newspaper scans for the two 19th-century articles in this
+analogy show the contrast between crisis and tranquil financial reporting:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">show_scans</span><span class="p">([</span>
+    <span class="p">(</span><span class="s2">&quot;US_1873_crisis.png&quot;</span><span class="p">,</span> <span class="s2">&quot;U.S. 1873 crisis: Jay Cooke &amp; Co. suspension&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;US_1871_tranquil.png&quot;</span><span class="p">,</span> <span class="s2">&quot;U.S. 1871 tranquil: Memphis routine finance&quot;</span><span class="p">),</span>
+<span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div style="display:flex; flex-wrap:wrap; align-items:flex-start; gap:10px"><div style="text-align:center; margin:0 10px"><img src="/Users/jbejarano/GitRepositories/finm33200/financial_crises_llms/assets/scans/US_1873_crisis.png" width="300"><br><em style="font-size:0.9em">U.S. 1873 crisis: Jay Cooke & Co. suspension</em></div><div style="text-align:center; margin:0 10px"><img src="/Users/jbejarano/GitRepositories/finm33200/financial_crises_llms/assets/scans/US_1871_tranquil.png" width="300"><br><em style="font-size:0.9em">U.S. 1871 tranquil: Memphis routine finance</em></div></div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">q1</span> <span class="o">=</span> <span class="n">ANALOGY_QUADRUPLETS</span><span class="p">[</span><span class="s2">&quot;US Time Period</span><span class="se">\n</span><span class="s2">(1870s → 1970s)&quot;</span><span class="p">]</span>
+<span class="n">document_analogy</span><span class="p">(</span><span class="n">q1</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">],</span> <span class="n">q1</span><span class="p">[</span><span class="s2">&quot;B&quot;</span><span class="p">],</span> <span class="n">q1</span><span class="p">[</span><span class="s2">&quot;C&quot;</span><span class="p">],</span> <span class="n">doc_df</span><span class="p">,</span> <span class="n">topn</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>article_id</th>
+      <th>similarity</th>
+      <th>headline</th>
+      <th>article_type</th>
+      <th>bvx_country</th>
+      <th>bvx_year</th>
+    </tr>
+    <tr>
+      <th>rank</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>14_1873-09-21_p1_sn83045160_00200293083_187309...</td>
+      <td>0.483706</td>
+      <td>THE MONEY PANIC. Continuation Of the Excitemen...</td>
+      <td>crisis</td>
+      <td>U.S.</td>
+      <td>1873.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>nw_1907_morgan_relief_trust_company_runs</td>
+      <td>0.460031</td>
+      <td>Calmer Tone After Morgan-Rockefeller Relief Me...</td>
+      <td>crisis</td>
+      <td>U.S.</td>
+      <td>1907.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>51_1907-10-22_p1_sn84020616_00280774212_190710...</td>
+      <td>0.437460</td>
+      <td>IT COULD NOT SECURE CURRENCY FAST ENOUGH. Knic...</td>
+      <td>crisis</td>
+      <td>U.S.</td>
+      <td>1907.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>3_1907-11-02_p1_sn85058179_00237285438_1907110...</td>
+      <td>0.433266</td>
+      <td>FINANCIAL STORM IN NEW YORK CITY. The Knickerb...</td>
+      <td>crisis</td>
+      <td>U.S.</td>
+      <td>1907.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>25_1884-05-07_p1_sn83030214_00175038012_188405...</td>
+      <td>0.432869</td>
+      <td>DETAILS OF THE TWO FAILURES. THE BANK PROBABLY...</td>
+      <td>crisis</td>
+      <td>U.S.</td>
+      <td>1884.0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>nw_1884_metropolitan_bank_panic_spreading</td>
+      <td>0.432792</td>
+      <td>Metropolitan Bank Suspends Payment Amid Spread...</td>
+      <td>crisis</td>
+      <td>U.S.</td>
+      <td>1884.0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>3_1914-07-31_p1_sn86086633_00296023541_1914073...</td>
+      <td>0.429357</td>
+      <td>TRANSACTIONS IN SECURITIES COME TO HALT. New Y...</td>
+      <td>crisis</td>
+      <td>U.S.</td>
+      <td>1914.0</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>48_1937-10-10_p2_sn83045462_00280602036_193710...</td>
+      <td>0.429224</td>
+      <td>Wall Street erases $10,000,000,000 in stock va...</td>
+      <td>crisis</td>
+      <td>U.S.</td>
+      <td>1937.0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>14_1890-11-12_p1_sn85034438_00175048303_189011...</td>
+      <td>0.423268</td>
+      <td>TERRIFIC EXCITEMENT. THE STREET CONVULSED WITH...</td>
+      <td>crisis</td>
+      <td>U.S.</td>
+      <td>1890.0</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>8_1890-11-18_p1_sn94052989_00175047554_1890111...</td>
+      <td>0.416744</td>
+      <td>EMBARRASSED FIRMS. Condition of the Barings --...</td>
+      <td>crisis</td>
+      <td>U.S.</td>
+      <td>1890.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Where does the expected target actually rank?</span>
+<span class="n">targets_1</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Franklin National Bank&quot;</span><span class="p">:</span> <span class="n">q1</span><span class="p">[</span><span class="s2">&quot;D&quot;</span><span class="p">],</span> <span class="o">**</span><span class="n">q1</span><span class="p">[</span><span class="s2">&quot;alt_targets&quot;</span><span class="p">]}</span>
+<span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">tid</span> <span class="ow">in</span> <span class="n">targets_1</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">rank</span><span class="p">,</span> <span class="n">sim</span><span class="p">,</span> <span class="n">total</span> <span class="o">=</span> <span class="n">find_article_rank</span><span class="p">(</span><span class="n">q1</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">],</span> <span class="n">q1</span><span class="p">[</span><span class="s2">&quot;B&quot;</span><span class="p">],</span> <span class="n">q1</span><span class="p">[</span><span class="s2">&quot;C&quot;</span><span class="p">],</span> <span class="n">tid</span><span class="p">,</span> <span class="n">doc_df</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">: rank </span><span class="si">{</span><span class="n">rank</span><span class="si">}</span><span class="s2"> of </span><span class="si">{</span><span class="n">total</span><span class="si">}</span><span class="s2"> (similarity = </span><span class="si">{</span><span class="n">sim</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Franklin National Bank: rank 76 of 1075 (similarity = 0.3275)
+  Two Bank Failures: rank 116 of 1075 (similarity = 0.3124)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">para_1</span> <span class="o">=</span> <span class="n">document_parallelogram_check</span><span class="p">(</span><span class="n">q1</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">],</span> <span class="n">q1</span><span class="p">[</span><span class="s2">&quot;B&quot;</span><span class="p">],</span> <span class="n">q1</span><span class="p">[</span><span class="s2">&quot;C&quot;</span><span class="p">],</span> <span class="n">q1</span><span class="p">[</span><span class="s2">&quot;D&quot;</span><span class="p">],</span> <span class="n">doc_df</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Parallelogram consistency (US Time Period):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Crisis direction: cos(crisis₁₈₇₃−tranquil₁₈₇₁, crisis₁₉₇₄−tranquil₁₉₇₂) = </span><span class="si">{</span><span class="n">para_1</span><span class="p">[</span><span class="s1">&#39;crisis_direction&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Context shift:    cos(tranquil₁₉₇₂−tranquil₁₈₇₁, crisis₁₉₇₄−crisis₁₈₇₃) = </span><span class="si">{</span><span class="n">para_1</span><span class="p">[</span><span class="s1">&#39;context_shift&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Parallelogram consistency (US Time Period):
+  Crisis direction: cos(crisis₁₈₇₃−tranquil₁₈₇₁, crisis₁₉₇₄−tranquil₁₉₇₂) = 0.1603
+  Context shift:    cos(tranquil₁₉₇₂−tranquil₁₈₇₁, crisis₁₉₇₄−crisis₁₈₇₃) = 0.1265
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="analogy-2-crisis-across-countries-u-s-1890-france-1889">
+<h3>Analogy 2: Crisis Across Countries (U.S. 1890 → France 1889)<a class="headerlink" href="#analogy-2-crisis-across-countries-u-s-1890-france-1889" title="Link to this heading">#</a></h3>
+<p>Can the “crisis direction” from U.S. banking panics predict a French banking
+crisis from the same era?</p>
+<ul class="simple">
+<li><p><strong>King</strong>: Wall Street panic, Richmond Times, November 1890</p></li>
+<li><p><strong>Man</strong>: Treasury Secretary surplus estimate, 1888</p></li>
+<li><p><strong>Woman</strong>: Bank of France silver coin handling, December 1887</p></li>
+<li><p><strong>Predicted Queen</strong>: us_crisis₁₈₉₀ − us_tranquil₁₈₈₈ + france_tranquil₁₈₈₇ ≈ ?</p></li>
+<li><p><strong>Expected</strong>: Comptoir d’Escompte reconstruction, March 1889</p></li>
+</ul>
+<p>Original newspaper scans for the articles in this cross-country analogy:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">show_scans</span><span class="p">([</span>
+    <span class="p">(</span><span class="s2">&quot;US_1890_crisis.png&quot;</span><span class="p">,</span> <span class="s2">&quot;U.S. 1890 crisis: Wall Street panic&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;US_1888_tranquil.png&quot;</span><span class="p">,</span> <span class="s2">&quot;U.S. 1888 tranquil: Indianapolis markets&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;FR_1887_tranquil.png&quot;</span><span class="p">,</span> <span class="s2">&quot;France 1887 tranquil: Bank of France&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;FR_1889_crisis.png&quot;</span><span class="p">,</span> <span class="s2">&quot;France 1889 crisis: Copper ring collapse&quot;</span><span class="p">),</span>
+<span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div style="display:flex; flex-wrap:wrap; align-items:flex-start; gap:10px"><div style="text-align:center; margin:0 10px"><img src="/Users/jbejarano/GitRepositories/finm33200/financial_crises_llms/assets/scans/US_1890_crisis.png" width="300"><br><em style="font-size:0.9em">U.S. 1890 crisis: Wall Street panic</em></div><div style="text-align:center; margin:0 10px"><img src="/Users/jbejarano/GitRepositories/finm33200/financial_crises_llms/assets/scans/US_1888_tranquil.png" width="300"><br><em style="font-size:0.9em">U.S. 1888 tranquil: Indianapolis markets</em></div><div style="text-align:center; margin:0 10px"><img src="/Users/jbejarano/GitRepositories/finm33200/financial_crises_llms/assets/scans/FR_1887_tranquil.png" width="300"><br><em style="font-size:0.9em">France 1887 tranquil: Bank of France</em></div><div style="text-align:center; margin:0 10px"><img src="/Users/jbejarano/GitRepositories/finm33200/financial_crises_llms/assets/scans/FR_1889_crisis.png" width="300"><br><em style="font-size:0.9em">France 1889 crisis: Copper ring collapse</em></div></div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">q2</span> <span class="o">=</span> <span class="n">ANALOGY_QUADRUPLETS</span><span class="p">[</span><span class="s2">&quot;US vs France</span><span class="se">\n</span><span class="s2">(1890 vs 1889)&quot;</span><span class="p">]</span>
+<span class="n">document_analogy</span><span class="p">(</span><span class="n">q2</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">],</span> <span class="n">q2</span><span class="p">[</span><span class="s2">&quot;B&quot;</span><span class="p">],</span> <span class="n">q2</span><span class="p">[</span><span class="s2">&quot;C&quot;</span><span class="p">],</span> <span class="n">doc_df</span><span class="p">,</span> <span class="n">topn</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>article_id</th>
+      <th>similarity</th>
+      <th>headline</th>
+      <th>article_type</th>
+      <th>bvx_country</th>
+      <th>bvx_year</th>
+    </tr>
+    <tr>
+      <th>rank</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>5_1882-01-24_p1_sn82015483_00271762732_1882012...</td>
+      <td>0.543601</td>
+      <td>THE UNION GENnRALE.</td>
+      <td>crisis</td>
+      <td>France</td>
+      <td>1882.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>nw_1884_metropolitan_bank_panic_spreading</td>
+      <td>0.525030</td>
+      <td>Metropolitan Bank Suspends Payment Amid Spread...</td>
+      <td>crisis</td>
+      <td>U.S.</td>
+      <td>1884.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>8_1890-11-18_p1_sn94052989_00175047554_1890111...</td>
+      <td>0.521808</td>
+      <td>EMBARRASSED FIRMS. Condition of the Barings --...</td>
+      <td>crisis</td>
+      <td>U.S.</td>
+      <td>1890.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>14_1873-09-21_p1_sn83045160_00200293083_187309...</td>
+      <td>0.518729</td>
+      <td>THE MONEY PANIC. Continuation Of the Excitemen...</td>
+      <td>crisis</td>
+      <td>U.S.</td>
+      <td>1873.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>6_1890-11-18_p1_sn82014381_00175036635_1890111...</td>
+      <td>0.510406</td>
+      <td>THE BARINGs RESUME BUSINESS — Financial Situat...</td>
+      <td>crisis</td>
+      <td>U.K.</td>
+      <td>1890.0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>3_1907-11-02_p1_sn85058179_00237285438_1907110...</td>
+      <td>0.504778</td>
+      <td>FINANCIAL STORM IN NEW YORK CITY. The Knickerb...</td>
+      <td>crisis</td>
+      <td>U.S.</td>
+      <td>1907.0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>3_1902-02-15_p8_sn85053327_00295860091_1902021...</td>
+      <td>0.504233</td>
+      <td>FOREIGN BANK METHODS. The Undeveloped system I...</td>
+      <td>tranquil</td>
+      <td>France</td>
+      <td>1904.0</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>23_1930-12-12_p14_sn83045462_00280600520_19301...</td>
+      <td>0.503108</td>
+      <td>CLOSING OF BANK DISTURBS STREET. New Yorkers S...</td>
+      <td>crisis</td>
+      <td>U.S.</td>
+      <td>1930.0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>25_1884-05-07_p1_sn83030214_00175038012_188405...</td>
+      <td>0.501725</td>
+      <td>DETAILS OF THE TWO FAILURES. THE BANK PROBABLY...</td>
+      <td>crisis</td>
+      <td>U.S.</td>
+      <td>1884.0</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>nw_1907_morgan_relief_trust_company_runs</td>
+      <td>0.501685</td>
+      <td>Calmer Tone After Morgan-Rockefeller Relief Me...</td>
+      <td>crisis</td>
+      <td>U.S.</td>
+      <td>1907.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">targets_2</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Comptoir d&#39;Escompte&quot;</span><span class="p">:</span> <span class="n">q2</span><span class="p">[</span><span class="s2">&quot;D&quot;</span><span class="p">],</span> <span class="o">**</span><span class="n">q2</span><span class="p">[</span><span class="s2">&quot;alt_targets&quot;</span><span class="p">]}</span>
+<span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">tid</span> <span class="ow">in</span> <span class="n">targets_2</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">rank</span><span class="p">,</span> <span class="n">sim</span><span class="p">,</span> <span class="n">total</span> <span class="o">=</span> <span class="n">find_article_rank</span><span class="p">(</span><span class="n">q2</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">],</span> <span class="n">q2</span><span class="p">[</span><span class="s2">&quot;B&quot;</span><span class="p">],</span> <span class="n">q2</span><span class="p">[</span><span class="s2">&quot;C&quot;</span><span class="p">],</span> <span class="n">tid</span><span class="p">,</span> <span class="n">doc_df</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">: rank </span><span class="si">{</span><span class="n">rank</span><span class="si">}</span><span class="s2"> of </span><span class="si">{</span><span class="n">total</span><span class="si">}</span><span class="s2"> (similarity = </span><span class="si">{</span><span class="n">sim</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Comptoir d&#39;Escompte: rank 12 of 1075 (similarity = 0.4997)
+  Rouvier appeal: rank 71 of 1075 (similarity = 0.4231)
+  Copper ring collapse: rank 15 of 1075 (similarity = 0.4839)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">para_2</span> <span class="o">=</span> <span class="n">document_parallelogram_check</span><span class="p">(</span><span class="n">q2</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">],</span> <span class="n">q2</span><span class="p">[</span><span class="s2">&quot;B&quot;</span><span class="p">],</span> <span class="n">q2</span><span class="p">[</span><span class="s2">&quot;C&quot;</span><span class="p">],</span> <span class="n">q2</span><span class="p">[</span><span class="s2">&quot;D&quot;</span><span class="p">],</span> <span class="n">doc_df</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Parallelogram consistency (US vs France):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Crisis direction: cos(us_crisis₁₈₉₀−us_tranquil₁₈₈₈, fr_crisis₁₈₈₉−fr_tranquil₁₈₈₇) = </span><span class="si">{</span><span class="n">para_2</span><span class="p">[</span><span class="s1">&#39;crisis_direction&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Context shift:    cos(fr_tranquil₁₈₈₇−us_tranquil₁₈₈₈, fr_crisis₁₈₈₉−us_crisis₁₈₉₀) = </span><span class="si">{</span><span class="n">para_2</span><span class="p">[</span><span class="s1">&#39;context_shift&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Parallelogram consistency (US vs France):
+  Crisis direction: cos(us_crisis₁₈₉₀−us_tranquil₁₈₈₈, fr_crisis₁₈₈₉−fr_tranquil₁₈₈₇) = 0.1968
+  Context shift:    cos(fr_tranquil₁₈₈₇−us_tranquil₁₈₈₈, fr_crisis₁₈₈₉−us_crisis₁₈₉₀) = 0.1863
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="robustness-across-embedding-models">
+<h3>Robustness Across Embedding Models<a class="headerlink" href="#robustness-across-embedding-models" title="Link to this heading">#</a></h3>
+<p>Do these results hold across different embedding architectures? We test the same
+two analogies with all five models used in the paper.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ALL_MODELS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;openai/text-embedding-3-large&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;openai/text-embedding-3-small&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;baai/bge-large-en-v1.5&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;thenlper/gte-large&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;qwen/qwen3-embedding-8b&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="n">model_rows</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">model_name</span> <span class="ow">in</span> <span class="n">ALL_MODELS</span><span class="p">:</span>
+    <span class="n">emb</span> <span class="o">=</span> <span class="n">ea</span><span class="o">.</span><span class="n">load_embeddings</span><span class="p">(</span><span class="n">model_name</span><span class="p">)</span>
+    <span class="n">mdf</span> <span class="o">=</span> <span class="n">ea</span><span class="o">.</span><span class="n">merge_embeddings_with_catalog</span><span class="p">(</span><span class="n">emb</span><span class="p">,</span> <span class="n">catalog</span><span class="p">)</span>
+    <span class="n">short_name</span> <span class="o">=</span> <span class="n">model_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">analogy_name</span><span class="p">,</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">ANALOGY_QUADRUPLETS</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="c1"># Rank of expected target</span>
+        <span class="n">rank</span><span class="p">,</span> <span class="n">sim</span><span class="p">,</span> <span class="n">total</span> <span class="o">=</span> <span class="n">find_article_rank</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="s2">&quot;B&quot;</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="s2">&quot;C&quot;</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="s2">&quot;D&quot;</span><span class="p">],</span> <span class="n">mdf</span><span class="p">)</span>
+
+        <span class="c1"># Is the top-1 result a crisis article?</span>
+        <span class="n">top</span> <span class="o">=</span> <span class="n">document_analogy</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="s2">&quot;B&quot;</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="s2">&quot;C&quot;</span><span class="p">],</span> <span class="n">mdf</span><span class="p">,</span> <span class="n">topn</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">top1_crisis</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;article_type&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;crisis&quot;</span>
+
+        <span class="c1"># Parallelogram check</span>
+        <span class="n">para</span> <span class="o">=</span> <span class="n">document_parallelogram_check</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="s2">&quot;B&quot;</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="s2">&quot;C&quot;</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="s2">&quot;D&quot;</span><span class="p">],</span> <span class="n">mdf</span><span class="p">)</span>
+
+        <span class="n">model_rows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s2">&quot;Model&quot;</span><span class="p">:</span> <span class="n">short_name</span><span class="p">,</span>
+            <span class="s2">&quot;Analogy&quot;</span><span class="p">:</span> <span class="n">analogy_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">),</span>
+            <span class="s2">&quot;Target Rank&quot;</span><span class="p">:</span> <span class="n">rank</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;of N&quot;</span><span class="p">:</span> <span class="n">total</span><span class="p">,</span>
+            <span class="s2">&quot;Target Sim.&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">sim</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="k">if</span> <span class="n">sim</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">&quot;Top-1 Crisis?&quot;</span><span class="p">:</span> <span class="n">top1_crisis</span><span class="p">,</span>
+            <span class="s2">&quot;Crisis Dir. cos&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">para</span><span class="p">[</span><span class="s2">&quot;crisis_direction&quot;</span><span class="p">],</span> <span class="mi">4</span><span class="p">),</span>
+        <span class="p">})</span>
+
+<span class="n">cross_model_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">model_rows</span><span class="p">)</span>
+<span class="n">cross_model_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Model</th>
+      <th>Analogy</th>
+      <th>Target Rank</th>
+      <th>of N</th>
+      <th>Target Sim.</th>
+      <th>Top-1 Crisis?</th>
+      <th>Crisis Dir. cos</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>text-embedding-3-large</td>
+      <td>US Time Period (1870s → 1970s)</td>
+      <td>76</td>
+      <td>1075</td>
+      <td>0.3275</td>
+      <td>True</td>
+      <td>0.1603</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>text-embedding-3-large</td>
+      <td>US vs France (1890 vs 1889)</td>
+      <td>12</td>
+      <td>1075</td>
+      <td>0.4997</td>
+      <td>True</td>
+      <td>0.1968</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>text-embedding-3-small</td>
+      <td>US Time Period (1870s → 1970s)</td>
+      <td>123</td>
+      <td>1075</td>
+      <td>0.3093</td>
+      <td>True</td>
+      <td>0.1401</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>text-embedding-3-small</td>
+      <td>US vs France (1890 vs 1889)</td>
+      <td>47</td>
+      <td>1075</td>
+      <td>0.4528</td>
+      <td>True</td>
+      <td>0.0758</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>bge-large-en-v1.5</td>
+      <td>US Time Period (1870s → 1970s)</td>
+      <td>197</td>
+      <td>1075</td>
+      <td>0.5400</td>
+      <td>False</td>
+      <td>0.0894</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>bge-large-en-v1.5</td>
+      <td>US vs France (1890 vs 1889)</td>
+      <td>59</td>
+      <td>1075</td>
+      <td>0.6823</td>
+      <td>True</td>
+      <td>0.1177</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>gte-large</td>
+      <td>US Time Period (1870s → 1970s)</td>
+      <td>478</td>
+      <td>1075</td>
+      <td>0.7201</td>
+      <td>True</td>
+      <td>0.0640</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>gte-large</td>
+      <td>US vs France (1890 vs 1889)</td>
+      <td>8</td>
+      <td>1075</td>
+      <td>0.8095</td>
+      <td>True</td>
+      <td>0.1338</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>qwen3-embedding-8b</td>
+      <td>US Time Period (1870s → 1970s)</td>
+      <td>59</td>
+      <td>1075</td>
+      <td>0.4034</td>
+      <td>True</td>
+      <td>0.1898</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>qwen3-embedding-8b</td>
+      <td>US vs France (1890 vs 1889)</td>
+      <td>11</td>
+      <td>1075</td>
+      <td>0.5168</td>
+      <td>True</td>
+      <td>0.1485</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="document-level-parallelogram-in-2d">
+<h3>Document-Level Parallelogram in 2D<a class="headerlink" href="#document-level-parallelogram-in-2d" title="Link to this heading">#</a></h3>
+<p>As with king/queen above, we can project the four articles from each quadruplet
+into 2D to visualize the parallelogram structure.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span> <span class="k">as</span> <span class="n">PCA_doc</span>
+
+<span class="n">fig_doc</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">(</span><span class="n">analogy_name</span><span class="p">,</span> <span class="n">q</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ANALOGY_QUADRUPLETS</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="n">q</span><span class="p">[</span><span class="s2">&quot;B_label&quot;</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="s2">&quot;A_label&quot;</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="s2">&quot;C_label&quot;</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="s2">&quot;D_label&quot;</span><span class="p">]]</span>
+    <span class="n">ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">q</span><span class="p">[</span><span class="s2">&quot;B&quot;</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="s2">&quot;C&quot;</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="s2">&quot;D&quot;</span><span class="p">]]</span>
+    <span class="n">vecs_doc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">get_article_vec</span><span class="p">(</span><span class="n">aid</span><span class="p">,</span> <span class="n">doc_df</span><span class="p">)</span> <span class="k">for</span> <span class="n">aid</span> <span class="ow">in</span> <span class="n">ids</span><span class="p">])</span>
+
+    <span class="n">pca_doc</span> <span class="o">=</span> <span class="n">PCA_doc</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">coords_doc</span> <span class="o">=</span> <span class="n">pca_doc</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">vecs_doc</span><span class="p">)</span>
+
+    <span class="n">col_offset</span> <span class="o">=</span> <span class="n">idx</span> <span class="o">*</span> <span class="mi">3</span>  <span class="c1"># separate the two quadruplets horizontally</span>
+    <span class="n">coords_doc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="n">col_offset</span> <span class="o">*</span> <span class="mi">2</span>
+
+    <span class="n">color_pts</span> <span class="o">=</span> <span class="s2">&quot;#636EFA&quot;</span> <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="s2">&quot;#AB63FA&quot;</span>
+    <span class="n">fig_doc</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span><span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span>
+        <span class="n">x</span><span class="o">=</span><span class="n">coords_doc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">coords_doc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
+        <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;markers+text&quot;</span><span class="p">,</span>
+        <span class="n">text</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;tranquil A&quot;</span><span class="p">,</span> <span class="s2">&quot;crisis A&quot;</span><span class="p">,</span> <span class="s2">&quot;tranquil B&quot;</span><span class="p">,</span> <span class="s2">&quot;crisis B (target)&quot;</span><span class="p">],</span>
+        <span class="n">textposition</span><span class="o">=</span><span class="s2">&quot;top center&quot;</span><span class="p">,</span>
+        <span class="n">marker</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color_pts</span><span class="p">),</span>
+        <span class="n">name</span><span class="o">=</span><span class="n">analogy_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">),</span>
+        <span class="n">hovertext</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span>
+    <span class="p">))</span>
+
+    <span class="c1"># Draw parallelogram edges</span>
+    <span class="k">for</span> <span class="n">i_from</span><span class="p">,</span> <span class="n">i_to</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="p">[</span>
+        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;#EF553B&quot;</span><span class="p">),</span>  <span class="c1"># tranquil_A → crisis_A (crisis direction)</span>
+        <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;#EF553B&quot;</span><span class="p">),</span>  <span class="c1"># tranquil_B → crisis_B (crisis direction)</span>
+        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;#00CC96&quot;</span><span class="p">),</span>  <span class="c1"># tranquil_A → tranquil_B (context shift)</span>
+        <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;#00CC96&quot;</span><span class="p">),</span>  <span class="c1"># crisis_A → crisis_B (context shift)</span>
+    <span class="p">]:</span>
+        <span class="n">fig_doc</span><span class="o">.</span><span class="n">add_annotation</span><span class="p">(</span>
+            <span class="n">x</span><span class="o">=</span><span class="n">coords_doc</span><span class="p">[</span><span class="n">i_to</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">coords_doc</span><span class="p">[</span><span class="n">i_to</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+            <span class="n">ax</span><span class="o">=</span><span class="n">coords_doc</span><span class="p">[</span><span class="n">i_from</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">ay</span><span class="o">=</span><span class="n">coords_doc</span><span class="p">[</span><span class="n">i_from</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+            <span class="n">xref</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">yref</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">axref</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">ayref</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span>
+            <span class="n">showarrow</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">arrowhead</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">arrowsize</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">arrowwidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="n">arrowcolor</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span>
+        <span class="p">)</span>
+
+<span class="n">fig_doc</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span><span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="kc">None</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="kc">None</span><span class="p">],</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;lines&quot;</span><span class="p">,</span>
+    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;#EF553B&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;crisis direction&quot;</span><span class="p">))</span>
+<span class="n">fig_doc</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span><span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="kc">None</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="kc">None</span><span class="p">],</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;lines&quot;</span><span class="p">,</span>
+    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;#00CC96&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;context shift&quot;</span><span class="p">))</span>
+
+<span class="n">fig_doc</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Document Embedding Parallelograms (PCA Projection to 2D)&quot;</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">550</span><span class="p">,</span> <span class="n">template</span><span class="o">=</span><span class="s2">&quot;plotly_white&quot;</span><span class="p">,</span>
+    <span class="n">xaxis</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">showticklabels</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">),</span>
+    <span class="n">yaxis</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">showticklabels</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">fig_doc</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+</section>
+<section id="what-these-results-tell-us">
+<h3>What These Results Tell Us<a class="headerlink" href="#what-these-results-tell-us" title="Link to this heading">#</a></h3>
+<p>The document-level analogies demonstrate that contextual embeddings encode
+crisis-relevant structure supporting arithmetic operations on full articles —
+not just individual words:</p>
+<ol class="arabic simple">
+<li><p><strong>Crisis direction is partially transferable.</strong> The vector offset between a
+crisis article and a tranquil article from one episode can identify crisis
+articles from a completely different episode, even across a century or across
+national borders.</p></li>
+<li><p><strong>The parallelogram is approximate.</strong> Unlike king − man + woman = queen,
+where the target is often rank 1, document analogies produce noisier results.
+This is expected: a full newspaper article varies along many dimensions beyond
+crisis vs. tranquil (topic, writing style, newspaper, length).</p></li>
+<li><p><strong>Multiple models agree.</strong> The cross-model comparison shows that the analogy
+structure is not an artifact of one particular embedding model.</p></li>
+</ol>
+<p>This bridges the gap between the toy word-level analogies above and the systematic
+embedding validation in <strong>notebook 04</strong>. The key insight: contextual embeddings
+encode crisis-relevant structure that supports arithmetic operations on full
+documents, not just individual words.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="limitations-and-the-path-to-llms">
+<h2>Limitations and the Path to LLMs<a class="headerlink" href="#limitations-and-the-path-to-llms" title="Link to this heading">#</a></h2>
+<section id="static-embeddings-one-vector-per-word">
+<h3>Static Embeddings: One Vector Per Word<a class="headerlink" href="#static-embeddings-one-vector-per-word" title="Link to this heading">#</a></h3>
+<p>Word2Vec and GloVe are <strong>static</strong> embedding models — each word gets exactly one
+vector, regardless of context. This means:</p>
+<ul class="simple">
+<li><p><strong>“bank”</strong> (financial institution) and <strong>“bank”</strong> (river bank) share the same vector</p></li>
+<li><p><strong>“apple”</strong> (fruit) and <strong>“Apple”</strong> (company) are conflated</p></li>
+<li><p>The same word in different sentences always produces the same representation</p></li>
+</ul>
+</section>
+<section id="contextual-embeddings-different-vectors-for-different-contexts">
+<h3>Contextual Embeddings: Different Vectors for Different Contexts<a class="headerlink" href="#contextual-embeddings-different-vectors-for-different-contexts" title="Link to this heading">#</a></h3>
+<p>Modern LLMs (BERT, GPT) produce <strong>contextual embeddings</strong> — the vector for a word
+changes based on its surrounding context. This is a fundamental advance:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Sentence</p></th>
+<th class="head"><p>“bank” embedding</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><em>“The central bank raised interest rates.”</em></p></td>
+<td><p>Financial institution vector</p></td>
+</tr>
+<tr class="row-odd"><td><p><em>“We walked along the river bank.”</em></p></td>
+<td><p>Geographic feature vector</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>For financial text analysis (the focus of our paper), this matters enormously.
+The word “depression” in a 1930s newspaper article about economic collapse should
+have a very different representation than “depression” in a medical context.</p>
+</section>
+<section id="from-here-to-our-paper">
+<h3>From Here to Our Paper<a class="headerlink" href="#from-here-to-our-paper" title="Link to this heading">#</a></h3>
+<p>Chen et al. (2022) show that LLM embeddings significantly outperform Word2Vec
+for return prediction. In our project, we apply contextual embeddings to historical
+newspaper text to extract crisis-relevant signals. The intuition from this notebook
+— that vector geometry encodes semantic relationships — carries over directly, but
+with the added power of context sensitivity.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
+<p><strong>Key takeaways:</strong></p>
+<ol class="arabic simple">
+<li><p><strong>Words as vectors.</strong> Word2Vec (Mikolov et al., 2013) showed that training on
+word co-occurrence patterns produces vectors where geometric relationships encode
+semantic relationships.</p></li>
+<li><p><strong>Analogy via arithmetic.</strong> The vector operation <code class="docutils literal notranslate"><span class="pre">king</span> <span class="pre">-</span> <span class="pre">man</span> <span class="pre">+</span> <span class="pre">woman</span> <span class="pre">≈</span> <span class="pre">queen</span></code>
+works because the embedding space learns consistent directions for concepts
+like gender and royalty.</p></li>
+<li><p><strong>Financial clustering.</strong> GloVe embeddings naturally group financial terms by
+theme (downturns, instruments, indicators), but financial analogies are noisier
+than the classic examples.</p></li>
+<li><p><strong>The case for contextual embeddings.</strong> Static word vectors assign one
+representation per word regardless of context. Modern LLMs overcome this
+limitation, which is why our paper uses contextual embeddings for crisis
+prediction from historical text.</p></li>
+</ol>
+<p><strong>References:</strong></p>
+<ul class="simple">
+<li><p>Mikolov, T., Chen, K., Corrado, G., &amp; Dean, J. (2013). Efficient estimation of word representations in vector space. <em>arXiv:1301.3781</em></p></li>
+<li><p>Pennington, J., Socher, R., &amp; Manning, C. (2014). GloVe: Global Vectors for Word Representation. <em>EMNLP 2014</em></p></li>
+<li><p>Chen, Y., Kelly, B., &amp; Xiu, D. (2022). Expected Returns and Large Language Models. <em>SSRN 4416687</em></p></li>
+</ul>
+</section>
+</section>
+
+<div class="section ablog__blog_comments">
+   
+</div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="words_to_tokens.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">From Words to Tokens</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="review_w02.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Study Questions</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-are-word-embeddings">What Are Word Embeddings?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-problem-with-traditional-representations">The Problem with Traditional Representations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-distributional-hypothesis">The Distributional Hypothesis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#word2vec-the-breakthrough-mikolov-et-al-2013">Word2Vec: The Breakthrough (Mikolov et al., 2013)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#glove-a-refinement-pennington-et-al-2014">GloVe: A Refinement (Pennington et al., 2014)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-road-to-modern-llms">The Road to Modern LLMs</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-the-embeddings">Load the Embeddings</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exploring-word-similarity">Exploring Word Similarity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-classic-analogy-king-man-woman">The Classic Analogy: king - man + woman = ?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion-man-brother-woman">Discussion: man : brother :: woman : ?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-does-this-work-the-parallelogram-structure">Why Does This Work? The Parallelogram Structure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-the-embedding-space">Visualizing the Embedding Space</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-analogy-parallelogram-in-2d">The Analogy Parallelogram in 2D</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cosine-similarity-heatmap">Cosine Similarity Heatmap</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#financial-word-clusters">Financial Word Clusters</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#financial-analogies">Financial Analogies</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-words-to-documents-can-embedding-arithmetic-scale-up">From Words to Documents: Can Embedding Arithmetic Scale Up?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-document-level-parallelogram">The Document-Level Parallelogram</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analogy-1-crisis-across-time-u-s-1873-u-s-1974">Analogy 1: Crisis Across Time (U.S. 1873 → U.S. 1974)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analogy-2-crisis-across-countries-u-s-1890-france-1889">Analogy 2: Crisis Across Countries (U.S. 1890 → France 1889)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#robustness-across-embedding-models">Robustness Across Embedding Models</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#document-level-parallelogram-in-2d">Document-Level Parallelogram in 2D</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-these-results-tell-us">What These Results Tell Us</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limitations-and-the-path-to-llms">Limitations and the Path to LLMs</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#static-embeddings-one-vector-per-word">Static Embeddings: One Vector Per Word</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#contextual-embeddings-different-vectors-for-different-contexts">Contextual Embeddings: Different Vectors for Different Contexts</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-here-to-our-paper">From Here to Our Paper</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jeremiah Bejarano
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, Jeremiah Bejarano.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

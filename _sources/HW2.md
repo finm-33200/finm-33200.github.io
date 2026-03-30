@@ -1,4 +1,4 @@
-# Homework 2:
+# Homework 2: Chen, Kelly, Xiu (2022)
 
 - **GitHub Classroom Repository:** TBD
 - **Due Date:** TBD

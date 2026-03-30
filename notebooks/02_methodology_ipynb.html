@@ -1,0 +1,1208 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>NLP Pipeline &amp; Portfolio Construction &#8212; Generative and Agentic AI for Finance</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=f23691d7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=7a7908ec"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/02_methodology_ipynb';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/custom.js?v=c0d9a6f1"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Replication Results" href="03_replication_results_ipynb.html" />
+    <link rel="prev" title="Data Sources Overview" href="01_data_overview_ipynb.html" /> 
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>   
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Generative and Agentic AI for Finance - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Generative and Agentic AI for Finance - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Generative and Agentic AI for Finance
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../README.html">Course Syllabus: FINM 32900, Winter 2025</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Course Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Discussions 📖</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_01.html">Discussion 1: The New Quant - LLMs in Finance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/llms_transforming_finance.html">LLMs Transforming Finance: The New Quant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/expected_returns_llms.html">LLMs for Return Prediction: Prompts vs. Embeddings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/chartbook_research_catalog.html">ChartBook: Cataloging Research for Humans and AI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/api_and_structured_outputs.html">API Basics and Structured Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/review_w01.html">Study Questions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_02.html">Discussion 2: Text Representation and Tokenization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/structure_of_news.html">The Structure of Economic News</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/ai_copilots_intro.html">AI Copilots: History and Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/words_to_tokens.html">From Words to Tokens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/03_embedding_analogies_ipynb.html">Optional extra: News, Financial Crises, and the Geometry of Meaning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/review_w02.html">Study Questions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../subject_to_change_after_this_week.html">WARNING: Notes subject to change after this week</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_03.html">Discussion 3: LLM Fundamentals</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/review_w03.html">Study Questions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../discussion_04.html">Discussion 4:</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Homework 📝</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../HW0.html">Homework 0: Set Up Your Environment</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="01_data_sources_overview_ipynb.html">Data Sources &amp; Strategy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02_gdelt_sp500_filtering_ipynb.html">GDELT Filtering &amp; Data Quality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_crosswalk_quality_ipynb.html">Crosswalk Quality</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../HW1.html">Homework 1: Lopez-Lira, Tang (2023)</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="01_data_overview_ipynb.html">Data Sources Overview</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">NLP Pipeline &amp; Portfolio Construction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_replication_results_ipynb.html">Replication Results</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../HW2.html">Homework 2: Chen, Kelly, Xiu (2022)</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../final_project.html">Final Project</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/final_project_rubric.html">Final Project Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/potential_final_projects.html">Potential Final Project Ideas</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exams 📋</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../exam_prep.html">Exam Preparation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Misc 📌</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../acknowledgments.html">Acknowledgments</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../appendix.html">Appendix</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/nanochat_math.html">The Mathematics of Karpathy’s nanochat</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project/issues/new?title=Issue%20on%20page%20%2Fnotebooks/02_methodology_ipynb.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/02_methodology_ipynb.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>NLP Pipeline & Portfolio Construction</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generating-batch-requests-for-openai">1. Generating Batch Requests for OpenAI</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#openai-response-format">2. OpenAI Response Format</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#firm-day-sentiment-scores">3. Firm-Day Sentiment Scores</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classification-distribution">4. Classification Distribution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#portfolio-construction-overnight-drift">5. Portfolio Construction (Overnight Drift)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#portfolio-size-diagnostics">6. Portfolio Size Diagnostics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                   <section class="tex2jax_ignore mathjax_ignore" id="nlp-pipeline-portfolio-construction">
+<h1>NLP Pipeline &amp; Portfolio Construction<a class="headerlink" href="#nlp-pipeline-portfolio-construction" title="Link to this heading">#</a></h1>
+<p>This notebook walks through the two main processing stages of the
+replication.  The replication focuses on the <strong>overnight drift
+strategy</strong> (Table 1 Panel A and Figure 5 of the paper).  Intraday
+headlines are excluded during data cleaning, and no TAQ-based
+intraday return windows are computed.</p>
+<ol class="arabic simple">
+<li><p><strong>Headline classification</strong> – submitting cleaned overnight
+headlines (enriched with RavenPack metadata) to OpenAI and
+aggregating the responses into firm-day sentiment scores.</p></li>
+<li><p><strong>Portfolio construction</strong> – translating sentiment scores into
+daily long/short trading portfolios using open-to-close drift
+returns.</p></li>
+</ol>
+<hr class="docutils" />
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.image</span> <span class="k">as</span> <span class="nn">mpimg</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Markdown</span><span class="p">,</span> <span class="n">display</span>
+
+<span class="kn">from</span> <span class="nn">settings</span> <span class="kn">import</span> <span class="n">config</span>
+
+<span class="n">DATA_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">config</span><span class="p">(</span><span class="s2">&quot;DATA_DIR&quot;</span><span class="p">))</span>
+<span class="n">OUTPUT_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">config</span><span class="p">(</span><span class="s2">&quot;OUTPUT_DIR&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="generating-batch-requests-for-openai">
+<h2>1. Generating Batch Requests for OpenAI<a class="headerlink" href="#generating-batch-requests-for-openai" title="Link to this heading">#</a></h2>
+<p>Each cleaned headline (scraped from free sources and enriched with
+RavenPack entity metadata) is formatted as a JSONL request for the
+OpenAI Batch API.  The prompt follows the one described in the
+paper: the model is asked whether the headline implies a stock price
+increase, decrease, or neither.</p>
+<p>Headlines are split into batches (default 40,000 per batch) and
+submitted asynchronously.  Below is a single-row example showing
+exactly what one request looks like.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">notebook_helper</span> <span class="kn">import</span> <span class="n">generate_single_request_jsonl</span>
+
+<span class="n">rp</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">DATA_DIR</span> <span class="o">/</span> <span class="s2">&quot;RAVENPACK_cleaned.parquet&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">DATA_DIR</span> <span class="o">/</span> <span class="s2">&quot;RAVENPACK_cleaned.parquet&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span>
+    <span class="k">else</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">rp</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+    <span class="n">jsonl_content</span><span class="p">,</span> <span class="n">mapping_content</span> <span class="o">=</span> <span class="n">generate_single_request_jsonl</span><span class="p">(</span><span class="n">rp</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+
+    <span class="n">display</span><span class="p">(</span><span class="n">Markdown</span><span class="p">(</span><span class="s2">&quot;### JSONL Request (formatted)&quot;</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">jsonl_content</span><span class="p">),</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">separators</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="s2">&quot;: &quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="n">display</span><span class="p">(</span><span class="n">Markdown</span><span class="p">(</span><span class="s2">&quot;### ID-to-Row Mapping&quot;</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">mapping_content</span><span class="p">),</span>
+            <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="n">separators</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="s2">&quot;: &quot;</span><span class="p">),</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+
+<span class="k">del</span> <span class="n">rp</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Wrote requests jsonl: /var/folders/l3/tj6vb0ld2ys1h939jz0qrfrh0000gn/T/tmphjxttlyh/openai_headline_requests.single.jsonl
+Number of headlines batched: 1
+Wrote id to row mapping json: /var/folders/l3/tj6vb0ld2ys1h939jz0qrfrh0000gn/T/tmphjxttlyh/id_to_row_mapping.single.json
+</pre></div>
+</div>
+<h3 class="rubric" id="jsonl-request-formatted">JSONL Request (formatted)</h3>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{
+  &quot;body&quot;: {
+    &quot;messages&quot;: [
+      {
+        &quot;content&quot;: &quot;Forget all your previous instructions. Pretend you are a financial expert. You are a financial expert with stock recommendation experience. Answer \&quot;YES\&quot; if good news, \&quot;NO\&quot; if bad news, or \&quot;UNKNOWN\&quot; if uncertain in the first line. Then elaborate with one short and concise sentence on the next line.&quot;,
+        &quot;role&quot;: &quot;system&quot;
+      },
+      {
+        &quot;content&quot;: &quot;Is this headline good or bad for the stock price of Kennedy-Wilson Holdings Inc. in the short term?\nHeadline: Kennedy Wilson Acquires Two Multifamily Communities in Seattle for $265 Million&quot;,
+        &quot;role&quot;: &quot;user&quot;
+      }
+    ],
+    &quot;model&quot;: &quot;gpt-3.5-turbo&quot;,
+    &quot;temperature&quot;: 0
+  },
+  &quot;custom_id&quot;: &quot;rp-0&quot;,
+  &quot;method&quot;: &quot;POST&quot;,
+  &quot;url&quot;: &quot;/v1/chat/completions&quot;
+}
+</pre></div>
+</div>
+<h3 class="rubric" id="id-to-row-mapping">ID-to-Row Mapping</h3>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{
+  &quot;rp-0&quot;: {
+    &quot;date&quot;: &quot;2021-10-01&quot;,
+    &quot;entity_name&quot;: &quot;Kennedy-Wilson Holdings Inc.&quot;,
+    &quot;ticker&quot;: &quot;KW&quot;
+  }
+}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="openai-response-format">
+<h2>2. OpenAI Response Format<a class="headerlink" href="#openai-response-format" title="Link to this heading">#</a></h2>
+<p>The model returns one of three labels for each headline:</p>
+<ul class="simple">
+<li><p><strong>YES</strong> – headline implies a stock price increase</p></li>
+<li><p><strong>NO</strong> – headline implies a stock price decrease</p></li>
+<li><p><strong>UNKNOWN</strong> – no clear directional signal</p></li>
+</ul>
+<p>Below is an example response from a completed batch.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">batch_output_path</span> <span class="o">=</span> <span class="n">DATA_DIR</span> <span class="o">/</span> <span class="s2">&quot;openai_headline_batch_output.1.jsonl&quot;</span>
+<span class="k">if</span> <span class="n">batch_output_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="n">batch_output_path</span><span class="p">,</span> <span class="n">lines</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">Markdown</span><span class="p">(</span><span class="s2">&quot;### Sample OpenAI Batch Response&quot;</span><span class="p">))</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;response&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<h3 class="rubric" id="sample-openai-batch-response">Sample OpenAI Batch Response</h3>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;status_code&#39;: 200,
+ &#39;request_id&#39;: &#39;dde85f7b-47ce-4520-b489-4f96d1e15ec4&#39;,
+ &#39;body&#39;: {&#39;id&#39;: &#39;chatcmpl-DLKkhs3nF6Z2sK154oVKzkcHorsvQ&#39;,
+  &#39;object&#39;: &#39;chat.completion&#39;,
+  &#39;created&#39;: 1773977031,
+  &#39;model&#39;: &#39;gpt-3.5-turbo-0125&#39;,
+  &#39;choices&#39;: [{&#39;index&#39;: 0,
+    &#39;message&#39;: {&#39;role&#39;: &#39;assistant&#39;,
+     &#39;content&#39;: &#39;YES  \nAcquiring new assets can potentially boost the stock price in the short term.&#39;,
+     &#39;refusal&#39;: None,
+     &#39;annotations&#39;: []},
+    &#39;logprobs&#39;: None,
+    &#39;finish_reason&#39;: &#39;stop&#39;}],
+  &#39;usage&#39;: {&#39;prompt_tokens&#39;: 115,
+   &#39;completion_tokens&#39;: 17,
+   &#39;total_tokens&#39;: 132,
+   &#39;prompt_tokens_details&#39;: {&#39;cached_tokens&#39;: 0, &#39;audio_tokens&#39;: 0},
+   &#39;completion_tokens_details&#39;: {&#39;reasoning_tokens&#39;: 0,
+    &#39;audio_tokens&#39;: 0,
+    &#39;accepted_prediction_tokens&#39;: 0,
+    &#39;rejected_prediction_tokens&#39;: 0}},
+  &#39;service_tier&#39;: &#39;default&#39;,
+  &#39;system_fingerprint&#39;: None}}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="firm-day-sentiment-scores">
+<h2>3. Firm-Day Sentiment Scores<a class="headerlink" href="#firm-day-sentiment-scores" title="Link to this heading">#</a></h2>
+<p>The pipeline (<code class="docutils literal notranslate"><span class="pre">create_firmday_score.py</span></code>) processes all batch
+responses and aggregates them at the firm-day level:</p>
+<ul class="simple">
+<li><p>YES → score of <strong>+1</strong></p></li>
+<li><p>NO → score of <strong>-1</strong></p></li>
+<li><p>UNKNOWN → score of <strong>0</strong></p></li>
+</ul>
+<p>For each (ticker, date) pair, the total score sum and overall
+polarity (positive or negative) are computed.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">scores_path</span> <span class="o">=</span> <span class="n">DATA_DIR</span> <span class="o">/</span> <span class="s2">&quot;daily_headline_polarity.parquet&quot;</span>
+<span class="n">scores</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">scores_path</span><span class="p">)</span> <span class="k">if</span> <span class="n">scores_path</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span> <span class="k">else</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Firm-day scores shape:&quot;</span><span class="p">,</span> <span class="n">scores</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">scores</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Firm-day scores shape: (53880, 5)
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ticker</th>
+      <th>date</th>
+      <th>n_headlines</th>
+      <th>score_sum</th>
+      <th>score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>A</td>
+      <td>2021-11-18</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>A</td>
+      <td>2021-11-23</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>A</td>
+      <td>2022-06-15</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>A</td>
+      <td>2022-08-17</td>
+      <td>2</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>A</td>
+      <td>2022-11-22</td>
+      <td>2</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">scores</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+    <span class="n">summary</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">scores</span><span class="p">[</span><span class="s2">&quot;score&quot;</span><span class="p">]</span>
+        <span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">dropna</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">rename_axis</span><span class="p">(</span><span class="s2">&quot;score&quot;</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;count&quot;</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;share&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">summary</span><span class="p">[</span><span class="s2">&quot;count&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;count&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">summary</span> <span class="o">=</span> <span class="n">summary</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;score&quot;</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">Markdown</span><span class="p">(</span><span class="s2">&quot;### Score Distribution&quot;</span><span class="p">))</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">summary</span><span class="p">)</span>
+
+<span class="k">del</span> <span class="n">scores</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<h3 class="rubric" id="score-distribution">Score Distribution</h3>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>score</th>
+      <th>count</th>
+      <th>share</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>-1</td>
+      <td>1399</td>
+      <td>0.0260</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0</td>
+      <td>37744</td>
+      <td>0.7005</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>14737</td>
+      <td>0.2735</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="classification-distribution">
+<h2>4. Classification Distribution<a class="headerlink" href="#classification-distribution" title="Link to this heading">#</a></h2>
+<p>A key diagnostic is how frequently the model assigns each label.
+The replication uses <strong>GPT-3.5-Turbo</strong> (because GPT-4-0314 was
+deprecated), which produces a substantially larger share of UNKNOWN
+classifications compared to the original paper (~67% vs ~35%).
+This reduces the number of tradable signals.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">label_path</span> <span class="o">=</span> <span class="n">OUTPUT_DIR</span> <span class="o">/</span> <span class="s2">&quot;openai_output_label_proportions.csv&quot;</span>
+<span class="k">if</span> <span class="n">label_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">label_path</span><span class="p">)</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">Markdown</span><span class="p">(</span><span class="s2">&quot;### Headline Label Proportions&quot;</span><span class="p">))</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<h3 class="rubric" id="headline-label-proportions">Headline Label Proportions</h3>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>label</th>
+      <th>proportion_2021_2024_sample_period</th>
+      <th>proportion_full_sample</th>
+      <th>count_2021_2024_sample_period</th>
+      <th>count_full_sample</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>YES</td>
+      <td>0.273562</td>
+      <td>0.272604</td>
+      <td>10072</td>
+      <td>15292</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>NO</td>
+      <td>0.031506</td>
+      <td>0.028629</td>
+      <td>1160</td>
+      <td>1606</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>UNKNOWN</td>
+      <td>0.694932</td>
+      <td>0.698766</td>
+      <td>25586</td>
+      <td>39198</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="portfolio-construction-overnight-drift">
+<h2>5. Portfolio Construction (Overnight Drift)<a class="headerlink" href="#portfolio-construction-overnight-drift" title="Link to this heading">#</a></h2>
+<p>Once firm-day sentiment scores are constructed, they are merged with
+CRSP returns.  Portfolios are formed each trading day using
+<strong>open-to-close returns</strong> (the drift component for overnight news).
+The initial reaction (previous close to open) is also recorded.</p>
+<ul class="simple">
+<li><p><strong>Long-Short Portfolio</strong> – buy positive-signal firms and sell
+negative-signal firms (both legs must have at least two firms;
+otherwise enter only one leg).</p></li>
+<li><p><strong>Long-Only Portfolio</strong> – buy only positive-signal firms.</p></li>
+<li><p><strong>Short-Only Portfolio</strong> – sell only negative-signal firms.</p></li>
+</ul>
+<p>For Figure 5 replication, two additional restricted variants are
+constructed:</p>
+<ul class="simple">
+<li><p><strong>Not Small</strong> – market capitalization above the 20th percentile.</p></li>
+<li><p><strong>Price &gt; 5</strong> – previous day’s closing price above $5.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">port_path</span> <span class="o">=</span> <span class="n">DATA_DIR</span> <span class="o">/</span> <span class="s2">&quot;portfolio_daily_returns.parquet&quot;</span>
+<span class="n">port</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">port_path</span><span class="p">)</span> <span class="k">if</span> <span class="n">port_path</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span> <span class="k">else</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Portfolio returns shape:&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">port</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="k">del</span> <span class="n">port</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Portfolio returns shape: (1088, 20)
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>date</th>
+      <th>n_neg</th>
+      <th>n_neu</th>
+      <th>n_pos</th>
+      <th>n_total</th>
+      <th>ret_long</th>
+      <th>n_long</th>
+      <th>n_short</th>
+      <th>ret_short</th>
+      <th>ret_ir_long</th>
+      <th>ret_ir_short</th>
+      <th>ret_ls_restricted</th>
+      <th>ret_ls_not_small</th>
+      <th>ret_ls_price_gt_5</th>
+      <th>ret_mkt_vw</th>
+      <th>trade_long</th>
+      <th>trade_short</th>
+      <th>trade_ls</th>
+      <th>ret_ls</th>
+      <th>ret_ir_ls</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2021-10-01</td>
+      <td>0</td>
+      <td>5</td>
+      <td>7</td>
+      <td>12</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2021-10-04</td>
+      <td>2</td>
+      <td>13</td>
+      <td>5</td>
+      <td>20</td>
+      <td>-0.030306</td>
+      <td>4</td>
+      <td>2</td>
+      <td>-0.001542</td>
+      <td>0.005442</td>
+      <td>0.051936</td>
+      <td>-0.034116</td>
+      <td>-0.028099</td>
+      <td>-0.034116</td>
+      <td>-0.010693</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>-0.031848</td>
+      <td>0.057377</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2021-10-05</td>
+      <td>1</td>
+      <td>25</td>
+      <td>7</td>
+      <td>33</td>
+      <td>0.01095</td>
+      <td>6</td>
+      <td>1</td>
+      <td>0.003886</td>
+      <td>-0.018285</td>
+      <td>0.011524</td>
+      <td>0.029155</td>
+      <td>0.029155</td>
+      <td>0.029155</td>
+      <td>0.006008</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>0.010950</td>
+      <td>-0.018285</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2021-10-06</td>
+      <td>0</td>
+      <td>15</td>
+      <td>13</td>
+      <td>28</td>
+      <td>-0.006671</td>
+      <td>11</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>-0.002133</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.011786</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>-0.006671</td>
+      <td>-0.002133</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2021-10-07</td>
+      <td>1</td>
+      <td>18</td>
+      <td>12</td>
+      <td>31</td>
+      <td>0.027744</td>
+      <td>12</td>
+      <td>1</td>
+      <td>-0.054348</td>
+      <td>0.008739</td>
+      <td>0.114533</td>
+      <td>-0.050161</td>
+      <td>-0.050161</td>
+      <td>-0.050995</td>
+      <td>0.002413</td>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+      <td>0.027744</td>
+      <td>0.008739</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="portfolio-size-diagnostics">
+<h2>6. Portfolio Size Diagnostics<a class="headerlink" href="#portfolio-size-diagnostics" title="Link to this heading">#</a></h2>
+<p>Because GPT-3.5-Turbo classifies a larger share of headlines as
+UNKNOWN, fewer firms appear in the daily portfolios compared to the
+original paper.  The chart below shows the number of stocks in the
+long and short legs over time.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">diag_path</span> <span class="o">=</span> <span class="n">OUTPUT_DIR</span> <span class="o">/</span> <span class="s2">&quot;portfolio_size_diagnostics_all.png&quot;</span>
+<span class="k">if</span> <span class="n">diag_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">mpimg</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">diag_path</span><span class="p">))</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Portfolio Size Diagnostics&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/1dc294600a6f396d8f1057f5b25077c830369f1daf4901748e754bc1c2a4ec06.png" src="../_images/1dc294600a6f396d8f1057f5b25077c830369f1daf4901748e754bc1c2a4ec06.png" />
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
+<p>This notebook covered the two main processing stages:</p>
+<ol class="arabic simple">
+<li><p>Headlines are submitted to OpenAI, which classifies each as
+YES / NO / UNKNOWN.  These are aggregated into firm-day
+sentiment scores.</p></li>
+<li><p>Sentiment scores are merged with CRSP returns to construct
+daily-rebalanced trading portfolios.</p></li>
+</ol>
+<p>The next notebook presents the replication results: Table 1
+(trading performance statistics) and Figure 5 (cumulative returns).</p>
+</section>
+</section>
+
+<div class="section ablog__blog_comments">
+   
+</div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="01_data_overview_ipynb.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Data Sources Overview</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="03_replication_results_ipynb.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Replication Results</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generating-batch-requests-for-openai">1. Generating Batch Requests for OpenAI</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#openai-response-format">2. OpenAI Response Format</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#firm-day-sentiment-scores">3. Firm-Day Sentiment Scores</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classification-distribution">4. Classification Distribution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#portfolio-construction-overnight-drift">5. Portfolio Construction (Overnight Drift)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#portfolio-size-diagnostics">6. Portfolio Size Diagnostics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jeremiah Bejarano
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, Jeremiah Bejarano.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

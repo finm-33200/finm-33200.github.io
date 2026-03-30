@@ -26,4 +26,5 @@ discussions/llms_transforming_finance.md
 discussions/expected_returns_llms.md
 discussions/chartbook_research_catalog.md
 discussions/api_and_structured_outputs.md
+discussions/review_w01.md
 ```

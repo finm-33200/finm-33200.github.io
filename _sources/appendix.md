@@ -1,5 +1,11 @@
 # Appendix
 
+## Extra info for interested readers:
+```{toctree}
+:maxdepth: 1
+discussions/nanochat_math.md
+```
+
 ## Setting up Python and Visual Studio Code
  - Please watch this video and pay attention to the Python Interactive Window at the end: https://www.youtube.com/watch?v=mpk4Q5feWaw
 

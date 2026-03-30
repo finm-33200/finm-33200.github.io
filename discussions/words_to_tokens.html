@@ -1,0 +1,1560 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>From Words to Tokens &#8212; Generative and Agentic AI for Finance</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=f23691d7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=7a7908ec"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'discussions/words_to_tokens';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/custom.js?v=c0d9a6f1"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Optional extra: News, Financial Crises, and the Geometry of Meaning" href="03_embedding_analogies_ipynb.html" />
+    <link rel="prev" title="AI Copilots: History and Tools" href="ai_copilots_intro.html" /> 
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>   
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Generative and Agentic AI for Finance - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Generative and Agentic AI for Finance - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Generative and Agentic AI for Finance
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../README.html">Course Syllabus: FINM 32900, Winter 2025</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Course Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Discussions 📖</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_01.html">Discussion 1: The New Quant - LLMs in Finance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="llms_transforming_finance.html">LLMs Transforming Finance: The New Quant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="expected_returns_llms.html">LLMs for Return Prediction: Prompts vs. Embeddings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chartbook_research_catalog.html">ChartBook: Cataloging Research for Humans and AI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_and_structured_outputs.html">API Basics and Structured Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="review_w01.html">Study Questions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../discussion_02.html">Discussion 2: Text Representation and Tokenization</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="structure_of_news.html">The Structure of Economic News</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ai_copilots_intro.html">AI Copilots: History and Tools</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">From Words to Tokens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_embedding_analogies_ipynb.html">Optional extra: News, Financial Crises, and the Geometry of Meaning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="review_w02.html">Study Questions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../subject_to_change_after_this_week.html">WARNING: Notes subject to change after this week</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_03.html">Discussion 3: LLM Fundamentals</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="review_w03.html">Study Questions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../discussion_04.html">Discussion 4:</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Homework 📝</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../HW0.html">Homework 0: Set Up Your Environment</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/01_data_sources_overview_ipynb.html">Data Sources &amp; Strategy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/02_gdelt_sp500_filtering_ipynb.html">GDELT Filtering &amp; Data Quality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/03_crosswalk_quality_ipynb.html">Crosswalk Quality</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../HW1.html">Homework 1: Lopez-Lira, Tang (2023)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/01_data_overview_ipynb.html">Data Sources Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/02_methodology_ipynb.html">NLP Pipeline &amp; Portfolio Construction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/03_replication_results_ipynb.html">Replication Results</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../HW2.html">Homework 2: Chen, Kelly, Xiu (2022)</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../final_project.html">Final Project</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/final_project_rubric.html">Final Project Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/potential_final_projects.html">Potential Final Project Ideas</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exams 📋</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../exam_prep.html">Exam Preparation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Misc 📌</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../acknowledgments.html">Acknowledgments</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../appendix.html">Appendix</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="nanochat_math.html">The Mathematics of Karpathy’s nanochat</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project/issues/new?title=Issue%20on%20page%20%2Fdiscussions/words_to_tokens.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/discussions/words_to_tokens.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>From Words to Tokens</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bag-of-words-representing-documents">Bag of Words: Representing Documents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-bow-representation">The BoW Representation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tf-idf-weighting-the-bag">TF-IDF: Weighting the Bag</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#limitations-of-bow">Limitations of BoW</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topic-models-finding-latent-structure-in-bow">Topic Models: Finding Latent Structure in BoW</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#word2vec-words-as-vectors">Word2Vec: Words as Vectors</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#motivation-why-not-one-hot-vectors">Motivation: Why Not One-Hot Vectors?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-skip-gram-model">The Skip-Gram Model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#negative-sampling-neg">Negative Sampling (NEG)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-this-matters-the-geometry-of-meaning">Why This Matters: The Geometry of Meaning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-word-vectors-back-to-document-vectors">From Word Vectors Back to Document Vectors</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-words-to-subwords-the-vocabulary-problem">From Words to Subwords: The Vocabulary Problem</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#byte-pair-encoding-bpe">Byte Pair Encoding (BPE)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#formal-setup">Formal Setup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-bpe-algorithm">The BPE Algorithm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#worked-example">Worked Example</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#encoding-a-new-string">Encoding a New String</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#properties-of-bpe">Properties of BPE</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#byte-level-bpe-gpt-2-variant">Byte-Level BPE (GPT-2 Variant)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#complexity-analysis">Complexity Analysis</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tiktoken-production-grade-bpe">Tiktoken: Production-Grade BPE</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-tiktoken">What Is Tiktoken?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#encodings">Encodings</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#special-tokens">Special Tokens</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unicode-coverage-and-vocabulary-size">Unicode Coverage and Vocabulary Size</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-tiktoken-matters-for-finance-applications">Why Tiktoken Matters for Finance Applications</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#connecting-the-pieces">Connecting the Pieces</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                   <section class="tex2jax_ignore mathjax_ignore" id="from-words-to-tokens">
+<h1>From Words to Tokens<a class="headerlink" href="#from-words-to-tokens" title="Link to this heading">#</a></h1>
+<p>Bag of Words, Word2Vec, Byte Pair Encoding, and Tiktoken</p>
+<div class="tip admonition">
+<p class="admonition-title">PDF Version</p>
+<p><a class="reference download internal" download="" href="../_downloads/5763f766c73af508c805b82f244d3cdd/notes_words_to_tokens.pdf"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">these</span> <span class="pre">notes</span> <span class="pre">as</span> <span class="pre">PDF</span></code></a></p>
+</div>
+<div class="warning admonition">
+<p class="admonition-title">Roadmap</p>
+<p>These notes prepare the foundation for next week’s deep dive into the <code class="docutils literal notranslate"><span class="pre">nanochat</span></code> repository, which builds a GPT-style language model from scratch. A critical component of <code class="docutils literal notranslate"><span class="pre">nanochat</span></code> is its tokenizer, which uses <strong>Byte Pair Encoding</strong> (BPE). Next week’s notes will assume fluency with BPE.</p>
+<p>Today’s plan:</p>
+<ol class="arabic simple">
+<li><p><strong>Bag of Words (BoW)</strong> – the classical document-level representation, its strengths, and why it falls short for capturing word-level meaning.</p></li>
+<li><p><strong>Word2Vec</strong> – how the idea of representing words as dense vectors in a learned latent space got started, and how we bridge back to document-level representations.</p></li>
+<li><p><strong>Byte Pair Encoding (BPE)</strong> – the subword tokenization algorithm used by GPT-2/3/4, in mathematical detail with worked examples.</p></li>
+<li><p><strong>Tiktoken</strong> – OpenAI’s production BPE implementation and why it matters.</p></li>
+</ol>
+</div>
+<hr class="docutils" />
+<section id="bag-of-words-representing-documents">
+<h2>Bag of Words: Representing Documents<a class="headerlink" href="#bag-of-words-representing-documents" title="Link to this heading">#</a></h2>
+<p>Before we discuss how to represent individual <em>words</em> as vectors, it is worth understanding the older and simpler problem of representing entire <em>documents</em> as vectors. The classical approach is the <strong>Bag of Words</strong> (BoW) model.</p>
+<section id="the-bow-representation">
+<h3>The BoW Representation<a class="headerlink" href="#the-bow-representation" title="Link to this heading">#</a></h3>
+<p>Fix a vocabulary <span class="math notranslate nohighlight">\(\mathcal{V} = \{w_1, w_2, \ldots, w_V\}\)</span>. Given a document <span class="math notranslate nohighlight">\(d\)</span>, its bag-of-words representation is the vector <span class="math notranslate nohighlight">\(\mathbf{x}_d \in \mathbb{R}^V\)</span> whose <span class="math notranslate nohighlight">\(i\)</span>-th component is the number of times word <span class="math notranslate nohighlight">\(w_i\)</span> appears in <span class="math notranslate nohighlight">\(d\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+(\mathbf{x}_d)_i = \text{count}(w_i, d).
+\]</div>
+<p>The name “bag of words” reflects the fact that this representation discards all word order – the document is treated as an unordered bag (multiset) of its constituent words.</p>
+<div class="tip admonition">
+<p class="admonition-title">BoW Example</p>
+<p>Consider a vocabulary <span class="math notranslate nohighlight">\(\mathcal{V} = \{\text{the, Fed, raised, rates, lowered, today, this, bond, prices}\}\)</span> and two documents:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+d_1 &amp;= \text{&quot;The Fed raised rates today&quot;} \\
+d_2 &amp;= \text{&quot;The Fed lowered rates today&quot;}
+\end{aligned}\end{split}\]</div>
+<p>Their BoW vectors are:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf{x}_{d_1} = \begin{pmatrix}1\\1\\1\\1\\0\\1\\0\\0\\0\end{pmatrix}, \qquad
+\mathbf{x}_{d_2} = \begin{pmatrix}1\\1\\0\\1\\1\\1\\0\\0\\0\end{pmatrix}.
+\end{split}\]</div>
+<p>These two documents differ in only one dimension (“raised” vs. “lowered”), so they are close in BoW space – which correctly reflects that they discuss similar topics, even though the policy action is opposite.</p>
+<p>Now consider two longer documents that describe <em>opposite economic outcomes</em>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+d_3 &amp;= \text{&quot;The Fed raised rates today. This lowered bond prices.&quot;} \\
+d_4 &amp;= \text{&quot;The Fed lowered rates today. This raised bond prices.&quot;}
+\end{aligned}\end{split}\]</div>
+<p>Their BoW vectors are:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf{x}_{d_3} = \begin{pmatrix}1\\1\\1\\1\\1\\1\\1\\1\\1\end{pmatrix} = \mathbf{x}_{d_4}.
+\end{split}\]</div>
+<p>These vectors are <em>identical</em> – BoW cannot distinguish them at all. Both documents contain the same set of words with the same counts; the only difference is <em>which</em> words modify <em>which</em> nouns, and that information lives entirely in word order, which BoW discards. To a BoW model, a rate hike that lowers bond prices looks the same as a rate cut that raises bond prices. This is a devastating limitation for financial applications where the direction of causality is exactly what matters.</p>
+</div>
+</section>
+<section id="tf-idf-weighting-the-bag">
+<h3>TF-IDF: Weighting the Bag<a class="headerlink" href="#tf-idf-weighting-the-bag" title="Link to this heading">#</a></h3>
+<p>Raw counts overweight common words like “the” and “is.” The standard fix is <strong>TF-IDF</strong> (Term Frequency–Inverse Document Frequency). For word <span class="math notranslate nohighlight">\(w_i\)</span> in document <span class="math notranslate nohighlight">\(d\)</span>, given a corpus <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> of <span class="math notranslate nohighlight">\(N\)</span> documents:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{TF-IDF}(w_i, d) = \underbrace{\text{tf}(w_i, d)}_{\text{term frequency}} \times \underbrace{\log \frac{N}{\text{df}(w_i)}}_{\text{inverse document frequency}},
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\text{df}(w_i)\)</span> is the number of documents in <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> that contain <span class="math notranslate nohighlight">\(w_i\)</span>, and <span class="math notranslate nohighlight">\(\text{tf}(w_i, d)\)</span> is the <strong>normalized term frequency</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{tf}(w_i, d) = \frac{\text{count}(w_i, d)}{|d|},
+\]</div>
+<p>i.e., the raw count of <span class="math notranslate nohighlight">\(w_i\)</span> in <span class="math notranslate nohighlight">\(d\)</span> divided by the total number of words <span class="math notranslate nohighlight">\(|d|\)</span> in the document. Normalizing by document length prevents long documents from having systematically larger TF-IDF values than short ones. (Some implementations use the raw count instead; the normalization is a common but not universal convention.)</p>
+<p><strong>Why the logarithm in IDF?</strong>
+The ratio <span class="math notranslate nohighlight">\(N / \text{df}(w_i)\)</span> can vary over an enormous range. A word appearing in every document has <span class="math notranslate nohighlight">\(\text{df} = N\)</span>, giving a ratio of 1, while a word appearing in only one document has a ratio of <span class="math notranslate nohighlight">\(N\)</span> – which could be millions. The logarithm compresses this range to a manageable scale. Without it, extremely rare words would completely dominate the TF-IDF score. Concretely:</p>
+<ul class="simple">
+<li><p>A word in <em>every</em> document: <span class="math notranslate nohighlight">\(\log(N/N) = \log 1 = 0\)</span>. Its IDF is zero – it carries no discriminative information.</p></li>
+<li><p>A word in half the documents: <span class="math notranslate nohighlight">\(\log(N/(N/2)) = \log 2 \approx 0.69\)</span>.</p></li>
+<li><p>A word in 1 out of 10,000 documents: <span class="math notranslate nohighlight">\(\log(10{,}000/1) \approx 9.2\)</span>.</p></li>
+</ul>
+<p>The log turns a multiplicative range (<span class="math notranslate nohighlight">\(1\)</span> to <span class="math notranslate nohighlight">\(N\)</span>) into an additive one (<span class="math notranslate nohighlight">\(0\)</span> to <span class="math notranslate nohighlight">\(\log N\)</span>), keeping the IDF weights balanced.</p>
+<p>Overall, the IDF term downweights words that appear in many documents (“the,” “of”) and upweights words that are distinctive to particular documents (“quantitative easing,” “yield curve”).</p>
+</section>
+<section id="limitations-of-bow">
+<h3>Limitations of BoW<a class="headerlink" href="#limitations-of-bow" title="Link to this heading">#</a></h3>
+<p>While BoW and TF-IDF are useful for document-level tasks like information retrieval and topic classification, they have fundamental limitations:</p>
+<ol class="arabic simple">
+<li><p><strong>No word-level semantics.</strong> BoW tells us about <em>documents</em>, not about individual <em>words</em>. The vocabulary items are just indices – there is no notion of similarity between “rate” and “yield.”</p></li>
+<li><p><strong>Sparsity.</strong> With <span class="math notranslate nohighlight">\(V = 50{,}000\)</span> vocabulary terms, every document vector is extremely sparse. Most entries are zero.</p></li>
+<li><p><strong>No word order.</strong> “The Fed raised rates” and “Rates raised the Fed” have identical BoW vectors.</p></li>
+<li><p><strong>High dimensionality.</strong> The vectors live in <span class="math notranslate nohighlight">\(\mathbb{R}^V\)</span>, which is wasteful when <span class="math notranslate nohighlight">\(V\)</span> is large.</p></li>
+</ol>
+</section>
+<section id="topic-models-finding-latent-structure-in-bow">
+<h3>Topic Models: Finding Latent Structure in BoW<a class="headerlink" href="#topic-models-finding-latent-structure-in-bow" title="Link to this heading">#</a></h3>
+<p>One influential response to the limitations above was to look for <strong>latent topics</strong> hiding behind the raw word counts. The most widely used approach is <strong>Latent Dirichlet Allocation</strong> (LDA), introduced by Blei, Ng, and Jordan (2003).</p>
+<p><strong>The intuition.</strong>
+LDA assumes that every document in a corpus is a <em>mixture</em> of a small number of topics, and every topic is a <em>distribution over words</em>. For example, an earnings call transcript might be 40% “monetary policy” topic, 35% “credit risk” topic, and 25% “quarterly results” topic. The “monetary policy” topic, in turn, assigns high probability to words like “rate,” “inflation,” and “tightening,” while the “credit risk” topic favors “default,” “spread,” and “downgrade.”</p>
+<p><strong>How it works (sketch).</strong>
+Fix the number of topics at <span class="math notranslate nohighlight">\(K\)</span> (a hyperparameter, typically <span class="math notranslate nohighlight">\(K \in [10, 100]\)</span>). LDA posits the following generative story for each document <span class="math notranslate nohighlight">\(d\)</span>:</p>
+<ol class="arabic simple">
+<li><p>Draw a topic mixture <span class="math notranslate nohighlight">\(\boldsymbol{\theta}_d \sim \text{Dirichlet}(\boldsymbol{\alpha})\)</span>, where <span class="math notranslate nohighlight">\(\boldsymbol{\alpha} \in \mathbb{R}^K\)</span> is a hyperparameter controlling how concentrated the mixture is (small <span class="math notranslate nohighlight">\(\alpha_k\)</span> values encourage documents to focus on fewer topics), <span class="math notranslate nohighlight">\(\boldsymbol{\theta}_d \in \mathbb{R}^K\)</span>, and <span class="math notranslate nohighlight">\(\sum_k \theta_{d,k} = 1\)</span>. The Dirichlet distribution is a distribution over probability vectors – it outputs a <span class="math notranslate nohighlight">\(K\)</span>-dimensional vector that sums to one, making it a natural prior for topic mixtures.</p></li>
+<li><p>For each word position <span class="math notranslate nohighlight">\(i\)</span> in the document:</p>
+<ol class="arabic simple">
+<li><p>Draw a topic assignment <span class="math notranslate nohighlight">\(z_i \sim \text{Categorical}(\boldsymbol{\theta}_d)\)</span>. The Categorical distribution is simply a generalization of a weighted coin flip to <span class="math notranslate nohighlight">\(K\)</span> outcomes: it picks one topic according to the probabilities in <span class="math notranslate nohighlight">\(\boldsymbol{\theta}_d\)</span>.</p></li>
+<li><p>Draw a word <span class="math notranslate nohighlight">\(w_i \sim \text{Categorical}(\boldsymbol{\phi}_{z_i})\)</span>, where <span class="math notranslate nohighlight">\(\boldsymbol{\phi}_k \in \mathbb{R}^V\)</span> is the word distribution for topic <span class="math notranslate nohighlight">\(k\)</span>.</p></li>
+</ol>
+</li>
+</ol>
+<p>Given the observed words, the posterior distributions over topics are estimated via variational inference or Gibbs sampling. After fitting, each document gets a <span class="math notranslate nohighlight">\(K\)</span>-dimensional topic vector <span class="math notranslate nohighlight">\(\boldsymbol{\theta}_d\)</span>, which is a much more compact and interpretable representation than the original <span class="math notranslate nohighlight">\(V\)</span>-dimensional BoW vector.</p>
+<p><strong>Strengths and limitations.</strong>
+LDA addresses BoW’s sparsity and high-dimensionality problems: documents are represented in <span class="math notranslate nohighlight">\(\mathbb{R}^K\)</span> rather than <span class="math notranslate nohighlight">\(\mathbb{R}^V\)</span>, and topics provide interpretable structure. However, LDA still operates at the <em>document</em> level – it tells us that “rate” and “inflation” tend to co-occur in the same topic, but it does not give us a dense vector for each individual word the way Word2Vec does. It also inherits the bag-of-words assumption: word order is ignored.</p>
+<div class="note admonition">
+<p class="admonition-title">From Documents to Words</p>
+<p>BoW and LDA both answer the question: <em>How do we represent a document as a vector?</em> Word2Vec (next section) asks a different question: <em>How do we represent a single word as a dense, low-dimensional vector that captures its meaning?</em></p>
+<p>As we will see, once we have word-level vectors, we can <em>also</em> build document representations by combining them – giving us the best of both worlds.</p>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="word2vec-words-as-vectors">
+<h2>Word2Vec: Words as Vectors<a class="headerlink" href="#word2vec-words-as-vectors" title="Link to this heading">#</a></h2>
+<section id="motivation-why-not-one-hot-vectors">
+<h3>Motivation: Why Not One-Hot Vectors?<a class="headerlink" href="#motivation-why-not-one-hot-vectors" title="Link to this heading">#</a></h3>
+<p>Suppose our vocabulary has <span class="math notranslate nohighlight">\(V\)</span> words. The most naive representation assigns each word <span class="math notranslate nohighlight">\(w_i\)</span> a <strong>one-hot vector</strong> <span class="math notranslate nohighlight">\(\mathbf{e}_i \in \mathbb{R}^{V}\)</span>, where:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+(\mathbf{e}_i)_j = \begin{cases} 1 &amp; \text{if } j = i, \\ 0 &amp; \text{otherwise.} \end{cases}
+\end{split}\]</div>
+<p>For a vocabulary of size <span class="math notranslate nohighlight">\(V = 50{,}000\)</span>, every word is a sparse vector of length 50,000. This has two severe problems:</p>
+<ol class="arabic simple">
+<li><p><strong>Curse of dimensionality.</strong> The vectors live in <span class="math notranslate nohighlight">\(\mathbb{R}^{50000}\)</span> but only occupy <span class="math notranslate nohighlight">\(V\)</span> points, all mutually orthogonal.</p></li>
+<li><p><strong>No notion of similarity.</strong> For any two distinct words <span class="math notranslate nohighlight">\(w_i \neq w_j\)</span>:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{e}_i^\top \mathbf{e}_j = 0.
+\]</div>
+<p>“King” is exactly as far from “queen” as it is from “banana.”</p>
+<p>Note that a one-hot vector for a word is conceptually the same as a single column of a BoW matrix – each word is just an index, with no learned structure.</p>
+<div class="note admonition">
+<p class="admonition-title">Core Idea</p>
+<p><strong>Word2Vec</strong> (Mikolov et al., 2013) learns a mapping <span class="math notranslate nohighlight">\(f: \mathcal{V} \to \mathbb{R}^d\)</span> where <span class="math notranslate nohighlight">\(d \ll V\)</span> (typically <span class="math notranslate nohighlight">\(d \in [50, 300]\)</span>), such that words appearing in similar contexts receive similar vectors. This is called a <strong>distributed representation</strong> or <strong>word embedding</strong>.</p>
+</div>
+</section>
+<section id="the-skip-gram-model">
+<h3>The Skip-Gram Model<a class="headerlink" href="#the-skip-gram-model" title="Link to this heading">#</a></h3>
+<p>Word2Vec comes in two flavors: <strong>CBOW</strong> (Continuous Bag of Words) and <strong>Skip-Gram</strong>. We focus on Skip-Gram because it is more widely used and more instructive.</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header sd-font-weight-normal">
+<span class="sd-summary-text">Optional Explainer: CBOW (Continuous Bag of Words)</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">We focus on Skip-Gram in these notes, but it is worth understanding the alternative. Whereas Skip-Gram predicts context words from a center word, CBOW does the <em>reverse</em>: it predicts the <strong>center word from its surrounding context</strong>.</p>
+<p class="sd-card-text">Given a context window <span class="math notranslate nohighlight">\(\{w_{t-c}, \ldots, w_{t-1}, w_{t+1}, \ldots, w_{t+c}\}\)</span>, CBOW first <strong>averages</strong> the context word embeddings:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\bar{\mathbf{v}} = \frac{1}{2c}\sum_{\substack{-c \le j \le c \\ j \neq 0}} \mathbf{v}_{w_{t+j}},
+\end{split}\]</div>
+<p class="sd-card-text">and then predicts the center word via softmax:</p>
+<div class="math notranslate nohighlight">
+\[
+P(w_t \mid \text{context}) = \frac{\exp\bigl(\mathbf{v}'_{w_t}{}^\top \bar{\mathbf{v}}\bigr)}{\sum_{k=1}^{V} \exp\bigl(\mathbf{v}'_{w_k}{}^\top \bar{\mathbf{v}}\bigr)}.
+\]</div>
+<p class="sd-card-text">The name “Continuous Bag of Words” comes from the fact that the context is reduced to an unordered average (a “bag”), but unlike BoW the inputs are continuous (dense) vectors rather than discrete counts.</p>
+<p class="sd-card-text"><strong>CBOW vs. Skip-Gram in practice:</strong></p>
+<ul class="simple">
+<li><p class="sd-card-text">CBOW is faster to train (one prediction per window vs. <span class="math notranslate nohighlight">\(2c\)</span> predictions).</p></li>
+<li><p class="sd-card-text">CBOW tends to work slightly better for <em>frequent</em> words, because it averages over many context observations.</p></li>
+<li><p class="sd-card-text">Skip-Gram tends to work better for <em>rare</em> words, because each occurrence generates <span class="math notranslate nohighlight">\(2c\)</span> separate training examples that directly update the rare word’s embedding.</p></li>
+</ul>
+<p class="sd-card-text">Skip-Gram with negative sampling became the default choice in most applications, which is why we focus on it here.</p>
+</div>
+</details><p><strong>Setup.</strong>
+Given a corpus of words <span class="math notranslate nohighlight">\(w_1, w_2, \ldots, w_T\)</span> and a context window of size <span class="math notranslate nohighlight">\(c\)</span>, the Skip-Gram model asks:</p>
+<blockquote>
+<div><p><em>Given the center word <span class="math notranslate nohighlight">\(w_t\)</span>, predict the context words <span class="math notranslate nohighlight">\(w_{t-c}, \ldots, w_{t-1}, w_{t+1}, \ldots, w_{t+c}\)</span>.</em></p>
+</div></blockquote>
+<p>We maintain two embedding matrices:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\mathbf{W} \in \mathbb{R}^{V \times d}\)</span> – the <strong>input (center)</strong> embeddings. Row <span class="math notranslate nohighlight">\(i\)</span> is <span class="math notranslate nohighlight">\(\mathbf{v}_{w_i}\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{W}' \in \mathbb{R}^{V \times d}\)</span> – the <strong>output (context)</strong> embeddings. Row <span class="math notranslate nohighlight">\(j\)</span> is <span class="math notranslate nohighlight">\(\mathbf{v}'_{w_j}\)</span>.</p></li>
+</ul>
+<p><strong>Objective.</strong>
+The probability of observing context word <span class="math notranslate nohighlight">\(w_O\)</span> given center word <span class="math notranslate nohighlight">\(w_I\)</span> is modeled via a softmax:</p>
+<div class="math notranslate nohighlight">
+\[
+P(w_O \mid w_I) = \frac{\exp\!\bigl(\mathbf{v}'_{w_O}{}^\top \mathbf{v}_{w_I}\bigr)}{\displaystyle\sum_{k=1}^{V} \exp\!\bigl(\mathbf{v}'_{w_k}{}^\top \mathbf{v}_{w_I}\bigr)}.
+\]</div>
+<p>The training objective maximizes the log-likelihood over the corpus:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathcal{L} = \frac{1}{T}\sum_{t=1}^{T} \sum_{\substack{-c \leq j \leq c \\ j \neq 0}} \log P(w_{t+j} \mid w_t).
+\end{split}\]</div>
+<div class="warning admonition">
+<p class="admonition-title">Computational Cost</p>
+<p>The denominator in the softmax sums over the entire vocabulary <span class="math notranslate nohighlight">\(V\)</span>. For <span class="math notranslate nohighlight">\(V = 50{,}000\)</span>, computing this sum for <em>every training example</em> is prohibitively expensive. In practice, Word2Vec uses one of two approximations:</p>
+<ul class="simple">
+<li><p><strong>Negative sampling</strong> – reformulate as binary classification and sample <span class="math notranslate nohighlight">\(k\)</span> “negative” words instead of summing over all <span class="math notranslate nohighlight">\(V\)</span>.</p></li>
+<li><p><strong>Hierarchical softmax</strong> – organize the vocabulary as a binary tree to compute the softmax in <span class="math notranslate nohighlight">\(O(\log V)\)</span> time.</p></li>
+</ul>
+<p>We cover negative sampling in detail below, with hierarchical softmax as an optional aside.</p>
+</div>
+</section>
+<section id="negative-sampling-neg">
+<h3>Negative Sampling (NEG)<a class="headerlink" href="#negative-sampling-neg" title="Link to this heading">#</a></h3>
+<p><strong>Why is it called “negative” sampling?</strong>
+The full softmax asks: “out of all <span class="math notranslate nohighlight">\(V\)</span> words in the vocabulary, which one is the correct context word?” This is a <span class="math notranslate nohighlight">\(V\)</span>-way classification problem. Negative sampling reformulates this as a much simpler <strong>binary classification</strong> task:</p>
+<blockquote>
+<div><p><em>Given a pair of words <span class="math notranslate nohighlight">\((w_I, w_O)\)</span>, is <span class="math notranslate nohighlight">\(w_O\)</span> a <strong>real</strong> context word of <span class="math notranslate nohighlight">\(w_I\)</span> (a “positive” example), or is it a randomly drawn <strong>noise</strong> word (a “negative” example)?</em></p>
+</div></blockquote>
+<p>The training data for this binary classifier consists of two types of examples:</p>
+<ul class="simple">
+<li><p><strong>Positive examples</strong> (label = 1): real (center word, context word) pairs observed in the corpus. For instance, if the sentence is “the Fed raised rates,” then (raised, Fed) and (raised, rates) are positive pairs.</p></li>
+<li><p><strong>Negative examples</strong> (label = 0): pairs where the context word is replaced by a randomly sampled word that was <em>not</em> actually observed in that context. For instance, (raised, armadillo) is almost certainly a negative pair.</p></li>
+</ul>
+<p>The name “negative sampling” comes from the step of <strong>sampling these negative examples</strong> – fabricating fake context pairs that the model should learn to reject.</p>
+<p><strong>The noise distribution.</strong>
+For each positive pair <span class="math notranslate nohighlight">\((w_I, w_O)\)</span>, we draw <span class="math notranslate nohighlight">\(k\)</span> negative words <span class="math notranslate nohighlight">\(w_1^{-}, \ldots, w_k^{-}\)</span> from a <strong>noise distribution</strong> <span class="math notranslate nohighlight">\(P_n(w)\)</span>. Mikolov et al. found empirically that the best choice is the <strong>unigram distribution raised to the <span class="math notranslate nohighlight">\(\tfrac{3}{4}\)</span> power</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+P_n(w) = \frac{\bigl[\operatorname{freq}(w)\bigr]^{3/4}}{\displaystyle\sum_{w' \in \mathcal{V}} \bigl[\operatorname{freq}(w')\bigr]^{3/4}},
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\operatorname{freq}(w)\)</span> denotes the raw count of word <span class="math notranslate nohighlight">\(w\)</span> in the training corpus. The denominator is simply a normalizing constant that ensures the probabilities sum to 1: we raise every word’s frequency to the power <span class="math notranslate nohighlight">\(\tfrac{3}{4}\)</span>, then divide by the total so that <span class="math notranslate nohighlight">\(\sum_{w} P_n(w) = 1\)</span>.</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header sd-font-weight-normal">
+<span class="sd-summary-text">Optional Explainer: Why the 3/4 Exponent?</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">The exponent <span class="math notranslate nohighlight">\(\alpha = \tfrac{3}{4}\)</span> is a smoothing trick that reshapes the raw frequency distribution. To build intuition, consider the extreme alternatives:</p>
+<ul class="simple">
+<li><p class="sd-card-text"><strong><span class="math notranslate nohighlight">\(\alpha = 1\)</span></strong> (raw unigram distribution): Very common words like “the” and “of” dominate the negative samples. The model wastes most of its effort learning to distinguish real context words from these stop words, which is too easy to be informative.</p></li>
+<li><p class="sd-card-text"><strong><span class="math notranslate nohighlight">\(\alpha = 0\)</span></strong> (uniform distribution): Every word is equally likely as a negative sample, regardless of frequency. Extremely rare words get sampled as negatives just as often as common words, which is noisy and inefficient.</p></li>
+<li><p class="sd-card-text"><strong><span class="math notranslate nohighlight">\(\alpha = \tfrac{3}{4}\)</span></strong> (the sweet spot): The distribution is “flattened” relative to the raw frequencies. Rare words get sampled <em>more often</em> than their raw frequency would suggest, and common words get sampled <em>less often</em>. This provides a more useful and balanced training signal.</p></li>
+</ul>
+<p class="sd-card-text"><strong>Concrete illustration.</strong> Suppose “the” appears <span class="math notranslate nohighlight">\(1{,}000{,}000\)</span> times and “armadillo” appears <span class="math notranslate nohighlight">\(16\)</span> times in the corpus. The raw frequency ratio is:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\operatorname{freq}(\text{the})}{\operatorname{freq}(\text{armadillo})} = \frac{1{,}000{,}000}{16} = 62{,}500.
+\]</div>
+<p class="sd-card-text">After applying the <span class="math notranslate nohighlight">\(\tfrac{3}{4}\)</span> exponent:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{1{,}000{,}000^{3/4}}{16^{3/4}} = \frac{56{,}234}{8} \approx 7{,}029.
+\]</div>
+<p class="sd-card-text">The ratio drops from <span class="math notranslate nohighlight">\(62{,}500\)</span> to about <span class="math notranslate nohighlight">\(7{,}000\)</span>. In other words, “armadillo” is now roughly <span class="math notranslate nohighlight">\(9\times\)</span> more likely to appear as a negative sample than it would be under the raw distribution. This gives the model more opportunities to learn a useful embedding for rare words, which is where the training signal is most needed.</p>
+<p class="sd-card-text">The value <span class="math notranslate nohighlight">\(\tfrac{3}{4}\)</span> was found by experimentation, not derived from theory. It simply worked best across a range of benchmarks.</p>
+</div>
+</details><p><strong>The negative sampling objective.</strong>
+The objective for a single (center, context) pair <span class="math notranslate nohighlight">\((w_I, w_O)\)</span> with <span class="math notranslate nohighlight">\(k\)</span> negative samples is:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{L}_{\text{NEG}} = \underbrace{\log \sigma\!\bigl(\mathbf{v}'_{w_O}{}^\top \mathbf{v}_{w_I}\bigr)}_{\text{push positive pair together}} + \underbrace{\sum_{i=1}^{k} \mathbb{E}_{w_i^{-} \sim P_n}\!\Bigl[\log \sigma\!\bigl(-\mathbf{v}'_{w_i^{-}}{}^\top \mathbf{v}_{w_I}\bigr)\Bigr]}_{\text{push negative pairs apart}},
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\sigma(x) = 1/(1 + e^{-x})\)</span> is the sigmoid function and <span class="math notranslate nohighlight">\(k\)</span> is the number of negative samples (typically <span class="math notranslate nohighlight">\(k \in [5, 20]\)</span>).</p>
+<p>Let us unpack the two terms:</p>
+<ul class="simple">
+<li><p><strong>First term:</strong> <span class="math notranslate nohighlight">\(\log \sigma(\mathbf{v}'_{w_O}{}^\top \mathbf{v}_{w_I})\)</span>. The sigmoid <span class="math notranslate nohighlight">\(\sigma(\cdot)\)</span> outputs a value near 1 when the dot product <span class="math notranslate nohighlight">\(\mathbf{v}'_{w_O}{}^\top \mathbf{v}_{w_I}\)</span> is large and positive. Taking the log, this term is maximized when the dot product is large – i.e., when the embeddings of the real center–context pair are <em>similar</em>.</p></li>
+<li><p><strong>Second term:</strong> <span class="math notranslate nohighlight">\(\sum_{i=1}^{k} \log \sigma(-\mathbf{v}'_{w_i^{-}}{}^\top \mathbf{v}_{w_I})\)</span>. Note the minus sign inside <span class="math notranslate nohighlight">\(\sigma\)</span>. This is maximized when <span class="math notranslate nohighlight">\(\mathbf{v}'_{w_i^{-}}{}^\top \mathbf{v}_{w_I}\)</span> is large and <em>negative</em> – i.e., when the embeddings of the noise pairs are <em>dissimilar</em>.</p></li>
+</ul>
+<p>Together, the objective trains the embeddings so that words appearing in similar contexts end up with similar vectors, and randomly paired words end up far apart – without ever computing the expensive <span class="math notranslate nohighlight">\(V\)</span>-way softmax.</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header sd-font-weight-normal">
+<span class="sd-summary-text">Optional Explainer: Hierarchical Softmax</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">The other approximation to the full softmax is to organize the entire vocabulary as a <strong>binary tree</strong> (typically a Huffman tree, so that frequent words have shorter paths from the root). Each leaf of the tree corresponds to a word, and each <em>internal node</em> <span class="math notranslate nohighlight">\(n\)</span> has its own learned vector <span class="math notranslate nohighlight">\(\mathbf{v}_n \in \mathbb{R}^d\)</span>.</p>
+<p class="sd-card-text">To compute <span class="math notranslate nohighlight">\(P(w_O \mid w_I)\)</span>, instead of normalizing over all <span class="math notranslate nohighlight">\(V\)</span> words, we take the <em>product of binary (left/right) decisions</em> along the path from the root to the leaf for <span class="math notranslate nohighlight">\(w_O\)</span>. At each internal node <span class="math notranslate nohighlight">\(n\)</span> on the path, the model makes a left/right decision using a sigmoid:</p>
+<div class="math notranslate nohighlight">
+\[
+P(\text{go left at node } n) = \sigma(\mathbf{v}_n^\top \mathbf{v}_{w_I}), \qquad
+P(\text{go right at node } n) = 1 - \sigma(\mathbf{v}_n^\top \mathbf{v}_{w_I}).
+\]</div>
+<p class="sd-card-text">The total probability is the product over all nodes along the path from root to leaf:</p>
+<div class="math notranslate nohighlight">
+\[
+P(w_O \mid w_I) = \prod_{n \in \text{path}(w_O)} \sigma\bigl(\operatorname{sign}(n) \cdot \mathbf{v}_n^\top \mathbf{v}_{w_I}\bigr),
+\]</div>
+<p class="sd-card-text">where <span class="math notranslate nohighlight">\(\operatorname{sign}(n) = +1\)</span> if the path goes left at node <span class="math notranslate nohighlight">\(n\)</span> and <span class="math notranslate nohighlight">\(-1\)</span> if it goes right. Because the tree has depth <span class="math notranslate nohighlight">\(O(\log V)\)</span>, computing this product costs <span class="math notranslate nohighlight">\(O(d \cdot \log V)\)</span> instead of <span class="math notranslate nohighlight">\(O(d \cdot V)\)</span> – a massive speedup. A Huffman tree gives even shorter paths for frequent words.</p>
+<p class="sd-card-text"><strong>Why isn’t this the default?</strong> In practice, negative sampling is simpler to implement, easier to parallelize on GPUs, and tends to produce slightly better embeddings for downstream tasks. But hierarchical softmax is theoretically elegant and was important historically.</p>
+</div>
+</details></section>
+<section id="why-this-matters-the-geometry-of-meaning">
+<h3>Why This Matters: The Geometry of Meaning<a class="headerlink" href="#why-this-matters-the-geometry-of-meaning" title="Link to this heading">#</a></h3>
+<p>After training, the input embedding matrix <span class="math notranslate nohighlight">\(\mathbf{W}\)</span> encodes remarkable semantic structure. The most celebrated example:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{v}_{\text{king}} - \mathbf{v}_{\text{man}} + \mathbf{v}_{\text{woman}} \approx \mathbf{v}_{\text{queen}}.
+\]</div>
+<p>More precisely, the query “which word is to <em>woman</em> as <em>king</em> is to <em>man</em>?” is answered by:</p>
+<div class="math notranslate nohighlight">
+\[
+\arg\max_{w \in \mathcal{V}} \;\cos\!\bigl(\mathbf{v}_w,\; \mathbf{v}_{\text{king}} - \mathbf{v}_{\text{man}} + \mathbf{v}_{\text{woman}}\bigr),
+\]</div>
+<p>where cosine similarity is defined as:</p>
+<div class="math notranslate nohighlight">
+\[
+\cos(\mathbf{a}, \mathbf{b}) = \frac{\mathbf{a}^\top \mathbf{b}}{\|\mathbf{a}\| \, \|\mathbf{b}\|}.
+\]</div>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="../_images/word2vec_geometry.svg"><img alt="../_images/word2vec_geometry.svg" src="../_images/word2vec_geometry.svg" width="80%" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 1 </span><span class="caption-text">The embedding space learns parallel offset vectors for semantic relationships. The vector from “man” to “king” (“royalty”) is approximately parallel to the vector from “woman” to “queen”.</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="note admonition">
+<p class="admonition-title">Key Takeaway</p>
+<p>Word2Vec demonstrated that <strong>meaning can be captured by geometry</strong>: words that are semantically similar end up close together in a continuous vector space. Every modern language model – including the transformer architecture we study in <code class="docutils literal notranslate"><span class="pre">nanochat</span></code> – inherits this core insight. The embedding layer at the bottom of a transformer <em>is</em> a word-to-vector lookup, trained end-to-end with the rest of the network.</p>
+</div>
+</section>
+<section id="from-word-vectors-back-to-document-vectors">
+<h3>From Word Vectors Back to Document Vectors<a class="headerlink" href="#from-word-vectors-back-to-document-vectors" title="Link to this heading">#</a></h3>
+<p>In the Bag of Words section, we represented documents as sparse BoW vectors in <span class="math notranslate nohighlight">\(\mathbb{R}^V\)</span>. Now that we have dense word vectors <span class="math notranslate nohighlight">\(\mathbf{v}_w \in \mathbb{R}^d\)</span>, a natural question arises: can we use them to build <em>better</em> document representations?</p>
+<p><strong>Simple averaging.</strong>
+The most straightforward approach is to represent a document <span class="math notranslate nohighlight">\(d = (w_1, w_2, \ldots, w_n)\)</span> as the <strong>mean of its word embeddings</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{d}_{\text{avg}} = \frac{1}{n} \sum_{i=1}^{n} \mathbf{v}_{w_i}.
+\]</div>
+<p>This is surprisingly effective for many tasks. The resulting vector <span class="math notranslate nohighlight">\(\mathbf{d}_{\text{avg}} \in \mathbb{R}^d\)</span> is dense and low-dimensional, and inherits the semantic structure of the word embeddings.</p>
+<p><strong>TF-IDF–weighted averaging.</strong>
+A better variant uses TF-IDF weights to emphasize content-bearing words:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{d}_{\text{tf-idf}} = \frac{\sum_{i=1}^{n} \text{TF-IDF}(w_i, d) \cdot \mathbf{v}_{w_i}}{\sum_{i=1}^{n} \text{TF-IDF}(w_i, d)}.
+\]</div>
+<p>This downweights common words (“the,” “is”) and upweights distinctive words (“collateral,” “quantitative easing”), producing a more informative document vector.</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header sd-font-weight-normal">
+<span class="sd-summary-text">Optional Explainer: Doc2Vec (Paragraph Vectors)</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Le and Mikolov (2014) proposed a more principled approach: introduce a learnable <strong>document embedding</strong> <span class="math notranslate nohighlight">\(\mathbf{v}_d \in \mathbb{R}^d\)</span> for each document <span class="math notranslate nohighlight">\(d\)</span> in the training corpus, and train it alongside the word embeddings.</p>
+<p class="sd-card-text">In the <strong>Distributed Memory (DM)</strong> variant, the document vector is concatenated with (or averaged alongside) the context word vectors and used to predict the next word:</p>
+<div class="math notranslate nohighlight">
+\[
+P(w_t \mid w_{t-c}, \ldots, w_{t-1}, d) = \text{softmax}\!\Bigl(\mathbf{W}' \cdot g\bigl(\mathbf{v}_d, \mathbf{v}_{w_{t-c}}, \ldots, \mathbf{v}_{w_{t-1}}\bigr)\Bigr),
+\]</div>
+<p class="sd-card-text">where <span class="math notranslate nohighlight">\(g(\cdot)\)</span> is a concatenation or averaging function. The document vector acts as a “memory” of the document’s overall topic, providing context that does not fit in the local word window.</p>
+<p class="sd-card-text">At test time, a new document’s vector is inferred by gradient descent with the word embeddings held fixed.</p>
+<p class="sd-card-text">There is also a simpler <strong>Distributed Bag of Words (DBOW)</strong> variant, where the document vector alone (without word context) is used to predict randomly sampled words from the document – analogous to how Skip-Gram uses a center word to predict context words.</p>
+<p class="sd-card-text">Doc2Vec often outperforms simple averaging, but it is more expensive to train and less widely used today. Modern transformers produce contextualized document embeddings directly, which have largely superseded these earlier approaches.</p>
+</div>
+</details><div class="warning admonition">
+<p class="admonition-title">The Full Circle</p>
+<p>Notice the conceptual progression:</p>
+<ol class="arabic simple">
+<li><p><strong>BoW</strong>: Documents <span class="math notranslate nohighlight">\(\to\)</span> sparse vectors in <span class="math notranslate nohighlight">\(\mathbb{R}^V\)</span>. No word-level semantics.</p></li>
+<li><p><strong>Word2Vec</strong>: Words <span class="math notranslate nohighlight">\(\to\)</span> dense vectors in <span class="math notranslate nohighlight">\(\mathbb{R}^d\)</span>. Rich word-level semantics, but what about documents?</p></li>
+<li><p><strong>Averaging / Doc2Vec</strong>: Word vectors <span class="math notranslate nohighlight">\(\to\)</span> document vectors in <span class="math notranslate nohighlight">\(\mathbb{R}^d\)</span>. Dense, semantic, low-dimensional.</p></li>
+<li><p><strong>Transformers</strong> (next week): The model learns <em>contextual</em> embeddings for each token (subword), which can serve as both word-level and document-level representations depending on how they are pooled.</p></li>
+</ol>
+</div>
+</section>
+<section id="from-words-to-subwords-the-vocabulary-problem">
+<h3>From Words to Subwords: The Vocabulary Problem<a class="headerlink" href="#from-words-to-subwords-the-vocabulary-problem" title="Link to this heading">#</a></h3>
+<p>Word2Vec assigns one vector per <em>word</em>. This creates a practical problem:</p>
+<ol class="arabic simple">
+<li><p><strong>Fixed vocabulary.</strong> Any word not seen during training is mapped to a generic <code class="docutils literal notranslate"><span class="pre">&lt;UNK&gt;</span></code> token – no useful representation at all.</p></li>
+<li><p><strong>Morphological blindness.</strong> “Running,” “runs,” and “runner” get completely independent vectors, even though they share the morpheme “run.”</p></li>
+<li><p><strong>Vocabulary explosion.</strong> Covering all of English requires hundreds of thousands of word types, most of which are rare.</p></li>
+</ol>
+<p>The solution: instead of tokenizing at the <em>word</em> level, tokenize at the <em>subword</em> level. This is exactly what <strong>Byte Pair Encoding</strong> does.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="byte-pair-encoding-bpe">
+<h2>Byte Pair Encoding (BPE)<a class="headerlink" href="#byte-pair-encoding-bpe" title="Link to this heading">#</a></h2>
+<section id="overview">
+<h3>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h3>
+<p>Byte Pair Encoding was originally a data compression algorithm (Gage, 1994) and was adapted for subword tokenization by Sennrich, Haddow, and Birch (2016). It is the tokenization method used by GPT-2, GPT-3, GPT-4, and – most relevant to us – the <code class="docutils literal notranslate"><span class="pre">nanochat</span></code> codebase we will study next week.</p>
+<div class="note admonition">
+<p class="admonition-title">BPE in One Sentence</p>
+<p>BPE iteratively merges the most frequent pair of adjacent symbols in the training corpus, building a subword vocabulary from the bottom up.</p>
+</div>
+</section>
+<section id="formal-setup">
+<h3>Formal Setup<a class="headerlink" href="#formal-setup" title="Link to this heading">#</a></h3>
+<p><strong>What is the “corpus”?</strong>
+The raw training corpus is simply a large body of text – a long string of characters (or bytes) that includes letters, digits, punctuation, spaces, tabs, newlines, and any other characters present in the data. For example, a financial corpus might be the concatenation of thousands of 10-K filings or newswire articles.</p>
+<p><strong>The word-frequency dictionary.</strong>
+Rather than scanning the entire raw text on every iteration, BPE implementations first build a <strong>word-frequency dictionary</strong>. The raw text is split into “words” by a simple rule (typically whitespace), and we count how many times each unique word appears. For instance, if the word “lower” appears 500 times in the raw text, the dictionary would include an entry <span class="math notranslate nohighlight">\(\text{&quot;lower&quot;} \mapsto 500\)</span> (among many others).</p>
+<p>We denote this dictionary as <span class="math notranslate nohighlight">\(\mathcal{C} = \{(w, \operatorname{freq}(w)) : w \text{ is a unique word in the corpus}\}\)</span>. The key point is that <span class="math notranslate nohighlight">\(\mathcal{C}\)</span> is a <em>set of (word, count) pairs</em>, not the raw text itself. This is purely an efficiency trick: instead of scanning billions of characters on every iteration, we scan the (much smaller) dictionary and weight each word by its frequency.</p>
+<div class="warning admonition">
+<p class="admonition-title">What About Whitespace?</p>
+<p>In the original BPE formulation (Sennrich et al., 2016), whitespace is used to <em>split</em> the text into words, and then a special end-of-word symbol <code class="docutils literal notranslate"><span class="pre">&lt;/w&gt;</span></code> is appended to each word so that the tokenizer can later reconstruct word boundaries. Whitespace itself is consumed by the split and does not appear as a symbol.</p>
+<p>In the byte-level BPE variant used by GPT-2 and <code class="docutils literal notranslate"><span class="pre">nanochat</span></code> (see the Byte-Level BPE section below), the approach is different: the raw text is first encoded as UTF-8 bytes, and then a <strong>regex-based pre-tokenizer</strong> splits the byte stream into chunks. In this variant, spaces, tabs, and newlines <em>are</em> included as byte values in the token vocabulary. For instance, the space character is byte <code class="docutils literal notranslate"><span class="pre">0x20</span></code> and is a valid symbol that can participate in merges.</p>
+</div>
+<p><strong>Representing words as symbol sequences.</strong>
+Each word in <span class="math notranslate nohighlight">\(\mathcal{C}\)</span> is split into a sequence of individual characters (or bytes), with a special end-of-word marker <code class="docutils literal notranslate"><span class="pre">&lt;/w&gt;</span></code> appended:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{&quot;lower&quot;} \longrightarrow [\texttt{l},\;\texttt{o},\;\texttt{w},\;\texttt{e},\;\texttt{r},\;\texttt{&lt;/w&gt;}].
+\]</div>
+<p>Let <span class="math notranslate nohighlight">\(\mathcal{S} = \{s_1, s_2, \ldots, s_n\}\)</span> denote the current <strong>symbol inventory</strong> – initially, this is just the set of all individual characters that appear in any word in <span class="math notranslate nohighlight">\(\mathcal{C}\)</span>, plus the <code class="docutils literal notranslate"><span class="pre">&lt;/w&gt;</span></code> marker.</p>
+<p><strong>Pair frequency.</strong>
+The core quantity in BPE is the <strong>pair frequency</strong>: how often two symbols appear next to each other across the entire corpus. For any ordered pair of symbols <span class="math notranslate nohighlight">\((s_i, s_j)\)</span>, define:</p>
+<div class="math notranslate nohighlight">
+\[
+f(s_i, s_j) = \sum_{w \in \mathcal{C}} \operatorname{count}\bigl((s_i, s_j),\; \operatorname{repr}(w)\bigr) \times \operatorname{freq}(w),
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\operatorname{repr}(w)\)</span> is the current symbol-sequence representation of word <span class="math notranslate nohighlight">\(w\)</span>, and <span class="math notranslate nohighlight">\(\operatorname{count}\bigl((s_i, s_j), \operatorname{repr}(w)\bigr)\)</span> counts how many times <span class="math notranslate nohighlight">\(s_i\)</span> appears immediately followed by <span class="math notranslate nohighlight">\(s_j\)</span> in that sequence. Multiplying by <span class="math notranslate nohighlight">\(\operatorname{freq}(w)\)</span> accounts for the fact that a word appearing 1,000 times in the corpus contributes 1,000 times as much as a word appearing once.</p>
+<div class="tip admonition">
+<p class="admonition-title">Pair Frequency Example</p>
+<p>Suppose the dictionary contains:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Word</strong></p></th>
+<th class="head"><p><strong>Freq</strong></p></th>
+<th class="head"><p><strong>Current representation</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>low</p></td>
+<td><p>5</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">l</span> <span class="pre">o</span> <span class="pre">w</span> <span class="pre">&lt;/w&gt;</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>newest</p></td>
+<td><p>6</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">e</span> <span class="pre">w</span> <span class="pre">e</span> <span class="pre">s</span> <span class="pre">t</span> <span class="pre">&lt;/w&gt;</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The pair <code class="docutils literal notranslate"><span class="pre">(w,</span> <span class="pre">&lt;/w&gt;)</span></code> appears once in the representation of “low” (not in “newest”), so:</p>
+<div class="math notranslate nohighlight">
+\[
+f(\texttt{w},\texttt{&lt;/w&gt;}) = 1 \times 5 + 0 \times 6 = 5.
+\]</div>
+<p>The pair <code class="docutils literal notranslate"><span class="pre">(e,</span> <span class="pre">s)</span></code> appears once in “newest” (not in “low”), so:</p>
+<div class="math notranslate nohighlight">
+\[
+f(\texttt{e},\texttt{s}) = 0 \times 5 + 1 \times 6 = 6.
+\]</div>
+</div>
+</section>
+<section id="the-bpe-algorithm">
+<h3>The BPE Algorithm<a class="headerlink" href="#the-bpe-algorithm" title="Link to this heading">#</a></h3>
+<div class="important admonition">
+<p class="admonition-title">Algorithm: BPE Training (Learning the Merge Table)</p>
+<p><strong>Input:</strong> Corpus <span class="math notranslate nohighlight">\(\mathcal{C}\)</span> with word frequencies; desired vocabulary size <span class="math notranslate nohighlight">\(V_{\max}\)</span>
+<strong>Output:</strong> Merge table <span class="math notranslate nohighlight">\(\mathcal{M}\)</span>; vocabulary <span class="math notranslate nohighlight">\(\mathcal{S}\)</span></p>
+<ol class="arabic simple">
+<li><p>Initialize <span class="math notranslate nohighlight">\(\mathcal{S} \leftarrow\)</span> set of all individual characters (or bytes) plus <code class="docutils literal notranslate"><span class="pre">&lt;/w&gt;</span></code></p></li>
+<li><p>Initialize <span class="math notranslate nohighlight">\(\mathcal{M} \leftarrow \emptyset\)</span></p></li>
+<li><p>Represent each word in <span class="math notranslate nohighlight">\(\mathcal{C}\)</span> as a sequence of characters from <span class="math notranslate nohighlight">\(\mathcal{S}\)</span></p></li>
+<li><p><strong>While</strong> <span class="math notranslate nohighlight">\(|\mathcal{S}| &lt; V_{\max}\)</span>:</p>
+<ul class="simple">
+<li><p>Compute <span class="math notranslate nohighlight">\(f(s_i, s_j)\)</span> for all adjacent pairs <span class="math notranslate nohighlight">\((s_i, s_j)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\((s^*, s^{**}) \leftarrow \arg\max_{(s_i, s_j)} f(s_i, s_j)\)</span></p></li>
+<li><p>Create new symbol <span class="math notranslate nohighlight">\(s_{\text{new}} \leftarrow s^* \cdot s^{**}\)</span>    <em>(concatenation)</em></p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathcal{S} \leftarrow \mathcal{S} \cup \{s_{\text{new}}\}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathcal{M} \leftarrow \mathcal{M} \cup \{(s^*, s^{**}) \to s_{\text{new}}\}\)</span></p></li>
+<li><p>Replace every occurrence of <span class="math notranslate nohighlight">\((s^*, s^{**})\)</span> in the corpus with <span class="math notranslate nohighlight">\(s_{\text{new}}\)</span></p></li>
+</ul>
+</li>
+<li><p><strong>Return</strong> <span class="math notranslate nohighlight">\(\mathcal{M}, \mathcal{S}\)</span></p></li>
+</ol>
+</div>
+<div class="important admonition">
+<p class="admonition-title">Algorithm: BPE Encoding (Applying the Merge Table at Inference)</p>
+<p><strong>Input:</strong> String <span class="math notranslate nohighlight">\(x\)</span>; ordered merge table <span class="math notranslate nohighlight">\(\mathcal{M} = [(m_1, r_1), (m_2, r_2), \ldots]\)</span>
+<strong>Output:</strong> Token sequence</p>
+<ol class="arabic simple">
+<li><p>Split <span class="math notranslate nohighlight">\(x\)</span> into individual characters (or bytes): <span class="math notranslate nohighlight">\(\text{tokens} \leftarrow [x_1, x_2, \ldots, x_n]\)</span></p></li>
+<li><p><strong>For each</strong> <span class="math notranslate nohighlight">\((m_i, r_i) \in \mathcal{M}\)</span> <strong>in order</strong>:</p>
+<ul class="simple">
+<li><p>Scan <span class="math notranslate nohighlight">\(\text{tokens}\)</span> and replace every adjacent pair matching <span class="math notranslate nohighlight">\(m_i\)</span> with <span class="math notranslate nohighlight">\(r_i\)</span></p></li>
+</ul>
+</li>
+<li><p><strong>Return</strong> tokens</p></li>
+</ol>
+</div>
+</section>
+<section id="worked-example">
+<h3>Worked Example<a class="headerlink" href="#worked-example" title="Link to this heading">#</a></h3>
+<div class="tip admonition">
+<p class="admonition-title">BPE Worked Example</p>
+<p>Consider a toy corpus with word frequencies:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Word</strong></p></th>
+<th class="head"><p><strong>Frequency</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">low&lt;/w&gt;</span></code></p></td>
+<td><p>5</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">lower&lt;/w&gt;</span></code></p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">newest&lt;/w&gt;</span></code></p></td>
+<td><p>6</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">widest&lt;/w&gt;</span></code></p></td>
+<td><p>3</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Initial symbol inventory:</strong>
+<span class="math notranslate nohighlight">\(\mathcal{S}_0 = \{\texttt{l, o, w, e, r, n, i, d, s, t, &lt;/w&gt;}\}\)</span> (<span class="math notranslate nohighlight">\(|\mathcal{S}_0| = 11\)</span>).</p>
+<p><strong>Initial representations:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Word</strong></p></th>
+<th class="head"><p><strong>Freq</strong></p></th>
+<th class="head"><p><strong>Representation</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>low</p></td>
+<td><p>5</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">l</span> <span class="pre">o</span> <span class="pre">w</span> <span class="pre">&lt;/w&gt;</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>lower</p></td>
+<td><p>2</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">l</span> <span class="pre">o</span> <span class="pre">w</span> <span class="pre">e</span> <span class="pre">r</span> <span class="pre">&lt;/w&gt;</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>newest</p></td>
+<td><p>6</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">e</span> <span class="pre">w</span> <span class="pre">e</span> <span class="pre">s</span> <span class="pre">t</span> <span class="pre">&lt;/w&gt;</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>widest</p></td>
+<td><p>3</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">w</span> <span class="pre">i</span> <span class="pre">d</span> <span class="pre">e</span> <span class="pre">s</span> <span class="pre">t</span> <span class="pre">&lt;/w&gt;</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>— Iteration 1 —</strong></p>
+<p>Count all adjacent pairs:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Pair</p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(f\)</span></p></th>
+<th class="head"><p>Pair</p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(f\)</span></p></th>
+<th class="head"><p>Pair</p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(f\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">(l,o)</span></code></p></td>
+<td><p>7</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(e,s)</span></code></p></td>
+<td><p>9</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(w,e)</span></code></p></td>
+<td><p>8</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">(o,w)</span></code></p></td>
+<td><p>7</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(s,t)</span></code></p></td>
+<td><p>9</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(e,r)</span></code></p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">(w,&lt;/w&gt;)</span></code></p></td>
+<td><p>5</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(t,&lt;/w&gt;)</span></code></p></td>
+<td><p>9</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(n,e)</span></code></p></td>
+<td><p>6</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">(w,i)</span></code></p></td>
+<td><p>3</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(i,d)</span></code></p></td>
+<td><p>3</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(d,e)</span></code></p></td>
+<td><p>3</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">(r,&lt;/w&gt;)</span></code></p></td>
+<td><p>2</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Three pairs tie at <span class="math notranslate nohighlight">\(f = 9\)</span>: <code class="docutils literal notranslate"><span class="pre">(e,s)</span></code>, <code class="docutils literal notranslate"><span class="pre">(s,t)</span></code>, and <code class="docutils literal notranslate"><span class="pre">(t,&lt;/w&gt;)</span></code>. We break ties arbitrarily; suppose we select <code class="docutils literal notranslate"><span class="pre">(e,s)</span></code>.</p>
+<p><span class="math notranslate nohighlight">\(\Rightarrow\)</span> <strong>Merge 1:</strong> <code class="docutils literal notranslate"><span class="pre">(e,s)</span></code> <span class="math notranslate nohighlight">\(\to\)</span> <code class="docutils literal notranslate"><span class="pre">es</span></code>. <span class="math notranslate nohighlight">\(\mathcal{S}_1 = \mathcal{S}_0 \cup \{\texttt{es}\}\)</span>, <span class="math notranslate nohighlight">\(|\mathcal{S}_1| = 12\)</span>.</p>
+<p>Updated representations:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Word</strong></p></th>
+<th class="head"><p><strong>Freq</strong></p></th>
+<th class="head"><p><strong>Representation</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>low</p></td>
+<td><p>5</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">l</span> <span class="pre">o</span> <span class="pre">w</span> <span class="pre">&lt;/w&gt;</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>lower</p></td>
+<td><p>2</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">l</span> <span class="pre">o</span> <span class="pre">w</span> <span class="pre">e</span> <span class="pre">r</span> <span class="pre">&lt;/w&gt;</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>newest</p></td>
+<td><p>6</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">e</span> <span class="pre">w</span></code> <strong><code class="docutils literal notranslate"><span class="pre">es</span></code></strong> <code class="docutils literal notranslate"><span class="pre">t</span> <span class="pre">&lt;/w&gt;</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>widest</p></td>
+<td><p>3</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">w</span> <span class="pre">i</span> <span class="pre">d</span></code> <strong><code class="docutils literal notranslate"><span class="pre">es</span></code></strong> <code class="docutils literal notranslate"><span class="pre">t</span> <span class="pre">&lt;/w&gt;</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>— Iteration 2 —</strong></p>
+<p>Recount pairs (only affected pairs change):</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Pair</p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(f\)</span></p></th>
+<th class="head"><p>Pair</p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(f\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">(es,t)</span></code></p></td>
+<td><p>9</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(t,&lt;/w&gt;)</span></code></p></td>
+<td><p>9</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">(l,o)</span></code></p></td>
+<td><p>7</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(o,w)</span></code></p></td>
+<td><p>7</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">(w,es)</span></code></p></td>
+<td><p>6</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(n,e)</span></code></p></td>
+<td><p>6</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">(w,&lt;/w&gt;)</span></code></p></td>
+<td><p>5</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(d,es)</span></code></p></td>
+<td><p>3</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Tie between <code class="docutils literal notranslate"><span class="pre">(es,t)</span></code> and <code class="docutils literal notranslate"><span class="pre">(t,&lt;/w&gt;)</span></code> at <span class="math notranslate nohighlight">\(f = 9\)</span>. Suppose we pick <code class="docutils literal notranslate"><span class="pre">(es,t)</span></code>.</p>
+<p><span class="math notranslate nohighlight">\(\Rightarrow\)</span> <strong>Merge 2:</strong> <code class="docutils literal notranslate"><span class="pre">(es,t)</span></code> <span class="math notranslate nohighlight">\(\to\)</span> <code class="docutils literal notranslate"><span class="pre">est</span></code>. <span class="math notranslate nohighlight">\(\mathcal{S}_2 = \mathcal{S}_1 \cup \{\texttt{est}\}\)</span>, <span class="math notranslate nohighlight">\(|\mathcal{S}_2| = 13\)</span>.</p>
+<p>Updated representations:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Word</strong></p></th>
+<th class="head"><p><strong>Freq</strong></p></th>
+<th class="head"><p><strong>Representation</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>low</p></td>
+<td><p>5</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">l</span> <span class="pre">o</span> <span class="pre">w</span> <span class="pre">&lt;/w&gt;</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>lower</p></td>
+<td><p>2</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">l</span> <span class="pre">o</span> <span class="pre">w</span> <span class="pre">e</span> <span class="pre">r</span> <span class="pre">&lt;/w&gt;</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>newest</p></td>
+<td><p>6</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">e</span> <span class="pre">w</span></code> <strong><code class="docutils literal notranslate"><span class="pre">est</span></code></strong> <code class="docutils literal notranslate"><span class="pre">&lt;/w&gt;</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>widest</p></td>
+<td><p>3</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">w</span> <span class="pre">i</span> <span class="pre">d</span></code> <strong><code class="docutils literal notranslate"><span class="pre">est</span></code></strong> <code class="docutils literal notranslate"><span class="pre">&lt;/w&gt;</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>— Iteration 3 —</strong></p>
+<p>Now <code class="docutils literal notranslate"><span class="pre">(est,&lt;/w&gt;)</span></code> has frequency <span class="math notranslate nohighlight">\(6 + 3 = 9\)</span>, the highest.</p>
+<p><span class="math notranslate nohighlight">\(\Rightarrow\)</span> <strong>Merge 3:</strong> <code class="docutils literal notranslate"><span class="pre">(est,&lt;/w&gt;)</span></code> <span class="math notranslate nohighlight">\(\to\)</span> <code class="docutils literal notranslate"><span class="pre">est&lt;/w&gt;</span></code>. <span class="math notranslate nohighlight">\(|\mathcal{S}_3| = 14\)</span>.</p>
+<p>Observe that we have now learned the subword unit “<code class="docutils literal notranslate"><span class="pre">est&lt;/w&gt;</span></code>,” which captures the English superlative suffix. The algorithm has <em>discovered morphology</em> purely from frequency statistics.</p>
+<p>We could continue: the next merge would likely be <code class="docutils literal notranslate"><span class="pre">(l,o)</span></code> at <span class="math notranslate nohighlight">\(f = 7\)</span>, then <code class="docutils literal notranslate"><span class="pre">(lo,w)</span></code> at <span class="math notranslate nohighlight">\(f = 7\)</span>, building up the common prefix “low.”</p>
+<p><strong>Final merge table (first 3 merges):</strong></p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{M} = \bigl[\;(\texttt{e},\texttt{s}) \to \texttt{es},\;\;
+(\texttt{es},\texttt{t}) \to \texttt{est},\;\;
+(\texttt{est},\texttt{&lt;/w&gt;}) \to \texttt{est&lt;/w&gt;}\;\bigr].
+\]</div>
+</div>
+</section>
+<section id="encoding-a-new-string">
+<h3>Encoding a New String<a class="headerlink" href="#encoding-a-new-string" title="Link to this heading">#</a></h3>
+<div class="tip admonition">
+<p class="admonition-title">Applying the Merge Table</p>
+<p>Suppose we want to tokenize the new word “<code class="docutils literal notranslate"><span class="pre">lowest&lt;/w&gt;</span></code>” using the merge table <span class="math notranslate nohighlight">\(\mathcal{M}\)</span> from above.</p>
+<p><strong>Step 0.</strong> Split into characters:</p>
+<div class="math notranslate nohighlight">
+\[
+[\texttt{l},\;\texttt{o},\;\texttt{w},\;\texttt{e},\;\texttt{s},\;\texttt{t},\;\texttt{&lt;/w&gt;}].
+\]</div>
+<p><strong>Step 1.</strong> Apply merge rule 1: <span class="math notranslate nohighlight">\((\texttt{e},\texttt{s}) \to \texttt{es}\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[
+[\texttt{l},\;\texttt{o},\;\texttt{w},\;\texttt{es},\;\texttt{t},\;\texttt{&lt;/w&gt;}].
+\]</div>
+<p><strong>Step 2.</strong> Apply merge rule 2: <span class="math notranslate nohighlight">\((\texttt{es},\texttt{t}) \to \texttt{est}\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[
+[\texttt{l},\;\texttt{o},\;\texttt{w},\;\texttt{est},\;\texttt{&lt;/w&gt;}].
+\]</div>
+<p><strong>Step 3.</strong> Apply merge rule 3: <span class="math notranslate nohighlight">\((\texttt{est},\texttt{&lt;/w&gt;}) \to \texttt{est&lt;/w&gt;}\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[
+[\texttt{l},\;\texttt{o},\;\texttt{w},\;\texttt{est&lt;/w&gt;}].
+\]</div>
+<p>No more merge rules apply. The final tokenization is:</p>
+<div class="math notranslate nohighlight">
+\[
+\texttt{lowest&lt;/w&gt;} \;\longrightarrow\; [\texttt{l},\;\texttt{o},\;\texttt{w},\;\texttt{est&lt;/w&gt;}]
+\]</div>
+<p>Note how the algorithm correctly identifies the stem/suffix boundary <em>without any linguistic rules</em> – it learned “<code class="docutils literal notranslate"><span class="pre">est&lt;/w&gt;</span></code>” as a subword unit from corpus statistics alone.</p>
+</div>
+</section>
+<section id="properties-of-bpe">
+<h3>Properties of BPE<a class="headerlink" href="#properties-of-bpe" title="Link to this heading">#</a></h3>
+<div class="note admonition">
+<p class="admonition-title">Key Properties</p>
+<ol class="arabic">
+<li><p><strong>No out-of-vocabulary words.</strong> Since the base vocabulary includes all individual bytes (or characters), <em>any</em> string can be tokenized – in the worst case, as a sequence of single bytes.</p></li>
+<li><p><strong>Frequent substrings become tokens.</strong> Common words like “the” or “of” will be single tokens. Rare words are broken into familiar subword pieces.</p></li>
+<li><p><strong>Controllable vocabulary size.</strong> The hyperparameter <span class="math notranslate nohighlight">\(V_{\max}\)</span> directly controls the trade-off:</p>
+<ul class="simple">
+<li><p><em>Small <span class="math notranslate nohighlight">\(V_{\max}\)</span></em>: more tokens per sentence, but smaller embedding matrix.</p></li>
+<li><p><em>Large <span class="math notranslate nohighlight">\(V_{\max}\)</span></em>: fewer tokens per sentence, but larger embedding matrix.</p></li>
+</ul>
+<p>GPT-2 uses <span class="math notranslate nohighlight">\(V_{\max} = 50{,}257\)</span>. GPT-4 uses approximately <span class="math notranslate nohighlight">\(100{,}000\)</span>.</p>
+</li>
+<li><p><strong>Deterministic.</strong> Given the merge table <span class="math notranslate nohighlight">\(\mathcal{M}\)</span>, encoding is a deterministic function. There is no randomness at inference time.</p></li>
+<li><p><strong>Greedy and order-dependent.</strong> The merge rules are applied in the order they were learned. This means BPE encoding is not globally optimal – it is a greedy algorithm.</p></li>
+</ol>
+</div>
+</section>
+<section id="byte-level-bpe-gpt-2-variant">
+<h3>Byte-Level BPE (GPT-2 Variant)<a class="headerlink" href="#byte-level-bpe-gpt-2-variant" title="Link to this heading">#</a></h3>
+<p>The original BPE operates on Unicode characters. GPT-2 introduced an important variant: <strong>byte-level BPE</strong>. Instead of starting with a character-level vocabulary (<span class="math notranslate nohighlight">\(|\mathcal{S}_0|\)</span> could be many thousands of Unicode code points), we start with the 256 raw byte values:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{S}_0 = \{0\texttt{x00}, 0\texttt{x01}, \ldots, 0\texttt{xFF}\}.
+\]</div>
+<p>This guarantees that the base vocabulary has exactly 256 symbols regardless of language. Any UTF-8 encoded text maps to a sequence of bytes, so byte-level BPE can tokenize <em>any</em> text in <em>any</em> language without preprocessing.</p>
+<div class="warning admonition">
+<p class="admonition-title">Connection to nanochat</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">nanochat</span></code> codebase we will study next week implements byte-level BPE. Its tokenizer:</p>
+<ol class="arabic simple">
+<li><p>Encodes the input string as raw UTF-8 bytes.</p></li>
+<li><p>Applies a regex-based pre-tokenization pattern (splitting on whitespace, punctuation, etc.) to identify mergeable chunks.</p></li>
+<li><p>Iteratively applies the learned merge table within each chunk.</p></li>
+</ol>
+<p>Understanding today’s material – especially the merge-table construction and application – will let us focus next week on the model architecture rather than the tokenizer internals.</p>
+</div>
+</section>
+<section id="complexity-analysis">
+<h3>Complexity Analysis<a class="headerlink" href="#complexity-analysis" title="Link to this heading">#</a></h3>
+<p>Let <span class="math notranslate nohighlight">\(N\)</span> be the total number of symbols in the corpus (after character-level splitting), and let <span class="math notranslate nohighlight">\(M = V_{\max} - |\mathcal{S}_0|\)</span> be the number of merge operations.</p>
+<p><strong>Training.</strong>
+Each iteration requires scanning all adjacent pairs: <span class="math notranslate nohighlight">\(O(N)\)</span>. We perform <span class="math notranslate nohighlight">\(M\)</span> iterations, so the total training cost is:</p>
+<div class="math notranslate nohighlight">
+\[
+O(M \cdot N).
+\]</div>
+<p>In practice, efficient implementations use hash maps to track pair counts and update them incrementally after each merge, avoiding a full rescan.</p>
+<p><strong>Encoding.</strong>
+For a string of length <span class="math notranslate nohighlight">\(n\)</span> (in characters/bytes), applying <span class="math notranslate nohighlight">\(M\)</span> merge rules naively takes <span class="math notranslate nohighlight">\(O(M \cdot n)\)</span>. Optimized implementations can do this in <span class="math notranslate nohighlight">\(O(n \log n)\)</span> or even <span class="math notranslate nohighlight">\(O(n)\)</span> with appropriate data structures.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="tiktoken-production-grade-bpe">
+<h2>Tiktoken: Production-Grade BPE<a class="headerlink" href="#tiktoken-production-grade-bpe" title="Link to this heading">#</a></h2>
+<section id="what-is-tiktoken">
+<h3>What Is Tiktoken?<a class="headerlink" href="#what-is-tiktoken" title="Link to this heading">#</a></h3>
+<p><strong>Tiktoken</strong> is OpenAI’s open-source, production-grade BPE tokenizer library. It implements the same byte-level BPE algorithm we described above, but with important engineering optimizations.</p>
+<div class="note admonition">
+<p class="admonition-title">Tiktoken vs. Our BPE Description</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Aspect</strong></p></th>
+<th class="head"><p><strong>Textbook BPE (above)</strong></p></th>
+<th class="head"><p><strong>Tiktoken</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Language</p></td>
+<td><p>Conceptual / Python</p></td>
+<td><p>Core in Rust, Python bindings</p></td>
+</tr>
+<tr class="row-odd"><td><p>Speed</p></td>
+<td><p>Educational</p></td>
+<td><p>~3–6x faster than HuggingFace tokenizers</p></td>
+</tr>
+<tr class="row-even"><td><p>Pre-tokenization</p></td>
+<td><p>Simple whitespace split</p></td>
+<td><p>Regex-based splitting (GPT-2/GPT-4 patterns)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Special tokens</p></td>
+<td><p>None</p></td>
+<td><p>`&lt;</p></td>
+</tr>
+<tr class="row-even"><td><p>Merge table</p></td>
+<td><p>Learned from scratch</p></td>
+<td><p>Pre-trained, shipped as <code class="docutils literal notranslate"><span class="pre">.tiktoken</span></code> files</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="encodings">
+<h3>Encodings<a class="headerlink" href="#encodings" title="Link to this heading">#</a></h3>
+<p>Tiktoken ships with several <strong>encodings</strong>, each corresponding to a different merge table (trained on different data with different vocabulary sizes):</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Encoding</strong></p></th>
+<th class="head"><p><strong>Used by</strong></p></th>
+<th class="head"><p><strong>Vocab Size</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">r50k_base</span></code></p></td>
+<td><p>GPT-2</p></td>
+<td><p>50,257</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">p50k_base</span></code></p></td>
+<td><p>Codex (code-davinci-002)</p></td>
+<td><p>50,281</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cl100k_base</span></code></p></td>
+<td><p>GPT-3.5-Turbo, GPT-4</p></td>
+<td><p>100,256</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">o200k_base</span></code></p></td>
+<td><p>GPT-4o</p></td>
+<td><p>200,019</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="special-tokens">
+<h3>Special Tokens<a class="headerlink" href="#special-tokens" title="Link to this heading">#</a></h3>
+<p>Beyond the BPE-learned merge tokens, tiktoken reserves a set of <strong>special tokens</strong> that are <em>not</em> learned by the BPE algorithm but are added to the vocabulary by hand. These tokens serve as control signals that structure the input for the model. Some key examples:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Token</strong></p></th>
+<th class="head"><p><strong>Purpose</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;|endoftext|&gt;</span></code></p></td>
+<td><p>Marks the boundary between unrelated documents during training. At inference time, signals the end of a generation.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;|im_start|&gt;</span></code></p></td>
+<td><p>Marks the beginning of a message in the chat format (“im” = “input message,” as part of OpenAI’s Chat Markup Language, or ChatML).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;|im_end|&gt;</span></code></p></td>
+<td><p>Marks the end of a message in the chat format.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;|im_sep|&gt;</span></code></p></td>
+<td><p>Separator within a structured message (used in some model versions).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>In the chat completions API, a conversation like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;|im_start|&gt;system&lt;|im_sep|&gt;You are a helpful assistant.&lt;|im_end|&gt;
+&lt;|im_start|&gt;user&lt;|im_sep|&gt;What is the yield curve?&lt;|im_end|&gt;
+&lt;|im_start|&gt;assistant&lt;|im_sep|&gt;
+</pre></div>
+</div>
+<p>is what the model actually sees. The special tokens delineate roles (system, user, assistant) and message boundaries. Tool-use calls and function results are similarly wrapped in these structured tokens, allowing the model to distinguish natural language from control flow.</p>
+<p>Special tokens are handled separately from BPE: they are matched <em>before</em> the BPE merge rules are applied, so the string <code class="docutils literal notranslate"><span class="pre">&lt;|endoftext|&gt;</span></code> is always tokenized as a single token and never broken into subwords.</p>
+</section>
+<section id="unicode-coverage-and-vocabulary-size">
+<h3>Unicode Coverage and Vocabulary Size<a class="headerlink" href="#unicode-coverage-and-vocabulary-size" title="Link to this heading">#</a></h3>
+<p>A natural question: does tiktoken cover <em>all</em> possible text, including Chinese, Arabic, emoji, and obscure Unicode symbols?</p>
+<p>The answer is yes, because tiktoken uses <strong>byte-level</strong> BPE. The base vocabulary always includes all 256 byte values (<code class="docutils literal notranslate"><span class="pre">0x00</span></code> through <code class="docutils literal notranslate"><span class="pre">0xFF</span></code>), and <em>any</em> Unicode string can be encoded as a sequence of UTF-8 bytes. For example, the Chinese character for “rate” (U+7387) is encoded as the three bytes <code class="docutils literal notranslate"><span class="pre">[0xE7,</span> <span class="pre">0x8E,</span> <span class="pre">0x87]</span></code> in UTF-8. If BPE learned a merge for this byte sequence, it becomes a single token; if not, it is represented as three separate byte tokens. Either way, it is always representable.</p>
+<div class="warning admonition">
+<p class="admonition-title">Efficiency Across Languages</p>
+<p>While byte-level BPE <em>can</em> represent any language, it does not do so equally efficiently. BPE merge tables are trained predominantly on English text, so English words tend to be compressed into fewer tokens than equivalent text in other languages. Studies have found that the same semantic content in Chinese, Japanese, or Hindi can require <span class="math notranslate nohighlight">\(2\)</span>–<span class="math notranslate nohighlight">\(3\times\)</span> as many tokens as in English. This means non-English users of GPT-style models effectively get a smaller context window and pay more per semantic unit – a practical consideration for multilingual financial applications.</p>
+</div>
+</section>
+<section id="why-tiktoken-matters-for-finance-applications">
+<h3>Why Tiktoken Matters for Finance Applications<a class="headerlink" href="#why-tiktoken-matters-for-finance-applications" title="Link to this heading">#</a></h3>
+<p>For financial applications, tokenization has direct cost and performance implications:</p>
+<ol class="arabic simple">
+<li><p><strong>API costs are per-token.</strong> Understanding how text maps to tokens lets you estimate costs for processing financial documents (10-K filings, earnings transcripts, etc.).</p></li>
+<li><p><strong>Context window budgeting.</strong> A GPT-4 context window of 128K <em>tokens</em> does not mean 128K words. Typical English text tokenizes at roughly 1 token per 3–4 characters, so 128K tokens <span class="math notranslate nohighlight">\(\approx\)</span> 96K words. Financial jargon and numerical data may tokenize less efficiently.</p></li>
+<li><p><strong>Reproducibility.</strong> When you build a financial NLP pipeline, the tokenizer is part of the contract between your data and the model. Switching tokenizers changes the integer sequences the model sees and breaks compatibility.</p></li>
+</ol>
+<div class="warning admonition">
+<p class="admonition-title">Practical Note</p>
+<p>You can count tokens before sending an API call:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tiktoken</span>
+
+<span class="n">enc</span> <span class="o">=</span> <span class="n">tiktoken</span><span class="o">.</span><span class="n">encoding_for_model</span><span class="p">(</span><span class="s2">&quot;gpt-4&quot;</span><span class="p">)</span>
+<span class="n">tokens</span> <span class="o">=</span> <span class="n">enc</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;Federal Reserve raises rates by 25bp&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tokens</span><span class="p">))</span>  <span class="c1"># number of tokens</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span>       <span class="c1"># list of integer token IDs</span>
+</pre></div>
+</div>
+<p>This is useful for staying within context limits and estimating costs when processing large financial corpora.</p>
+</div>
+<p>You can also explore tokenization interactively using <a class="reference external" href="https://tiktokenizer.vercel.app/">Tiktokenizer</a>, a web app that lets you type in text and see exactly how it gets split into tokens by different OpenAI tokenizers.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="connecting-the-pieces">
+<h2>Connecting the Pieces<a class="headerlink" href="#connecting-the-pieces" title="Link to this heading">#</a></h2>
+<p>Let us summarize the logical flow from this lecture into next week’s material:</p>
+<figure class="align-center" id="id2">
+<a class="reference internal image-reference" href="../_images/tokenization_pipeline.svg"><img alt="../_images/tokenization_pipeline.svg" src="../_images/tokenization_pipeline.svg" width="100%" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 2 </span><span class="caption-text">The tokenization pipeline. BPE converts raw text to integer token IDs, which are then looked up in an embedding matrix (conceptually descended from Word2Vec) to produce the dense vectors that enter the transformer.</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="note admonition">
+<p class="admonition-title">What to Remember</p>
+<ol class="arabic simple">
+<li><p><strong>Bag of Words</strong> represents documents as sparse count vectors. Simple and effective for information retrieval, but captures no word-level semantics and ignores word order.</p></li>
+<li><p><strong>Word2Vec</strong> showed that words can be meaningfully represented as dense vectors in <span class="math notranslate nohighlight">\(\mathbb{R}^d\)</span>, learned from co-occurrence statistics. Document vectors can be recovered by averaging word embeddings.</p></li>
+<li><p><strong>BPE</strong> solves the vocabulary problem by learning subword units from frequency statistics. It guarantees full coverage (no <code class="docutils literal notranslate"><span class="pre">&lt;UNK&gt;</span></code> tokens) and discovers morphological structure automatically.</p></li>
+<li><p><strong>Tiktoken</strong> is the production implementation of BPE used by OpenAI’s models. Understanding it lets you budget context windows and API costs.</p></li>
+<li><p><strong>Next week:</strong> We will see exactly how <code class="docutils literal notranslate"><span class="pre">nanochat</span></code> uses BPE to tokenize training data, maps token IDs to embeddings, and feeds those embeddings through a transformer to predict the next token.</p></li>
+</ol>
+</div>
+</section>
+<hr class="docutils" />
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>T. Mikolov, K. Chen, G. Corrado, and J. Dean. “Efficient Estimation of Word Representations in Vector Space.” <em>arXiv:1301.3781</em>, 2013.</p></li>
+<li><p>T. Mikolov, I. Sutskever, K. Chen, G. Corrado, and J. Dean. “Distributed Representations of Words and Phrases and their Compositionality.” <em>NeurIPS</em>, 2013.</p></li>
+<li><p>Q. Le and T. Mikolov. “Distributed Representations of Sentences and Documents.” <em>ICML</em>, 2014.</p></li>
+<li><p>D. Blei, A. Ng, and M. Jordan. “Latent Dirichlet Allocation.” <em>Journal of Machine Learning Research</em>, 3:993–1022, 2003.</p></li>
+<li><p>P. Gage. “A New Algorithm for Data Compression.” <em>The C Users Journal</em>, 12(2):23–38, 1994.</p></li>
+<li><p>R. Sennrich, B. Haddow, and A. Birch. “Neural Machine Translation of Rare Words with Subword Units.” <em>ACL</em>, 2016.</p></li>
+<li><p>A. Radford, J. Wu, R. Child, D. Luan, D. Amodei, and I. Sutskever. “Language Models are Unsupervised Multitask Learners.” OpenAI Blog, 2019. (GPT-2 paper, introduces byte-level BPE.)</p></li>
+<li><p>OpenAI. “Tiktoken.” <a class="github reference external" href="https://github.com/openai/tiktoken">openai/tiktoken</a>, 2022.</p></li>
+</ol>
+</section>
+</section>
+
+<div class="section ablog__blog_comments">
+   
+</div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="ai_copilots_intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">AI Copilots: History and Tools</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="03_embedding_analogies_ipynb.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Optional extra: News, Financial Crises, and the Geometry of Meaning</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bag-of-words-representing-documents">Bag of Words: Representing Documents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-bow-representation">The BoW Representation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tf-idf-weighting-the-bag">TF-IDF: Weighting the Bag</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#limitations-of-bow">Limitations of BoW</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topic-models-finding-latent-structure-in-bow">Topic Models: Finding Latent Structure in BoW</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#word2vec-words-as-vectors">Word2Vec: Words as Vectors</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#motivation-why-not-one-hot-vectors">Motivation: Why Not One-Hot Vectors?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-skip-gram-model">The Skip-Gram Model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#negative-sampling-neg">Negative Sampling (NEG)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-this-matters-the-geometry-of-meaning">Why This Matters: The Geometry of Meaning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-word-vectors-back-to-document-vectors">From Word Vectors Back to Document Vectors</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-words-to-subwords-the-vocabulary-problem">From Words to Subwords: The Vocabulary Problem</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#byte-pair-encoding-bpe">Byte Pair Encoding (BPE)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#formal-setup">Formal Setup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-bpe-algorithm">The BPE Algorithm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#worked-example">Worked Example</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#encoding-a-new-string">Encoding a New String</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#properties-of-bpe">Properties of BPE</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#byte-level-bpe-gpt-2-variant">Byte-Level BPE (GPT-2 Variant)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#complexity-analysis">Complexity Analysis</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tiktoken-production-grade-bpe">Tiktoken: Production-Grade BPE</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-tiktoken">What Is Tiktoken?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#encodings">Encodings</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#special-tokens">Special Tokens</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unicode-coverage-and-vocabulary-size">Unicode Coverage and Vocabulary Size</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-tiktoken-matters-for-finance-applications">Why Tiktoken Matters for Finance Applications</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#connecting-the-pieces">Connecting the Pieces</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jeremiah Bejarano
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, Jeremiah Bejarano.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
