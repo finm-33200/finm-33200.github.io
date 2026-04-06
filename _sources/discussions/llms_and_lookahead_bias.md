@@ -132,3 +132,11 @@ Critically, entity neutering **preserves sentiment**: sentiment extracted from n
 - He, Songrun, Linying Lv, Asaf Manela, and Jimmy Wu. "[Chronologically Consistent Large Language Models](https://arxiv.org/abs/2502.21206)." Working paper, 2025.
 - He, Songrun, Linying Lv, Asaf Manela, and Jimmy Wu. "[Instruction Tuning Chronologically Consistent Language Models](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5348747)." Working paper, 2025.
 - Sarkar, Suproteem and Keyon Vafa. "[Lookahead Bias in Pretrained Language Models](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4754678)." Working paper, 2024.
+
+### Resources
+
+- [Hugging Face: Manela Lab (ChronoBERT, ChronoGPT)](https://huggingface.co/manelalab)
+- [StoriesLM](https://huggingface.co/StoriesLM)
+- [American Stories Dataset](https://huggingface.co/datasets/dell-research-harvard/AmericanStories) — cleaned version of Chronicling America
+- [Newswire Dataset (Melissa Dell)](https://huggingface.co/datasets/dell-research-harvard/newswire)
+- [TimeCapsuleLLM](https://github.com/haykgrigo3/TimeCapsuleLLM)
