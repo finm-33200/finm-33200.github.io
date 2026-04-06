@@ -476,16 +476,17 @@ document.write(`
 <a class="reference internal image-reference" href="../_images/grays_sports_almanac.webp"><img alt="../_images/grays_sports_almanac.webp" class="align-center" src="../_images/grays_sports_almanac.webp" style="width: 50%;" /></a>
 <section id="formal-definition">
 <h3>Formal Definition<a class="headerlink" href="#formal-definition" title="Link to this heading">#</a></h3>
-<p>Following Sarkar and Vafa (2024), suppose a researcher wants to predict outcome <span class="math notranslate nohighlight">\(Y_{t+1}\)</span> from language data <span class="math notranslate nohighlight">\(X_t\)</span> using only information <span class="math notranslate nohighlight">\(\mathcal{I}\)</span> available up to time <span class="math notranslate nohighlight">\(t\)</span>:</p>
+<p>Following Sarkar and Vafa (2024), suppose a researcher wants to forecast outcome <span class="math notranslate nohighlight">\(Y_{t+1}\)</span> from language data <span class="math notranslate nohighlight">\(X_t\)</span>, restricting to information <span class="math notranslate nohighlight">\(\mathcal{I}_t\)</span> available up to time <span class="math notranslate nohighlight">\(t\)</span>. The <strong>irreducible error</strong> is the part that <em>no</em> function of <span class="math notranslate nohighlight">\(X_t\)</span> and <span class="math notranslate nohighlight">\(\mathcal{I}_t\)</span> should predict:</p>
 <div class="math notranslate nohighlight">
-\[\mu(X_t;\, \mathcal{I}) = \mathbb{E}[Y_{t+1} \mid X_t;\, \mathcal{I}]\]</div>
-<p>We can decompose the outcome into a predictable and unpredictable component:</p>
+\[\varepsilon_{t+1} = Y_{t+1} - \mathbb{E}[Y_{t+1} \mid X_t,\, \mathcal{I}_t]\]</div>
+<p>Now introduce the LLM. An LLM is a function <span class="math notranslate nohighlight">\(f(X;\, M)\)</span> whose parameters are induced by its pretraining data <span class="math notranslate nohighlight">\(M\)</span>. Information leakage from pretraining occurs when <span class="math notranslate nohighlight">\(\sigma(M) \not\subseteq \mathcal{I}_t\)</span> — that is, the model’s parameters encode information beyond what was available at time <span class="math notranslate nohighlight">\(t\)</span>.</p>
+<p>Suppose the researcher builds a predictive model using the LLM’s representations:</p>
 <div class="math notranslate nohighlight">
-\[Y_{t+1} = \mu(X_t;\, \mathcal{I}) + \varepsilon_{t+1}, \qquad \varepsilon_{t+1} \perp X_t,\, \mathcal{I}\]</div>
-<p>where <span class="math notranslate nohighlight">\(\varepsilon_{t+1}\)</span> is the <strong>irreducible error</strong> — the part that <em>no</em> function of <span class="math notranslate nohighlight">\(X_t\)</span> and <span class="math notranslate nohighlight">\(\mathcal{I}\)</span> should predict. <strong>Lookahead bias</strong> occurs when the model’s predictions are correlated with this unpredictable component:</p>
+\[\hat{\mu}(X_t;\, M, \theta) = g\!\left(f(X_t;\, M);\, \theta\right)\]</div>
+<p><strong>Lookahead bias</strong> occurs when the model’s predictions are correlated with the irreducible error:</p>
 <div class="math notranslate nohighlight">
-\[\text{Cov}\!\left(\hat{\mu}(X_t;\, \mathcal{I}),\, \varepsilon_{t+1}\right) \neq 0\]</div>
-<p>This happens when the pretraining data <span class="math notranslate nohighlight">\(\mathcal{M} \not\subseteq \mathcal{I}\)</span> — that is, the model was trained on information outside the researcher’s intended information set. There are two mechanisms:</p>
+\[\text{Cov}\!\left(\hat{\mu}(X_t;\, M, \theta),\, \varepsilon_{t+1}\right) \neq 0\]</div>
+<p>This can happen through two mechanisms:</p>
 <ol class="arabic simple">
 <li><p><strong>Language leakage</strong>: The training corpus contains text written <em>after</em> the analysis period (e.g., news articles about COVID written in 2021 influencing embeddings applied to 2019 data).</p></li>
 <li><p><strong>Selection bias</strong>: The training corpus was <em>selected</em> based on future information (e.g., only including firms that survived to the present day).</p></li>

@@ -24,19 +24,21 @@ Sarkar and Vafa (2024) demonstrate this concretely: when asked to assess risks f
 
 ### Formal Definition
 
-Following Sarkar and Vafa (2024), suppose a researcher wants to predict outcome $Y_{t+1}$ from language data $X_t$ using only information $\mathcal{I}$ available up to time $t$:
+Following Sarkar and Vafa (2024), suppose a researcher wants to forecast outcome $Y_{t+1}$ from language data $X_t$, restricting to information $\mathcal{I}_t$ available up to time $t$. The **irreducible error** is the part that *no* function of $X_t$ and $\mathcal{I}_t$ should predict:
 
-$$\mu(X_t;\, \mathcal{I}) = \mathbb{E}[Y_{t+1} \mid X_t;\, \mathcal{I}]$$
+$$\varepsilon_{t+1} = Y_{t+1} - \mathbb{E}[Y_{t+1} \mid X_t,\, \mathcal{I}_t]$$
 
-We can decompose the outcome into a predictable and unpredictable component:
+Now introduce the LLM. An LLM is a function $f(X;\, M)$ whose parameters are induced by its pretraining data $M$. Information leakage from pretraining occurs when $\sigma(M) \not\subseteq \mathcal{I}_t$ — that is, the model's parameters encode information beyond what was available at time $t$.
 
-$$Y_{t+1} = \mu(X_t;\, \mathcal{I}) + \varepsilon_{t+1}, \qquad \varepsilon_{t+1} \perp X_t,\, \mathcal{I}$$
+Suppose the researcher builds a predictive model using the LLM's representations:
 
-where $\varepsilon_{t+1}$ is the **irreducible error** — the part that *no* function of $X_t$ and $\mathcal{I}$ should predict. **Lookahead bias** occurs when the model's predictions are correlated with this unpredictable component:
+$$\hat{\mu}(X_t;\, M, \theta) = g\!\left(f(X_t;\, M);\, \theta\right)$$
 
-$$\text{Cov}\!\left(\hat{\mu}(X_t;\, \mathcal{I}),\, \varepsilon_{t+1}\right) \neq 0$$
+**Lookahead bias** occurs when the model's predictions are correlated with the irreducible error:
 
-This happens when the pretraining data $\mathcal{M} \not\subseteq \mathcal{I}$ — that is, the model was trained on information outside the researcher's intended information set. There are two mechanisms:
+$$\text{Cov}\!\left(\hat{\mu}(X_t;\, M, \theta),\, \varepsilon_{t+1}\right) \neq 0$$
+
+This can happen through two mechanisms:
 
 1. **Language leakage**: The training corpus contains text written *after* the analysis period (e.g., news articles about COVID written in 2021 influencing embeddings applied to 2019 data).
 2. **Selection bias**: The training corpus was *selected* based on future information (e.g., only including firms that survived to the present day).

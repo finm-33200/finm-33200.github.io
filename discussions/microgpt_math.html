@@ -446,7 +446,9 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture">Architecture</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture-diagram">Architecture Diagram</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-attention-changes-meaning">How Attention Changes Meaning</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-kv-cache">The KV Cache</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stacking-transformer-blocks">Stacking Transformer Blocks</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#training-and-inference">Training and Inference</a></li>
@@ -546,9 +548,38 @@ document.write(`
 <p><img alt="microGPT Architecture" src="../_images/architecture_microgpt.png" /></p>
 <p><em>Architecture of <code class="docutils literal notranslate"><span class="pre">microGPT</span></code>. Dashed lines indicate residual connections. The transformer block (between the braces) is repeated <span class="math notranslate nohighlight">\(L\)</span> times (<span class="math notranslate nohighlight">\(L=1\)</span> by default).</em></p>
 </section>
+<section id="how-attention-changes-meaning">
+<h3>How Attention Changes Meaning<a class="headerlink" href="#how-attention-changes-meaning" title="Link to this heading">#</a></h3>
+<p>After the embedding step, every token is represented by a vector that encodes only <em>that word in isolation</em>—a context-free lookup. The word “mole” gets the same embedding whether it appears in “American shrew <strong>mole</strong>,” “one <strong>mole</strong> of carbon dioxide,” or “take a biopsy of the <strong>mole</strong>.”</p>
+<p><img alt="The word &quot;mole&quot; in three different contexts" src="../_images/mole.png" /></p>
+<p><em>The same token receives the same initial embedding regardless of context. Source: <a class="reference external" href="https://www.youtube.com/watch?v=eMlx5fFNoYc">3Blue1Brown</a></em></p>
+<p>Attention is the mechanism that fixes this. The embedding space has many directions, and different meanings of a word correspond to different directions. A well-trained attention block computes what needs to be <em>added</em> to the generic embedding to move it toward the correct contextual meaning—chemistry, zoology, or dermatology in this case.</p>
+<p><img alt="Attention moves the generic embedding toward a context-specific direction" src="../_images/mole_vectors.png" /></p>
+<p><em>In the phrase “one mole of carbon dioxide,” attention shifts the generic E(mole) toward the chemistry direction. Source: <a class="reference external" href="https://www.youtube.com/watch?v=eMlx5fFNoYc">3Blue1Brown</a></em></p>
+<p>Concretely, a single attention head computes an <strong>attention pattern</strong>—a grid of scores indicating how relevant each word is to every other word. Consider the phrase “a fluffy blue creature roamed the verdant forest.” The attention pattern below shows that the adjectives <em>fluffy</em> and <em>blue</em> attend strongly to the noun <em>creature</em>, while <em>verdant</em> attends to <em>forest</em>. The value vectors for those adjectives are then added to the noun’s embedding, producing a refined vector that encodes “fluffy blue creature” rather than just “creature.”</p>
+<p><img alt="Single head of attention pattern" src="../_images/single_head_of_attention.png" /></p>
+<p><em>An attention pattern for a single head. Larger dots indicate stronger attention. The adjectives fluffy and blue attend to creature; verdant attends to forest. Source: <a class="reference external" href="https://www.youtube.com/watch?v=eMlx5fFNoYc">3Blue1Brown</a></em></p>
+<p>This is exactly what is happening in <code class="docutils literal notranslate"><span class="pre">microGPT</span></code>: each of its 4 attention heads learns a different pattern of which characters are relevant to which other characters when generating names.</p>
+</section>
 <section id="the-kv-cache">
 <h3>The KV Cache<a class="headerlink" href="#the-kv-cache" title="Link to this heading">#</a></h3>
-<p>During autoregressive processing, each position’s key and value vectors are cached so that when the model processes position <span class="math notranslate nohighlight">\(t\)</span>, attention can access all positions <span class="math notranslate nohighlight">\(0, 1, \ldots, t\)</span>. This is what makes the model <em>causal</em>: each position can only attend to the current and past positions, never the future.</p>
+<p>Recall that attention computes three vectors for each token: a <strong>query</strong> (what am I looking for?), a <strong>key</strong> (what do I contain?), and a <strong>value</strong> (my actual information). At each position <span class="math notranslate nohighlight">\(t\)</span>, the query is compared against every previous token’s key to determine attention weights, and the corresponding values are combined.</p>
+<p>During autoregressive generation, the model produces one token at a time. Without caching, generating the token at position <span class="math notranslate nohighlight">\(t\)</span> would require recomputing the key and value vectors for all previous positions <span class="math notranslate nohighlight">\(0, 1, \ldots, t-1\)</span> from scratch—even though they were already computed in earlier steps. The <strong>KV cache</strong> avoids this redundant work: each position’s key and value vectors are computed once and stored, so that at position <span class="math notranslate nohighlight">\(t\)</span> the model only computes Q, K, V for the new token, appends the new K and V to the cache, and runs attention against the full cache.</p>
+<p>This cache also enforces the <strong>causal</strong> property: because it only contains positions <span class="math notranslate nohighlight">\(\leq t\)</span>, each position can only attend to the current and past positions, never the future. In practice, the KV cache is a key engineering constraint—its memory footprint grows linearly with sequence length, which is why long conversations and documents require significant GPU memory during inference.</p>
+</section>
+<section id="stacking-transformer-blocks">
+<h3>Stacking Transformer Blocks<a class="headerlink" href="#stacking-transformer-blocks" title="Link to this heading">#</a></h3>
+<p>A single attention head can capture one type of relationship (e.g., adjectives modifying nouns). Multi-head attention runs several heads in parallel to capture multiple relationship types simultaneously. But the real power comes from <strong>stacking</strong> entire transformer blocks—each consisting of an attention layer followed by an MLP—so that the output of one block becomes the input to the next.</p>
+<p><img alt="Stacked transformer blocks" src="../_images/many_transformer_blocks.png" /></p>
+<p><em>A transformer repeatedly alternates between attention and MLP blocks. Each pass refines the embeddings further. Source: <a class="reference external" href="https://www.youtube.com/watch?v=eMlx5fFNoYc">3Blue1Brown</a></em></p>
+<p><code class="docutils literal notranslate"><span class="pre">microGPT</span></code> uses just <span class="math notranslate nohighlight">\(L = 1\)</span> transformer block, but production models like GPT-4 and Claude use 100+ layers. Early layers tend to capture surface-level patterns (which characters follow which), while deeper layers build increasingly abstract representations—sentiment, factual relationships, and long-range dependencies. Each layer operates on the already-refined embeddings from the previous layer, compounding the model’s understanding.</p>
+<p>During training, the model doesn’t just predict the final token—it simultaneously predicts the next token at <em>every</em> position in the sequence. This is what makes training so efficient: a single input sequence provides many training examples at once.</p>
+<p><img alt="Many simultaneous predictions" src="../_images/many_predictions.png" /></p>
+<p><em>During training, every position simultaneously predicts the next token, turning one sequence into many training examples. Source: <a class="reference external" href="https://www.youtube.com/watch?v=eMlx5fFNoYc">3Blue1Brown</a></em></p>
+<p>At inference time, only the <em>last</em> vector in the sequence matters for predicting the next token. After flowing through all the transformer blocks, this final embedding must encode everything relevant from the entire context. Consider a mystery novel ending with “therefore, the murderer was”—the final vector for “was” must somehow have absorbed the key plot details from thousands of preceding tokens to assign the highest probability to the correct character’s name.</p>
+<p><img alt="The last word must encode all relevant context" src="../_images/last_word.png" /></p>
+<p><em>The final embedding vector must encode all relevant information from the entire context to predict the next token. Source: <a class="reference external" href="https://www.youtube.com/watch?v=eMlx5fFNoYc">3Blue1Brown</a></em></p>
+<p>In <code class="docutils literal notranslate"><span class="pre">microGPT</span></code>, this same principle operates at a smaller scale: after processing “e-m-m” through the transformer, the final embedding for “m” must encode enough about common name patterns to predict that “a” is a likely next character (completing “emma”).</p>
 </section>
 </section>
 <section id="training-and-inference">
@@ -718,7 +749,9 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture">Architecture</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture-diagram">Architecture Diagram</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-attention-changes-meaning">How Attention Changes Meaning</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-kv-cache">The KV Cache</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stacking-transformer-blocks">Stacking Transformer Blocks</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#training-and-inference">Training and Inference</a></li>

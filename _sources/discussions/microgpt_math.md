@@ -54,9 +54,59 @@ At a high level, the forward pass works as follows:
 
 *Architecture of `microGPT`. Dashed lines indicate residual connections. The transformer block (between the braces) is repeated $L$ times ($L=1$ by default).*
 
+### How Attention Changes Meaning
+
+After the embedding step, every token is represented by a vector that encodes only *that word in isolation*---a context-free lookup. The word "mole" gets the same embedding whether it appears in "American shrew **mole**," "one **mole** of carbon dioxide," or "take a biopsy of the **mole**."
+
+![The word "mole" in three different contexts](./assets/3b1b/mole.png)
+
+*The same token receives the same initial embedding regardless of context. Source: [3Blue1Brown](https://www.youtube.com/watch?v=eMlx5fFNoYc)*
+
+Attention is the mechanism that fixes this. The embedding space has many directions, and different meanings of a word correspond to different directions. A well-trained attention block computes what needs to be *added* to the generic embedding to move it toward the correct contextual meaning---chemistry, zoology, or dermatology in this case.
+
+![Attention moves the generic embedding toward a context-specific direction](./assets/3b1b/mole_vectors.png)
+
+*In the phrase "one mole of carbon dioxide," attention shifts the generic E(mole) toward the chemistry direction. Source: [3Blue1Brown](https://www.youtube.com/watch?v=eMlx5fFNoYc)*
+
+Concretely, a single attention head computes an **attention pattern**---a grid of scores indicating how relevant each word is to every other word. Consider the phrase "a fluffy blue creature roamed the verdant forest." The attention pattern below shows that the adjectives *fluffy* and *blue* attend strongly to the noun *creature*, while *verdant* attends to *forest*. The value vectors for those adjectives are then added to the noun's embedding, producing a refined vector that encodes "fluffy blue creature" rather than just "creature."
+
+![Single head of attention pattern](./assets/3b1b/single_head_of_attention.png)
+
+*An attention pattern for a single head. Larger dots indicate stronger attention. The adjectives fluffy and blue attend to creature; verdant attends to forest. Source: [3Blue1Brown](https://www.youtube.com/watch?v=eMlx5fFNoYc)*
+
+This is exactly what is happening in `microGPT`: each of its 4 attention heads learns a different pattern of which characters are relevant to which other characters when generating names.
+
 ### The KV Cache
 
-During autoregressive processing, each position's key and value vectors are cached so that when the model processes position $t$, attention can access all positions $0, 1, \ldots, t$. This is what makes the model *causal*: each position can only attend to the current and past positions, never the future.
+Recall that attention computes three vectors for each token: a **query** (what am I looking for?), a **key** (what do I contain?), and a **value** (my actual information). At each position $t$, the query is compared against every previous token's key to determine attention weights, and the corresponding values are combined.
+
+During autoregressive generation, the model produces one token at a time. Without caching, generating the token at position $t$ would require recomputing the key and value vectors for all previous positions $0, 1, \ldots, t-1$ from scratch---even though they were already computed in earlier steps. The **KV cache** avoids this redundant work: each position's key and value vectors are computed once and stored, so that at position $t$ the model only computes Q, K, V for the new token, appends the new K and V to the cache, and runs attention against the full cache.
+
+This cache also enforces the **causal** property: because it only contains positions $\leq t$, each position can only attend to the current and past positions, never the future. In practice, the KV cache is a key engineering constraint---its memory footprint grows linearly with sequence length, which is why long conversations and documents require significant GPU memory during inference.
+
+### Stacking Transformer Blocks
+
+A single attention head can capture one type of relationship (e.g., adjectives modifying nouns). Multi-head attention runs several heads in parallel to capture multiple relationship types simultaneously. But the real power comes from **stacking** entire transformer blocks---each consisting of an attention layer followed by an MLP---so that the output of one block becomes the input to the next.
+
+![Stacked transformer blocks](./assets/3b1b/many_transformer_blocks.png)
+
+*A transformer repeatedly alternates between attention and MLP blocks. Each pass refines the embeddings further. Source: [3Blue1Brown](https://www.youtube.com/watch?v=eMlx5fFNoYc)*
+
+`microGPT` uses just $L = 1$ transformer block, but production models like GPT-4 and Claude use 100+ layers. Early layers tend to capture surface-level patterns (which characters follow which), while deeper layers build increasingly abstract representations---sentiment, factual relationships, and long-range dependencies. Each layer operates on the already-refined embeddings from the previous layer, compounding the model's understanding.
+
+During training, the model doesn't just predict the final token---it simultaneously predicts the next token at *every* position in the sequence. This is what makes training so efficient: a single input sequence provides many training examples at once.
+
+![Many simultaneous predictions](./assets/3b1b/many_predictions.png)
+
+*During training, every position simultaneously predicts the next token, turning one sequence into many training examples. Source: [3Blue1Brown](https://www.youtube.com/watch?v=eMlx5fFNoYc)*
+
+At inference time, only the *last* vector in the sequence matters for predicting the next token. After flowing through all the transformer blocks, this final embedding must encode everything relevant from the entire context. Consider a mystery novel ending with "therefore, the murderer was"---the final vector for "was" must somehow have absorbed the key plot details from thousands of preceding tokens to assign the highest probability to the correct character's name.
+
+![The last word must encode all relevant context](./assets/3b1b/last_word.png)
+
+*The final embedding vector must encode all relevant information from the entire context to predict the next token. Source: [3Blue1Brown](https://www.youtube.com/watch?v=eMlx5fFNoYc)*
+
+In `microGPT`, this same principle operates at a smaller scale: after processing "e-m-m" through the transformer, the final embedding for "m" must encode enough about common name patterns to predict that "a" is a likely next character (completing "emma").
 
 
 ## Training and Inference
