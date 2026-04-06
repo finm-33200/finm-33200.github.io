@@ -1,4 +1,4 @@
-Course Syllabus: FINM 32900, Winter 2025
+Course Syllabus: FINM 33200, Spring 2026
 ========================================
 
 **FINM 33200, Generative and Agentic AI for Finance**
@@ -55,7 +55,7 @@ These topics will not be covered in class. Students who are unfamiliar with any 
 
 There will be two exams: a midterm and a final. Both are closed-book, multiple-choice, timed, proctored exams with no internet access.
 
-- **Midterm Exam:** The midterm will take place at the start of class during Week 5. The first half of class will be devoted to the exam, and the second half will proceed as a normal discussion.
+- **Midterm Exam:** The midterm will take place at the start of class during Week 5 (April 20), from 9:30am to 10:30am sharp. The guest seminar will follow from 10:45am to 11:45am.
 - **Final Exam:** The final exam will be held during finals week (Week 10).
 
 ### Guest Seminar Speakers
@@ -98,8 +98,30 @@ scheduled individually.
 ## Schedule
 
 The schedule will follow the ordering of the chapters listed in the GitHub book
-found here: https://finm-33200.github.io/. Each week is it's own chapter and the
+found here: https://finm-33200.github.io/. Each week is its own chapter and the
 agenda is listed in the first sub-section of the chapter.
+
+| Week | Date   | Topic                                                                 | Notes              |
+|------|--------|-----------------------------------------------------------------------|---------------------|
+| 1    | Mar 23 | LLMs in Finance, AI Copilots, APIs & Structured Outputs              | HW0 due             |
+| 2    | Mar 30 | Text Representation, Tokenization & Embeddings                       | HW1 released        |
+| 3    | Apr 6  | LLM Fundamentals: Chronologically Consistent LLMs, Training from Scratch (nanoGPT, nanochat) | HW2 released |
+| 4    | Apr 13 | Agentic Workflows, Tool Use & MCP                                    |                     |
+| 5    | Apr 20 | **Midterm Exam** (9:30–10:30am) + Guest: Matt Stockton — *RAG and Agentic Retrieval* (10:45–11:45am) | Midterm |
+| 6    | Apr 27 | Guest: Brian Lewis — *Where Most AI Tools Fail in Large Enterprises and Why* (11:00am–12:00pm) |           |
+| 7    | May 4  | Guest: TBD                                                           |                     |
+| 8    | May 11 | Guest: Matt Olson — *Auto Research for Backtesting*                  |                     |
+| 9    | May 18 | Final Project Presentations                                          |                     |
+| 10   | Finals | **Final Exam**                                                       |                     |
+
+### Guest Seminar Speakers (Weeks 5–8)
+
+Attendance at guest speaker sessions is **required** and will be taken. See the "Guest Seminar Speakers" section above for the attendance policy.
+
+- **April 20:** Matt Stockton — RAG and Agentic Retrieval
+- **April 27:** Brian Lewis — "Where Most AI Tools Fail in Large Enterprises and Why" (11:00am–12:00pm)
+- **May 4:** TBD
+- **May 11:** Matt Olson — Auto Research for Backtesting
 
 ### Exam Preparation
 

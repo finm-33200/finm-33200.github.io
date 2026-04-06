@@ -174,7 +174,7 @@
             </li>
         </ul>
         <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../README.html">Course Syllabus: FINM 32900, Winter 2025</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html">Course Syllabus: FINM 33200, Spring 2026</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../overview.html">Course Overview</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Discussions 📖</span></p>
@@ -195,11 +195,16 @@
 <li class="toctree-l2"><a class="reference internal" href="../discussions/review_w02.html">Study Questions</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="../subject_to_change_after_this_week.html">WARNING: Notes subject to change after this week</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_03.html">Discussion 3: LLM Fundamentals</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/ai_roundup_w03.html">AI Roundup: Week 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/llms_and_lookahead_bias.html">LLMs and Lookahead Bias</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/microgpt_math.html">The Mathematics of microGPT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/openai_api_platform.html">The OpenAI API Platform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openai_api_overview.html">OpenAI API Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../discussions/review_w03.html">Study Questions</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1"><a class="reference internal" href="../subject_to_change_after_this_week.html">WARNING: Notes subject to change after this week</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../discussion_04.html">Discussion 4:</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Homework 📝</span></p>
@@ -216,7 +221,13 @@
 <li class="toctree-l2"><a class="reference internal" href="03_replication_results_ipynb.html">Replication Results</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="../HW2.html">Homework 2: Chen, Kelly, Xiu (2022)</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../HW2.html">Homework 2: Chen, Kelly, Xiu (2022)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="01_explore_data_ipynb.html">Data Explorer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02_embeddings_demos_ipynb.html">Text Embeddings: From Words to Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_methodology_ipynb.html">Methodology: From Embeddings to Predictions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04_results_ipynb.html">Replication Results: Chen, Kelly, and Xiu (2022)</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../final_project.html">Final Project</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../FinalProject/final_project_rubric.html">Final Project Instructions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../FinalProject/potential_final_projects.html">Potential Final Project Ideas</a></li>
@@ -458,16 +469,17 @@ document.write(`
 RavenPack using <code class="docutils literal notranslate"><span class="pre">token_sort_ratio</span></code> (threshold <span class="math notranslate nohighlight">\(\geq 80\)</span>).</p>
 <p>This notebook evaluates both crosswalks: how many headlines matched,
 at what quality, which source contributes more to RavenPack coverage,
-and whether there are coverage gaps.</p>
+and whether there are coverage gaps. Newswire-vs-RP comparisons use
+the full newswire crosswalk range; combined (newswire + GDELT) stats
+use the <strong>overlap date range</strong> where both crosswalks have data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">datetime</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">polars</span> <span class="k">as</span> <span class="nn">pl</span>
+
 <span class="kn">from</span> <span class="nn">pull_free_newswires</span> <span class="kn">import</span> <span class="n">load_newswire_headlines</span>
 <span class="kn">from</span> <span class="nn">settings</span> <span class="kn">import</span> <span class="n">config</span>
 
@@ -487,53 +499,73 @@ and whether there are coverage gaps.</p>
 <hr class="docutils" />
 <section id="key-result-ravenpack-headline-coverage">
 <h2>Key Result: RavenPack Headline Coverage<a class="headerlink" href="#key-result-ravenpack-headline-coverage" title="Link to this heading">#</a></h2>
-<p>All statistics below are restricted to the crosswalk date range
-so that newswire and RavenPack counts are directly comparable.</p>
+<p>All statistics below are restricted to the <strong>overlap date range</strong>
+where both newswire and GDELT crosswalks have data, so that
+coverage comparisons across sources are fair.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cw</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">DATA_DIR</span> <span class="o">/</span> <span class="s2">&quot;newswire_ravenpack_crosswalk.parquet&quot;</span><span class="p">)</span>
+<span class="n">gd_cw</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">DATA_DIR</span> <span class="o">/</span> <span class="s2">&quot;gdelt_ravenpack_crosswalk.parquet&quot;</span><span class="p">)</span>
+
+<span class="c1"># Fair-comparison window: overlap of both crosswalk date ranges</span>
+<span class="n">date_start</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">cw</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">gd_cw</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+<span class="n">date_end</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">cw</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">gd_cw</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+
+<span class="n">cw</span> <span class="o">=</span> <span class="n">cw</span><span class="o">.</span><span class="n">filter</span><span class="p">((</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">date_start</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">date_end</span><span class="p">))</span>
+<span class="n">gd_cw</span> <span class="o">=</span> <span class="n">gd_cw</span><span class="o">.</span><span class="n">filter</span><span class="p">((</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">date_start</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">date_end</span><span class="p">))</span>
 
 <span class="n">nw_full</span> <span class="o">=</span> <span class="n">load_newswire_headlines</span><span class="p">()</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
 <span class="n">nw_full</span> <span class="o">=</span> <span class="n">nw_full</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">Date</span><span class="p">))</span>
-<span class="n">nw_full</span> <span class="o">=</span> <span class="n">nw_full</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
-    <span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">cw</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">cw</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
-<span class="p">)</span>
+<span class="n">nw_full</span> <span class="o">=</span> <span class="n">nw_full</span><span class="o">.</span><span class="n">filter</span><span class="p">((</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">date_start</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">date_end</span><span class="p">))</span>
 
 <span class="n">rp_full</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">pl</span><span class="o">.</span><span class="n">scan_parquet</span><span class="p">(</span><span class="n">DATA_DIR</span> <span class="o">/</span> <span class="s2">&quot;ravenpack_djpr.parquet&quot;</span><span class="p">)</span>
     <span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;timestamp_utc&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">Date</span><span class="p">)</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">))</span>
-    <span class="o">.</span><span class="n">filter</span><span class="p">((</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">cw</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">cw</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()))</span>
+    <span class="o">.</span><span class="n">filter</span><span class="p">((</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">date_start</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">date_end</span><span class="p">))</span>
     <span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="s2">&quot;rp_story_id&quot;</span><span class="p">,</span> <span class="s2">&quot;entity_name&quot;</span><span class="p">,</span> <span class="s2">&quot;source_name&quot;</span><span class="p">,</span> <span class="s2">&quot;headline&quot;</span><span class="p">)</span>
     <span class="o">.</span><span class="n">collect</span><span class="p">()</span>
 <span class="p">)</span>
 
 <span class="n">cw_rows</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cw</span><span class="p">)</span>
-<span class="n">cw_date_min</span> <span class="o">=</span> <span class="n">cw</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
-<span class="n">cw_date_max</span> <span class="o">=</span> <span class="n">cw</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+<span class="n">cw_date_min</span> <span class="o">=</span> <span class="n">date_start</span>
+<span class="n">cw_date_max</span> <span class="o">=</span> <span class="n">date_end</span>
 <span class="n">cw_n_dates</span> <span class="o">=</span> <span class="n">cw</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">n_unique</span><span class="p">()</span>
-<span class="n">nw_total_urls</span> <span class="o">=</span> <span class="n">nw_full</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
-    <span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">cw</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">cw</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
-<span class="p">)[</span><span class="s2">&quot;source_url&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">n_unique</span><span class="p">()</span>
+<span class="n">nw_total_urls</span> <span class="o">=</span> <span class="n">nw_full</span><span class="p">[</span><span class="s2">&quot;source_url&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">n_unique</span><span class="p">()</span>
 <span class="n">nw_matched_urls</span> <span class="o">=</span> <span class="n">cw</span><span class="p">[</span><span class="s2">&quot;nw_source_url&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">n_unique</span><span class="p">()</span>
 <span class="n">nw_match_rate</span> <span class="o">=</span> <span class="n">nw_matched_urls</span> <span class="o">/</span> <span class="n">nw_total_urls</span> <span class="o">*</span> <span class="mi">100</span>
 <span class="n">rp_total_stories</span> <span class="o">=</span> <span class="n">rp_full</span><span class="p">[</span><span class="s2">&quot;rp_story_id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">n_unique</span><span class="p">()</span>
 <span class="n">rp_matched_stories</span> <span class="o">=</span> <span class="n">cw</span><span class="p">[</span><span class="s2">&quot;rp_story_id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">n_unique</span><span class="p">()</span>
 <span class="n">rp_match_rate</span> <span class="o">=</span> <span class="n">rp_matched_stories</span> <span class="o">/</span> <span class="n">rp_total_stories</span> <span class="o">*</span> <span class="mi">100</span>
+<span class="n">gd_matched_stories</span> <span class="o">=</span> <span class="n">gd_cw</span><span class="p">[</span><span class="s2">&quot;rp_story_id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">n_unique</span><span class="p">()</span>
+<span class="n">gd_match_rate</span> <span class="o">=</span> <span class="n">gd_matched_stories</span> <span class="o">/</span> <span class="n">rp_total_stories</span> <span class="o">*</span> <span class="mi">100</span>
+<span class="n">combined_matched_stories</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="n">cw</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;rp_story_id&quot;</span><span class="p">),</span>
+        <span class="n">gd_cw</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;rp_story_id&quot;</span><span class="p">),</span>
+    <span class="p">]</span>
+<span class="p">)[</span><span class="s2">&quot;rp_story_id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">n_unique</span><span class="p">()</span>
+<span class="n">combined_match_rate</span> <span class="o">=</span> <span class="n">combined_matched_stories</span> <span class="o">/</span> <span class="n">rp_total_stories</span> <span class="o">*</span> <span class="mi">100</span>
 
-<span class="n">pl</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
-    <span class="s2">&quot;metric&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s2">&quot;RP headlines matched&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;NW headlines matched&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Crosswalk pairs&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Date range&quot;</span><span class="p">,</span>
-    <span class="p">],</span>
-    <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">rp_match_rate</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">% (</span><span class="si">{</span><span class="n">rp_matched_stories</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> / </span><span class="si">{</span><span class="n">rp_total_stories</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
-        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">nw_match_rate</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">% (</span><span class="si">{</span><span class="n">nw_matched_urls</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> / </span><span class="si">{</span><span class="n">nw_total_urls</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
-        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">cw_rows</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">cw_date_min</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">cw_date_max</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">cw_n_dates</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> dates)&quot;</span><span class="p">,</span>
-    <span class="p">],</span>
-<span class="p">})</span>
+<span class="n">pl</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;metric&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;RP matched — combined&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;RP matched — newswire&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;RP matched — GDELT&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;NW headlines matched&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Crosswalk pairs (newswire)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Date range (overlap)&quot;</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">combined_match_rate</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">% (</span><span class="si">{</span><span class="n">combined_matched_stories</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> / </span><span class="si">{</span><span class="n">rp_total_stories</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">rp_match_rate</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">% (</span><span class="si">{</span><span class="n">rp_matched_stories</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> / </span><span class="si">{</span><span class="n">rp_total_stories</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">gd_match_rate</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">% (</span><span class="si">{</span><span class="n">gd_matched_stories</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> / </span><span class="si">{</span><span class="n">rp_total_stories</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">nw_match_rate</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">% (</span><span class="si">{</span><span class="n">nw_matched_urls</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> / </span><span class="si">{</span><span class="n">nw_total_urls</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">cw_rows</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">cw_date_min</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">cw_date_max</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">cw_n_dates</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> dates)&quot;</span><span class="p">,</span>
+        <span class="p">],</span>
+    <span class="p">}</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -545,7 +577,7 @@ so that newswire and RavenPack counts are directly comparable.</p>
   white-space: pre-wrap;
 }
 </style>
-<small>shape: (4, 2)</small><table border="1" class="dataframe"><thead><tr><th>metric</th><th>value</th></tr><tr><td>str</td><td>str</td></tr></thead><tbody><tr><td>&quot;RP headlines matched&quot;</td><td>&quot;2.9% (509,932 / 17,636,011)&quot;</td></tr><tr><td>&quot;NW headlines matched&quot;</td><td>&quot;22.5% (532,609 / 2,363,887)&quot;</td></tr><tr><td>&quot;Crosswalk pairs&quot;</td><td>&quot;533,265&quot;</td></tr><tr><td>&quot;Date range&quot;</td><td>&quot;2010-03-18 to 2026-02-28 (3,83…</td></tr></tbody></table></div></div></div>
+<small>shape: (6, 2)</small><table border="1" class="dataframe"><thead><tr><th>metric</th><th>value</th></tr><tr><td>str</td><td>str</td></tr></thead><tbody><tr><td>&quot;RP matched — combined&quot;</td><td>&quot;10.4% (755,396 / 7,245,265)&quot;</td></tr><tr><td>&quot;RP matched — newswire&quot;</td><td>&quot;8.3% (597,870 / 7,245,265)&quot;</td></tr><tr><td>&quot;RP matched — GDELT&quot;</td><td>&quot;4.6% (336,547 / 7,245,265)&quot;</td></tr><tr><td>&quot;NW headlines matched&quot;</td><td>&quot;26.0% (643,279 / 2,478,868)&quot;</td></tr><tr><td>&quot;Crosswalk pairs (newswire)&quot;</td><td>&quot;643,624&quot;</td></tr><tr><td>&quot;Date range (overlap)&quot;</td><td>&quot;2019-10-01 to 2026-02-28 (2,23…</td></tr></tbody></table></div></div></div>
 </div>
 </section>
 <hr class="docutils" />
@@ -561,10 +593,10 @@ so that newswire and RavenPack counts are directly comparable.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Crosswalk rows: 533,265
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Crosswalk rows: 643,624
 Columns: [&#39;date&#39;, &#39;nw_source_url&#39;, &#39;nw_headline&#39;, &#39;nw_source&#39;, &#39;rp_story_id&#39;, &#39;rp_entity_id&#39;, &#39;rp_entity_name&#39;, &#39;rp_headline&#39;, &#39;rp_source_name&#39;, &#39;fuzzy_score&#39;]
-Date range: 2010-03-18 to 2026-02-28
-Distinct dates: 3835
+Date range: 2019-10-01 to 2026-02-28
+Distinct dates: 2238
 </pre></div>
 </div>
 </div>
@@ -583,7 +615,7 @@ Distinct dates: 3835
   white-space: pre-wrap;
 }
 </style>
-<small>shape: (5, 10)</small><table border="1" class="dataframe"><thead><tr><th>date</th><th>nw_source_url</th><th>nw_headline</th><th>nw_source</th><th>rp_story_id</th><th>rp_entity_id</th><th>rp_entity_name</th><th>rp_headline</th><th>rp_source_name</th><th>fuzzy_score</th></tr><tr><td>date</td><td>str</td><td>str</td><td>str</td><td>str</td><td>str</td><td>str</td><td>str</td><td>str</td><td>f64</td></tr></thead><tbody><tr><td>2010-03-18</td><td>&quot;https://www.prnewswire.com/new…</td><td>&quot;Bankrate: Mortgage Rates Post …</td><td>&quot;prnewswire&quot;</td><td>&quot;E64A213B99397C2294402E85A71280…</td><td>&quot;977048&quot;</td><td>&quot;Bankrate Inc.&quot;</td><td>&quot;Bankrate: Mortgage Rates Post …</td><td>&quot;PR Newswire&quot;</td><td>100.0</td></tr><tr><td>2010-09-30</td><td>&quot;https://www.prnewswire.com/new…</td><td>&quot;Miss Tina by Tina Knowles Avai…</td><td>&quot;prnewswire&quot;</td><td>&quot;334F29AA0CB6DFBA98DF2E4E284839…</td><td>&quot;713810&quot;</td><td>&quot;Wal-Mart Stores Inc.&quot;</td><td>&quot;Miss Tina by Tina Knowles Avai…</td><td>&quot;PR Newswire&quot;</td><td>100.0</td></tr><tr><td>2010-11-30</td><td>&quot;https://www.prnewswire.com/new…</td><td>&quot;Knoll to Distribute Residentia…</td><td>&quot;prnewswire&quot;</td><td>&quot;8832B211A6FA9888C74AB03871CE49…</td><td>&quot;8D4AE6&quot;</td><td>&quot;Knoll Inc.&quot;</td><td>&quot;Knoll to Distribute Residentia…</td><td>&quot;PR Newswire&quot;</td><td>100.0</td></tr><tr><td>2010-12-01</td><td>&quot;https://www.prnewswire.com/new…</td><td>&quot;Just In Time for Holiday Shopp…</td><td>&quot;prnewswire&quot;</td><td>&quot;AB5515F66A3AC06D97CC1CA144E94E…</td><td>&quot;385DD4&quot;</td><td>&quot;Marriott International Inc.&quot;</td><td>&quot;Just In Time for Holiday Shopp…</td><td>&quot;PR Newswire&quot;</td><td>100.0</td></tr><tr><td>2010-12-01</td><td>&quot;https://www.prnewswire.com/new…</td><td>&quot;Weber Shandwick President Andy…</td><td>&quot;prnewswire&quot;</td><td>&quot;7863A7BC99C352D63E49EA29B13AFB…</td><td>&quot;E30B34&quot;</td><td>&quot;Interpublic Group Of Cos. Inc.&quot;</td><td>&quot;Weber Shandwick President Andy…</td><td>&quot;PR Newswire&quot;</td><td>100.0</td></tr></tbody></table></div></div></div>
+<small>shape: (5, 10)</small><table border="1" class="dataframe"><thead><tr><th>date</th><th>nw_source_url</th><th>nw_headline</th><th>nw_source</th><th>rp_story_id</th><th>rp_entity_id</th><th>rp_entity_name</th><th>rp_headline</th><th>rp_source_name</th><th>fuzzy_score</th></tr><tr><td>date</td><td>str</td><td>str</td><td>str</td><td>str</td><td>str</td><td>str</td><td>str</td><td>str</td><td>f64</td></tr></thead><tbody><tr><td>2019-11-01</td><td>&quot;https://www.prnewswire.com/new…</td><td>&quot;A Rising Generation of Food Co…</td><td>&quot;prnewswire&quot;</td><td>&quot;A2AA1388CCA802381CA92C67F8B465…</td><td>&quot;C8257F&quot;</td><td>&quot;Omnicom Group Inc.&quot;</td><td>&quot;A Rising Generation of Food Co…</td><td>&quot;PR Newswire&quot;</td><td>100.0</td></tr><tr><td>2019-11-01</td><td>&quot;https://www.prnewswire.com/new…</td><td>&quot;AAM Reports Third Quarter 2019…</td><td>&quot;prnewswire&quot;</td><td>&quot;921FE9B1CC39A39E91E0A8D33840CC…</td><td>&quot;DB23C8&quot;</td><td>&quot;American Axle &amp; Manufacturing …</td><td>&quot;AAM Reports Third Quarter 2019…</td><td>&quot;PR Newswire&quot;</td><td>100.0</td></tr><tr><td>2019-11-01</td><td>&quot;https://www.prnewswire.com/new…</td><td>&quot;AbbVie Reports Third-Quarter 2…</td><td>&quot;prnewswire&quot;</td><td>&quot;03AD46FF4931F77CF135B4B04C9918…</td><td>&quot;665D7D&quot;</td><td>&quot;AbbVie Inc.&quot;</td><td>&quot;AbbVie Reports Third-Quarter 2…</td><td>&quot;PR Newswire&quot;</td><td>100.0</td></tr><tr><td>2019-11-01</td><td>&quot;https://www.prnewswire.com/new…</td><td>&quot;Aethlon Medical Announces Seco…</td><td>&quot;prnewswire&quot;</td><td>&quot;DA975C44A46F40B51FC5292F4C4944…</td><td>&quot;BA7461&quot;</td><td>&quot;Aethlon Medical Inc.&quot;</td><td>&quot;Aethlon Medical Announces Seco…</td><td>&quot;PR Newswire&quot;</td><td>100.0</td></tr><tr><td>2019-11-01</td><td>&quot;https://www.prnewswire.com/new…</td><td>&quot;AIVITA Biomedical to Present a…</td><td>&quot;prnewswire&quot;</td><td>&quot;805305C34624E265551C2594F0B608…</td><td>&quot;96135F&quot;</td><td>&quot;AiVita Biomedical Inc.&quot;</td><td>&quot;AIVITA Biomedical to Present a…</td><td>&quot;PR Newswire&quot;</td><td>100.0</td></tr></tbody></table></div></div></div>
 </div>
 </section>
 <hr class="docutils" />
@@ -607,7 +639,7 @@ Distinct dates: 3835
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/5f8d3d050cf29f79f18cb60258631caa59003412bd1ffe5a8ff1656836de364d.png" src="../_images/5f8d3d050cf29f79f18cb60258631caa59003412bd1ffe5a8ff1656836de364d.png" />
+<img alt="../_images/80525a2bd1880b6fb6dd295d7741742cd1a4eae6c8b95080aa288655ef24a29a.png" src="../_images/80525a2bd1880b6fb6dd295d7741742cd1a4eae6c8b95080aa288655ef24a29a.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -628,10 +660,10 @@ Distinct dates: 3835
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Fuzzy score stats:
   Min:    80.0
   Median: 100.0
-  Mean:   98.8
+  Mean:   98.2
   Max:    100.0
-  &gt;= 90:  496,441 (93.1%)
-  80-89:  36,824 (6.9%)
+  &gt;= 90:  586,860 (91.2%)
+  80-89:  56,764 (8.8%)
 </pre></div>
 </div>
 </div>
@@ -651,10 +683,10 @@ Distinct dates: 3835
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Total newswire headlines:   2,366,464
-Unique newswire URLs:       2,363,887
-Matched newswire URLs:      532,609
-Newswire match rate:        22.5%
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Total newswire headlines:   2,480,145
+Unique newswire URLs:       2,478,868
+Matched newswire URLs:      643,279
+Newswire match rate:        26.0%
 </pre></div>
 </div>
 </div>
@@ -691,7 +723,7 @@ Newswire match rate:        22.5%
   white-space: pre-wrap;
 }
 </style>
-<small>shape: (2, 4)</small><table border="1" class="dataframe"><thead><tr><th>source</th><th>total_urls</th><th>matched_urls</th><th>match_pct</th></tr><tr><td>str</td><td>u32</td><td>u32</td><td>f64</td></tr></thead><tbody><tr><td>&quot;prnewswire&quot;</td><td>2363233</td><td>532442</td><td>22.530237</td></tr><tr><td>&quot;globenewswire&quot;</td><td>654</td><td>167</td><td>25.535168</td></tr></tbody></table></div></div></div>
+<small>shape: (5, 4)</small><table border="1" class="dataframe"><thead><tr><th>source</th><th>total_urls</th><th>matched_urls</th><th>match_pct</th></tr><tr><td>str</td><td>u32</td><td>u32</td><td>f64</td></tr></thead><tbody><tr><td>&quot;prnewswire&quot;</td><td>1251705</td><td>281321</td><td>22.475024</td></tr><tr><td>&quot;businesswire&quot;</td><td>680772</td><td>227287</td><td>33.386655</td></tr><tr><td>&quot;globenewswire&quot;</td><td>392707</td><td>120962</td><td>30.802099</td></tr><tr><td>&quot;newswireca&quot;</td><td>153631</td><td>13683</td><td>8.906406</td></tr><tr><td>&quot;edgar_8k&quot;</td><td>53</td><td>26</td><td>49.056604</td></tr></tbody></table></div></div></div>
 </div>
 </section>
 <hr class="docutils" />
@@ -707,9 +739,9 @@ Newswire match rate:        22.5%
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Total RP stories in date range:  17,636,011
-Matched RP stories:              509,932
-RP match rate:                   2.9%
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Total RP stories in date range:  7,245,265
+Matched RP stories:              597,870
+RP match rate:                   8.3%
 </pre></div>
 </div>
 </div>
@@ -733,22 +765,47 @@ RP match rate:                   2.9%
     <span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s2">&quot;total_stories&quot;</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;RavenPack coverage by source:&quot;</span><span class="p">)</span>
-<span class="n">rp_coverage</span>
+<span class="k">with</span> <span class="n">pl</span><span class="o">.</span><span class="n">Config</span><span class="p">(</span><span class="n">tbl_rows</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">rp_coverage</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RavenPack coverage by source:
+shape: (24, 4)
+┌─────────────────────────────────┬───────────────┬─────────────────┬───────────┐
+│ source_name                     ┆ total_stories ┆ matched_stories ┆ match_pct │
+│ ---                             ┆ ---           ┆ ---             ┆ ---       │
+│ str                             ┆ u32           ┆ u32             ┆ f64       │
+╞═════════════════════════════════╪═══════════════╪═════════════════╪═══════════╡
+│ Dow Jones Newswires             ┆ 4646181       ┆ 12372           ┆ 0.266283  │
+│ MarketWatch                     ┆ 571981        ┆ 5               ┆ 0.000874  │
+│ Business Wire                   ┆ 488601        ┆ 209312          ┆ 42.839045 │
+│ PR Newswire                     ┆ 449488        ┆ 247294          ┆ 55.016819 │
+│ GlobeNewswire                   ┆ 415820        ┆ 106706          ┆ 25.661584 │
+│ LSE Regulatory News Service (R… ┆ 321841        ┆ 4319            ┆ 1.341967  │
+│ DJ Global Press Release Wire    ┆ 283566        ┆ 6870            ┆ 2.422716  │
+│ Wall Street Journal             ┆ 20063         ┆ 1               ┆ 0.004984  │
+│ Canadian News Wire              ┆ 19000         ┆ 10556           ┆ 55.557895 │
+│ Hugin GlobeNewswire             ┆ 11031         ┆ 356             ┆ 3.227269  │
+│ DGAP News                       ┆ 8128          ┆ 29              ┆ 0.356791  │
+│ Cision News                     ┆ 2211          ┆ 44              ┆ 1.99005   │
+│ JSE News                        ┆ 2043          ┆ 1               ┆ 0.048948  │
+│ BSE News                        ┆ 1883          ┆ 0               ┆ 0.0       │
+│ Barron&#39;s                        ┆ 1011          ┆ 0               ┆ 0.0       │
+│ Oslo Bors News                  ┆ 998           ┆ 4               ┆ 0.400802  │
+│ Barrons                         ┆ 825           ┆ 0               ┆ 0.0       │
+│ HK Exchange News                ┆ 257           ┆ 0               ┆ 0.0       │
+│ Actus News                      ┆ 165           ┆ 1               ┆ 0.606061  │
+│ Pressetext News                 ┆ 84            ┆ 0               ┆ 0.0       │
+│ Tensid News                     ┆ 58            ┆ 0               ┆ 0.0       │
+│ IRW-Press News                  ┆ 19            ┆ 0               ┆ 0.0       │
+│ News Aktuell                    ┆ 6             ┆ 0               ┆ 0.0       │
+│ RealWire (webitpr)              ┆ 5             ┆ 0               ┆ 0.0       │
+└─────────────────────────────────┴───────────────┴─────────────────┴───────────┘
 </pre></div>
 </div>
-<div class="output text_html"><div><style>
-.dataframe > thead > tr,
-.dataframe > tbody > tr {
-  text-align: right;
-  white-space: pre-wrap;
-}
-</style>
-<small>shape: (27, 4)</small><table border="1" class="dataframe"><thead><tr><th>source_name</th><th>total_stories</th><th>matched_stories</th><th>match_pct</th></tr><tr><td>str</td><td>u32</td><td>u32</td><td>f64</td></tr></thead><tbody><tr><td>&quot;Dow Jones Newswires&quot;</td><td>11916897</td><td>7569</td><td>0.063515</td></tr><tr><td>&quot;PR Newswire&quot;</td><td>1506399</td><td>478995</td><td>31.797352</td></tr><tr><td>&quot;Business Wire&quot;</td><td>1221935</td><td>5160</td><td>0.422281</td></tr><tr><td>&quot;MarketWatch&quot;</td><td>788087</td><td>11</td><td>0.001396</td></tr><tr><td>&quot;GlobeNewswire&quot;</td><td>764337</td><td>4906</td><td>0.641863</td></tr><tr><td>&hellip;</td><td>&hellip;</td><td>&hellip;</td><td>&hellip;</td></tr><tr><td>&quot;Karachi Stock Exchange News&quot;</td><td>308</td><td>0</td><td>0.0</td></tr><tr><td>&quot;News Aktuell&quot;</td><td>222</td><td>0</td><td>0.0</td></tr><tr><td>&quot;Pressetext News&quot;</td><td>206</td><td>0</td><td>0.0</td></tr><tr><td>&quot;IRW-Press News&quot;</td><td>58</td><td>0</td><td>0.0</td></tr><tr><td>&quot;RealWire (webitpr)&quot;</td><td>54</td><td>0</td><td>0.0</td></tr></tbody></table></div></div></div>
+</div>
 </div>
 </section>
 <hr class="docutils" />
@@ -804,7 +861,7 @@ RavenPack headlines to show the matching yield over time.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/af7e27aa1487c1a90fd714e0a8686b672c4664f341c0aae45e93d0d5f83bf4cf.png" src="../_images/af7e27aa1487c1a90fd714e0a8686b672c4664f341c0aae45e93d0d5f83bf4cf.png" />
+<img alt="../_images/d6f6909170543f3ec226e860726f23e66963e78ead2e719a5bc7924811eb01a1.png" src="../_images/d6f6909170543f3ec226e860726f23e66963e78ead2e719a5bc7924811eb01a1.png" />
 </div>
 </div>
 <section id="daily-ravenpack-match-rate">
@@ -813,18 +870,16 @@ RavenPack headlines to show the matching yield over time.</p>
 by at least one scraped source (newswire or GDELT)?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load GDELT crosswalk and combine with newswire crosswalk</span>
-<span class="n">gd_cw</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">DATA_DIR</span> <span class="o">/</span> <span class="s2">&quot;gdelt_ravenpack_crosswalk.parquet&quot;</span><span class="p">)</span>
-
-<span class="c1"># Union of matched RP story IDs from both crosswalks, by date</span>
-<span class="n">combined_matched</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span>
-    <span class="n">cw</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="s2">&quot;rp_story_id&quot;</span><span class="p">),</span>
-    <span class="n">gd_cw</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="s2">&quot;rp_story_id&quot;</span><span class="p">),</span>
-<span class="p">])</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="s2">&quot;rp_story_id&quot;</span><span class="p">])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Union of matched RP story IDs from both crosswalks, by date</span>
+<span class="n">combined_matched</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="n">cw</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="s2">&quot;rp_story_id&quot;</span><span class="p">),</span>
+        <span class="n">gd_cw</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="s2">&quot;rp_story_id&quot;</span><span class="p">),</span>
+    <span class="p">]</span>
+<span class="p">)</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="s2">&quot;rp_story_id&quot;</span><span class="p">])</span>
 
 <span class="n">combined_daily</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="n">combined_matched</span>
-    <span class="o">.</span><span class="n">group_by</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span>
+    <span class="n">combined_matched</span><span class="o">.</span><span class="n">group_by</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span>
     <span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;rp_story_id&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">n_unique</span><span class="p">()</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s2">&quot;matched&quot;</span><span class="p">))</span>
     <span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span>
 <span class="p">)</span>
@@ -859,7 +914,7 @@ by at least one scraped source (newswire or GDELT)?</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/2897fa4416fe02a2c7d7a1114489808c192f35cde083d93e78cd52271d7d628f.png" src="../_images/2897fa4416fe02a2c7d7a1114489808c192f35cde083d93e78cd52271d7d628f.png" />
+<img alt="../_images/c78ffe59c5caf58037d46179004e44d86cde7b79103b2f19178662a8f9b5ee4e.png" src="../_images/c78ffe59c5caf58037d46179004e44d86cde7b79103b2f19178662a8f9b5ee4e.png" />
 </div>
 </div>
 </section>
@@ -888,8 +943,7 @@ contributions from newswire and GDELT headlines.</p>
 <span class="p">)</span>
 
 <span class="n">source_daily</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="n">rp_daily</span>
-    <span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">nw_matched_daily</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">)</span>
+    <span class="n">rp_daily</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">nw_matched_daily</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">)</span>
     <span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">gd_matched_daily</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">)</span>
     <span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">combined_daily</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">)</span>
     <span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
@@ -934,9 +988,7 @@ contributions from newswire and GDELT headlines.</p>
 <span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Date&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">% o</span><span class="s2">f RP Headlines Matched&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span>
-    <span class="sa">f</span><span class="s2">&quot;RavenPack Match Rate by Source (</span><span class="si">{</span><span class="n">MA_WINDOW</span><span class="si">}</span><span class="s2">-day MA)&quot;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span>
-<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;RavenPack Match Rate by Source (</span><span class="si">{</span><span class="n">MA_WINDOW</span><span class="si">}</span><span class="s2">-day MA)&quot;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
@@ -945,7 +997,7 @@ contributions from newswire and GDELT headlines.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/ce244c6e4c9f19f63feb31968a722ef7dbbcaa93216913baadedf4bff86f0de2.png" src="../_images/ce244c6e4c9f19f63feb31968a722ef7dbbcaa93216913baadedf4bff86f0de2.png" />
+<img alt="../_images/0e1d0c2ddd319910ee580fb8382a39d721e09b7875ef5ee68d57d91a112b8af8.png" src="../_images/0e1d0c2ddd319910ee580fb8382a39d721e09b7875ef5ee68d57d91a112b8af8.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -954,7 +1006,7 @@ contributions from newswire and GDELT headlines.</p>
 <span class="n">avg_nw</span> <span class="o">=</span> <span class="n">source_daily</span><span class="p">[</span><span class="s2">&quot;nw_pct&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 <span class="n">avg_gd</span> <span class="o">=</span> <span class="n">source_daily</span><span class="p">[</span><span class="s2">&quot;gd_pct&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 <span class="n">avg_combined</span> <span class="o">=</span> <span class="n">source_daily</span><span class="p">[</span><span class="s2">&quot;combined_pct&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Average daily match rate:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Average daily match rate:&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Newswire only: </span><span class="si">{</span><span class="n">avg_nw</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  GDELT only:    </span><span class="si">{</span><span class="n">avg_gd</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Combined:      </span><span class="si">{</span><span class="n">avg_combined</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
@@ -964,10 +1016,10 @@ contributions from newswire and GDELT headlines.</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Average daily match rate:
-  Newswire only: 2.1%
-  GDELT only:    0.0%
-  Combined:      2.1%
-  GDELT uplift:  0.0 pp over newswire alone
+  Newswire only: 5.0%
+  GDELT only:    3.5%
+  Combined:      6.9%
+  GDELT uplift:  1.9 pp over newswire alone
 </pre></div>
 </div>
 </div>
@@ -1020,9 +1072,7 @@ numerous.</strong> Both sources are needed for maximum coverage.</p>
     <span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s2">&quot;month&quot;</span><span class="p">)</span>
 <span class="p">)</span>
 
-<span class="n">sparse_months</span> <span class="o">=</span> <span class="n">cw_gap</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
-    <span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;nw_count&quot;</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">50</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;rp_count&quot;</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">50</span><span class="p">)</span>
-<span class="p">)</span>
+<span class="n">sparse_months</span> <span class="o">=</span> <span class="n">cw_gap</span><span class="o">.</span><span class="n">filter</span><span class="p">((</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;nw_count&quot;</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">50</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;rp_count&quot;</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">50</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Months with &lt; 50 headlines in either source: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">sparse_months</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sparse_months</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">sparse_months</span><span class="p">)</span>
@@ -1032,24 +1082,14 @@ numerous.</strong> Both sources are needed for maximum coverage.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Months with &lt; 50 headlines in either source: 21
-shape: (21, 5)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Months with &lt; 50 headlines in either source: 1
+shape: (1, 5)
 ┌────────────┬──────────┬─────────┬──────────┬─────────┐
 │ month      ┆ nw_count ┆ nw_days ┆ rp_count ┆ rp_days │
 │ ---        ┆ ---      ┆ ---     ┆ ---      ┆ ---     │
 │ date       ┆ u32      ┆ u32     ┆ u32      ┆ u32     │
 ╞════════════╪══════════╪═════════╪══════════╪═════════╡
-│ 2010-03-01 ┆ 1        ┆ 1       ┆ 51410    ┆ 14      │
-│ 2010-04-01 ┆ 0        ┆ 0       ┆ 166951   ┆ 30      │
-│ 2010-05-01 ┆ 0        ┆ 0       ┆ 162229   ┆ 31      │
-│ 2010-06-01 ┆ 0        ┆ 0       ┆ 97922    ┆ 30      │
-│ 2010-07-01 ┆ 0        ┆ 0       ┆ 161191   ┆ 31      │
-│ …          ┆ …        ┆ …       ┆ …        ┆ …       │
-│ 2019-02-01 ┆ 1        ┆ 1       ┆ 155803   ┆ 28      │
 │ 2019-10-01 ┆ 0        ┆ 0       ┆ 161739   ┆ 31      │
-│ 2021-05-01 ┆ 3        ┆ 2       ┆ 168424   ┆ 31      │
-│ 2022-01-01 ┆ 3        ┆ 1       ┆ 121710   ┆ 31      │
-│ 2022-06-01 ┆ 26       ┆ 1       ┆ 92079    ┆ 30      │
 └────────────┴──────────┴─────────┴──────────┴─────────┘
 </pre></div>
 </div>
@@ -1068,28 +1108,34 @@ match rate (same wire services as RavenPack) but smaller total volume.
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">scores_np_</span> <span class="o">=</span> <span class="n">cw</span><span class="p">[</span><span class="s2">&quot;fuzzy_score&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
-<span class="n">pl</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
-    <span class="s2">&quot;metric&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s2">&quot;RP headlines matched (newswire crosswalk)&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;NW headlines matched&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Newswire crosswalk pairs&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Median fuzzy score&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Avg. daily RP coverage — newswire only&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Avg. daily RP coverage — GDELT only&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Avg. daily RP coverage — combined&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Date range&quot;</span><span class="p">,</span>
-    <span class="p">],</span>
-    <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">rp_match_rate</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">% (</span><span class="si">{</span><span class="n">rp_matched_stories</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> / </span><span class="si">{</span><span class="n">rp_total_stories</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
-        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">nw_match_rate</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">% (</span><span class="si">{</span><span class="n">nw_matched_urls</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> / </span><span class="si">{</span><span class="n">nw_total_urls</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
-        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">cw_rows</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> across </span><span class="si">{</span><span class="n">cw_n_dates</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> dates&quot;</span><span class="p">,</span>
-        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">scores_np_</span><span class="p">)</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> (threshold: 80)&quot;</span><span class="p">,</span>
-        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">avg_nw</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">,</span>
-        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">avg_gd</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">,</span>
-        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">avg_combined</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">,</span>
-        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">cw_date_min</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">cw_date_max</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-    <span class="p">],</span>
-<span class="p">})</span>
+<span class="n">pl</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;metric&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;RP matched — combined&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;RP matched — newswire&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;RP matched — GDELT&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;NW headlines matched&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Newswire crosswalk pairs&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Median fuzzy score (newswire)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Avg. daily RP coverage — newswire only&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Avg. daily RP coverage — GDELT only&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Avg. daily RP coverage — combined&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Date range (overlap)&quot;</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">combined_match_rate</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">% (</span><span class="si">{</span><span class="n">combined_matched_stories</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> / </span><span class="si">{</span><span class="n">rp_total_stories</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">rp_match_rate</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">% (</span><span class="si">{</span><span class="n">rp_matched_stories</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> / </span><span class="si">{</span><span class="n">rp_total_stories</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">gd_match_rate</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">% (</span><span class="si">{</span><span class="n">gd_matched_stories</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> / </span><span class="si">{</span><span class="n">rp_total_stories</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">nw_match_rate</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">% (</span><span class="si">{</span><span class="n">nw_matched_urls</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> / </span><span class="si">{</span><span class="n">nw_total_urls</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">cw_rows</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> across </span><span class="si">{</span><span class="n">cw_n_dates</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> dates&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">scores_np_</span><span class="p">)</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> (threshold: 80)&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">avg_nw</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">avg_gd</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">avg_combined</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">cw_date_min</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">cw_date_max</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="p">],</span>
+    <span class="p">}</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1101,7 +1147,7 @@ match rate (same wire services as RavenPack) but smaller total volume.
   white-space: pre-wrap;
 }
 </style>
-<small>shape: (8, 2)</small><table border="1" class="dataframe"><thead><tr><th>metric</th><th>value</th></tr><tr><td>str</td><td>str</td></tr></thead><tbody><tr><td>&quot;RP headlines matched (newswire…</td><td>&quot;2.9% (509,932 / 17,636,011)&quot;</td></tr><tr><td>&quot;NW headlines matched&quot;</td><td>&quot;22.5% (532,609 / 2,363,887)&quot;</td></tr><tr><td>&quot;Newswire crosswalk pairs&quot;</td><td>&quot;533,265 across 3,835 dates&quot;</td></tr><tr><td>&quot;Median fuzzy score&quot;</td><td>&quot;100.0 (threshold: 80)&quot;</td></tr><tr><td>&quot;Avg. daily RP coverage — newsw…</td><td>&quot;2.1%&quot;</td></tr><tr><td>&quot;Avg. daily RP coverage — GDELT…</td><td>&quot;0.0%&quot;</td></tr><tr><td>&quot;Avg. daily RP coverage — combi…</td><td>&quot;2.1%&quot;</td></tr><tr><td>&quot;Date range&quot;</td><td>&quot;2010-03-18 to 2026-02-28&quot;</td></tr></tbody></table></div></div></div>
+<small>shape: (10, 2)</small><table border="1" class="dataframe"><thead><tr><th>metric</th><th>value</th></tr><tr><td>str</td><td>str</td></tr></thead><tbody><tr><td>&quot;RP matched — combined&quot;</td><td>&quot;10.4% (755,396 / 7,245,265)&quot;</td></tr><tr><td>&quot;RP matched — newswire&quot;</td><td>&quot;8.3% (597,870 / 7,245,265)&quot;</td></tr><tr><td>&quot;RP matched — GDELT&quot;</td><td>&quot;4.6% (336,547 / 7,245,265)&quot;</td></tr><tr><td>&quot;NW headlines matched&quot;</td><td>&quot;26.0% (643,279 / 2,478,868)&quot;</td></tr><tr><td>&quot;Newswire crosswalk pairs&quot;</td><td>&quot;643,624 across 2,238 dates&quot;</td></tr><tr><td>&quot;Median fuzzy score (newswire)&quot;</td><td>&quot;100.0 (threshold: 80)&quot;</td></tr><tr><td>&quot;Avg. daily RP coverage — newsw…</td><td>&quot;5.0%&quot;</td></tr><tr><td>&quot;Avg. daily RP coverage — GDELT…</td><td>&quot;3.5%&quot;</td></tr><tr><td>&quot;Avg. daily RP coverage — combi…</td><td>&quot;6.9%&quot;</td></tr><tr><td>&quot;Date range (overlap)&quot;</td><td>&quot;2019-10-01 to 2026-02-28&quot;</td></tr></tbody></table></div></div></div>
 </div>
 </section>
 </section>

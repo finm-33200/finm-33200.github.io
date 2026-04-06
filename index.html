@@ -54,7 +54,7 @@
     <script src="_static/custom.js?v=c0d9a6f1"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Course Syllabus: FINM 32900, Winter 2025" href="README.html" /> 
+    <link rel="next" title="Course Syllabus: FINM 33200, Spring 2026" href="README.html" /> 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>   
   </head>
@@ -175,7 +175,7 @@
             </li>
         </ul>
         <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="README.html">Course Syllabus: FINM 32900, Winter 2025</a></li>
+<li class="toctree-l1"><a class="reference internal" href="README.html">Course Syllabus: FINM 33200, Spring 2026</a></li>
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Course Overview</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Discussions 📖</span></p>
@@ -196,11 +196,16 @@
 <li class="toctree-l2"><a class="reference internal" href="discussions/review_w02.html">Study Questions</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="subject_to_change_after_this_week.html">WARNING: Notes subject to change after this week</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="discussion_03.html">Discussion 3: LLM Fundamentals</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="discussions/ai_roundup_w03.html">AI Roundup: Week 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/llms_and_lookahead_bias.html">LLMs and Lookahead Bias</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/microgpt_math.html">The Mathematics of microGPT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/openai_api_platform.html">The OpenAI API Platform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/openai_api_overview.html">OpenAI API Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="discussions/review_w03.html">Study Questions</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1"><a class="reference internal" href="subject_to_change_after_this_week.html">WARNING: Notes subject to change after this week</a></li>
 <li class="toctree-l1"><a class="reference internal" href="discussion_04.html">Discussion 4:</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Homework 📝</span></p>
@@ -217,7 +222,13 @@
 <li class="toctree-l2"><a class="reference internal" href="notebooks/03_replication_results_ipynb.html">Replication Results</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="HW2.html">Homework 2: Chen, Kelly, Xiu (2022)</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="HW2.html">Homework 2: Chen, Kelly, Xiu (2022)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/01_explore_data_ipynb.html">Data Explorer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/02_embeddings_demos_ipynb.html">Text Embeddings: From Words to Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/03_methodology_ipynb.html">Methodology: From Embeddings to Predictions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/04_results_ipynb.html">Replication Results: Chen, Kelly, and Xiu (2022)</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="final_project.html">Final Project</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="FinalProject/final_project_rubric.html">Final Project Instructions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="FinalProject/potential_final_projects.html">Potential Final Project Ideas</a></li>
@@ -446,7 +457,7 @@ document.write(`
                    <section class="tex2jax_ignore mathjax_ignore" id="generative-and-agentic-ai-for-finance">
 <h1>Generative and Agentic AI for Finance<a class="headerlink" href="#generative-and-agentic-ai-for-finance" title="Link to this heading">#</a></h1>
 <p><strong>By Jeremy Bejarano and Mark Hendricks</strong></p>
-<p>Last updated: Mar 30, 2026, 6:47:37 AM</p>
+<p>Last updated: Apr 6, 2026, 8:53:51 AM</p>
 <p>This set of notes is designed to accompany <em>FINM 33200: Generative and Agentic AI for Finance</em>.</p>
 <p><strong>Course Description</strong>
 This course provides hands-on experience with generative AI and agentic technologies and their practical applications in quantitative finance. Students will start by mastering modern AI development tools like Cursor editor and GitHub Copilot, then progress through understanding AI tool use, building autonomous agents, and implementing sophisticated systems like RAG. The course emphasizes real-world implementation using cutting-edge AI frameworks, covering everything from LLM fundamentals and the Model Context Protocol to building custom AI applications and deploying them in production environments. By the end of the course, students will be proficient in creating production-ready AI applications that can transform financial workflows and decision-making processes through intelligent automation and enhanced data analysis.</p>
@@ -454,7 +465,7 @@ This course provides hands-on experience with generative AI and agentic technolo
 <h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Link to this heading">#</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="README.html">Course Syllabus: FINM 32900, Winter 2025</a></li>
+<li class="toctree-l1"><a class="reference internal" href="README.html">Course Syllabus: FINM 33200, Spring 2026</a></li>
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Course Overview</a></li>
 </ul>
 </div>
@@ -463,8 +474,8 @@ This course provides hands-on experience with generative AI and agentic technolo
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="discussion_01.html">Discussion 1: The New Quant - LLMs in Finance</a></li>
 <li class="toctree-l1"><a class="reference internal" href="discussion_02.html">Discussion 2: Text Representation and Tokenization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="subject_to_change_after_this_week.html">WARNING: Notes subject to change after this week</a></li>
 <li class="toctree-l1"><a class="reference internal" href="discussion_03.html">Discussion 3: LLM Fundamentals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subject_to_change_after_this_week.html">WARNING: Notes subject to change after this week</a></li>
 <li class="toctree-l1"><a class="reference internal" href="discussion_04.html">Discussion 4:</a></li>
 </ul>
 </div>
@@ -512,7 +523,7 @@ This course provides hands-on experience with generative AI and agentic technolo
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Course Syllabus: FINM 32900, Winter 2025</p>
+        <p class="prev-next-title">Course Syllabus: FINM 33200, Spring 2026</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

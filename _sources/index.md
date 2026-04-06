@@ -23,8 +23,8 @@ overview.md
 :caption: Discussions 📖
 discussion_01.md
 discussion_02.md
-subject_to_change_after_this_week.md
 discussion_03.md
+subject_to_change_after_this_week.md
 discussion_04.md
 ```
 

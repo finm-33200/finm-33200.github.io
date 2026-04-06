@@ -1,0 +1,783 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>The Mathematics of microGPT &#8212; Generative and Agentic AI for Finance</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=f23691d7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=7a7908ec"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'discussions/microgpt_math';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/custom.js?v=c0d9a6f1"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="The OpenAI API Platform" href="openai_api_platform.html" />
+    <link rel="prev" title="LLMs and Lookahead Bias" href="llms_and_lookahead_bias.html" /> 
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>   
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Generative and Agentic AI for Finance - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Generative and Agentic AI for Finance - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Generative and Agentic AI for Finance
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../README.html">Course Syllabus: FINM 33200, Spring 2026</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Course Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Discussions 📖</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_01.html">Discussion 1: The New Quant - LLMs in Finance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="llms_transforming_finance.html">LLMs Transforming Finance: The New Quant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="expected_returns_llms.html">LLMs for Return Prediction: Prompts vs. Embeddings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chartbook_research_catalog.html">ChartBook: Cataloging Research for Humans and AI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_and_structured_outputs.html">API Basics and Structured Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="review_w01.html">Study Questions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_02.html">Discussion 2: Text Representation and Tokenization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="structure_of_news.html">The Structure of Economic News</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ai_copilots_intro.html">AI Copilots: History and Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="words_to_tokens.html">From Words to Tokens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_embedding_analogies_ipynb.html">Optional extra: News, Financial Crises, and the Geometry of Meaning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="review_w02.html">Study Questions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../discussion_03.html">Discussion 3: LLM Fundamentals</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ai_roundup_w03.html">AI Roundup: Week 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="llms_and_lookahead_bias.html">LLMs and Lookahead Bias</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">The Mathematics of microGPT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openai_api_platform.html">The OpenAI API Platform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/openai_api_overview.html">OpenAI API Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="review_w03.html">Study Questions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../subject_to_change_after_this_week.html">WARNING: Notes subject to change after this week</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../discussion_04.html">Discussion 4:</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Homework 📝</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../HW0.html">Homework 0: Set Up Your Environment</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/01_data_sources_overview_ipynb.html">Data Sources &amp; Strategy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/02_gdelt_sp500_filtering_ipynb.html">GDELT Filtering &amp; Data Quality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/03_crosswalk_quality_ipynb.html">Crosswalk Quality</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../HW1.html">Homework 1: Lopez-Lira, Tang (2023)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/01_data_overview_ipynb.html">Data Sources Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/02_methodology_ipynb.html">NLP Pipeline &amp; Portfolio Construction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/03_replication_results_ipynb.html">Replication Results</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../HW2.html">Homework 2: Chen, Kelly, Xiu (2022)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/01_explore_data_ipynb.html">Data Explorer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/02_embeddings_demos_ipynb.html">Text Embeddings: From Words to Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/03_methodology_ipynb.html">Methodology: From Embeddings to Predictions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/04_results_ipynb.html">Replication Results: Chen, Kelly, and Xiu (2022)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../final_project.html">Final Project</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/final_project_rubric.html">Final Project Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/potential_final_projects.html">Potential Final Project Ideas</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exams 📋</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../exam_prep.html">Exam Preparation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Misc 📌</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../acknowledgments.html">Acknowledgments</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../appendix.html">Appendix</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="nanochat_math.html">The Mathematics of Karpathy’s nanochat</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project/issues/new?title=Issue%20on%20page%20%2Fdiscussions/microgpt_math.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/discussions/microgpt_math.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>The Mathematics of microGPT</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-specifications">Model Specifications</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture">Architecture</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture-diagram">Architecture Diagram</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-kv-cache">The KV Cache</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#training-and-inference">Training and Inference</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#connecting-to-production-llms">Connecting to Production LLMs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-of-all-equations">Summary of All Equations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-reading-nanochat">Further Reading: nanochat</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#acknowledgments">Acknowledgments</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                   <section class="tex2jax_ignore mathjax_ignore" id="the-mathematics-of-microgpt">
+<h1>The Mathematics of microGPT<a class="headerlink" href="#the-mathematics-of-microgpt" title="Link to this heading">#</a></h1>
+<div class="tip admonition">
+<p class="admonition-title">Resources</p>
+<ul class="simple">
+<li><p><a class="reference download internal" download="" href="../_downloads/a131c72b29f39196b942b100bddcd10e/notes_microgpt_math.pdf"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">the</span> <span class="pre">full</span> <span class="pre">mathematical</span> <span class="pre">notes</span> <span class="pre">as</span> <span class="pre">PDF</span></code></a></p></li>
+<li><p><a class="reference external" href="https://karpathy.github.io/2026/02/12/microgpt/">Blog post introducing microGPT</a> by Andrej Karpathy</p></li>
+<li><p><a class="reference external" href="https://colab.research.google.com/drive/1vyN5zo6rqUp_dYNbT4Yrco66zuWCZKoN?usp=sharing">Google Colab notebook</a></p></li>
+</ul>
+</div>
+<p><em>A High-Level Companion to Andrej Karpathy’s 200-Line GPT Implementation</em></p>
+<p>Prepared for FINM 33200: Generative and Agentic AI for Finance, The University of Chicago.</p>
+<p>Based on <a class="reference external" href="https://gist.github.com/karpathy/8627fe009c40f57531cb18360106ce95"><code class="docutils literal notranslate"><span class="pre">microgpt.py</span></code></a> by Andrej Karpathy.</p>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
+<p>In February 2026, Andrej Karpathy released <code class="docutils literal notranslate"><span class="pre">microGPT</span></code>—a single Python file of approximately 200 lines, with no external dependencies, that implements the complete training and inference loop for a GPT-class language model. The code trains a character-level transformer on a dataset of 32,000 human names and learns to generate new, plausible-sounding names.</p>
+<p><code class="docutils literal notranslate"><span class="pre">microGPT</span></code> is pedagogically extraordinary because it contains the <em>entire</em> algorithmic content of modern large language models: a tokenizer, a scalar-valued automatic differentiation engine, a GPT-2-style transformer architecture with multi-head causal attention, the Adam optimizer, a training loop, and an autoregressive inference loop. Everything beyond these 200 lines—GPU parallelism, tensor operations, BPE tokenization, distributed training—is, as Karpathy puts it, “just efficiency.”</p>
+<section id="model-specifications">
+<h3>Model Specifications<a class="headerlink" href="#model-specifications" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Hyperparameter</p></th>
+<th class="head"><p>Value</p></th>
+<th class="head"><p>Variable</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Vocabulary size</p></td>
+<td><p>27</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">vocab_size</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Embedding dimension</p></td>
+<td><p>16</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">n_embd</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Number of layers</p></td>
+<td><p>1</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">n_layer</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Number of attention heads</p></td>
+<td><p>4</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">n_head</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Head dimension</p></td>
+<td><p>4</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">head_dim</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Max sequence length</p></td>
+<td><p>16</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">block_size</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Total parameters</p></td>
+<td><p>4,192</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">len(params)</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The vocabulary consists of the 26 lowercase English letters plus a special Beginning-of-Sequence (<code class="docutils literal notranslate"><span class="pre">BOS</span></code>) token, for a total of <span class="math notranslate nohighlight">\(V = 27\)</span> tokens.</p>
+</section>
+</section>
+<section id="architecture">
+<h2>Architecture<a class="headerlink" href="#architecture" title="Link to this heading">#</a></h2>
+<p>The model is a causal (autoregressive) transformer decoder following the GPT-2 architecture, with a few simplifications: RMSNorm instead of LayerNorm, ReLU instead of GeLU, and no bias terms. Despite these simplifications, the core data flow is identical to production LLMs.</p>
+<p>At a high level, the forward pass works as follows:</p>
+<ol class="arabic simple">
+<li><p><strong>Tokenization</strong>: Each name is converted to a sequence of character indices, wrapped with <code class="docutils literal notranslate"><span class="pre">BOS</span></code> delimiters.</p></li>
+<li><p><strong>Embedding</strong>: The token and its position are each looked up in learned embedding tables and summed.</p></li>
+<li><p><strong>Transformer Block</strong> (repeated <span class="math notranslate nohighlight">\(L\)</span> times):</p>
+<ul class="simple">
+<li><p><strong>Multi-Head Attention</strong>: The current token queries all past tokens via scaled dot-product attention, allowing information to flow across positions.</p></li>
+<li><p><strong>Feed-Forward Network (MLP)</strong>: A two-layer network (expand to 4x width, apply ReLU, project back down) processes each position independently.</p></li>
+<li><p>Both sub-layers use <strong>residual connections</strong> and <strong>RMSNorm</strong>.</p></li>
+</ul>
+</li>
+<li><p><strong>Output</strong>: The final hidden state is projected to vocabulary size, producing logits that are converted to a probability distribution via softmax.</p></li>
+</ol>
+<section id="architecture-diagram">
+<h3>Architecture Diagram<a class="headerlink" href="#architecture-diagram" title="Link to this heading">#</a></h3>
+<p><img alt="microGPT Architecture" src="../_images/architecture_microgpt.png" /></p>
+<p><em>Architecture of <code class="docutils literal notranslate"><span class="pre">microGPT</span></code>. Dashed lines indicate residual connections. The transformer block (between the braces) is repeated <span class="math notranslate nohighlight">\(L\)</span> times (<span class="math notranslate nohighlight">\(L=1\)</span> by default).</em></p>
+</section>
+<section id="the-kv-cache">
+<h3>The KV Cache<a class="headerlink" href="#the-kv-cache" title="Link to this heading">#</a></h3>
+<p>During autoregressive processing, each position’s key and value vectors are cached so that when the model processes position <span class="math notranslate nohighlight">\(t\)</span>, attention can access all positions <span class="math notranslate nohighlight">\(0, 1, \ldots, t\)</span>. This is what makes the model <em>causal</em>: each position can only attend to the current and past positions, never the future.</p>
+</section>
+</section>
+<section id="training-and-inference">
+<h2>Training and Inference<a class="headerlink" href="#training-and-inference" title="Link to this heading">#</a></h2>
+<p><strong>Training</strong> proceeds by feeding each name through the model one token at a time, computing the cross-entropy loss (negative log-probability of the true next token), backpropagating through the computation graph, and updating parameters with the Adam optimizer. Over 1,000 steps, the loss decreases from <span class="math notranslate nohighlight">\(\approx 3.37\)</span> (random guessing at <span class="math notranslate nohighlight">\(-\log(1/27)\)</span>) to <span class="math notranslate nohighlight">\(\approx 2.37\)</span>.</p>
+<p><strong>Inference</strong> uses temperature sampling: logits are divided by a temperature <span class="math notranslate nohighlight">\(\tau\)</span> before softmax. Lower temperature (<span class="math notranslate nohighlight">\(\tau &lt; 1\)</span>) sharpens the distribution for more conservative output; higher temperature flattens it for more diversity. <code class="docutils literal notranslate"><span class="pre">microGPT</span></code> uses <span class="math notranslate nohighlight">\(\tau = 0.5\)</span>.</p>
+</section>
+<section id="connecting-to-production-llms">
+<h2>Connecting to Production LLMs<a class="headerlink" href="#connecting-to-production-llms" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">microGPT</span></code> and a model like GPT-4 or Claude share the same fundamental algorithm. Every difference between them is a matter of scale and engineering efficiency rather than algorithmic novelty:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Component</p></th>
+<th class="head"><p>microGPT</p></th>
+<th class="head"><p>Production LLMs</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Data</p></td>
+<td><p>32K names</p></td>
+<td><p>Trillions of tokens of internet text</p></td>
+</tr>
+<tr class="row-odd"><td><p>Tokenizer</p></td>
+<td><p>Character-level (27 tokens)</p></td>
+<td><p>BPE / SentencePiece (~100K tokens)</p></td>
+</tr>
+<tr class="row-even"><td><p>Autograd</p></td>
+<td><p>Scalar <code class="docutils literal notranslate"><span class="pre">Value</span></code> in Python</p></td>
+<td><p>Tensor ops on GPU (PyTorch/JAX)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Architecture</p></td>
+<td><p>4,192 params, 1 layer</p></td>
+<td><p><span class="math notranslate nohighlight">\(10^{11}\)</span>+ params, 100+ layers</p></td>
+</tr>
+<tr class="row-even"><td><p>Normalization</p></td>
+<td><p>RMSNorm (no learnable params)</p></td>
+<td><p>RMSNorm with learnable gain</p></td>
+</tr>
+<tr class="row-odd"><td><p>Activation</p></td>
+<td><p>ReLU</p></td>
+<td><p>SwiGLU / GeLU</p></td>
+</tr>
+<tr class="row-even"><td><p>Positional</p></td>
+<td><p>Learned absolute</p></td>
+<td><p>RoPE (relative)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Attention</p></td>
+<td><p>Full MHA</p></td>
+<td><p>GQA (Grouped Query Attention)</p></td>
+</tr>
+<tr class="row-even"><td><p>Optimizer</p></td>
+<td><p>Adam (<span class="math notranslate nohighlight">\(\beta_1{=}0.85\)</span>)</p></td>
+<td><p>AdamW with warmup + cosine decay</p></td>
+</tr>
+<tr class="row-odd"><td><p>Training</p></td>
+<td><p>1 doc/step, 1000 steps</p></td>
+<td><p>Millions of tokens/step, months of compute</p></td>
+</tr>
+<tr class="row-even"><td><p>Post-training</p></td>
+<td><p>None</p></td>
+<td><p>SFT + RLHF/RLAIF</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>None of these differences alter the core loop: encode tokens <span class="math notranslate nohighlight">\(\to\)</span> embed <span class="math notranslate nohighlight">\(\to\)</span> transform (attention + MLP) <span class="math notranslate nohighlight">\(\to\)</span> predict next token <span class="math notranslate nohighlight">\(\to\)</span> compute loss <span class="math notranslate nohighlight">\(\to\)</span> backpropagate <span class="math notranslate nohighlight">\(\to\)</span> update parameters. A conversation with ChatGPT is, from the model’s perspective, just a document completion—exactly like <code class="docutils literal notranslate"><span class="pre">microGPT</span></code> completing a name.</p>
+</section>
+<section id="summary-of-all-equations">
+<h2>Summary of All Equations<a class="headerlink" href="#summary-of-all-equations" title="Link to this heading">#</a></h2>
+<p>For reference, we collect the key equations that define the forward pass of <code class="docutils literal notranslate"><span class="pre">microGPT</span></code>:</p>
+<p><strong>Embedding:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+\boldsymbol{x}^{(0)} = \operatorname{RMSNorm}\!\big(W^{\mathrm{te}}[t,:] + W^{\mathrm{pe}}[p,:]\big)
+\]</div>
+<p><strong>For each layer <span class="math notranslate nohighlight">\(\ell = 0, \ldots, L-1\)</span>:</strong></p>
+<p><em>Attention:</em></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+\boldsymbol{q} &amp;= W_\ell^Q \cdot \operatorname{RMSNorm}(\boldsymbol{x}), \quad \boldsymbol{k} = W_\ell^K \cdot \operatorname{RMSNorm}(\boldsymbol{x}), \quad \boldsymbol{v} = W_\ell^V \cdot \operatorname{RMSNorm}(\boldsymbol{x}) \\
+\alpha^{(h)}_s &amp;= \frac{\boldsymbol{q}^{(h)} \cdot \boldsymbol{k}^{(h)}_s}{\sqrt{d_h}}, \quad \boldsymbol{w}^{(h)} = \operatorname{softmax}(\boldsymbol{\alpha}^{(h)}), \quad \boldsymbol{h}^{(h)} = \textstyle\sum_s w^{(h)}_s \boldsymbol{v}^{(h)}_s \\
+\boldsymbol{x} &amp;\leftarrow W_\ell^O \cdot [\boldsymbol{h}^{(0)} \| \cdots \| \boldsymbol{h}^{(H-1)}] + \boldsymbol{x}_{\mathrm{residual}}
+\end{align*}
+\end{split}\]</div>
+<p><em>MLP:</em></p>
+<div class="math notranslate nohighlight">
+\[
+\boldsymbol{x} \leftarrow W_\ell^{\mathrm{fc2}} \cdot \operatorname{ReLU}\!\big(W_\ell^{\mathrm{fc1}} \cdot \operatorname{RMSNorm}(\boldsymbol{x})\big) + \boldsymbol{x}_{\mathrm{residual}}
+\]</div>
+<p><strong>Output:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+\boldsymbol{z} = W^{\mathrm{lm}} \boldsymbol{x}, \qquad \boldsymbol{p} = \operatorname{softmax}(\boldsymbol{z})
+\]</div>
+<p><strong>Loss:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{L} = -\frac{1}{n} \sum_{t=0}^{n-1} \log p^{(t)}_{s_{t+1}}
+\]</div>
+</section>
+<section id="further-reading-nanochat">
+<h2>Further Reading: nanochat<a class="headerlink" href="#further-reading-nanochat" title="Link to this heading">#</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The material in this section is provided for interested readers and is <strong>not covered on the exam</strong>.</p>
+</div>
+<p>The PDF version of these notes includes an appendix on <code class="docutils literal notranslate"><span class="pre">nanochat</span></code>, Karpathy’s follow-up project that scales the same ideas from <code class="docutils literal notranslate"><span class="pre">microGPT</span></code> into a production-quality GPT model trained on real internet text. While <code class="docutils literal notranslate"><span class="pre">microGPT</span></code> is a 200-line, dependency-free teaching tool that trains on 32K names, <code class="docutils literal notranslate"><span class="pre">nanochat</span></code> is a full-featured codebase that trains a 124M-parameter transformer on the FineWeb dataset using modern techniques: Rotary Position Embeddings (RoPE), QK-Norm, grouped-query attention, SwiGLU activations, logit softcapping, and a combined Muon/AdamW optimizer. The <a class="reference internal" href="nanochat_math.html"><span class="std std-doc">nanochat appendix</span></a> walks through the mathematics of each of these components, mapping every equation to the corresponding line in the <code class="docutils literal notranslate"><span class="pre">nanochat</span></code> source code—the same approach used in this document for <code class="docutils literal notranslate"><span class="pre">microGPT</span></code>, but at production scale.</p>
+</section>
+<section id="acknowledgments">
+<h2>Acknowledgments<a class="headerlink" href="#acknowledgments" title="Link to this heading">#</a></h2>
+<p>This document is based entirely on Andrej Karpathy’s <code class="docutils literal notranslate"><span class="pre">microGPT</span></code> project (MIT License), available at <a class="reference external" href="https://gist.github.com/karpathy/8627fe009c40f57531cb18360106ce95">https://gist.github.com/karpathy/8627fe009c40f57531cb18360106ce95</a>, and his accompanying blog post at <a class="reference external" href="https://karpathy.github.io/2026/02/12/microgpt/">https://karpathy.github.io/2026/02/12/microgpt/</a>. All mathematical formulations presented here are derived directly from the source code to ensure exact correspondence.</p>
+</section>
+</section>
+
+<div class="section ablog__blog_comments">
+   
+</div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="llms_and_lookahead_bias.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">LLMs and Lookahead Bias</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="openai_api_platform.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">The OpenAI API Platform</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-specifications">Model Specifications</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture">Architecture</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture-diagram">Architecture Diagram</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-kv-cache">The KV Cache</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#training-and-inference">Training and Inference</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#connecting-to-production-llms">Connecting to Production LLMs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-of-all-equations">Summary of All Equations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-reading-nanochat">Further Reading: nanochat</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#acknowledgments">Acknowledgments</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jeremiah Bejarano
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, Jeremiah Bejarano.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
