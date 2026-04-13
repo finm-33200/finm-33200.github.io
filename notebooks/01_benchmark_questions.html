@@ -1,0 +1,1464 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>01. Benchmark Questions &#8212; Generative and Agentic AI for Finance</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=f23691d7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=7a7908ec"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/01_benchmark_questions';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/custom.js?v=c0d9a6f1"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="02. LLM Benchmark Analysis" href="02_analyze_results.html" />
+    <link rel="prev" title="Homework 3: Benchmarking &amp; RAG" href="../HW3.html" /> 
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>   
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Generative and Agentic AI for Finance - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Generative and Agentic AI for Finance - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Generative and Agentic AI for Finance
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../README.html">Course Syllabus: FINM 33200, Spring 2026</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Course Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Discussions 📖</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_01.html">Discussion 1: The New Quant - LLMs in Finance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/llms_transforming_finance.html">LLMs Transforming Finance: The New Quant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/expected_returns_llms.html">LLMs for Return Prediction: Prompts vs. Embeddings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/chartbook_research_catalog.html">ChartBook: Cataloging Research for Humans and AI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/api_and_structured_outputs.html">API Basics and Structured Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/review_w01.html">Study Questions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_02.html">Discussion 2: Text Representation and Tokenization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/structure_of_news.html">The Structure of Economic News</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/ai_copilots_intro.html">AI Copilots: History and Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/words_to_tokens.html">From Words to Tokens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/03_embedding_analogies_ipynb.html">Optional extra: News, Financial Crises, and the Geometry of Meaning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/review_w02.html">Study Questions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_03.html">Discussion 3: LLM Fundamentals</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/ai_roundup_w03.html">AI Roundup: Week 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/llms_and_lookahead_bias.html">LLMs and Lookahead Bias</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/microgpt_math.html">The Mathematics of microGPT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/openai_api_platform.html">The OpenAI API Platform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openai_api_overview.html">OpenAI API Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/review_w03.html">Study Questions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_04.html">Discussion 4: Benchmarking and LLM Tool Use</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/reasoning_acting_tools.html">From Chain-Of-Thought To Tool Use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="benchmarking_llms.html">Benchmarking LLMs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/rag.html">Retrieval-Augmented Generation (RAG)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01_filing_search_ipynb.html">01. Semantic Search of SEC Filings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02_rag_benchmark_ipynb.html">02. RAG Benchmark: Can Retrieved Context Fix a Weak Model?</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../subject_to_change_after_this_week.html">WARNING: Notes subject to change after this week</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_05.html">Discussion 5: Agents</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/intro_to_agents.html">Introduction to Agents</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Homework 📝</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../HW0.html">Homework 0: Set Up Your Environment</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="01_data_sources_overview_ipynb.html">Data Sources &amp; Strategy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02_gdelt_sp500_filtering_ipynb.html">GDELT Filtering &amp; Data Quality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_crosswalk_quality_ipynb.html">Crosswalk Quality</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../HW1.html">Homework 1: Lopez-Lira, Tang (2023)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="01_data_overview_ipynb.html">Data Sources Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02_methodology_ipynb.html">NLP Pipeline &amp; Portfolio Construction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_replication_results_ipynb.html">Replication Results</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../HW2.html">Homework 2: Chen, Kelly, Xiu (2022)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="01_explore_data_ipynb.html">Data Explorer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02_embeddings_demos_ipynb.html">Text Embeddings: From Words to Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_methodology_ipynb.html">Methodology: From Embeddings to Predictions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04_results_ipynb.html">Replication Results: Chen, Kelly, and Xiu (2022)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../HW3.html">Homework 3: Benchmarking &amp; RAG</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">01. Benchmark Questions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02_analyze_results.html">02. LLM Benchmark Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_build_agents.html">03. Building Agents: From Simple Prompting to Tool-Using Agents</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../final_project.html">Final Project</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/final_project_rubric.html">Final Project Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/potential_final_projects.html">Potential Final Project Ideas</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exams 📋</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../exam_prep.html">Exam Preparation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Misc 📌</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../acknowledgments.html">Acknowledgments</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../appendix.html">Appendix</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/nanochat_math.html">The Mathematics of Karpathy’s nanochat</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project/issues/new?title=Issue%20on%20page%20%2Fnotebooks/01_benchmark_questions.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/01_benchmark_questions.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>01. Benchmark Questions</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#question-distribution">Question Distribution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#full-question-index">Full Question Index</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-text-only-questions">Sample Text-Only Questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-visual-questions">Sample Visual Questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#answer-format">Answer Format</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                   <section class="tex2jax_ignore mathjax_ignore" id="benchmark-questions">
+<h1>01. Benchmark Questions<a class="headerlink" href="#benchmark-questions" title="Link to this heading">#</a></h1>
+<p>This notebook previews the questions used in the quant-finance LLM benchmark.
+Questions are drawn from two source books:</p>
+<ul class="simple">
+<li><p><strong>Green Book</strong> – <em>A Practical Guide to Quantitative Finance Interviews</em> (Zhou)</p></li>
+<li><p><strong>Heard on the Street</strong> – <em>Heard on the Street</em> (Crack)</p></li>
+</ul>
+<p>There are two question types:</p>
+<ul class="simple">
+<li><p><strong>Text-only</strong> – pure text questions (logic, probability, options, etc.)</p></li>
+<li><p><strong>Visual</strong> – questions that include one or more figures scanned from the textbook</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">Markdown</span><span class="p">,</span> <span class="n">display</span>
+
+<span class="kn">from</span> <span class="nn">settings</span> <span class="kn">import</span> <span class="n">config</span>
+
+<span class="n">DATA_DIR</span> <span class="o">=</span> <span class="n">config</span><span class="p">(</span><span class="s2">&quot;DATA_DIR&quot;</span><span class="p">)</span>
+<span class="n">CACHE_DIR</span> <span class="o">=</span> <span class="n">DATA_DIR</span> <span class="o">/</span> <span class="s2">&quot;questions_cache&quot;</span>
+<span class="n">TEXT_DIR</span> <span class="o">=</span> <span class="n">CACHE_DIR</span> <span class="o">/</span> <span class="s2">&quot;text_only&quot;</span>
+<span class="n">VISUAL_DIR</span> <span class="o">=</span> <span class="n">CACHE_DIR</span> <span class="o">/</span> <span class="s2">&quot;visual&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">text_manifest</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">TEXT_DIR</span> <span class="o">/</span> <span class="s2">&quot;manifest.csv&quot;</span><span class="p">)</span>
+<span class="n">visual_manifest</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">VISUAL_DIR</span> <span class="o">/</span> <span class="s2">&quot;manifest.csv&quot;</span><span class="p">)</span>
+
+<span class="n">text_manifest</span><span class="p">[</span><span class="s2">&quot;question_type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;text_only&quot;</span>
+<span class="n">visual_manifest</span><span class="p">[</span><span class="s2">&quot;question_type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;visual&quot;</span>
+
+<span class="n">all_questions</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">text_manifest</span><span class="p">,</span> <span class="n">visual_manifest</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;Total questions: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">all_questions</span><span class="p">)</span><span class="si">}</span><span class="s2"> &quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">text_manifest</span><span class="p">)</span><span class="si">}</span><span class="s2"> text-only, </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">visual_manifest</span><span class="p">)</span><span class="si">}</span><span class="s2"> visual)&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Total questions: 91 (63 text-only, 28 visual)
+</pre></div>
+</div>
+</div>
+</div>
+<section id="question-distribution">
+<h2>Question Distribution<a class="headerlink" href="#question-distribution" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Markdown</span><span class="p">(</span><span class="s2">&quot;### By Source and Question Type&quot;</span><span class="p">))</span>
+<span class="n">display</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span><span class="n">all_questions</span><span class="p">[</span><span class="s2">&quot;source_book&quot;</span><span class="p">],</span> <span class="n">all_questions</span><span class="p">[</span><span class="s2">&quot;question_type&quot;</span><span class="p">],</span> <span class="n">margins</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<h3 class="rubric" id="by-source-and-question-type">By Source and Question Type</h3>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>question_type</th>
+      <th>text_only</th>
+      <th>visual</th>
+      <th>All</th>
+    </tr>
+    <tr>
+      <th>source_book</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>green_book</th>
+      <td>43</td>
+      <td>6</td>
+      <td>49</td>
+    </tr>
+    <tr>
+      <th>heard_on_the_street</th>
+      <td>20</td>
+      <td>22</td>
+      <td>42</td>
+    </tr>
+    <tr>
+      <th>All</th>
+      <td>63</td>
+      <td>28</td>
+      <td>91</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Markdown</span><span class="p">(</span><span class="s2">&quot;### By Chapter&quot;</span><span class="p">))</span>
+<span class="n">display</span><span class="p">(</span>
+    <span class="n">all_questions</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;chapter&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">size</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;count&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;count&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<h3 class="rubric" id="by-chapter">By Chapter</h3>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>chapter</th>
+      <th>count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>Ch 2</td>
+      <td>36</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>Ch 1: Purely Quantitative &amp; Logic Questions</td>
+      <td>23</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Ch 4: Statistics Questions</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Ch 2: Derivatives Questions</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Ch 4</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Ch 6</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Ch 5</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Ch 7</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Markdown</span><span class="p">(</span><span class="s2">&quot;### By Difficulty&quot;</span><span class="p">))</span>
+<span class="n">difficulty</span> <span class="o">=</span> <span class="n">all_questions</span><span class="p">[</span><span class="s2">&quot;difficulty&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;nan&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="n">difficulty</span> <span class="o">=</span> <span class="n">difficulty</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;unrated&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">difficulty</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;count&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="s2">&quot;difficulty&quot;</span><span class="p">}))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<h3 class="rubric" id="by-difficulty">By Difficulty</h3>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>difficulty</th>
+      <th>count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>unrated</td>
+      <td>49</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>*</td>
+      <td>38</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>**</td>
+      <td>4</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="full-question-index">
+<h2>Full Question Index<a class="headerlink" href="#full-question-index" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">index_df</span> <span class="o">=</span> <span class="n">all_questions</span><span class="p">[</span>
+    <span class="p">[</span><span class="s2">&quot;question_id&quot;</span><span class="p">,</span> <span class="s2">&quot;question_type&quot;</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;source_book&quot;</span><span class="p">,</span> <span class="s2">&quot;chapter&quot;</span><span class="p">,</span> <span class="s2">&quot;difficulty&quot;</span><span class="p">,</span> <span class="s2">&quot;answer&quot;</span><span class="p">]</span>
+<span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">index_df</span><span class="p">[</span><span class="s2">&quot;answer&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">index_df</span><span class="p">[</span><span class="s2">&quot;answer&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="p">[:</span><span class="mi">80</span><span class="p">]</span>
+<span class="n">display</span><span class="p">(</span><span class="n">index_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>question_id</th>
+      <th>question_type</th>
+      <th>title</th>
+      <th>source_book</th>
+      <th>chapter</th>
+      <th>difficulty</th>
+      <th>answer</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>q001</td>
+      <td>text_only</td>
+      <td>Screwy pirates</td>
+      <td>green_book</td>
+      <td>Ch 2</td>
+      <td>NaN</td>
+      <td>Pirates 1 and 3 get 1 coin each; pirate 5 keep...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>q002</td>
+      <td>text_only</td>
+      <td>Tiger and sheep</td>
+      <td>green_book</td>
+      <td>Ch 2</td>
+      <td>NaN</td>
+      <td>The sheep will not be eaten (100 is even)</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>q003</td>
+      <td>text_only</td>
+      <td>River crossing</td>
+      <td>green_book</td>
+      <td>Ch 2</td>
+      <td>NaN</td>
+      <td>17 minutes</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>q004</td>
+      <td>text_only</td>
+      <td>Birthday problem</td>
+      <td>green_book</td>
+      <td>Ch 2</td>
+      <td>NaN</td>
+      <td>September 1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>q005</td>
+      <td>text_only</td>
+      <td>Card game</td>
+      <td>green_book</td>
+      <td>Ch 2</td>
+      <td>NaN</td>
+      <td>Do not play; the expected payoff is negative f...</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>86</th>
+      <td>q024</td>
+      <td>visual</td>
+      <td>HOTS Q4.11</td>
+      <td>heard_on_the_street</td>
+      <td>Ch 4: Statistics Questions</td>
+      <td>*</td>
+      <td>Probability of meeting = 7/16 (with 15-minute ...</td>
+    </tr>
+    <tr>
+      <th>87</th>
+      <td>q025</td>
+      <td>visual</td>
+      <td>HOTS Q4.35</td>
+      <td>heard_on_the_street</td>
+      <td>Ch 4: Statistics Questions</td>
+      <td>*</td>
+      <td>Probability of forming a polygon from n pieces...</td>
+    </tr>
+    <tr>
+      <th>88</th>
+      <td>q026</td>
+      <td>visual</td>
+      <td>HOTS Q4.36</td>
+      <td>heard_on_the_street</td>
+      <td>Ch 4: Statistics Questions</td>
+      <td>**</td>
+      <td>Expected length of longest piece = 11/18; shor...</td>
+    </tr>
+    <tr>
+      <th>89</th>
+      <td>q027</td>
+      <td>visual</td>
+      <td>HOTS Q4.37</td>
+      <td>heard_on_the_street</td>
+      <td>Ch 4: Statistics Questions</td>
+      <td>*</td>
+      <td>Probability both children are girls given one ...</td>
+    </tr>
+    <tr>
+      <th>90</th>
+      <td>q028</td>
+      <td>visual</td>
+      <td>HOTS Q4.39</td>
+      <td>heard_on_the_street</td>
+      <td>Ch 4: Statistics Questions</td>
+      <td>*</td>
+      <td>Probability of meeting = 7/16; area formula: 1...</td>
+    </tr>
+  </tbody>
+</table>
+<p>91 rows × 7 columns</p>
+</div></div></div>
+</div>
+</section>
+<section id="sample-text-only-questions">
+<h2>Sample Text-Only Questions<a class="headerlink" href="#sample-text-only-questions" title="Link to this heading">#</a></h2>
+<p>Below are a few representative text-only questions. Each is shown in two ways:</p>
+<ol class="arabic simple">
+<li><p><strong>Rendered</strong> – the markdown is rendered directly (note that some math notation
+may appear garbled due to OCR artifacts from the original PDFs).</p></li>
+<li><p><strong>Raw source</strong> – the underlying markdown file content (click to expand).</p></li>
+</ol>
+<p>The <strong>reference answer</strong> from the curated manifest CSV is shown at the end.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">display_question</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">question_dir</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Display a single question: rendered markdown, raw source, and reference answer.&quot;&quot;&quot;</span>
+    <span class="n">md_path</span> <span class="o">=</span> <span class="n">question_dir</span> <span class="o">/</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;question_file&quot;</span><span class="p">]</span>
+    <span class="n">raw_text</span> <span class="o">=</span> <span class="n">md_path</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+
+    <span class="n">display</span><span class="p">(</span><span class="n">Markdown</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;### </span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;question_id&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">))</span>
+    <span class="n">display</span><span class="p">(</span>
+        <span class="n">Markdown</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;**Source:** </span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;source_label&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> | &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;**Chapter:** </span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;chapter&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> | &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;**Difficulty:** </span><span class="si">{</span><span class="n">row</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;difficulty&#39;</span><span class="p">)</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s1">&#39;unrated&#39;</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Rendered markdown</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">Markdown</span><span class="p">(</span><span class="n">raw_text</span><span class="p">))</span>
+
+    <span class="c1"># Raw source (collapsible)</span>
+    <span class="n">display</span><span class="p">(</span>
+        <span class="n">Markdown</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;&lt;details&gt;&lt;summary&gt;Raw markdown source&lt;/summary&gt;</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;```</span><span class="se">\n</span><span class="si">{</span><span class="n">raw_text</span><span class="si">}</span><span class="se">\n</span><span class="s2">```</span><span class="se">\n</span><span class="s2">&lt;/details&gt;&quot;</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Reference answer</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">Markdown</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&gt; **Reference answer:** </span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;answer&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sample_text_ids</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;q001&quot;</span><span class="p">,</span> <span class="s2">&quot;q033&quot;</span><span class="p">,</span> <span class="s2">&quot;q039&quot;</span><span class="p">,</span> <span class="s2">&quot;q060&quot;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">text_manifest</span><span class="p">[</span><span class="n">text_manifest</span><span class="p">[</span><span class="s2">&quot;question_id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">sample_text_ids</span><span class="p">)]</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">display_question</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">TEXT_DIR</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<h3 class="rubric" id="q001-screwy-pirates">q001: Screwy pirates</h3>
+<p><strong>Source:</strong> A Practical Guide to Quantitative Finance Interviews (Zhou) | <strong>Chapter:</strong> Ch 2 | <strong>Difficulty:</strong> nan</p>
+<h1 class="rubric" id="screwy-pirates">Screwy pirates</h1>
+<p><strong>Source:</strong> A Practical Guide to Quantitative Finance Interviews (Zhou)
+<strong>Chapter:</strong> Ch 2
+<strong>Section:</strong> 2.0</p>
+<p>Five pirates looted a chest full of 100 gold coins. Being a bunch of democratic pirates,
+they agree on the following method to divide the loot:
+The most senior pirate will propose a distribution of the coins. All pirates, including the
+most senior pirate, will then vote. If at least 50% of the pirates (3 pirates in this case)
+accept the proposal, the gold is divided as proposed. If not, the most senior pirate will be
+fed to shark and the process starts over with the next most senior pirate … The process is
+repeated until a plan is approved. You can assume that all pirates are perfectly rational:
+they want to stay alive first and to get as much gold as possible second. Finally, being
+blood-thirsty pirates, they want to have fewer pirates on the boat if given a choice
+between otherwise equal outcomes.
+How will the gold coins be divided in the end?</p>
+<details><summary>Raw markdown source</summary>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># Screwy pirates
+
+**Source:** A Practical Guide to Quantitative Finance Interviews (Zhou)
+**Chapter:** Ch 2
+**Section:** 2.0
+
+Five pirates looted a chest full of 100 gold coins. Being a bunch of democratic pirates,
+they agree on the following method to divide the loot:
+The most senior pirate will propose a distribution of the coins. All pirates, including the
+most senior pirate, will then vote. If at least 50% of the pirates (3 pirates in this case)
+accept the proposal, the gold is divided as proposed. If not, the most senior pirate will be
+fed to shark and the process starts over with the next most senior pirate ... The process is
+repeated until a plan is approved. You can assume that all pirates are perfectly rational:
+they want to stay alive first and to get as much gold as possible second. Finally, being
+blood-thirsty pirates, they want to have fewer pirates on the boat if given a choice
+between otherwise equal outcomes.
+How will the gold coins be divided in the end?
+
+</pre></div>
+</div>
+</details>
+<blockquote>
+<div><p><strong>Reference answer:</strong> Pirates 1 and 3 get 1 coin each; pirate 5 keeps 98 coins</p>
+</div></blockquote>
+<h3 class="rubric" id="q033-coin-toss-game">q033: Coin toss game</h3>
+<p><strong>Source:</strong> A Practical Guide to Quantitative Finance Interviews (Zhou) | <strong>Chapter:</strong> Ch 4 | <strong>Difficulty:</strong> nan</p>
+<h1 class="rubric" id="coin-toss-game">Coin toss game</h1>
+<p><strong>Source:</strong> A Practical Guide to Quantitative Finance Interviews (Zhou)
+<strong>Chapter:</strong> Ch 4
+<strong>Section:</strong> 4.0</p>
+<p>Two gamblers are playing a coin toss game. Gambler A has (n + 1) fair coins; B has n
+fair coins. What is the probability that A will have more heads than B if both flip all their
+coins?2</p>
+<details><summary>Raw markdown source</summary>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># Coin toss game
+
+**Source:** A Practical Guide to Quantitative Finance Interviews (Zhou)
+**Chapter:** Ch 4
+**Section:** 4.0
+
+Two gamblers are playing a coin toss game. Gambler A has (n + 1) fair coins; B has n
+fair coins. What is the probability that A will have more heads than B if both flip all their
+coins?2
+
+</pre></div>
+</div>
+</details>
+<blockquote>
+<div><p><strong>Reference answer:</strong> P(A gets more heads than B) = 1/2 by symmetry</p>
+</div></blockquote>
+<h3 class="rubric" id="q039-put-call-parity">q039: Put-Call Parity</h3>
+<p><strong>Source:</strong> A Practical Guide to Quantitative Finance Interviews (Zhou) | <strong>Chapter:</strong> Ch 6 | <strong>Difficulty:</strong> nan</p>
+<h1 class="rubric" id="put-call-parity">Put-Call Parity</h1>
+<p><strong>Source:</strong> A Practical Guide to Quantitative Finance Interviews (Zhou)
+<strong>Chapter:</strong> Ch 6
+<strong>Section:</strong> 6.0</p>
+<p>Put-call parity: c + K-rr = p + S - D, where the European call option and the European
+put option have the same underlying security, the same maturity T and the same strike
+price K. Since p 2:: 0, we can also derive boundaries for c, S - D - Ke-rr c S, from
+the put-call parity.
+For American options, the equality no longer holds and it becomes two inequalities:
+S-D-K:::; S-K-rr.
+Can you write down the put-call parity for European options on non-dividend paying
+stocks and prove it?
+138
+—PAGE_BREAK—
+A Practical Guide To Quantitative Finance Interviews</p>
+<details><summary>Raw markdown source</summary>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># Put-Call Parity
+
+**Source:** A Practical Guide to Quantitative Finance Interviews (Zhou)
+**Chapter:** Ch 6
+**Section:** 6.0
+
+Put-call parity: c + K-rr = p + S - D, where the European call option and the European
+put option have the same underlying security, the same maturity T and the same strike
+price K. Since p 2:: 0, we can also derive boundaries for c, S - D - Ke-rr c S, from
+the put-call parity.
+For American options, the equality no longer holds and it becomes two inequalities:
+S-D-K:::; S-K-rr.
+Can you write down the put-call parity for European options on non-dividend paying
+stocks and prove it?
+138
+---PAGE_BREAK---
+A Practical Guide To Quantitative Finance Interviews
+
+</pre></div>
+</div>
+</details>
+<blockquote>
+<div><p><strong>Reference answer:</strong> c + Ke^(-rT) = p + S for European options on non-dividend-paying stocks</p>
+</div></blockquote>
+<h3 class="rubric" id="q060-hots-q4-2">q060: HOTS Q4.2</h3>
+<p><strong>Source:</strong> Heard on the Street (Crack) | <strong>Chapter:</strong> Ch 4: Statistics Questions | <strong>Difficulty:</strong> *</p>
+<h1 class="rubric" id="hots-q4-2">HOTS Q4.2</h1>
+<p><strong>Source:</strong> Heard on the Street (Crack)
+<strong>Chapter:</strong> Ch 4: Statistics Questions
+<strong>Difficulty:</strong> *</p>
+<p>Consider the following game. The player tosses a die once only. The payoff is $1 for each “dot” on the upturned face. Assuming a fair die, at what level should you set the ticket price for this game?</p>
+<details><summary>Raw markdown source</summary>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># HOTS Q4.2
+
+**Source:** Heard on the Street (Crack)
+**Chapter:** Ch 4: Statistics Questions
+**Difficulty:** *
+
+Consider the following game. The player tosses a die once only. The payoff is $1 for each “dot” on the upturned face. Assuming a fair die, at what level should you set the ticket price for this game?
+
+</pre></div>
+</div>
+</details>
+<blockquote>
+<div><p><strong>Reference answer:</strong> Expected payoff = $3.50; charge $3.50 plus a profit margin</p>
+</div></blockquote>
+</div>
+</div>
+</section>
+<section id="sample-visual-questions">
+<h2>Sample Visual Questions<a class="headerlink" href="#sample-visual-questions" title="Link to this heading">#</a></h2>
+<p>Visual questions include one or more PNG figures scanned from the source textbooks.
+Below are a few examples showing the question text alongside the associated images.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">display_visual_question</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">question_dir</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Display a visual question with its associated images.&quot;&quot;&quot;</span>
+    <span class="n">display_question</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">question_dir</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">notna</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;images&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span> <span class="ow">and</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;images&quot;</span><span class="p">]:</span>
+        <span class="n">image_files</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;images&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">img_file</span> <span class="ow">in</span> <span class="n">image_files</span><span class="p">:</span>
+            <span class="n">img_path</span> <span class="o">=</span> <span class="n">question_dir</span> <span class="o">/</span> <span class="n">img_file</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">img_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+                <span class="n">display</span><span class="p">(</span><span class="n">Markdown</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;**Figure:** `</span><span class="si">{</span><span class="n">img_file</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="s2">`&quot;</span><span class="p">))</span>
+                <span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">img_path</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sample_visual_ids</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;q001&quot;</span><span class="p">,</span> <span class="s2">&quot;q004&quot;</span><span class="p">,</span> <span class="s2">&quot;q007&quot;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">visual_manifest</span><span class="p">[</span><span class="n">visual_manifest</span><span class="p">[</span><span class="s2">&quot;question_id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">sample_visual_ids</span><span class="p">)]</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">display_visual_question</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">VISUAL_DIR</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<h3 class="rubric" id="q001-defective-ball">q001: Defective ball</h3>
+<p><strong>Source:</strong> A Practical Guide to Quantitative Finance Interviews (Zhou) | <strong>Chapter:</strong> Ch 2 | <strong>Difficulty:</strong> nan</p>
+<h1 class="rubric" id="defective-ball">Defective ball</h1>
+<p><strong>Source:</strong> A Practical Guide to Quantitative Finance Interviews (Zhou)
+<strong>Chapter:</strong> Ch 2
+<strong>Section:</strong> 2.0</p>
+<p>You have 12 identical balls. One of the balls is heavier OR lighter than the rest (you
+don’t know which). Using just a balance that can only show you which side of the tray is
+heavier, how can you determine which ball is the defective one with 3 measurements?3</p>
+<details><summary>Raw markdown source</summary>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># Defective ball
+
+**Source:** A Practical Guide to Quantitative Finance Interviews (Zhou)
+**Chapter:** Ch 2
+**Section:** 2.0
+
+You have 12 identical balls. One of the balls is heavier OR lighter than the rest (you
+don&#39;t know which). Using just a balance that can only show you which side of the tray is
+heavier, how can you determine which ball is the defective one with 3 measurements?3
+
+</pre></div>
+</div>
+</details>
+<blockquote>
+<div><p><strong>Reference answer:</strong> Divide 12 balls into 3 groups of 4; systematic weighing tree identifies defective ball in 3 measurements</p>
+</div></blockquote>
+<p><strong>Figure:</strong> <code class="docutils literal notranslate"><span class="pre">q001-img01.png</span></code></p>
+<a class="reference internal image-reference" href="../_images/6edfd770deda705bb69ddd6d194c5f37c53059a9e20749e760e496dfcdc1667e.png"><img alt="../_images/6edfd770deda705bb69ddd6d194c5f37c53059a9e20749e760e496dfcdc1667e.png" src="../_images/6edfd770deda705bb69ddd6d194c5f37c53059a9e20749e760e496dfcdc1667e.png" style="width: 600px;" /></a>
+<h3 class="rubric" id="q004-race-track">q004: Race track</h3>
+<p><strong>Source:</strong> A Practical Guide to Quantitative Finance Interviews (Zhou) | <strong>Chapter:</strong> Ch 2 | <strong>Difficulty:</strong> nan</p>
+<h1 class="rubric" id="race-track">Race track</h1>
+<p><strong>Source:</strong> A Practical Guide to Quantitative Finance Interviews (Zhou)
+<strong>Chapter:</strong> Ch 2
+<strong>Section:</strong> 2.0</p>
+<p>Suppose that you are on a one-way circular race track. There are N gas cans randomly
+placed on different locations of the track and the total sum of the gas in these cans is
+enough for your car to run exactly one circle. Assume that your car has no gas in the gas
+tank initially, but you can put your car at any location on the track and you can pick up
+the gas cans along the way to fill in your gas tank. Can you choose a starting
+position on the track so that your car can complete the entire circle?1
+18 Hint: Start with N = l, 2 and solve the problem using induction.
+29
+—PAGE_BREAK—
+Brain Teasers</p>
+<details><summary>Raw markdown source</summary>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># Race track
+
+**Source:** A Practical Guide to Quantitative Finance Interviews (Zhou)
+**Chapter:** Ch 2
+**Section:** 2.0
+
+Suppose that you are on a one-way circular race track. There are N gas cans randomly
+placed on different locations of the track and the total sum of the gas in these cans is
+enough for your car to run exactly one circle. Assume that your car has no gas in the gas
+tank initially, but you can put your car at any location on the track and you can pick up
+the gas cans along the way to fill in your gas tank. Can you choose a starting
+position on the track so that your car can complete the entire circle?1
+18 Hint: Start with N = l, 2 and solve the problem using induction.
+29
+---PAGE_BREAK---
+Brain Teasers
+
+</pre></div>
+</div>
+</details>
+<blockquote>
+<div><p><strong>Reference answer:</strong> Yes, there always exists a starting position to complete the circle (proven by induction)</p>
+</div></blockquote>
+<p><strong>Figure:</strong> <code class="docutils literal notranslate"><span class="pre">q004-img01.png</span></code></p>
+<a class="reference internal image-reference" href="../_images/b61abbb20af883d129988023830da81fffe5e20012b88ecc8c55a8e6fcd19bb1.png"><img alt="../_images/b61abbb20af883d129988023830da81fffe5e20012b88ecc8c55a8e6fcd19bb1.png" src="../_images/b61abbb20af883d129988023830da81fffe5e20012b88ecc8c55a8e6fcd19bb1.png" style="width: 600px;" /></a>
+<p><strong>Figure:</strong> <code class="docutils literal notranslate"><span class="pre">q004-img02.png</span></code></p>
+<a class="reference internal image-reference" href="../_images/2dbd7a4ec95541c05561da51919e47a18a9668e526c94c1954c5a6e75e1ed553.png"><img alt="../_images/2dbd7a4ec95541c05561da51919e47a18a9668e526c94c1954c5a6e75e1ed553.png" src="../_images/2dbd7a4ec95541c05561da51919e47a18a9668e526c94c1954c5a6e75e1ed553.png" style="width: 600px;" /></a>
+<h3 class="rubric" id="q007-hots-q1-6">q007: HOTS Q1.6</h3>
+<p><strong>Source:</strong> Heard on the Street (Crack) | <strong>Chapter:</strong> Ch 1: Purely Quantitative &amp; Logic Questions | <strong>Difficulty:</strong> *</p>
+<h1 class="rubric" id="hots-q1-6">HOTS Q1.6</h1>
+<p><strong>Source:</strong> Heard on the Street (Crack)
+<strong>Chapter:</strong> Ch 1: Purely Quantitative &amp; Logic Questions
+<strong>Difficulty:</strong> *</p>
+<p>Suppose I inscribe a circle within a square so that the circle just touches the four sides of the square. Suppose there is exactly enough room to fit a rectangle of dimensions 5 x 10 into one corner of the square so that the rectangle just touches the circle. See Figure 1.1. What is the side length of the square? 10 Figure 1.1: The Inscribed Circle Problem Note: A circle is inscribed within a square. A rectangle of dimen- sions 5 x 10 just fits in one corner. What is the side length S$ of the square?</p>
+<details><summary>Raw markdown source</summary>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># HOTS Q1.6
+
+**Source:** Heard on the Street (Crack)
+**Chapter:** Ch 1: Purely Quantitative &amp; Logic Questions
+**Difficulty:** *
+
+Suppose I inscribe a circle within a square so that the circle just touches the four sides of the square. Suppose there is exactly enough room to fit a rectangle of dimensions 5 x 10 into one corner of the square so that the rectangle just touches the circle. See Figure 1.1. What is the side length of the square? 10 Figure 1.1: The Inscribed Circle Problem Note: A circle is inscribed within a square. A rectangle of dimen- sions 5 x 10 just fits in one corner. What is the side length S$ of the square?
+
+</pre></div>
+</div>
+</details>
+<blockquote>
+<div><p><strong>Reference answer:</strong> 50</p>
+</div></blockquote>
+<p><strong>Figure:</strong> <code class="docutils literal notranslate"><span class="pre">q007-img01.png</span></code></p>
+<a class="reference internal image-reference" href="../_images/cf54ba0cf44be58ee9394e46d26d5eabf45aaed59b8471e5c7722cb6730c5b73.png"><img alt="../_images/cf54ba0cf44be58ee9394e46d26d5eabf45aaed59b8471e5c7722cb6730c5b73.png" src="../_images/cf54ba0cf44be58ee9394e46d26d5eabf45aaed59b8471e5c7722cb6730c5b73.png" style="width: 600px;" /></a>
+<p><strong>Figure:</strong> <code class="docutils literal notranslate"><span class="pre">q007-img02.png</span></code></p>
+<a class="reference internal image-reference" href="../_images/d30455b11e9bb3e3186decbe43651c189ea6e41b8fca511e748807f16bac2888.png"><img alt="../_images/d30455b11e9bb3e3186decbe43651c189ea6e41b8fca511e748807f16bac2888.png" src="../_images/d30455b11e9bb3e3186decbe43651c189ea6e41b8fca511e748807f16bac2888.png" style="width: 600px;" /></a>
+</div>
+</div>
+</section>
+<section id="answer-format">
+<h2>Answer Format<a class="headerlink" href="#answer-format" title="Link to this heading">#</a></h2>
+<p>Reference answers range from short numeric values to multi-sentence explanations.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">all_questions</span><span class="p">[</span><span class="s2">&quot;answer_length&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">all_questions</span><span class="p">[</span><span class="s2">&quot;answer&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">all_questions</span><span class="p">[</span><span class="s2">&quot;answer_length&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>count     91.000000
+mean      72.791209
+std       30.723323
+min        2.000000
+25%       56.000000
+50%       70.000000
+75%       95.000000
+max      142.000000
+Name: answer_length, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Markdown</span><span class="p">(</span><span class="s2">&quot;### Shortest Answers&quot;</span><span class="p">))</span>
+<span class="n">display</span><span class="p">(</span>
+    <span class="n">all_questions</span><span class="o">.</span><span class="n">nsmallest</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s2">&quot;answer_length&quot;</span><span class="p">)[[</span><span class="s2">&quot;question_id&quot;</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;answer&quot;</span><span class="p">]]</span>
+    <span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">Markdown</span><span class="p">(</span><span class="s2">&quot;### Longest Answers&quot;</span><span class="p">))</span>
+<span class="n">display</span><span class="p">(</span>
+    <span class="n">all_questions</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s2">&quot;answer_length&quot;</span><span class="p">)[[</span><span class="s2">&quot;question_id&quot;</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;answer&quot;</span><span class="p">]]</span>
+    <span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<h3 class="rubric" id="shortest-answers">Shortest Answers</h3>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>question_id</th>
+      <th>title</th>
+      <th>answer</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>q007</td>
+      <td>HOTS Q1.6</td>
+      <td>50</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>q008</td>
+      <td>Horse race</td>
+      <td>7 races</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>q009</td>
+      <td>Infinite sequence</td>
+      <td>sqrt(2)</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>q003</td>
+      <td>River crossing</td>
+      <td>17 minutes</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>q006</td>
+      <td>Burning ropes</td>
+      <td>45 minutes</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><h3 class="rubric" id="longest-answers">Longest Answers</h3>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>question_id</th>
+      <th>title</th>
+      <th>answer</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>q002</td>
+      <td>Box packing</td>
+      <td>No, 53 bricks of size 1x1x4 cannot fill a 6x6x...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>q015</td>
+      <td>HOTS Q2.2</td>
+      <td>American call on non-dividend stock equals Eur...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>q005</td>
+      <td>Gambler's ruin</td>
+      <td>Gambler's ruin: probability M wins depends on ...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>q015</td>
+      <td>Quant salary</td>
+      <td>Each person adds a random number to their sala...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>q021</td>
+      <td>Counterfeit coins I</td>
+      <td>Take 1 coin from bag 1, 2 from bag 2, ..., 10 ...</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+
+<div class="section ablog__blog_comments">
+   
+</div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../HW3.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Homework 3: Benchmarking &amp; RAG</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="02_analyze_results.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">02. LLM Benchmark Analysis</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#question-distribution">Question Distribution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#full-question-index">Full Question Index</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-text-only-questions">Sample Text-Only Questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-visual-questions">Sample Visual Questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#answer-format">Answer Format</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jeremiah Bejarano
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, Jeremiah Bejarano.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

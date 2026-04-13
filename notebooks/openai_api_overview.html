@@ -202,8 +202,19 @@
 <li class="toctree-l2"><a class="reference internal" href="../discussions/review_w03.html">Study Questions</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_04.html">Discussion 4: Benchmarking and LLM Tool Use</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/reasoning_acting_tools.html">From Chain-Of-Thought To Tool Use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="benchmarking_llms.html">Benchmarking LLMs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/rag.html">Retrieval-Augmented Generation (RAG)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01_filing_search_ipynb.html">01. Semantic Search of SEC Filings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02_rag_benchmark_ipynb.html">02. RAG Benchmark: Can Retrieved Context Fix a Weak Model?</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="../subject_to_change_after_this_week.html">WARNING: Notes subject to change after this week</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../discussion_04.html">Discussion 4:</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_05.html">Discussion 5: Agents</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/intro_to_agents.html">Introduction to Agents</a></li>
+</ul>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Homework 📝</span></p>
 <ul class="nav bd-sidenav">
@@ -224,6 +235,12 @@
 <li class="toctree-l2"><a class="reference internal" href="02_embeddings_demos_ipynb.html">Text Embeddings: From Words to Vectors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="03_methodology_ipynb.html">Methodology: From Embeddings to Predictions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="04_results_ipynb.html">Replication Results: Chen, Kelly, and Xiu (2022)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../HW3.html">Homework 3: Benchmarking &amp; RAG</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="01_benchmark_questions.html">01. Benchmark Questions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02_analyze_results.html">02. LLM Benchmark Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_build_agents.html">03. Building Agents: From Simple Prompting to Tool-Using Agents</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../final_project.html">Final Project</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -451,13 +468,24 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#function-calling-tool-use">6. Function Calling / Tool Use</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-this-design">Why this design?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-tool-calling-loop">The tool-calling loop</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-the-model-actually-returns">What the model actually returns</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-simple-tools">6a. Simple Tools</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-finance-tools">6b. Finance Tools</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-by-step-walkthrough">Step-by-step walkthrough</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#full-tool-calling-loop">Full tool-calling loop</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-finance-tools-multi-tool-orchestration">6b. Finance Tools — Multi-Tool Orchestration</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#web-search">7. Web Search</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-openai-web-search-responses-api">7a. OpenAI Web Search (Responses API)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-openrouter-web-search">7b. OpenRouter Web Search</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vision-ocr">8. Vision &amp; OCR</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-describing-a-chart">8a. Describing a Chart</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-extracting-structured-data-from-a-table-image">8b. Extracting Structured Data from a Table Image</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-analyzing-a-chart-with-structured-output">8c. Analyzing a Chart with Structured Output</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
@@ -483,6 +511,7 @@ chat completions API, progressing from basic calls to advanced features.</p>
 <li><p>Structured outputs (JSON mode, JSON schema, Pydantic)</p></li>
 <li><p>Function calling / tool use</p></li>
 <li><p>Web search grounding</p></li>
+<li><p>Vision &amp; OCR</p></li>
 </ol>
 <section id="setup">
 <h2>1. Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
@@ -495,10 +524,12 @@ the same OpenAI-compatible interface.</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">import</span> <span class="nn">io</span>
+<span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">random</span>
 <span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span>
 
@@ -572,12 +603,12 @@ returns a completion with token-usage metadata.</p>
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Assistant:
-An LLM, or Large Language Model, is a type of artificial intelligence that uses deep learning techniques to understand and generate human-like text. It is trained on vast amounts of text data, allowing it to perform various language-related tasks such as translation, summarization, and conversation. Popular examples include OpenAI&#39;s GPT models.
+An LLM, or Large Language Model, is an advanced artificial intelligence system designed to understand, generate, and manipulate human language. It uses deep learning techniques, particularly neural networks, to analyze vast amounts of text data, enabling it to perform tasks such as text generation, translation, and summarization. LLMs are capable of producing coherent and contextually relevant text based on the input they receive.
 
 --- Token Usage ---
 Prompt tokens: 35
-Completion tokens: 65
-Total tokens: 100
+Completion tokens: 80
+Total tokens: 115
 </pre></div>
 </div>
 </div>
@@ -634,23 +665,23 @@ Prompt: What is the difference between stocks and bonds? Answer in 2 sentences.
 --- google/gemini-2.5-flash ---
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Time: 1.01s
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Time: 0.81s
 Response:
-Stocks represent ownership in a company and offer potential for higher returns but also higher risk, while bonds are loans made to a company or government, offering lower but more stable returns with lower risk. Stocks give you a claim on the company&#39;s assets and earnings, whereas bonds give you a fixed income stream and the return of your principal at maturity.
+Stocks represent ownership in a company, offering potential growth and dividends, but higher risk. Bonds are essentially loans to a company or government, offering fixed interest payments and generally lower risk.
 
 --- anthropic/claude-3.5-haiku ---
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Time: 2.49s
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Time: 1.61s
 Response:
-Stocks represent ownership in a company, giving shareholders potential dividends and capital appreciation, but also carrying higher risk and volatility. Bonds are debt instruments where investors lend money to a company or government in exchange for regular interest payments and the return of the principal at maturity, typically offering lower returns but more stability compared to stocks.
+Stocks represent ownership in a company and offer potential for capital appreciation and dividends, but also carry higher risk. Bonds are essentially loans to a company or government, providing fixed interest payments and generally considered lower-risk investments with more predictable returns.
 
 --- openai/gpt-4o-mini ---
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Time: 1.26s
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Time: 1.78s
 Response:
-Stocks represent ownership in a company and give shareholders rights to a portion of the company’s profits, often through dividends. Bonds are debt instruments where investors lend money to an entity in exchange for periodic interest payments and the return of the bond&#39;s face value at maturity.
+Stocks represent ownership in a company and entitle shareholders to a portion of its profits, while bonds are debt instruments where investors lend money to an entity in exchange for periodic interest payments and the return of principal at maturity. Essentially, stocks involve equity investment with potential for growth, whereas bonds are fixed-income securities with predictable returns.
 </pre></div>
 </div>
 </div>
@@ -772,8 +803,8 @@ prompt.</p>
   &quot;sentiment&quot;: &quot;bullish&quot;,
   &quot;key_points&quot;: [
     &quot;Q4 2024 earnings beat analyst expectations.&quot;,
-    &quot;Revenue increased by 6% year-over-year.&quot;,
-    &quot;Strong growth in Services segment and a $110 billion share buyback program.&quot;
+    &quot;Revenue increased 6% YoY, with strong growth in Services at 12%.&quot;,
+    &quot;Company announced a $110 billion share buyback program.&quot;
   ]
 }
 </pre></div>
@@ -857,9 +888,9 @@ names, types, and enum values are enforced.</p>
   &quot;sentiment&quot;: &quot;bullish&quot;,
   &quot;key_points&quot;: [
     &quot;Q4 2024 earnings beat analyst expectations&quot;,
-    &quot;Revenue grew 6% YoY to $94.9 billion&quot;,
-    &quot;Strong 12% YoY growth in the Services segment&quot;,
-    &quot;Announced a $110 billion share buyback program&quot;
+    &quot;Revenue of $94.9 billion, a 6% increase YoY&quot;,
+    &quot;Strong growth in Services segment at 12% YoY&quot;,
+    &quot;Announced a $110 billion share buyback program.&quot;
   ]
 }
 
@@ -869,9 +900,9 @@ Sentiment: bullish
 
 Key Points:
   1. Q4 2024 earnings beat analyst expectations
-  2. Revenue grew 6% YoY to $94.9 billion
-  3. Strong 12% YoY growth in the Services segment
-  4. Announced a $110 billion share buyback program
+  2. Revenue of $94.9 billion, a 6% increase YoY
+  3. Strong growth in Services segment at 12% YoY
+  4. Announced a $110 billion share buyback program.
 </pre></div>
 </div>
 </div>
@@ -987,9 +1018,9 @@ typed object.</p>
   Confidence: 90%
 
 Key Points:
-  1. Q4 2024 earnings exceeded expectations
-  2. Revenue of $94.9 billion with 6% YoY growth
-  3. Strong growth in Services segment at 12%
+  1. Q4 2024 earnings beat analyst expectations
+  2. Revenue at $94.9 billion, up 6% YoY
+  3. Strong growth in Services segment at 12% YoY
   4. $110 billion share buyback program
 
 Risk Factors:
@@ -1004,9 +1035,9 @@ Risk Factors:
   &quot;sentiment&quot;: &quot;bullish&quot;,
   &quot;confidence&quot;: 0.9,
   &quot;key_points&quot;: [
-    &quot;Q4 2024 earnings exceeded expectations&quot;,
-    &quot;Revenue of $94.9 billion with 6% YoY growth&quot;,
-    &quot;Strong growth in Services segment at 12%&quot;,
+    &quot;Q4 2024 earnings beat analyst expectations&quot;,
+    &quot;Revenue at $94.9 billion, up 6% YoY&quot;,
+    &quot;Strong growth in Services segment at 12% YoY&quot;,
     &quot;$110 billion share buyback program&quot;
   ],
   &quot;risk_factors&quot;: [
@@ -1121,9 +1152,9 @@ Data: {
   &quot;sentiment&quot;: &quot;bullish&quot;,
   &quot;key_points&quot;: [
     &quot;Q4 2024 earnings beat analyst expectations&quot;,
-    &quot;Revenue increased by 6% YoY&quot;,
+    &quot;Revenue up 6% YoY at $94.9 billion&quot;,
     &quot;Strong growth in Services segment at 12% YoY&quot;,
-    &quot;$110 billion share buyback program announced&quot;
+    &quot;Announced a $110 billion share buyback program&quot;
   ]
 }
 
@@ -1135,12 +1166,12 @@ Data: {
   &quot;ticker&quot;: &quot;AAPL&quot;,
   &quot;company_name&quot;: &quot;Apple Inc.&quot;,
   &quot;revenue_billions&quot;: 94.9,
-  &quot;sentiment&quot;: &quot;neutral&quot;,
+  &quot;sentiment&quot;: &quot;bullish&quot;,
   &quot;key_points&quot;: [
     &quot;Q4 2024 earnings beat analyst expectations.&quot;,
     &quot;Revenue increased by 6% year-over-year, reaching $94.9 billion.&quot;,
-    &quot;Strong growth in Services segment (12% YoY), with Mac sales exceeding forecasts.&quot;,
-    &quot;Announced a $110 billion share buyback program.&quot;
+    &quot;Services segment demonstrated strong growth of 12% year-over-year.&quot;,
+    &quot;Company announced a $110 billion share buyback program.&quot;
   ]
 }
 
@@ -1158,17 +1189,82 @@ Key takeaways:
 <hr class="docutils" />
 <section id="function-calling-tool-use">
 <h2>6. Function Calling / Tool Use<a class="headerlink" href="#function-calling-tool-use" title="Link to this heading">#</a></h2>
-<p>Function calling lets the model decide <strong>when</strong> to invoke tools you
-define. The flow is a loop:</p>
+<p>So far, the model has only produced text. But what if it needs to
+<strong>do</strong> something — check the time, run a calculation, look up a stock
+price, or query a database? The model can’t do any of these things
+itself. It has no access to the internet, no file system, no
+calculator. It can only read and write text.</p>
+<p><strong>Function calling</strong> (also called “tool use”) solves this by splitting
+the work in two:</p>
+<ul class="simple">
+<li><p><strong>The model</strong> decides <em>what</em> to call and <em>with what arguments</em>.</p></li>
+<li><p><strong>Your code</strong> actually executes the function and returns the result.</p></li>
+</ul>
+<p>The model is the <strong>brain</strong> (it reasons about what information it needs);
+your code is the <strong>hands</strong> (it acts on the world). The API is the
+nervous system connecting them.</p>
+<section id="why-this-design">
+<h3>Why this design?<a class="headerlink" href="#why-this-design" title="Link to this heading">#</a></h3>
+<p>Why doesn’t the model just execute the tools itself on OpenAI’s
+servers? Three reasons:</p>
 <ol class="arabic simple">
-<li><p>Send messages + tool definitions to the model</p></li>
-<li><p>If the model returns <code class="docutils literal notranslate"><span class="pre">tool_calls</span></code>, execute them locally</p></li>
-<li><p>Append the tool results and call the model again</p></li>
-<li><p>Repeat until the model returns a plain text answer</p></li>
+<li><p><strong>Security.</strong> Tools often touch sensitive systems — databases,
+brokerage APIs, credentials. Execution stays in <em>your</em> sandbox,
+so your API keys and data never leave your environment.</p></li>
+<li><p><strong>Control.</strong> You can validate, log, rate-limit, or override any
+tool call before executing it. In finance, where a malformed
+query could be expensive, this is critical.</p></li>
+<li><p><strong>Generality.</strong> OpenAI can’t anticipate every tool you might need.
+By defining a protocol (JSON schema in, JSON result back), <em>any</em>
+local function becomes available without OpenAI needing to host it.</p></li>
 </ol>
+</section>
+<section id="the-tool-calling-loop">
+<h3>The tool-calling loop<a class="headerlink" href="#the-tool-calling-loop" title="Link to this heading">#</a></h3>
+<p>The interaction follows a loop. The model and your code take turns
+until the model has enough information to answer in plain text:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>┌─────────────────────────────────────────────────────────┐
+│                     YOUR CODE                           │
+│                                                         │
+│  1. Send messages + tool definitions ──────────►  API   │
+│                                                         │
+│  2. API returns tool_calls             ◄──────── API    │
+│     (model says: &quot;please call                           │
+│      calculate(&#39;15 * 850 / 100&#39;)&quot;)                      │
+│                                                         │
+│  3. Execute locally, append result ────────────► API    │
+│     (you run the function, send                         │
+│      back &quot;127.5&quot;)                                      │
+│                                                         │
+│  4. Repeat until model returns ────────◄──────── API    │
+│     plain text (no more tool_calls)                     │
+└─────────────────────────────────────────────────────────┘
+</pre></div>
+</div>
+<p>Each round trip adds messages to the conversation: the model’s
+tool-call request (an assistant message) and your tool results (tool
+messages). The model sees the full history each time, so it can
+reason across multiple rounds.</p>
+</section>
+<section id="what-the-model-actually-returns">
+<h3>What the model actually returns<a class="headerlink" href="#what-the-model-actually-returns" title="Link to this heading">#</a></h3>
+<p>When the model wants to use a tool, its response message has:</p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">content</span> <span class="pre">=</span> <span class="pre">None</span></code></strong> — it is <em>not</em> answering the user yet</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">tool_calls</span> <span class="pre">=</span> <span class="pre">[...]</span></code></strong> — a list of function calls it wants you
+to execute, each with a name, JSON arguments, and a unique ID</p></li>
+</ul>
+<p>The arguments are <strong>inert JSON data</strong>, not executable code. This keeps
+the attack surface minimal — your dispatcher maps the JSON to a
+real function call.</p>
+<p>Let’s see this in action.</p>
+</section>
 <section id="a-simple-tools">
 <h3>6a. Simple Tools<a class="headerlink" href="#a-simple-tools" title="Link to this heading">#</a></h3>
-<p>Two basic tools: <code class="docutils literal notranslate"><span class="pre">get_current_time</span></code> and <code class="docutils literal notranslate"><span class="pre">calculate</span></code>.</p>
+<p>We start with two basic tools: <code class="docutils literal notranslate"><span class="pre">get_current_time</span></code> (no arguments) and
+<code class="docutils literal notranslate"><span class="pre">calculate</span></code> (takes a math expression). We define each tool’s schema
+as a JSON object following the OpenAI tool format, then write the
+corresponding Python functions that will actually execute when called.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">SIMPLE_TOOLS</span> <span class="o">=</span> <span class="p">[</span>
@@ -1225,6 +1321,186 @@ define. The flow is a loop:</p>
 </div>
 </div>
 </div>
+</section>
+<section id="step-by-step-walkthrough">
+<h3>Step-by-step walkthrough<a class="headerlink" href="#step-by-step-walkthrough" title="Link to this heading">#</a></h3>
+<p>Before running the full loop, let’s walk through <strong>one round trip</strong>
+manually so we can inspect every object along the way.</p>
+<p><strong>Step 1 — Send the user’s question along with tool definitions.</strong></p>
+<p>We give the model two things: the conversation so far, and a list of
+tools it is allowed to call. The model decides whether to answer
+directly or request one or more tool calls.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">user_question</span> <span class="o">=</span> <span class="s2">&quot;What time is it, and what is 15</span><span class="si">% o</span><span class="s2">f 850?&quot;</span>
+
+<span class="n">messages</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;You are a helpful assistant. Use the available tools to answer questions accurately.&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">user_question</span><span class="p">},</span>
+<span class="p">]</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">,</span>
+    <span class="n">messages</span><span class="o">=</span><span class="n">messages</span><span class="p">,</span>
+    <span class="n">tools</span><span class="o">=</span><span class="n">SIMPLE_TOOLS</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># What did the model send back?</span>
+<span class="n">message</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span>
+<span class="n">message</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ChatCompletionMessage(content=None, refusal=None, role=&#39;assistant&#39;, annotations=[], audio=None, function_call=None, tool_calls=[ChatCompletionMessageFunctionToolCall(id=&#39;call_5u5YO9nhLg2UsqKOyjDf6woC&#39;, function=Function(arguments=&#39;{}&#39;, name=&#39;get_current_time&#39;), type=&#39;function&#39;), ChatCompletionMessageFunctionToolCall(id=&#39;call_EpEEtJ2wYAqEtjjkski1yfLz&#39;, function=Function(arguments=&#39;{&quot;expression&quot;: &quot;850 * 0.15&quot;}&#39;, name=&#39;calculate&#39;), type=&#39;function&#39;)])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Look at two fields on that message:</p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">content</span></code></strong> is <code class="docutils literal notranslate"><span class="pre">None</span></code> — the model did <em>not</em> answer our question.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">tool_calls</span></code></strong> is a list — the model is <strong>asking us to execute
+functions on its behalf</strong>. It cannot run code; it can only say
+“please call this function with these arguments.”</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;content:    </span><span class="si">{</span><span class="n">message</span><span class="o">.</span><span class="n">content</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;tool_calls: </span><span class="si">{</span><span class="n">message</span><span class="o">.</span><span class="n">tool_calls</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>content:    None
+tool_calls: [ChatCompletionMessageFunctionToolCall(id=&#39;call_5u5YO9nhLg2UsqKOyjDf6woC&#39;, function=Function(arguments=&#39;{}&#39;, name=&#39;get_current_time&#39;), type=&#39;function&#39;), ChatCompletionMessageFunctionToolCall(id=&#39;call_EpEEtJ2wYAqEtjjkski1yfLz&#39;, function=Function(arguments=&#39;{&quot;expression&quot;: &quot;850 * 0.15&quot;}&#39;, name=&#39;calculate&#39;), type=&#39;function&#39;)]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s unpack each tool call. Every entry has three fields:</p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">id</span></code></strong> — a unique identifier we’ll use to link the result back</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">function.name</span></code></strong> — which function the model wants called</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">function.arguments</span></code></strong> — a JSON string with the arguments</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Each tool_call has an ID, a function name, and a JSON argument string.</span>
+<span class="k">for</span> <span class="n">tc</span> <span class="ow">in</span> <span class="n">message</span><span class="o">.</span><span class="n">tool_calls</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ID:        </span><span class="si">{</span><span class="n">tc</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Function:  </span><span class="si">{</span><span class="n">tc</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Arguments: </span><span class="si">{</span><span class="n">tc</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="n">arguments</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ID:        call_5u5YO9nhLg2UsqKOyjDf6woC
+Function:  get_current_time
+Arguments: {}
+
+ID:        call_EpEEtJ2wYAqEtjjkski1yfLz
+Function:  calculate
+Arguments: {&quot;expression&quot;: &quot;850 * 0.15&quot;}
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Step 2 — Execute the requested tools and report results back.</strong></p>
+<p>We must:</p>
+<ol class="arabic simple">
+<li><p>Append the assistant’s message (the one containing <code class="docutils literal notranslate"><span class="pre">tool_calls</span></code>)
+to the conversation history.</p></li>
+<li><p>Run each tool locally and append a <code class="docutils literal notranslate"><span class="pre">&quot;role&quot;:</span> <span class="pre">&quot;tool&quot;</span></code> message whose
+<code class="docutils literal notranslate"><span class="pre">tool_call_id</span></code> links it to the original request.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Append the assistant&#39;s tool-calling message</span>
+<span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+
+<span class="c1"># Execute each requested tool and append results</span>
+<span class="k">for</span> <span class="n">tc</span> <span class="ow">in</span> <span class="n">message</span><span class="o">.</span><span class="n">tool_calls</span><span class="p">:</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">tc</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="n">name</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">tc</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="n">arguments</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">execute_simple_tool</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">(</span><span class="si">{</span><span class="n">args</span><span class="si">}</span><span class="s2">) → </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+        <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;tool&quot;</span><span class="p">,</span> <span class="s2">&quot;tool_call_id&quot;</span><span class="p">:</span> <span class="n">tc</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">result</span><span class="p">}</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>get_current_time({}) → 2026-04-12 15:58:20
+calculate({&#39;expression&#39;: &#39;850 * 0.15&#39;}) → 127.5
+</pre></div>
+</div>
+</div>
+</div>
+<p>The conversation now looks like this — we started with 2 messages
+(system + user), and after one round of tool calling we have 2 more
+(the assistant’s tool request + our tool results):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">messages</span><span class="p">):</span>
+    <span class="n">role</span> <span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;role&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="k">else</span> <span class="n">m</span><span class="o">.</span><span class="n">role</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;content&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">content</span> <span class="ow">or</span> <span class="s2">&quot;(tool_calls — see above)&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">role</span><span class="si">:</span><span class="s2">10s</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">content</span><span class="p">[:</span><span class="mi">80</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0] system     You are a helpful assistant. Use the available tools to answer questions accurat
+[1] user       What time is it, and what is 15% of 850?
+[2] assistant  (tool_calls — see above)
+[3] tool       2026-04-12 15:58:20
+[4] tool       127.5
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Step 3 — Send the updated conversation back to the model.</strong></p>
+<p>The model now sees the tool outputs and can compose a final answer.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">response2</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">,</span>
+    <span class="n">messages</span><span class="o">=</span><span class="n">messages</span><span class="p">,</span>
+    <span class="n">tools</span><span class="o">=</span><span class="n">SIMPLE_TOOLS</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">message2</span> <span class="o">=</span> <span class="n">response2</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;tool_calls: </span><span class="si">{</span><span class="n">message2</span><span class="o">.</span><span class="n">tool_calls</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;content:    </span><span class="si">{</span><span class="n">message2</span><span class="o">.</span><span class="n">content</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tool_calls: None
+content:    The current time is 15:58:20, and 15% of 850 is 127.5.
+</pre></div>
+</div>
+</div>
+</div>
+<p>This time <code class="docutils literal notranslate"><span class="pre">tool_calls</span></code> is <code class="docutils literal notranslate"><span class="pre">None</span></code> and <code class="docutils literal notranslate"><span class="pre">content</span></code> has the answer. The
+model used both tool results to write a human-readable response.</p>
+<p><strong>Why a loop?</strong> The model might need <em>multiple</em> rounds of tool calls
+before it has enough information. For instance, a tool result might
+prompt the model to call <em>another</em> tool. The loop keeps going until the
+model returns <code class="docutils literal notranslate"><span class="pre">content</span></code> instead of <code class="docutils literal notranslate"><span class="pre">tool_calls</span></code> (or we hit a safety
+limit on iterations).</p>
+</section>
+<section id="full-tool-calling-loop">
+<h3>Full tool-calling loop<a class="headerlink" href="#full-tool-calling-loop" title="Link to this heading">#</a></h3>
+<p>Here is the same logic packaged as a reusable loop:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">user_question</span> <span class="o">=</span> <span class="s2">&quot;What time is it, and what is 15</span><span class="si">% o</span><span class="s2">f 850?&quot;</span>
@@ -1276,22 +1552,91 @@ define. The flow is a loop:</p>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tool calls requested:
   - get_current_time({})
-    Result: 2026-04-06 01:34:11
+    Result: 2026-04-12 15:58:24
   - calculate({&#39;expression&#39;: &#39;850 * 0.15&#39;})
     Result: 127.5
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Assistant: The current time is 01:34:11, and 15% of 850 is 127.5.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Assistant: The current time is 15:58:24, and 15% of 850 is 127.5.
 </pre></div>
 </div>
 </div>
 </div>
 </section>
-<section id="b-finance-tools">
-<h3>6b. Finance Tools<a class="headerlink" href="#b-finance-tools" title="Link to this heading">#</a></h3>
-<p>A more realistic example with simulated stock data. The model must
-call multiple tools (get prices, info, calculate returns) to answer
-a comparative question.</p>
+<section id="b-finance-tools-multi-tool-orchestration">
+<h3>6b. Finance Tools — Multi-Tool Orchestration<a class="headerlink" href="#b-finance-tools-multi-tool-orchestration" title="Link to this heading">#</a></h3>
+<p>The simple example above used one or two tools in a single round.
+In practice, financial analysis often requires <strong>chaining</strong> several
+data lookups and computations to answer a single question. This is
+where tool use becomes powerful: the model acts as an <strong>orchestrator</strong>
+that breaks a complex question into a sequence of tool calls.</p>
+<p>Consider the question: <em>“Compare AAPL and NVDA — which has a better
+P/E ratio? Also, if I bought AAPL at $150, what’s my return?”</em></p>
+<p>To answer, the model needs to:</p>
+<ol class="arabic simple">
+<li><p>Look up stock info for both AAPL and NVDA (to get P/E ratios)</p></li>
+<li><p>Look up the current price of AAPL (to compute a return)</p></li>
+<li><p>Calculate the percentage return from $150 to the current price</p></li>
+<li><p>Compose a response using all three results</p></li>
+</ol>
+<p>No single tool can answer this. The model must decide which tools to
+call, in what order, and how to combine the results — exactly the
+kind of multi-step reasoning that makes tool use different from a
+simple API wrapper.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> User: &quot;Compare AAPL and NVDA P/E; also my AAPL return from $150&quot;
+   │
+   ▼
+ ┌──────────────────────────────────────────────────────┐
+ │  Model (iteration 1):                                │
+ │    tool_calls:                                       │
+ │      get_stock_info(&quot;AAPL&quot;)                          │
+ │      get_stock_info(&quot;NVDA&quot;)                          │
+ │      get_stock_price(&quot;AAPL&quot;)                         │
+ └──────────────────────────────────────────────────────┘
+   │ execute all three locally, return results
+   ▼
+ ┌──────────────────────────────────────────────────────┐
+ │  Model (iteration 2):                                │
+ │    tool_calls:                                       │
+ │      calculate_return(start=150, end=178.50)         │
+ └──────────────────────────────────────────────────────┘
+   │ execute, return result
+   ▼
+ ┌──────────────────────────────────────────────────────┐
+ │  Model (iteration 3):                                │
+ │    content: &quot;AAPL has a P/E of 28.5 vs NVDA&#39;s 65.8, │
+ │    so AAPL is cheaper by this metric. Your return    │
+ │    from $150 is +19.0%.&quot;                             │
+ └──────────────────────────────────────────────────────┘
+</pre></div>
+</div>
+<p>We simulate this with three tools backed by a local dictionary of
+stock data. In production you would swap in real API calls (e.g.,
+<code class="docutils literal notranslate"><span class="pre">yfinance</span></code>, Bloomberg, WRDS) — the loop structure stays the same.</p>
+<p><strong>Tools we define:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Tool</p></th>
+<th class="head"><p>Purpose</p></th>
+<th class="head"><p>Arguments</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">get_stock_price</span></code></p></td>
+<td><p>Current price for a ticker</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ticker</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">get_stock_info</span></code></p></td>
+<td><p>Company name, P/E, market cap</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ticker</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">calculate_return</span></code></p></td>
+<td><p>Percentage return between two prices</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">start_price</span></code>, <code class="docutils literal notranslate"><span class="pre">end_price</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">FINANCE_TOOLS</span> <span class="o">=</span> <span class="p">[</span>
@@ -1390,6 +1735,9 @@ a comparative question.</p>
 </div>
 </div>
 </div>
+<p>Now we run the same loop from Section 6a, but with the finance tools.
+Watch the output: the model will make multiple rounds of tool calls,
+gathering data before composing its final answer.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">user_question</span> <span class="o">=</span> <span class="p">(</span>
@@ -1458,21 +1806,15 @@ a comparative question.</p>
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Assistant:
-Here are the comparisons and calculations for AAPL and NVDA:
+Here&#39;s the comparison between AAPL and NVDA regarding their P/E ratios:
 
-- **P/E Ratios**:
-  - **AAPL (Apple Inc.)**: P/E Ratio = 28.5
-  - **NVDA (NVIDIA Corp.)**: P/E Ratio = 65.8
+- **Apple Inc. (AAPL)**: P/E ratio of **28.5**
+- **NVIDIA Corp. (NVDA)**: P/E ratio of **65.8**
 
-AAPL has a better (lower) P/E ratio compared to NVDA, which may indicate it is more reasonably priced relative to its earnings.
+**Conclusion**: AAPL has a better (lower) P/E ratio, which can indicate that it may be undervalued compared to NVDA.
 
-- **Stock Price**:
-  - Current price of AAPL: $179.5
-
-- **Return Calculation**:
-  If you bought AAPL at $150 and it is now priced at $179.5, your return would be approximately **19.67%**.
-
-If you have any further questions or need additional information, feel free to ask!
+Regarding your investment in AAPL:
+- If you bought AAPL at **$150** and the current price is **$179.5**, your return is approximately **19.67%**.
 </pre></div>
 </div>
 </div>
@@ -1523,13 +1865,15 @@ Searching the web and generating response...
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Answer:
-As of April 6, 2026, the Federal Reserve&#39;s target federal funds rate remains between 3.50% and 3.75%, a range it has maintained since December 2025. ([schwab.com](https://www.schwab.com/learn/story/fomc-meeting?utm_source=openai))
+As of April 12, 2026, the Federal Reserve&#39;s target federal funds rate remains at 3.50% to 3.75%, a level it has maintained since December 2024. ([mexc.com](https://www.mexc.com/news/982205?utm_source=openai))
 
-Market expectations for the upcoming Federal Open Market Committee (FOMC) meeting on April 28-29, 2026, indicate a strong consensus that the Fed will keep rates unchanged. The CME FedWatch Tool, which analyzes federal funds futures contracts, shows a 94.8% probability of no rate change at this meeting. ([mexc.com](https://www.mexc.com/news/982205?utm_source=openai))
+The Federal Open Market Committee (FOMC) is scheduled to meet on April 28–29, 2026. ([federalreserve.gov](https://www.federalreserve.gov/monetarypolicy/fomcminutes20260318.htm?utm_source=openai)) Market expectations indicate a high probability that the Fed will keep interest rates unchanged during this meeting. The CME FedWatch Tool, which analyzes federal funds futures contracts, shows a 94.8% chance of a rate hold. ([mexc.com](https://www.mexc.com/news/982205?utm_source=openai)) Similarly, prediction markets like Kalshi and Polymarket also favor a rate hold, with odds near 95%. ([kucoin.com](https://www.kucoin.com/news/flash/markets-predict-fed-will-hold-rates-steady-in-april-2026-meeting?utm_source=openai))
 
-Looking ahead, the Federal Reserve&#39;s &quot;dot plot&quot; projections suggest a single rate cut in 2026, with the federal funds rate expected to remain between 3.25% and 3.75% through the end of the year. ([advisorperspectives.com](https://www.advisorperspectives.com/dshort/updates/2026/03/19/feds-interest-rate-decision-march-18-2026?utm_source=openai))
+These expectations are influenced by recent economic data, including a 4.1% year-over-year increase in consumer prices as of March 2026, driven largely by new import tariffs. ([altitudesmagazine.com](https://www.altitudesmagazine.com/fed-pauses-rate-cuts-after-new-tariffs-push-consumer-prices-highest/?utm_source=openai)) Additionally, the FOMC&#39;s March 2026 meeting minutes revealed that some officials are open to the possibility of raising interest rates due to persistent inflation, exacerbated by the ongoing Iran war. ([axios.com](https://www.axios.com/2026/04/08/fed-interest-rates-fomc-march?utm_source=openai))
 
-In summary, the Federal Reserve&#39;s current interest rate target is 3.50% to 3.75%, and market expectations indicate that this rate will remain unchanged at the upcoming April 2026 meeting. 
+
+## Highlights:
+- [Fed minutes show willingness to consider interest rate increases](https://www.axios.com/2026/04/08/fed-interest-rates-fomc-march?utm_source=openai), Published on Wednesday, April 08 
 
 --- Search Details ---
 Query: N/A
@@ -1580,13 +1924,381 @@ Searching the web and generating response...
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Answer:
-The current Federal Reserve interest rate target is in the range of 3.5%–3.75%. This rate was maintained during the March 2026 Federal Open Market Committee (FOMC) meeting and is expected to remain stable through the upcoming quarter, according to market forecasts [Trading Economics](https://tradingeconomics.com/united-states/interest-rate).
+As of the latest information from March 2026, the Federal Reserve&#39;s target interest rate is set in a range between **3.50% and 3.75%**. The Federal Open Market Committee (FOMC) voted 11-1 to maintain this rate during their recent meeting, acknowledging ongoing challenges such as higher-than-expected inflation and geopolitical uncertainties, particularly due to conflict in the Middle East, which is impacting oil prices and economic projections.
 
-In terms of expectations for the next Fed meeting, the Fed has indicated a projected plan to implement one rate cut later this year, with another potential cut anticipated in 2027. However, the exact timing for these reductions remains unclear due to ongoing economic uncertainties, including inflation rates and geopolitical tensions such as the war in the Middle East [Bloomberg](https://www.bloomberg.com/news/articles/2026-03-18/fed-holds-rates-steady-still-projects-one-rate-cut-in-2026) and [CNBC](https://www.cnbc.com/2026/03/18/fed-interest-rate-decision-march-2026.html). 
-
-Investors are closely watching the economic indicators and the Fed&#39;s response to inflation, which is currently projected to be slightly higher than previously anticipated [Fidelity](https://www.fidelity.com/learning-center/trading-investing/the-fed-meeting).
+Market expectations indicate an expectation for **one rate cut** later in 2026. Analysts project that the rate might be lowered by **0.25 percentage points** before the end of the year, but the timing remains uncertain as economic conditions evolve. Market participants are cautious and are closely monitoring inflation and employment data prior to the next FOMC meeting, which is scheduled for **April 29, 2026**. These updates will play a significant role in shaping future rate decisions, with no more than one cut anticipated this year by most market observers ([Bloomberg](https://www.bloomberg.com/news/articles/2026-03-18/fed-holds-rates-steady-still-projects-one-rate-cut-in-2026), [J.P. Morgan](https://www.jpmorgan.com/insights/markets-and-economy/economy/march-2026-federal-reserve-holds-interest-rates-steady)).
 
 --- Sources ---
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="vision-ocr">
+<h2>8. Vision &amp; OCR<a class="headerlink" href="#vision-ocr" title="Link to this heading">#</a></h2>
+<p>Vision-capable models can read images: charts, tables, scanned
+documents, screenshots. In finance, this is useful for extracting data
+from earnings PDFs, reading chart patterns, or OCR-ing historical
+records.</p>
+<p>The API accepts images as <strong>base64-encoded data URLs</strong> inside a
+multi-part <code class="docutils literal notranslate"><span class="pre">content</span></code> array (text + image together).</p>
+<section id="a-describing-a-chart">
+<h3>8a. Describing a Chart<a class="headerlink" href="#a-describing-a-chart" title="Link to this heading">#</a></h3>
+<p>We generate a simple stock-price chart with matplotlib, encode it as
+base64, and ask the model to describe what it sees.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Generate a sample stock chart</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">days</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">prices</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">days</span><span class="p">,</span> <span class="n">prices</span><span class="p">,</span> <span class="s2">&quot;b-&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">days</span><span class="p">,</span> <span class="n">prices</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;ACME Corp Stock Price (2024)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Trading Days&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Price ($)&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="n">max_idx</span><span class="p">,</span> <span class="n">min_idx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">prices</span><span class="p">)),</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">prices</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;High: $</span><span class="si">{</span><span class="n">prices</span><span class="p">[</span><span class="n">max_idx</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">max_idx</span><span class="p">,</span> <span class="n">prices</span><span class="p">[</span><span class="n">max_idx</span><span class="p">]),</span>
+            <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="n">max_idx</span> <span class="o">+</span> <span class="mi">5</span><span class="p">,</span> <span class="n">prices</span><span class="p">[</span><span class="n">max_idx</span><span class="p">]</span> <span class="o">+</span> <span class="mi">5</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Low: $</span><span class="si">{</span><span class="n">prices</span><span class="p">[</span><span class="n">min_idx</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">min_idx</span><span class="p">,</span> <span class="n">prices</span><span class="p">[</span><span class="n">min_idx</span><span class="p">]),</span>
+            <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="n">min_idx</span> <span class="o">+</span> <span class="mi">5</span><span class="p">,</span> <span class="n">prices</span><span class="p">[</span><span class="n">min_idx</span><span class="p">]</span> <span class="o">-</span> <span class="mi">5</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># Save to bytes and encode as base64</span>
+<span class="n">buf</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;png&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">&quot;tight&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="n">buf</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">chart_b64</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">buf</span><span class="o">.</span><span class="n">read</span><span class="p">())</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Image size: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">chart_b64</span><span class="p">)</span><span class="si">}</span><span class="s2"> chars (base64)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Image size: 47916 chars (base64)
+</pre></div>
+</div>
+</div>
+</div>
+<p>The key part: images go inside the <code class="docutils literal notranslate"><span class="pre">content</span></code> array alongside text.
+Each element has a <code class="docutils literal notranslate"><span class="pre">type</span></code> — either <code class="docutils literal notranslate"><span class="pre">&quot;text&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;image_url&quot;</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">messages</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">&quot;Describe this stock chart. What trends do you see? &quot;</span>
+                    <span class="s2">&quot;Is the stock trending up or down overall?&quot;</span>
+                <span class="p">),</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;image_url&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;image_url&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;data:image/png;base64,</span><span class="si">{</span><span class="n">chart_b64</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">},</span>
+            <span class="p">},</span>
+        <span class="p">],</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">,</span>
+    <span class="n">messages</span><span class="o">=</span><span class="n">messages</span><span class="p">,</span>
+    <span class="n">max_tokens</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The stock chart for ACME Corp shows a general downward trend over the trading days displayed. The stock reached a high of approximately $108.96 at the beginning but has gradually declined, with the price hovering around the $80 range towards the end of the chart. 
+
+Key observations include:
+
+- Initially, there was some fluctuation before the price began to decrease steadily.
+- The lowest point reached is approximately $75.51.
+- Overall, the trend indicates a bearish sentiment, as prices have moved down from the peak.
+
+In summary, the stock is trending downward overall.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="b-extracting-structured-data-from-a-table-image">
+<h3>8b. Extracting Structured Data from a Table Image<a class="headerlink" href="#b-extracting-structured-data-from-a-table-image" title="Link to this heading">#</a></h3>
+<p>This combines <strong>vision</strong> with <strong>structured outputs</strong> (Section 5). We
+render a financial table as an image, then ask the model to extract
+typed data — demonstrating OCR that goes straight to a Pydantic object.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Generate a table image</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Company&quot;</span><span class="p">,</span> <span class="s2">&quot;Ticker&quot;</span><span class="p">,</span> <span class="s2">&quot;Revenue ($B)&quot;</span><span class="p">,</span> <span class="s2">&quot;YoY Growth&quot;</span><span class="p">,</span> <span class="s2">&quot;P/E Ratio&quot;</span><span class="p">]</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">[</span><span class="s2">&quot;Apple Inc.&quot;</span><span class="p">,</span> <span class="s2">&quot;AAPL&quot;</span><span class="p">,</span> <span class="s2">&quot;383.3&quot;</span><span class="p">,</span> <span class="s2">&quot;+2.8%&quot;</span><span class="p">,</span> <span class="s2">&quot;28.5&quot;</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;Microsoft&quot;</span><span class="p">,</span> <span class="s2">&quot;MSFT&quot;</span><span class="p">,</span> <span class="s2">&quot;211.9&quot;</span><span class="p">,</span> <span class="s2">&quot;+15.6%&quot;</span><span class="p">,</span> <span class="s2">&quot;35.2&quot;</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;Alphabet&quot;</span><span class="p">,</span> <span class="s2">&quot;GOOGL&quot;</span><span class="p">,</span> <span class="s2">&quot;307.4&quot;</span><span class="p">,</span> <span class="s2">&quot;+8.7%&quot;</span><span class="p">,</span> <span class="s2">&quot;24.1&quot;</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;Amazon&quot;</span><span class="p">,</span> <span class="s2">&quot;AMZN&quot;</span><span class="p">,</span> <span class="s2">&quot;574.8&quot;</span><span class="p">,</span> <span class="s2">&quot;+11.8%&quot;</span><span class="p">,</span> <span class="s2">&quot;62.3&quot;</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;NVIDIA&quot;</span><span class="p">,</span> <span class="s2">&quot;NVDA&quot;</span><span class="p">,</span> <span class="s2">&quot;60.9&quot;</span><span class="p">,</span> <span class="s2">&quot;+125.9%&quot;</span><span class="p">,</span> <span class="s2">&quot;65.8&quot;</span><span class="p">],</span>
+<span class="p">]</span>
+
+<span class="n">table</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">table</span><span class="p">(</span>
+    <span class="n">cellText</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
+    <span class="n">colLabels</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+    <span class="n">cellLoc</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+    <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+    <span class="n">colColours</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;#4472C4&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">headers</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">table</span><span class="o">.</span><span class="n">auto_set_font_size</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">table</span><span class="o">.</span><span class="n">set_fontsize</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">table</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="mf">1.2</span><span class="p">,</span> <span class="mf">1.8</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">headers</span><span class="p">)):</span>
+    <span class="n">table</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="n">j</span><span class="p">)]</span><span class="o">.</span><span class="n">set_text_props</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Tech Giants — Q4 2024 Financial Summary&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+
+<span class="n">buf</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;png&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">&quot;tight&quot;</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="n">buf</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">table_b64</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">buf</span><span class="o">.</span><span class="n">read</span><span class="p">())</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Table image: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">table_b64</span><span class="p">)</span><span class="si">}</span><span class="s2"> chars (base64)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Table image: 85340 chars (base64)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Define Pydantic models for the table structure, then use
+<code class="docutils literal notranslate"><span class="pre">client.beta.chat.completions.parse</span></code> — a convenience method that
+handles the <code class="docutils literal notranslate"><span class="pre">response_format</span></code> wiring and returns a typed <code class="docutils literal notranslate"><span class="pre">.parsed</span></code>
+object directly.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">FinancialRow</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A single row from a financial table.&quot;&quot;&quot;</span>
+
+    <span class="n">company</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">ticker</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">revenue_billions</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">growth_pct</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">pe_ratio</span><span class="p">:</span> <span class="nb">float</span>
+
+
+<span class="k">class</span> <span class="nc">FinancialTable</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extracted financial table data.&quot;&quot;&quot;</span>
+
+    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Title of the table&quot;</span><span class="p">)</span>
+    <span class="n">rows</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">FinancialRow</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Data rows from the table&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">messages</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Extract the data from this financial table image into structured format.&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;Extract all the data from this table.&quot;</span><span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;image_url&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;image_url&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;data:image/png;base64,</span><span class="si">{</span><span class="n">table_b64</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">},</span>
+            <span class="p">},</span>
+        <span class="p">],</span>
+    <span class="p">},</span>
+<span class="p">]</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">beta</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">,</span>
+    <span class="n">messages</span><span class="o">=</span><span class="n">messages</span><span class="p">,</span>
+    <span class="n">response_format</span><span class="o">=</span><span class="n">FinancialTable</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">table_data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">parsed</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Table Title: </span><span class="si">{</span><span class="n">table_data</span><span class="o">.</span><span class="n">title</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;Company&#39;</span><span class="si">:</span><span class="s2">&lt;15</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;Ticker&#39;</span><span class="si">:</span><span class="s2">&lt;8</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;Revenue&#39;</span><span class="si">:</span><span class="s2">&gt;10</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;Growth&#39;</span><span class="si">:</span><span class="s2">&gt;10</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;P/E&#39;</span><span class="si">:</span><span class="s2">&gt;8</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">55</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">table_data</span><span class="o">.</span><span class="n">rows</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">row</span><span class="o">.</span><span class="n">company</span><span class="si">:</span><span class="s2">&lt;15</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">row</span><span class="o">.</span><span class="n">ticker</span><span class="si">:</span><span class="s2">&lt;8</span><span class="si">}</span><span class="s2"> $</span><span class="si">{</span><span class="n">row</span><span class="o">.</span><span class="n">revenue_billions</span><span class="si">:</span><span class="s2">&gt;8.1f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">row</span><span class="o">.</span><span class="n">growth_pct</span><span class="si">:</span><span class="s2">&gt;+9.1f</span><span class="si">}</span><span class="s2">% </span><span class="si">{</span><span class="n">row</span><span class="o">.</span><span class="n">pe_ratio</span><span class="si">:</span><span class="s2">&gt;8.1f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Table Title: Tech Giants — Q4 2024 Financial Summary
+
+Company         Ticker      Revenue     Growth      P/E
+-------------------------------------------------------
+Apple Inc.      AAPL     $   383.3      +2.8%     28.5
+Microsoft       MSFT     $   211.9     +15.6%     35.2
+Alphabet        GOOGL    $   307.4      +8.7%     24.1
+Amazon          AMZN     $   574.8     +11.8%     62.3
+NVIDIA          NVDA     $    60.9    +125.9%     65.8
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="c-analyzing-a-chart-with-structured-output">
+<h3>8c. Analyzing a Chart with Structured Output<a class="headerlink" href="#c-analyzing-a-chart-with-structured-output" title="Link to this heading">#</a></h3>
+<p>A more complex example: a multi-panel chart (price + volume) analyzed
+into a typed <code class="docutils literal notranslate"><span class="pre">ChartAnalysis</span></code> object.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Generate a more complex chart with price + volume panels</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
+
+<span class="n">start_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2024</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">dates</span> <span class="o">=</span> <span class="p">[</span><span class="n">start_date</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">250</span><span class="p">)</span> <span class="k">if</span> <span class="p">(</span><span class="n">start_date</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">i</span><span class="p">))</span><span class="o">.</span><span class="n">weekday</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">][:</span><span class="mi">180</span><span class="p">]</span>
+
+<span class="n">base_price</span> <span class="o">=</span> <span class="mi">150</span>
+<span class="n">returns</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">dates</span><span class="p">))</span> <span class="o">*</span> <span class="mf">0.015</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">dates</span><span class="p">))</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">dates</span><span class="p">)</span>
+<span class="n">prices</span> <span class="o">=</span> <span class="n">base_price</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cumprod</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">returns</span><span class="p">)</span>
+<span class="n">prices</span><span class="p">[</span><span class="mi">60</span><span class="p">:</span><span class="mi">90</span><span class="p">]</span> <span class="o">*=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+<span class="n">prices</span><span class="p">[</span><span class="mi">90</span><span class="p">:]</span> <span class="o">*=</span> <span class="mf">0.85</span>
+
+<span class="n">ma20</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">prices</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span> <span class="o">/</span> <span class="mi">20</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;valid&quot;</span><span class="p">)</span>
+<span class="n">ma50</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">prices</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span> <span class="o">/</span> <span class="mi">50</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;valid&quot;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">height_ratios</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;TECH ETF — 2024 YTD Performance&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">)</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">prices</span><span class="p">,</span> <span class="s2">&quot;b-&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Price&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dates</span><span class="p">[</span><span class="mi">19</span><span class="p">:],</span> <span class="n">ma20</span><span class="p">,</span> <span class="s2">&quot;orange&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;20-day MA&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dates</span><span class="p">[</span><span class="mi">49</span><span class="p">:],</span> <span class="n">ma50</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;50-day MA&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Support&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">175</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Resistance&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Price ($)&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper left&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="n">volumes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1_000_000</span><span class="p">,</span> <span class="mi">5_000_000</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">dates</span><span class="p">))</span>
+<span class="n">volumes</span><span class="p">[</span><span class="mi">60</span><span class="p">:</span><span class="mi">90</span><span class="p">]</span> <span class="o">*=</span> <span class="mi">2</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;g&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;g&quot;</span> <span class="k">if</span> <span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">prices</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="k">else</span> <span class="s2">&quot;r&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">prices</span><span class="p">))]</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">volumes</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Volume&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Date&quot;</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.dates</span> <span class="k">as</span> <span class="nn">mdates</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">mdates</span><span class="o">.</span><span class="n">DateFormatter</span><span class="p">(</span><span class="s2">&quot;%b&quot;</span><span class="p">))</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">mdates</span><span class="o">.</span><span class="n">MonthLocator</span><span class="p">())</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+<span class="n">buf</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;png&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">&quot;tight&quot;</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="n">buf</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">etf_b64</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">buf</span><span class="o">.</span><span class="n">read</span><span class="p">())</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Chart image: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">etf_b64</span><span class="p">)</span><span class="si">}</span><span class="s2"> chars (base64)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Chart image: 188664 chars (base64)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ChartAnalysis</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Structured analysis of a financial chart.&quot;&quot;&quot;</span>
+
+    <span class="n">chart_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Type of chart (line, bar, candlestick, etc.)&quot;</span><span class="p">)</span>
+    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Title of the chart&quot;</span><span class="p">)</span>
+    <span class="n">time_period</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Time period covered by the chart&quot;</span><span class="p">)</span>
+    <span class="n">overall_trend</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Overall trend: upward, downward, sideways, or volatile&quot;</span><span class="p">)</span>
+    <span class="n">key_observations</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;3-5 key observations from the chart&quot;</span><span class="p">)</span>
+    <span class="n">support_level</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Approximate support level if visible&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">resistance_level</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Approximate resistance level if visible&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">messages</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;You are a technical analyst. Analyze the provided chart &quot;</span>
+        <span class="s2">&quot;and extract key insights about price trends, support/resistance levels, &quot;</span>
+        <span class="s2">&quot;and notable patterns.&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;Analyze this financial chart in detail.&quot;</span><span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;image_url&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;image_url&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;data:image/png;base64,</span><span class="si">{</span><span class="n">etf_b64</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">},</span>
+            <span class="p">},</span>
+        <span class="p">],</span>
+    <span class="p">},</span>
+<span class="p">]</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">beta</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">,</span>
+    <span class="n">messages</span><span class="o">=</span><span class="n">messages</span><span class="p">,</span>
+    <span class="n">response_format</span><span class="o">=</span><span class="n">ChartAnalysis</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">analysis</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">parsed</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Chart Type: </span><span class="si">{</span><span class="n">analysis</span><span class="o">.</span><span class="n">chart_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Title: </span><span class="si">{</span><span class="n">analysis</span><span class="o">.</span><span class="n">title</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Time Period: </span><span class="si">{</span><span class="n">analysis</span><span class="o">.</span><span class="n">time_period</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Overall Trend: </span><span class="si">{</span><span class="n">analysis</span><span class="o">.</span><span class="n">overall_trend</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">analysis</span><span class="o">.</span><span class="n">support_level</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Support Level: $</span><span class="si">{</span><span class="n">analysis</span><span class="o">.</span><span class="n">support_level</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">analysis</span><span class="o">.</span><span class="n">resistance_level</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Resistance Level: $</span><span class="si">{</span><span class="n">analysis</span><span class="o">.</span><span class="n">resistance_level</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Key Observations:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">obs</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">analysis</span><span class="o">.</span><span class="n">key_observations</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">obs</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Chart Type: line
+Title: TECH ETF — 2024 YTD Performance
+Time Period: 2024 year-to-date
+Overall Trend: upward
+Support Level: $140.00
+Resistance Level: $166.00
+
+Key Observations:
+  1. The price has shown a general upward trend since April 2024, reaching a peak above $160 in early September.
+  2. Support level appears to be around $140, where price has rebounded multiple times throughout the year.
+  3. Resistance level is indicated at approximately $166, where the price has faced downward pressure after attempting to break through.
+  4. The 20-day and 50-day moving averages are upward sloping, further supporting the bullish trend observed in the price.
+  5. Volume spikes are visible in May 2024, indicating increased trading activity, possibly due to market news or events affecting the tech sector.
 </pre></div>
 </div>
 </div>
@@ -1629,6 +2341,12 @@ Investors are closely watching the economic indicators and the Fed&#39;s respons
 </tr>
 <tr class="row-even"><td><p>Web search (OpenRouter)</p></td>
 <td><p>Append <code class="docutils literal notranslate"><span class="pre">:online</span></code> to model slug</p></td>
+</tr>
+<tr class="row-odd"><td><p>Vision / OCR</p></td>
+<td><p>Multi-part <code class="docutils literal notranslate"><span class="pre">content</span></code> with <code class="docutils literal notranslate"><span class="pre">&quot;type&quot;:</span> <span class="pre">&quot;image_url&quot;</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Vision + structured</p></td>
+<td><p>Combine image input with <code class="docutils literal notranslate"><span class="pre">response_format</span></code> or <code class="docutils literal notranslate"><span class="pre">beta.chat.completions.parse</span></code></p></td>
 </tr>
 </tbody>
 </table>
@@ -1697,13 +2415,24 @@ Investors are closely watching the economic indicators and the Fed&#39;s respons
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#function-calling-tool-use">6. Function Calling / Tool Use</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-this-design">Why this design?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-tool-calling-loop">The tool-calling loop</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-the-model-actually-returns">What the model actually returns</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-simple-tools">6a. Simple Tools</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-finance-tools">6b. Finance Tools</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-by-step-walkthrough">Step-by-step walkthrough</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#full-tool-calling-loop">Full tool-calling loop</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-finance-tools-multi-tool-orchestration">6b. Finance Tools — Multi-Tool Orchestration</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#web-search">7. Web Search</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-openai-web-search-responses-api">7a. OpenAI Web Search (Responses API)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-openrouter-web-search">7b. OpenRouter Web Search</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vision-ocr">8. Vision &amp; OCR</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-describing-a-chart">8a. Describing a Chart</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-extracting-structured-data-from-a-table-image">8b. Extracting Structured Data from a Table Image</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-analyzing-a-chart-with-structured-output">8c. Analyzing a Chart with Structured Output</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>

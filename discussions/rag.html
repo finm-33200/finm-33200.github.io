@@ -1,0 +1,768 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Retrieval-Augmented Generation (RAG) &#8212; Generative and Agentic AI for Finance</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=f23691d7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=7a7908ec"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'discussions/rag';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/custom.js?v=c0d9a6f1"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="01. Semantic Search of SEC Filings" href="../notebooks/01_filing_search_ipynb.html" />
+    <link rel="prev" title="Benchmarking LLMs" href="../notebooks/benchmarking_llms.html" /> 
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>   
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Generative and Agentic AI for Finance - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Generative and Agentic AI for Finance - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Generative and Agentic AI for Finance
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../README.html">Course Syllabus: FINM 33200, Spring 2026</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Course Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Discussions 📖</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_01.html">Discussion 1: The New Quant - LLMs in Finance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="llms_transforming_finance.html">LLMs Transforming Finance: The New Quant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="expected_returns_llms.html">LLMs for Return Prediction: Prompts vs. Embeddings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chartbook_research_catalog.html">ChartBook: Cataloging Research for Humans and AI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_and_structured_outputs.html">API Basics and Structured Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="review_w01.html">Study Questions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_02.html">Discussion 2: Text Representation and Tokenization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="structure_of_news.html">The Structure of Economic News</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ai_copilots_intro.html">AI Copilots: History and Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="words_to_tokens.html">From Words to Tokens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_embedding_analogies_ipynb.html">Optional extra: News, Financial Crises, and the Geometry of Meaning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="review_w02.html">Study Questions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_03.html">Discussion 3: LLM Fundamentals</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="ai_roundup_w03.html">AI Roundup: Week 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="llms_and_lookahead_bias.html">LLMs and Lookahead Bias</a></li>
+<li class="toctree-l2"><a class="reference internal" href="microgpt_math.html">The Mathematics of microGPT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openai_api_platform.html">The OpenAI API Platform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/openai_api_overview.html">OpenAI API Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="review_w03.html">Study Questions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../discussion_04.html">Discussion 4: Benchmarking and LLM Tool Use</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="reasoning_acting_tools.html">From Chain-Of-Thought To Tool Use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/benchmarking_llms.html">Benchmarking LLMs</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Retrieval-Augmented Generation (RAG)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/01_filing_search_ipynb.html">01. Semantic Search of SEC Filings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/02_rag_benchmark_ipynb.html">02. RAG Benchmark: Can Retrieved Context Fix a Weak Model?</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../subject_to_change_after_this_week.html">WARNING: Notes subject to change after this week</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_05.html">Discussion 5: Agents</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="intro_to_agents.html">Introduction to Agents</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Homework 📝</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../HW0.html">Homework 0: Set Up Your Environment</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/01_data_sources_overview_ipynb.html">Data Sources &amp; Strategy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/02_gdelt_sp500_filtering_ipynb.html">GDELT Filtering &amp; Data Quality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/03_crosswalk_quality_ipynb.html">Crosswalk Quality</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../HW1.html">Homework 1: Lopez-Lira, Tang (2023)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/01_data_overview_ipynb.html">Data Sources Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/02_methodology_ipynb.html">NLP Pipeline &amp; Portfolio Construction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/03_replication_results_ipynb.html">Replication Results</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../HW2.html">Homework 2: Chen, Kelly, Xiu (2022)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/01_explore_data_ipynb.html">Data Explorer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/02_embeddings_demos_ipynb.html">Text Embeddings: From Words to Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/03_methodology_ipynb.html">Methodology: From Embeddings to Predictions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/04_results_ipynb.html">Replication Results: Chen, Kelly, and Xiu (2022)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../HW3.html">Homework 3: Benchmarking &amp; RAG</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/01_benchmark_questions.html">01. Benchmark Questions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/02_analyze_results.html">02. LLM Benchmark Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/03_build_agents.html">03. Building Agents: From Simple Prompting to Tool-Using Agents</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../final_project.html">Final Project</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/final_project_rubric.html">Final Project Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/potential_final_projects.html">Potential Final Project Ideas</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exams 📋</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../exam_prep.html">Exam Preparation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Misc 📌</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../acknowledgments.html">Acknowledgments</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../appendix.html">Appendix</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="nanochat_math.html">The Mathematics of Karpathy’s nanochat</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project/issues/new?title=Issue%20on%20page%20%2Fdiscussions/rag.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/discussions/rag.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Retrieval-Augmented Generation (RAG)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-rag">What Is RAG?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-origin-lewis-et-al-2020">The Origin: Lewis et al. (2020)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-architecture">The architecture</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#results">Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-rag-three-approaches-to-knowledge">Why RAG? Three Approaches to Knowledge</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-rag-works-the-pipeline">How RAG Works: The Pipeline</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing-building-the-index">Preprocessing: building the index</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#runtime-answering-a-query">Runtime: answering a query</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#beyond-basic-rag-contextual-retrieval">Beyond Basic RAG: Contextual Retrieval</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rag-in-finance">RAG in Finance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limitations-and-considerations">Limitations and Considerations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">Key Takeaways</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                   <section class="tex2jax_ignore mathjax_ignore" id="retrieval-augmented-generation-rag">
+<h1>Retrieval-Augmented Generation (RAG)<a class="headerlink" href="#retrieval-augmented-generation-rag" title="Link to this heading">#</a></h1>
+<p><em>How LLMs access external knowledge – from the 2020 paper that coined the term to the retrieve-augment-generate pipeline behind every modern knowledge system.</em></p>
+<hr class="docutils" />
+<section id="what-is-rag">
+<h2>What Is RAG?<a class="headerlink" href="#what-is-rag" title="Link to this heading">#</a></h2>
+<p>Large language models have a fundamental limitation: everything they “know” was baked into their weights during training. Once training ends, the model’s knowledge is frozen. It cannot access new information, consult a specific document, or verify a claim against a source. Ask GPT-4 about a company’s latest 10-K and it will either hallucinate an answer or tell you its knowledge has a cutoff date.</p>
+<p><strong>Retrieval-Augmented Generation (RAG)</strong> solves this by giving the model an open book. Instead of relying solely on what the model memorized during training (its <em>parametric memory</em>), RAG retrieves relevant documents from an external knowledge base at query time and injects them into the prompt. The model then generates its answer grounded in the retrieved context.</p>
+<p>The analogy is straightforward: a closed-book exam tests what you memorized; an open-book exam lets you look things up. RAG converts LLMs from closed-book to open-book.</p>
+<p><img alt="Augmented LLM" src="../_images/augmented_llm.png" /></p>
+<p><em>Modern LLM systems augment the base model with retrieval, tools, and memory. RAG is the retrieval component of this architecture. Source: <a class="reference external" href="https://www.anthropic.com/research/building-effective-agents">Anthropic, “Building Effective Agents”</a></em></p>
+<p>RAG is also a specific form of <strong>tool use</strong>. The retriever is a tool that the LLM calls to access external knowledge, exactly as ReAct agents use a search API. If you have read the <a class="reference internal" href="reasoning_acting_tools.html"><span class="std std-doc">ReAct and Toolformer discussion</span></a>, RAG is the practical realization of that principle for production knowledge systems.</p>
+</section>
+<hr class="docutils" />
+<section id="the-origin-lewis-et-al-2020">
+<h2>The Origin: Lewis et al. (2020)<a class="headerlink" href="#the-origin-lewis-et-al-2020" title="Link to this heading">#</a></h2>
+<blockquote>
+<div><p>Lewis, P., Perez, E., Piktus, A., Petroni, F., Karpukhin, V., Goyal, N., Kuttler, H., Lewis, M., Yih, W., Rocktaschel, T., Riedel, S., &amp; Kiela, D. (2020). “Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks.” <em>NeurIPS 2020</em>.</p>
+</div></blockquote>
+<p>The term “Retrieval-Augmented Generation” was introduced by a team at Facebook AI Research (FAIR) in 2020. The paper addressed a specific problem: language models are good at generating fluent text, but they struggle with <strong>knowledge-intensive tasks</strong> – questions that require specific factual knowledge rather than general language ability. Open-domain question answering (“What is the capital of Burkina Faso?”), fact verification, and knowledge-grounded dialogue all fall into this category.</p>
+<p>Prior to RAG, there were two camps. <strong>Parametric models</strong> (like GPT-2 and BART) stored all knowledge implicitly in their weights. They were fluent but factually unreliable, and updating their knowledge meant retraining. <strong>Non-parametric models</strong> (like traditional information retrieval systems) could look up facts in a corpus but couldn’t generate natural language answers. RAG combined both: a non-parametric retriever feeds documents to a parametric generator.</p>
+<section id="the-architecture">
+<h3>The architecture<a class="headerlink" href="#the-architecture" title="Link to this heading">#</a></h3>
+<p>The original RAG system has two components that work together end-to-end:</p>
+<ol class="arabic simple">
+<li><p><strong>Retriever</strong>: A Dense Passage Retriever (DPR) that encodes both the input query and all documents in a shared vector space. At query time, it performs Maximum Inner Product Search (MIPS) to find the top-<em>k</em> most relevant documents from a pre-built index (the authors used all of Wikipedia).</p></li>
+<li><p><strong>Generator</strong>: A BART sequence-to-sequence model that takes the original query concatenated with each retrieved document and generates the final answer.</p></li>
+</ol>
+<p><img alt="RAG Architecture from Lewis et al. (2020)" src="../_images/rag_paper_fig1_architecture.png" /></p>
+<p><em>Figure 1 from Lewis et al. (2020): The RAG architecture. The query encoder and document encoder map questions and passages into a shared dense vector space. At inference, the query embedding retrieves the top-k documents via Maximum Inner Product Search (MIPS) over a pre-computed document index. The retrieved documents are then passed alongside the query to a seq2seq generator that produces the final output. Source: Lewis et al., “Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks,” NeurIPS 2020.</em></p>
+<p>The paper proposed two variants:</p>
+<ul class="simple">
+<li><p><strong>RAG-Sequence</strong>: retrieves a set of documents once and uses the same set to generate the entire output sequence. Suitable when a single coherent answer comes from one source.</p></li>
+<li><p><strong>RAG-Token</strong>: can retrieve different documents for each output token. More flexible, useful when the answer needs to synthesize information from multiple sources.</p></li>
+</ul>
+</section>
+<section id="results">
+<h3>Results<a class="headerlink" href="#results" title="Link to this heading">#</a></h3>
+<p>RAG set new state-of-the-art results on several open-domain QA benchmarks (Natural Questions, TriviaQA, WebQuestions) and produced answers that human evaluators rated as more factual, specific, and diverse than those from pure parametric models. Critically, updating the knowledge base required only re-indexing the documents – no model retraining.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="why-rag-three-approaches-to-knowledge">
+<h2>Why RAG? Three Approaches to Knowledge<a class="headerlink" href="#why-rag-three-approaches-to-knowledge" title="Link to this heading">#</a></h2>
+<p>When you need an LLM to work with domain-specific knowledge, there are three main approaches. Each has different tradeoffs:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p><strong>In-Context Learning</strong></p></th>
+<th class="head"><p><strong>Fine-Tuning</strong></p></th>
+<th class="head"><p><strong>RAG</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>How it works</strong></p></td>
+<td><p>Paste documents directly into the prompt</p></td>
+<td><p>Update model weights on domain data</p></td>
+<td><p>Retrieve relevant docs at query time and inject into prompt</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Knowledge freshness</strong></p></td>
+<td><p>As fresh as whatever you paste in</p></td>
+<td><p>Frozen at fine-tuning time</p></td>
+<td><p>As fresh as the index (update anytime)</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Scalability</strong></p></td>
+<td><p>Limited by context window</p></td>
+<td><p>Unlimited (absorbed into weights)</p></td>
+<td><p>Scales to millions of documents</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Cost</strong></p></td>
+<td><p>High per-call (long prompts)</p></td>
+<td><p>High upfront (training), low per-call</p></td>
+<td><p>Moderate (embedding + retrieval + generation)</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Auditability</strong></p></td>
+<td><p>Full (you see the source text)</p></td>
+<td><p>None (knowledge is implicit)</p></td>
+<td><p>High (retrieved sources are traceable)</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Setup effort</strong></p></td>
+<td><p>None</p></td>
+<td><p>Significant (data curation, training)</p></td>
+<td><p>Moderate (chunking, embedding, vector DB)</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Finance example</strong></p></td>
+<td><p>Paste an earnings transcript and ask questions</p></td>
+<td><p>Train on SEC filings for XBRL extraction</p></td>
+<td><p>Query a vector DB of 10 years of analyst reports</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>RAG occupies a practical middle ground. It is cheaper than fine-tuning, more scalable than in-context learning, and – critically for finance – keeps knowledge <strong>updatable without retraining</strong> and <strong>traceable to sources</strong>.</p>
+<p>For financial applications specifically, this last point matters. Regulations change. Markets move daily. New filings arrive constantly. A fine-tuned model’s knowledge is stale the moment training ends. A RAG system’s knowledge is as current as its last index update.</p>
+</section>
+<hr class="docutils" />
+<section id="how-rag-works-the-pipeline">
+<h2>How RAG Works: The Pipeline<a class="headerlink" href="#how-rag-works-the-pipeline" title="Link to this heading">#</a></h2>
+<p>The modern RAG pipeline has two phases: <strong>preprocessing</strong> (done once or periodically) and <strong>runtime</strong> (done per query).</p>
+<p><img alt="Standard RAG Pipeline" src="../_images/rag_pipeline_overview.png" /></p>
+<p><em>The standard RAG pipeline. During preprocessing, a corpus is split into chunks, embedded via an embedding model, and stored in a vector database. At runtime, the user’s query is embedded and used to retrieve the top-k most relevant chunks, which are passed to the generative model alongside the query. Source: <a class="reference external" href="https://www.anthropic.com/news/contextual-retrieval">Anthropic, “Introducing Contextual Retrieval”</a></em></p>
+<section id="preprocessing-building-the-index">
+<h3>Preprocessing: building the index<a class="headerlink" href="#preprocessing-building-the-index" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Chunk</strong>: Split source documents into smaller passages. This is necessary because embedding models and LLM context windows work best with focused, manageable pieces of text rather than entire documents. Chunking strategy matters enormously – splitting a 10-K in the wrong place can separate a number from its label, making the chunk useless.</p></li>
+<li><p><strong>Embed</strong>: Pass each chunk through an embedding model to produce a dense vector representation. These vectors capture the semantic meaning of each chunk in a high-dimensional space.</p></li>
+<li><p><strong>Store</strong>: Insert the vectors into a vector database (Pinecone, Weaviate, Chroma, FAISS, etc.) that supports fast similarity search.</p></li>
+</ol>
+</section>
+<section id="runtime-answering-a-query">
+<h3>Runtime: answering a query<a class="headerlink" href="#runtime-answering-a-query" title="Link to this heading">#</a></h3>
+<ol class="arabic simple" start="4">
+<li><p><strong>Embed the query</strong>: The user’s question is passed through the same embedding model to produce a query vector.</p></li>
+<li><p><strong>Retrieve</strong>: The vector database performs similarity search (typically cosine similarity or dot product) to find the top-<em>k</em> chunks most similar to the query.</p></li>
+<li><p><strong>Augment</strong>: The retrieved chunks are inserted into the LLM’s prompt as context, alongside the original question.</p></li>
+<li><p><strong>Generate</strong>: The LLM produces an answer grounded in the retrieved context.</p></li>
+</ol>
+<div class="tip admonition">
+<p class="admonition-title">Connection to Course Content</p>
+<p>If you worked through the vector embeddings material, you already built the first three stages of this pipeline. RAG adds the augmentation and generation stages on top. The quality of your retrieval – your embedding model, chunking strategy, and similarity search – directly determines the quality of the generated answers.</p>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="beyond-basic-rag-contextual-retrieval">
+<h2>Beyond Basic RAG: Contextual Retrieval<a class="headerlink" href="#beyond-basic-rag-contextual-retrieval" title="Link to this heading">#</a></h2>
+<p>A key challenge with standard RAG is that individual chunks often lose meaning when separated from their surrounding document. A chunk that says “the company’s revenue increased 15%” is useless if the retriever doesn’t know <em>which</em> company or <em>which quarter</em>.</p>
+<p>Anthropic’s <strong>Contextual Retrieval</strong> (2024) addresses this by prepending a short, LLM-generated context to each chunk before embedding. For every chunk, a prompt asks the model: “Given this document, situate this chunk within the overall context.” The result is a few sentences of context (50-100 tokens) prepended to the chunk, making it self-contained and much easier to retrieve accurately.</p>
+<p><img alt="Contextual Retrieval Preprocessing" src="../_images/contextual_retrieval_flow.png" /></p>
+<p><em>Contextual Retrieval preprocessing. Before embedding, each chunk is sent through an LLM that generates a short context summary situating the chunk within its parent document. The contextualized chunks are then embedded and indexed. Source: <a class="reference external" href="https://www.anthropic.com/news/contextual-retrieval">Anthropic, “Introducing Contextual Retrieval”</a></em></p>
+<p>This is a good example of how the basic RAG pipeline has evolved since 2020. The core retrieve-augment-generate pattern remains the same, but each stage has been refined. Better chunking, better embeddings, reranking, contextual enrichment – these improvements compound.</p>
+</section>
+<hr class="docutils" />
+<section id="rag-in-finance">
+<h2>RAG in Finance<a class="headerlink" href="#rag-in-finance" title="Link to this heading">#</a></h2>
+<p>Financial services is one of the highest-value domains for RAG because financial knowledge is voluminous, changes rapidly, and must be traceable to authoritative sources. Several use cases stand out:</p>
+<p><strong>Regulatory compliance Q&amp;A.</strong> Build a RAG system over SEC filings, Basel III documentation, or internal compliance manuals. Compliance officers ask natural language questions (“What are our reporting obligations under Rule 15c3-1?”) and get answers grounded in the actual regulatory text, with citations.</p>
+<p><strong>Equity research assistant.</strong> Index a firm’s library of analyst reports, earnings transcripts, and annual filings. Portfolio managers query the system for specific claims (“What did management say about margin guidance in Q3?”) rather than reading hundreds of pages manually.</p>
+<p><strong>Real-time market intelligence.</strong> Continuously index news feeds, broker research, and social media. When analyzing a new position or reacting to an event, the RAG system surfaces the most relevant recent context automatically.</p>
+<p><strong>Internal knowledge management.</strong> Index trading desk memos, risk committee minutes, model documentation, and institutional policies. New hires can query years of institutional knowledge that would otherwise take months to absorb through hallway conversations.</p>
+<p>In all of these cases, the ability to trace answers back to specific source documents is not optional – it is a regulatory and fiduciary requirement.</p>
+</section>
+<hr class="docutils" />
+<section id="limitations-and-considerations">
+<h2>Limitations and Considerations<a class="headerlink" href="#limitations-and-considerations" title="Link to this heading">#</a></h2>
+<p>RAG is powerful, but it is not a silver bullet.</p>
+<p><strong>Retrieval quality is the bottleneck.</strong> If the retriever returns irrelevant chunks, the generator will produce a confident answer grounded in the wrong information. This is arguably worse than a model admitting it doesn’t know, because the answer <em>looks</em> well-sourced. Garbage in, garbage out.</p>
+<p><strong>Chunking is an art, not a science.</strong> How you split documents – by paragraph, by section, by token count, by semantic boundary – dramatically affects retrieval quality. Financial documents are especially challenging: tables, footnotes, cross-references, and nested exhibits all break naive chunking strategies.</p>
+<p><strong>Hallucination is reduced, not eliminated.</strong> The generator can still fabricate claims not present in the retrieved context, misinterpret numbers, or combine facts from different chunks in misleading ways. RAG lowers the hallucination rate but does not zero it out.</p>
+<p><strong>Latency and cost tradeoffs.</strong> RAG adds an embedding step, a vector search, and longer prompts (because the retrieved context is injected into every call). For latency-sensitive applications – such as real-time trading systems – this overhead matters and must be budgeted.</p>
+<p><strong>The frontier is moving.</strong> Basic chunk-and-retrieve RAG is already being superseded by more sophisticated approaches: contextual retrieval, agentic retrieval (where the LLM decides <em>what</em> to search for and <em>when</em>), graph-based retrieval over structured knowledge, and hybrid systems that combine dense retrieval with traditional keyword search.</p>
+</section>
+<hr class="docutils" />
+<section id="key-takeaways">
+<h2>Key Takeaways<a class="headerlink" href="#key-takeaways" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>RAG</strong> combines a retriever (non-parametric, updatable) with a generator (parametric, fluent) to produce knowledge-grounded answers.</p></li>
+<li><p>The term and technique originated with <strong>Lewis et al. (2020)</strong> at Facebook AI Research, combining Dense Passage Retrieval with a BART generator.</p></li>
+<li><p>RAG is one of three approaches to injecting knowledge into LLMs, alongside in-context learning and fine-tuning. It occupies a practical middle ground for most production applications.</p></li>
+<li><p>The pipeline has two phases: <strong>preprocessing</strong> (chunk, embed, store) and <strong>runtime</strong> (embed query, retrieve, augment, generate).</p></li>
+<li><p>Financial applications benefit especially from RAG because financial knowledge changes rapidly, spans enormous document volumes, and must be traceable to sources.</p></li>
+<li><p>RAG reduces hallucination but does not eliminate it. <strong>Retrieval quality</strong> – your embedding model, chunking strategy, and search infrastructure – is the single most important factor in system quality.</p></li>
+</ul>
+</section>
+</section>
+
+<div class="section ablog__blog_comments">
+   
+</div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../notebooks/benchmarking_llms.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Benchmarking LLMs</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../notebooks/01_filing_search_ipynb.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">01. Semantic Search of SEC Filings</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-rag">What Is RAG?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-origin-lewis-et-al-2020">The Origin: Lewis et al. (2020)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-architecture">The architecture</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#results">Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-rag-three-approaches-to-knowledge">Why RAG? Three Approaches to Knowledge</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-rag-works-the-pipeline">How RAG Works: The Pipeline</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing-building-the-index">Preprocessing: building the index</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#runtime-answering-a-query">Runtime: answering a query</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#beyond-basic-rag-contextual-retrieval">Beyond Basic RAG: Contextual Retrieval</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rag-in-finance">RAG in Finance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limitations-and-considerations">Limitations and Considerations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">Key Takeaways</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jeremiah Bejarano
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, Jeremiah Bejarano.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

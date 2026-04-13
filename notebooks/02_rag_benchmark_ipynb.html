@@ -1,0 +1,1639 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>02. RAG Benchmark: Can Retrieved Context Fix a Weak Model? &#8212; Generative and Agentic AI for Finance</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=f23691d7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=7a7908ec"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/02_rag_benchmark_ipynb';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/custom.js?v=c0d9a6f1"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="WARNING: Notes subject to change after this week" href="../subject_to_change_after_this_week.html" />
+    <link rel="prev" title="01. Semantic Search of SEC Filings" href="01_filing_search_ipynb.html" /> 
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>   
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Generative and Agentic AI for Finance - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Generative and Agentic AI for Finance - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Generative and Agentic AI for Finance
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../README.html">Course Syllabus: FINM 33200, Spring 2026</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Course Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Discussions 📖</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_01.html">Discussion 1: The New Quant - LLMs in Finance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/llms_transforming_finance.html">LLMs Transforming Finance: The New Quant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/expected_returns_llms.html">LLMs for Return Prediction: Prompts vs. Embeddings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/chartbook_research_catalog.html">ChartBook: Cataloging Research for Humans and AI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/api_and_structured_outputs.html">API Basics and Structured Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/review_w01.html">Study Questions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_02.html">Discussion 2: Text Representation and Tokenization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/structure_of_news.html">The Structure of Economic News</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/ai_copilots_intro.html">AI Copilots: History and Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/words_to_tokens.html">From Words to Tokens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/03_embedding_analogies_ipynb.html">Optional extra: News, Financial Crises, and the Geometry of Meaning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/review_w02.html">Study Questions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_03.html">Discussion 3: LLM Fundamentals</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/ai_roundup_w03.html">AI Roundup: Week 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/llms_and_lookahead_bias.html">LLMs and Lookahead Bias</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/microgpt_math.html">The Mathematics of microGPT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/openai_api_platform.html">The OpenAI API Platform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openai_api_overview.html">OpenAI API Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/review_w03.html">Study Questions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../discussion_04.html">Discussion 4: Benchmarking and LLM Tool Use</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../discussions/reasoning_acting_tools.html">From Chain-Of-Thought To Tool Use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="benchmarking_llms.html">Benchmarking LLMs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/rag.html">Retrieval-Augmented Generation (RAG)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01_filing_search_ipynb.html">01. Semantic Search of SEC Filings</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">02. RAG Benchmark: Can Retrieved Context Fix a Weak Model?</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../subject_to_change_after_this_week.html">WARNING: Notes subject to change after this week</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_05.html">Discussion 5: Agents</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/intro_to_agents.html">Introduction to Agents</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Homework 📝</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../HW0.html">Homework 0: Set Up Your Environment</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="01_data_sources_overview_ipynb.html">Data Sources &amp; Strategy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02_gdelt_sp500_filtering_ipynb.html">GDELT Filtering &amp; Data Quality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_crosswalk_quality_ipynb.html">Crosswalk Quality</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../HW1.html">Homework 1: Lopez-Lira, Tang (2023)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="01_data_overview_ipynb.html">Data Sources Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02_methodology_ipynb.html">NLP Pipeline &amp; Portfolio Construction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_replication_results_ipynb.html">Replication Results</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../HW2.html">Homework 2: Chen, Kelly, Xiu (2022)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="01_explore_data_ipynb.html">Data Explorer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02_embeddings_demos_ipynb.html">Text Embeddings: From Words to Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_methodology_ipynb.html">Methodology: From Embeddings to Predictions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04_results_ipynb.html">Replication Results: Chen, Kelly, and Xiu (2022)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../HW3.html">Homework 3: Benchmarking &amp; RAG</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="01_benchmark_questions.html">01. Benchmark Questions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02_analyze_results.html">02. LLM Benchmark Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_build_agents.html">03. Building Agents: From Simple Prompting to Tool-Using Agents</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../final_project.html">Final Project</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/final_project_rubric.html">Final Project Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/potential_final_projects.html">Potential Final Project Ideas</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exams 📋</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../exam_prep.html">Exam Preparation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Misc 📌</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../acknowledgments.html">Acknowledgments</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../appendix.html">Appendix</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/nanochat_math.html">The Mathematics of Karpathy’s nanochat</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project/issues/new?title=Issue%20on%20page%20%2Fnotebooks/02_rag_benchmark_ipynb.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/02_rag_benchmark_ipynb.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>02. RAG Benchmark: Can Retrieved Context Fix a Weak Model?</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-rag">What is RAG?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-experiment">The experiment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-data">The data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#helper-functions">Helper functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-compustat-ground-truth">Load Compustat ground truth</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-benchmark-q-a-pairs">Generate benchmark Q&amp;A pairs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#baseline-evaluation-no-context">Baseline evaluation (no context)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-filing-lookup-for-rag">Build filing lookup for RAG</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rag-prompt-construction">RAG prompt construction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rag-enhanced-evaluation">RAG-enhanced evaluation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#results-comparison">Results comparison</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#takeaways">Takeaways</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#connecting-the-two-notebooks">Connecting the two notebooks</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                   <section class="tex2jax_ignore mathjax_ignore" id="rag-benchmark-can-retrieved-context-fix-a-weak-model">
+<h1>02. RAG Benchmark: Can Retrieved Context Fix a Weak Model?<a class="headerlink" href="#rag-benchmark-can-retrieved-context-fix-a-weak-model" title="Link to this heading">#</a></h1>
+<section id="what-is-rag">
+<h2>What is RAG?<a class="headerlink" href="#what-is-rag" title="Link to this heading">#</a></h2>
+<p><strong>Retrieval-augmented generation (RAG)</strong> is a two-stage pattern for
+getting accurate, grounded answers from a large language model:</p>
+<ol class="arabic simple">
+<li><p><strong>Retrieve</strong> relevant documents from a corpus (the previous notebook
+showed how to do this with FAISS and semantic embeddings).</p></li>
+<li><p><strong>Generate</strong> an answer by injecting the retrieved text into the LLM
+prompt, so the model reads the source material instead of relying on
+whatever it memorized during training.</p></li>
+</ol>
+<p>The key insight is that even a small, inexpensive model can produce
+accurate answers when you put the right evidence in front of it. Without
+that evidence, the model must guess from parametric memory – which is
+often stale, imprecise, or simply wrong for specific financial figures.</p>
+</section>
+<section id="the-experiment">
+<h2>The experiment<a class="headerlink" href="#the-experiment" title="Link to this heading">#</a></h2>
+<p>We test this claim with a controlled benchmark:</p>
+<ol class="arabic simple">
+<li><p><strong>Ground truth</strong> comes from Compustat – the standard source for
+audited financial data (revenue, net income, total assets).</p></li>
+<li><p><strong>Baseline</strong>: ask <code class="docutils literal notranslate"><span class="pre">gpt-4o-mini</span></code> each question with <strong>no context</strong>.
+The model must rely on whatever it learned during pre-training.</p></li>
+<li><p><strong>RAG-enhanced</strong>: ask the same model the same question, but first
+retrieve the relevant 10-K filing from our WRDS SEC corpus and inject
+key sections (financial tables, MD&amp;A) into the prompt.</p></li>
+<li><p><strong>Evaluate</strong>: compare each answer to the Compustat ground truth
+within 5% and 10% tolerance bands.</p></li>
+</ol>
+</section>
+<section id="the-data">
+<h2>The data<a class="headerlink" href="#the-data" title="Link to this heading">#</a></h2>
+<p>The SEC filings come from the <strong>WRDS SEC Analytics Suite</strong>, the same
+corpus indexed in notebook 01. For each question we know the company
+(CIK) and fiscal year end date, so we can look up the corresponding
+10-K filing directly – no vector search needed here. We read the
+cleaned filing text and extract sections most likely to contain the
+answer (financial tables, results of operations, MD&amp;A).</p>
+</section>
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">openai</span> <span class="kn">import</span> <span class="n">OpenAI</span>
+
+<span class="kn">from</span> <span class="nn">settings</span> <span class="kn">import</span> <span class="n">config</span>
+
+<span class="n">DATA_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">config</span><span class="p">(</span><span class="s2">&quot;DATA_DIR&quot;</span><span class="p">))</span>
+<span class="n">OUTPUT_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">config</span><span class="p">(</span><span class="s2">&quot;OUTPUT_DIR&quot;</span><span class="p">))</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="n">config</span><span class="p">(</span><span class="s2">&quot;OPENAI_API_KEY&quot;</span><span class="p">))</span>
+
+<span class="n">MODEL_ID</span> <span class="o">=</span> <span class="s2">&quot;gpt-4o-mini&quot;</span>
+<span class="n">MODEL_INPUT_PRICE</span> <span class="o">=</span> <span class="mf">0.15</span>  <span class="c1"># per million tokens</span>
+<span class="n">MODEL_OUTPUT_PRICE</span> <span class="o">=</span> <span class="mf">0.60</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="helper-functions">
+<h2>Helper functions<a class="headerlink" href="#helper-functions" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">run_prompt</span><span class="p">(</span><span class="n">api_client</span><span class="p">,</span> <span class="n">model_id</span><span class="p">,</span> <span class="n">prompt</span><span class="p">,</span> <span class="n">system_msg</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_tokens</span><span class="o">=</span><span class="mi">300</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Send a prompt and capture the response, timing, and token usage.&quot;&quot;&quot;</span>
+    <span class="n">messages</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">system_msg</span><span class="p">:</span>
+        <span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">system_msg</span><span class="p">})</span>
+    <span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">prompt</span><span class="p">})</span>
+
+    <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">api_client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+        <span class="n">model</span><span class="o">=</span><span class="n">model_id</span><span class="p">,</span>
+        <span class="n">messages</span><span class="o">=</span><span class="n">messages</span><span class="p">,</span>
+        <span class="n">max_tokens</span><span class="o">=</span><span class="n">max_tokens</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">latency</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;output&quot;</span><span class="p">:</span> <span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">content</span><span class="p">,</span>
+        <span class="s2">&quot;latency_s&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">latency</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+        <span class="s2">&quot;input_tokens&quot;</span><span class="p">:</span> <span class="n">response</span><span class="o">.</span><span class="n">usage</span><span class="o">.</span><span class="n">prompt_tokens</span><span class="p">,</span>
+        <span class="s2">&quot;output_tokens&quot;</span><span class="p">:</span> <span class="n">response</span><span class="o">.</span><span class="n">usage</span><span class="o">.</span><span class="n">completion_tokens</span><span class="p">,</span>
+        <span class="s2">&quot;total_tokens&quot;</span><span class="p">:</span> <span class="n">response</span><span class="o">.</span><span class="n">usage</span><span class="o">.</span><span class="n">total_tokens</span><span class="p">,</span>
+    <span class="p">}</span>
+
+
+<span class="k">def</span> <span class="nf">calculate_cost</span><span class="p">(</span><span class="n">input_tokens</span><span class="p">,</span> <span class="n">output_tokens</span><span class="p">,</span> <span class="n">input_price</span><span class="p">,</span> <span class="n">output_price</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Cost in USD from token counts and per-million-token prices.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">round</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">input_tokens</span> <span class="o">*</span> <span class="n">input_price</span> <span class="o">+</span> <span class="n">output_tokens</span> <span class="o">*</span> <span class="n">output_price</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1_000_000</span><span class="p">,</span> <span class="mi">6</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">extract_number</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract a numeric value from LLM response.</span>
+
+<span class="sd">    Handles dollar signs, commas, and scale words (billion/million).</span>
+<span class="sd">    Returns value in millions to match Compustat units.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">text</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="n">cleaned</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;$&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Try &quot;X billion&quot; first (convert to millions)</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;([\d.]+)\s*billion&quot;</span><span class="p">,</span> <span class="n">cleaned</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">m</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="mi">1000</span>
+
+    <span class="c1"># Try &quot;X million&quot;</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;([\d.]+)\s*million&quot;</span><span class="p">,</span> <span class="n">cleaned</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">m</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+
+    <span class="c1"># Fall back to last number in the text</span>
+    <span class="n">numbers</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;-?\d+\.?\d*&quot;</span><span class="p">,</span> <span class="n">cleaned</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">numbers</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">numbers</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="kc">None</span>
+
+
+<span class="k">def</span> <span class="nf">is_correct</span><span class="p">(</span><span class="n">expected</span><span class="p">,</span> <span class="n">extracted</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="mf">0.05</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if extracted value is within tolerance of expected.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">expected</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">extracted</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">if</span> <span class="n">expected</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">abs</span><span class="p">(</span><span class="n">extracted</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span>  <span class="c1"># close to zero</span>
+    <span class="k">return</span> <span class="nb">abs</span><span class="p">(</span><span class="n">extracted</span> <span class="o">-</span> <span class="n">expected</span><span class="p">)</span> <span class="o">/</span> <span class="nb">abs</span><span class="p">(</span><span class="n">expected</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">tolerance</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="load-compustat-ground-truth">
+<h2>Load Compustat ground truth<a class="headerlink" href="#load-compustat-ground-truth" title="Link to this heading">#</a></h2>
+<p>To measure accuracy we need numbers we can trust. Compustat provides
+audited annual financial data for public companies. We load revenue
+(<code class="docutils literal notranslate"><span class="pre">sale</span></code>), net income (<code class="docutils literal notranslate"><span class="pre">ni</span></code>), and total assets (<code class="docutils literal notranslate"><span class="pre">at</span></code>) – all reported
+in millions of USD.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pull_CRSP_Compustat</span> <span class="kn">import</span> <span class="n">load_compustat</span>
+
+<span class="n">comp</span> <span class="o">=</span> <span class="n">load_compustat</span><span class="p">(</span><span class="n">DATA_DIR</span><span class="p">)</span>
+
+<span class="c1"># Keep only annual data with non-null key metrics</span>
+<span class="n">comp</span> <span class="o">=</span> <span class="n">comp</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;sale&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Compustat sample: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">comp</span><span class="p">)</span><span class="si">}</span><span class="s2"> company-years, </span><span class="si">{</span><span class="n">comp</span><span class="p">[</span><span class="s1">&#39;conm&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span><span class="si">}</span><span class="s2"> companies&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Date range: </span><span class="si">{</span><span class="n">comp</span><span class="p">[</span><span class="s1">&#39;datadate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">()</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">comp</span><span class="p">[</span><span class="s1">&#39;datadate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">comp</span><span class="p">[[</span><span class="s2">&quot;conm&quot;</span><span class="p">,</span> <span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="s2">&quot;sale&quot;</span><span class="p">,</span> <span class="s2">&quot;ni&quot;</span><span class="p">,</span> <span class="s2">&quot;at&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Compustat sample: 228 company-years, 19 companies
+Date range: 2014-01-31 to 2026-01-31
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>conm</th>
+      <th>year</th>
+      <th>sale</th>
+      <th>ni</th>
+      <th>at</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>218</th>
+      <td>AMC ENTERTAINMENT HOLDINGS</td>
+      <td>2016</td>
+      <td>3235.846</td>
+      <td>111.667</td>
+      <td>8641.841</td>
+    </tr>
+    <tr>
+      <th>219</th>
+      <td>AMC ENTERTAINMENT HOLDINGS</td>
+      <td>2017</td>
+      <td>5079.2</td>
+      <td>-487.2</td>
+      <td>9805.9</td>
+    </tr>
+    <tr>
+      <th>220</th>
+      <td>AMC ENTERTAINMENT HOLDINGS</td>
+      <td>2018</td>
+      <td>5460.8</td>
+      <td>110.1</td>
+      <td>9495.8</td>
+    </tr>
+    <tr>
+      <th>221</th>
+      <td>AMC ENTERTAINMENT HOLDINGS</td>
+      <td>2019</td>
+      <td>5471.0</td>
+      <td>-149.1</td>
+      <td>13675.8</td>
+    </tr>
+    <tr>
+      <th>222</th>
+      <td>AMC ENTERTAINMENT HOLDINGS</td>
+      <td>2020</td>
+      <td>1242.4</td>
+      <td>-4589.1</td>
+      <td>10276.4</td>
+    </tr>
+    <tr>
+      <th>223</th>
+      <td>AMC ENTERTAINMENT HOLDINGS</td>
+      <td>2021</td>
+      <td>2527.9</td>
+      <td>-1269.1</td>
+      <td>10821.5</td>
+    </tr>
+    <tr>
+      <th>224</th>
+      <td>AMC ENTERTAINMENT HOLDINGS</td>
+      <td>2022</td>
+      <td>3911.4</td>
+      <td>-973.6</td>
+      <td>9135.6</td>
+    </tr>
+    <tr>
+      <th>225</th>
+      <td>AMC ENTERTAINMENT HOLDINGS</td>
+      <td>2023</td>
+      <td>4812.6</td>
+      <td>-396.6</td>
+      <td>9009.2</td>
+    </tr>
+    <tr>
+      <th>226</th>
+      <td>AMC ENTERTAINMENT HOLDINGS</td>
+      <td>2024</td>
+      <td>4637.2</td>
+      <td>-352.6</td>
+      <td>8247.5</td>
+    </tr>
+    <tr>
+      <th>227</th>
+      <td>AMC ENTERTAINMENT HOLDINGS</td>
+      <td>2025</td>
+      <td>4848.9</td>
+      <td>-632.4</td>
+      <td>8017.8</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="generate-benchmark-q-a-pairs">
+<h2>Generate benchmark Q&amp;A pairs<a class="headerlink" href="#generate-benchmark-q-a-pairs" title="Link to this heading">#</a></h2>
+<p>We create one question per (company, year, metric) combination.
+Each question asks for a specific financial figure in plain English –
+the kind of question an analyst might ask. The expected answer comes
+directly from Compustat.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">METRICS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;sale&quot;</span><span class="p">:</span> <span class="s2">&quot;total revenue (net sales)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ni&quot;</span><span class="p">:</span> <span class="s2">&quot;net income (loss)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;at&quot;</span><span class="p">:</span> <span class="s2">&quot;total assets&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="c1"># Use only recent fiscal years where we have 10-K filings on disk.</span>
+<span class="n">recent</span> <span class="o">=</span> <span class="n">comp</span><span class="p">[</span><span class="n">comp</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">2024</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="n">test_cases</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">recent</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">METRICS</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="n">col</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+            <span class="k">continue</span>
+        <span class="n">test_cases</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;company_name&quot;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;conm&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;cik&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;cik&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span>
+                <span class="s2">&quot;fiscal_year&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">]),</span>
+                <span class="s2">&quot;fiscal_year_end&quot;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;datadate&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">),</span>
+                <span class="s2">&quot;metric&quot;</span><span class="p">:</span> <span class="n">col</span><span class="p">,</span>
+                <span class="s2">&quot;metric_label&quot;</span><span class="p">:</span> <span class="n">label</span><span class="p">,</span>
+                <span class="s2">&quot;expected&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">),</span>
+                <span class="s2">&quot;question&quot;</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;What was </span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;conm&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;s </span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2"> for the fiscal year &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;ending </span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;datadate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">? &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;Report a single number in millions of US dollars.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Generated </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">test_cases</span><span class="p">)</span><span class="si">}</span><span class="s2"> test cases&quot;</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">test_cases</span><span class="p">)[[</span><span class="s2">&quot;company_name&quot;</span><span class="p">,</span> <span class="s2">&quot;fiscal_year&quot;</span><span class="p">,</span> <span class="s2">&quot;metric_label&quot;</span><span class="p">,</span> <span class="s2">&quot;expected&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Generated 117 test cases
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>company_name</th>
+      <th>fiscal_year</th>
+      <th>metric_label</th>
+      <th>expected</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>APPLE INC</td>
+      <td>2024</td>
+      <td>total revenue (net sales)</td>
+      <td>391035.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>APPLE INC</td>
+      <td>2024</td>
+      <td>net income (loss)</td>
+      <td>93736.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>APPLE INC</td>
+      <td>2024</td>
+      <td>total assets</td>
+      <td>364980.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>APPLE INC</td>
+      <td>2025</td>
+      <td>total revenue (net sales)</td>
+      <td>416161.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>APPLE INC</td>
+      <td>2025</td>
+      <td>net income (loss)</td>
+      <td>112010.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>APPLE INC</td>
+      <td>2025</td>
+      <td>total assets</td>
+      <td>359241.0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>BOEING CO</td>
+      <td>2024</td>
+      <td>total revenue (net sales)</td>
+      <td>66960.0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>BOEING CO</td>
+      <td>2024</td>
+      <td>net income (loss)</td>
+      <td>-11817.0</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>BOEING CO</td>
+      <td>2024</td>
+      <td>total assets</td>
+      <td>156363.0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>BOEING CO</td>
+      <td>2025</td>
+      <td>total revenue (net sales)</td>
+      <td>89463.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="baseline-evaluation-no-context">
+<h2>Baseline evaluation (no context)<a class="headerlink" href="#baseline-evaluation-no-context" title="Link to this heading">#</a></h2>
+<p>First we establish the baseline: ask <code class="docutils literal notranslate"><span class="pre">gpt-4o-mini</span></code> each question with
+<strong>no additional context</strong>. The model must rely entirely on whatever
+financial data it absorbed during pre-training. For recent fiscal years
+this is especially challenging – the model’s training data may not
+include the latest annual reports.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">SYSTEM_MSG</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">&quot;You are a financial analyst. Answer the question with a single numeric &quot;</span>
+    <span class="s2">&quot;value in millions of US dollars. If you are uncertain, give your best &quot;</span>
+    <span class="s2">&quot;estimate. Do not refuse to answer.&quot;</span>
+<span class="p">)</span>
+
+<span class="n">baseline_results</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">tc</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">test_cases</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">run_prompt</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">MODEL_ID</span><span class="p">,</span> <span class="n">tc</span><span class="p">[</span><span class="s2">&quot;question&quot;</span><span class="p">],</span> <span class="n">system_msg</span><span class="o">=</span><span class="n">SYSTEM_MSG</span><span class="p">)</span>
+    <span class="n">extracted</span> <span class="o">=</span> <span class="n">extract_number</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;output&quot;</span><span class="p">])</span>
+    <span class="n">correct_5</span> <span class="o">=</span> <span class="n">is_correct</span><span class="p">(</span><span class="n">tc</span><span class="p">[</span><span class="s2">&quot;expected&quot;</span><span class="p">],</span> <span class="n">extracted</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+    <span class="n">correct_10</span> <span class="o">=</span> <span class="n">is_correct</span><span class="p">(</span><span class="n">tc</span><span class="p">[</span><span class="s2">&quot;expected&quot;</span><span class="p">],</span> <span class="n">extracted</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="mf">0.10</span><span class="p">)</span>
+    <span class="n">baseline_results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="o">**</span><span class="n">tc</span><span class="p">,</span>
+            <span class="s2">&quot;answer&quot;</span><span class="p">:</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;output&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;extracted&quot;</span><span class="p">:</span> <span class="n">extracted</span><span class="p">,</span>
+            <span class="s2">&quot;correct_5pct&quot;</span><span class="p">:</span> <span class="n">correct_5</span><span class="p">,</span>
+            <span class="s2">&quot;correct_10pct&quot;</span><span class="p">:</span> <span class="n">correct_10</span><span class="p">,</span>
+            <span class="s2">&quot;latency_s&quot;</span><span class="p">:</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;latency_s&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;input_tokens&quot;</span><span class="p">:</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;input_tokens&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;output_tokens&quot;</span><span class="p">:</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;output_tokens&quot;</span><span class="p">],</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Baseline: </span><span class="si">{</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">test_cases</span><span class="p">)</span><span class="si">}</span><span class="s2"> done&quot;</span><span class="p">)</span>
+
+<span class="n">df_baseline</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">baseline_results</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_baseline</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Baseline accuracy (5%):  </span><span class="si">{</span><span class="n">df_baseline</span><span class="p">[</span><span class="s1">&#39;correct_5pct&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">df_baseline</span><span class="p">[</span><span class="s1">&#39;correct_5pct&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Baseline accuracy (10%): </span><span class="si">{</span><span class="n">df_baseline</span><span class="p">[</span><span class="s1">&#39;correct_10pct&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">df_baseline</span><span class="p">[</span><span class="s1">&#39;correct_10pct&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Baseline: 10/117 done
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Baseline: 20/117 done
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Baseline: 30/117 done
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Baseline: 40/117 done
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Baseline: 50/117 done
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Baseline: 60/117 done
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Baseline: 70/117 done
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Baseline: 80/117 done
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Baseline: 90/117 done
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Baseline: 100/117 done
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Baseline: 110/117 done
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Baseline accuracy (5%):  10/117 (8.5%)
+Baseline accuracy (10%): 23/117 (19.7%)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="build-filing-lookup-for-rag">
+<h2>Build filing lookup for RAG<a class="headerlink" href="#build-filing-lookup-for-rag" title="Link to this heading">#</a></h2>
+<p>This is the <strong>retrieval</strong> step. For each question we know the company
+(CIK) and fiscal year end date. We look up the corresponding 10-K
+filing from the WRDS metadata index, read the cleaned full text, and
+extract the sections most likely to contain the answer – financial
+tables, MD&amp;A, and results of operations.</p>
+<p>The retrieval here is structured lookup (match on CIK + date) rather
+than vector search. In production RAG systems you would typically use
+the FAISS-based semantic search from notebook 01. We use direct lookup
+here so the benchmark isolates the effect of <em>having context</em> from the
+quality of the retrieval itself.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pull_sec_filings_raw</span> <span class="kn">import</span> <span class="n">edgar_to_wrds_path</span>
+
+<span class="c1"># Load filing metadata</span>
+<span class="n">filing_idx</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">DATA_DIR</span> <span class="o">/</span> <span class="s2">&quot;sec_filings_metadata&quot;</span> <span class="o">/</span> <span class="s2">&quot;filing_index.parquet&quot;</span><span class="p">)</span>
+<span class="n">filing_idx</span><span class="p">[</span><span class="s2">&quot;fdate&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">filing_idx</span><span class="p">[</span><span class="s2">&quot;fdate&quot;</span><span class="p">])</span>
+<span class="n">tenk_idx</span> <span class="o">=</span> <span class="n">filing_idx</span><span class="p">[</span><span class="n">filing_idx</span><span class="p">[</span><span class="s2">&quot;form&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;10-K&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;10-K filings in index: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">tenk_idx</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">filings_dir</span> <span class="o">=</span> <span class="n">DATA_DIR</span> <span class="o">/</span> <span class="s2">&quot;wrds_clean_filings&quot;</span>
+
+
+<span class="k">def</span> <span class="nf">extract_financial_context</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">max_words</span><span class="o">=</span><span class="mi">3000</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract financial context from a 10-K filing.</span>
+
+<span class="sd">    Uses two strategies:</span>
+<span class="sd">    1. Find table rows with key financial figures (revenue, income, assets)</span>
+<span class="sd">       and include surrounding lines for context.</span>
+<span class="sd">    2. Find narrative paragraphs discussing financial results.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">keywords</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;net sales&quot;</span><span class="p">,</span> <span class="s2">&quot;total net revenue&quot;</span><span class="p">,</span> <span class="s2">&quot;total revenue&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;net income&quot;</span><span class="p">,</span> <span class="s2">&quot;net loss&quot;</span><span class="p">,</span> <span class="s2">&quot;net earnings&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;total assets&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;results of operations&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;operating income&quot;</span><span class="p">,</span> <span class="s2">&quot;gross margin&quot;</span><span class="p">,</span> <span class="s2">&quot;gross profit&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+
+    <span class="n">lines</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">context_parts</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">total_words</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">seen</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+    <span class="c1"># Strategy 1: Find lines with key financial table data and grab context</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lines</span><span class="p">):</span>
+        <span class="n">lower</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">lower</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="c1"># Look for lines like &quot;Total net sales $ 391,035&quot;</span>
+        <span class="n">has_keyword</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span><span class="n">kw</span> <span class="ow">in</span> <span class="n">lower</span> <span class="k">for</span> <span class="n">kw</span> <span class="ow">in</span> <span class="n">keywords</span><span class="p">)</span>
+        <span class="n">has_number</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[\d,]{3,}&quot;</span><span class="p">,</span> <span class="n">line</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">has_keyword</span> <span class="ow">and</span> <span class="n">has_number</span><span class="p">:</span>
+            <span class="c1"># Grab a window of lines around this match</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">5</span><span class="p">)</span>
+            <span class="n">end</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">),</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">6</span><span class="p">)</span>
+            <span class="n">chunk</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">])</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="n">chunk_key</span> <span class="o">=</span> <span class="n">chunk</span><span class="p">[:</span><span class="mi">100</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">chunk_key</span> <span class="ow">in</span> <span class="n">seen</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">seen</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">chunk_key</span><span class="p">)</span>
+            <span class="n">words</span> <span class="o">=</span> <span class="n">chunk</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">total_words</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">words</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">max_words</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">context_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+            <span class="n">total_words</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">words</span><span class="p">)</span>
+
+    <span class="c1"># Strategy 2: Narrative paragraphs with financial discussion</span>
+    <span class="n">paras</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">strip</span><span class="p">()]</span>
+    <span class="k">for</span> <span class="n">para</span> <span class="ow">in</span> <span class="n">paras</span><span class="p">:</span>
+        <span class="n">words</span> <span class="o">=</span> <span class="n">para</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">words</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">20</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">words</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">500</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">lower</span> <span class="o">=</span> <span class="n">para</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="n">hits</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">kw</span> <span class="ow">in</span> <span class="n">keywords</span> <span class="k">if</span> <span class="n">kw</span> <span class="ow">in</span> <span class="n">lower</span><span class="p">)</span>
+        <span class="n">has_dollar</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\$\s*[\d,]+&quot;</span><span class="p">,</span> <span class="n">para</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">hits</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">has_dollar</span><span class="p">:</span>
+            <span class="n">para_key</span> <span class="o">=</span> <span class="n">para</span><span class="p">[:</span><span class="mi">100</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">para_key</span> <span class="ow">in</span> <span class="n">seen</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">seen</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">para_key</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">total_words</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">words</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">max_words</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">context_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">para</span><span class="p">)</span>
+            <span class="n">total_words</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">words</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">---</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">context_parts</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">find_10k_filing</span><span class="p">(</span><span class="n">cik</span><span class="p">,</span> <span class="n">fiscal_year_end</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Find the 10-K filing for a given company and fiscal year end date.</span>
+
+<span class="sd">    Returns the filing context or None if not found.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fy_end</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="n">fiscal_year_end</span><span class="p">)</span>
+
+    <span class="c1"># Find 10-Ks for this CIK filed within 6 months after fiscal year end</span>
+    <span class="n">cik_filings</span> <span class="o">=</span> <span class="n">tenk_idx</span><span class="p">[</span><span class="n">tenk_idx</span><span class="p">[</span><span class="s2">&quot;cik&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">cik</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">cik_filings</span> <span class="o">=</span> <span class="n">cik_filings</span><span class="p">[</span>
+        <span class="p">(</span><span class="n">cik_filings</span><span class="p">[</span><span class="s2">&quot;fdate&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">fy_end</span><span class="p">)</span>
+        <span class="o">&amp;</span> <span class="p">(</span><span class="n">cik_filings</span><span class="p">[</span><span class="s2">&quot;fdate&quot;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">fy_end</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">180</span><span class="p">))</span>
+    <span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">cik_filings</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="c1"># Take the earliest filing after FY end (the actual 10-K for that year)</span>
+    <span class="n">filing</span> <span class="o">=</span> <span class="n">cik_filings</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;fdate&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">wrds_relpath</span> <span class="o">=</span> <span class="n">edgar_to_wrds_path</span><span class="p">(</span><span class="n">filing</span><span class="p">[</span><span class="s2">&quot;fname&quot;</span><span class="p">])</span>
+    <span class="n">filepath</span> <span class="o">=</span> <span class="n">filings_dir</span> <span class="o">/</span> <span class="n">wrds_relpath</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">filepath</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="n">text</span> <span class="o">=</span> <span class="n">filepath</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+    <span class="n">context</span> <span class="o">=</span> <span class="n">extract_financial_context</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">context</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;context&quot;</span><span class="p">:</span> <span class="n">context</span><span class="p">,</span>
+        <span class="s2">&quot;company_name&quot;</span><span class="p">:</span> <span class="n">filing</span><span class="p">[</span><span class="s2">&quot;coname&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;filing_date&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">filing</span><span class="p">[</span><span class="s2">&quot;fdate&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">date</span><span class="p">()),</span>
+    <span class="p">}</span>
+
+
+<span class="c1"># Quick test</span>
+<span class="n">test_result</span> <span class="o">=</span> <span class="n">find_10k_filing</span><span class="p">(</span><span class="s2">&quot;0000320193&quot;</span><span class="p">,</span> <span class="s2">&quot;2024-09-30&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">test_result</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Apple 10-K found: filed </span><span class="si">{</span><span class="n">test_result</span><span class="p">[</span><span class="s1">&#39;filing_date&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">, &quot;</span>
+          <span class="sa">f</span><span class="s2">&quot;context length: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">test_result</span><span class="p">[</span><span class="s1">&#39;context&#39;</span><span class="p">])</span><span class="si">}</span><span class="s2"> chars&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10-K filings in index: 239
+Apple 10-K found: filed 2024-11-01, context length: 19465 chars
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="rag-prompt-construction">
+<h2>RAG prompt construction<a class="headerlink" href="#rag-prompt-construction" title="Link to this heading">#</a></h2>
+<p>The prompt template is straightforward: we prepend the retrieved filing
+excerpts to the question and instruct the model to extract numbers from
+the provided text. This is the core of RAG – the model no longer needs
+to <em>know</em> the answer; it just needs to <em>read</em> it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">build_rag_prompt</span><span class="p">(</span><span class="n">question</span><span class="p">,</span> <span class="n">filing_context</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Build a prompt with retrieved SEC filing context.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">filing_context</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">question</span>
+
+    <span class="n">source</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">filing_context</span><span class="p">[</span><span class="s1">&#39;company_name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">, 10-K, filed </span><span class="si">{</span><span class="n">filing_context</span><span class="p">[</span><span class="s1">&#39;filing_date&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="s2">&quot;Use the following SEC filing excerpts to answer the question. &quot;</span>
+        <span class="s2">&quot;Extract the specific numbers from the excerpts.</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;SEC FILING EXCERPTS (Source: </span><span class="si">{</span><span class="n">source</span><span class="si">}</span><span class="s2">):</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">filing_context</span><span class="p">[</span><span class="s1">&#39;context&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;QUESTION: </span><span class="si">{</span><span class="n">question</span><span class="si">}</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+        <span class="s2">&quot;Answer with a single number in millions of US dollars.&quot;</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="rag-enhanced-evaluation">
+<h2>RAG-enhanced evaluation<a class="headerlink" href="#rag-enhanced-evaluation" title="Link to this heading">#</a></h2>
+<p>Now we repeat the same questions, but this time each prompt includes
+the retrieved SEC filing excerpts. The model, the system message, and
+the questions are identical – the only difference is the added context.
+Any improvement in accuracy is attributable to RAG.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rag_results</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">filings_found</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">tc</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">test_cases</span><span class="p">):</span>
+    <span class="n">filing_context</span> <span class="o">=</span> <span class="n">find_10k_filing</span><span class="p">(</span><span class="n">tc</span><span class="p">[</span><span class="s2">&quot;cik&quot;</span><span class="p">],</span> <span class="n">tc</span><span class="p">[</span><span class="s2">&quot;fiscal_year_end&quot;</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">filing_context</span><span class="p">:</span>
+        <span class="n">filings_found</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">rag_prompt</span> <span class="o">=</span> <span class="n">build_rag_prompt</span><span class="p">(</span><span class="n">tc</span><span class="p">[</span><span class="s2">&quot;question&quot;</span><span class="p">],</span> <span class="n">filing_context</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">run_prompt</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">MODEL_ID</span><span class="p">,</span> <span class="n">rag_prompt</span><span class="p">,</span> <span class="n">system_msg</span><span class="o">=</span><span class="n">SYSTEM_MSG</span><span class="p">)</span>
+    <span class="n">extracted</span> <span class="o">=</span> <span class="n">extract_number</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;output&quot;</span><span class="p">])</span>
+    <span class="n">correct_5</span> <span class="o">=</span> <span class="n">is_correct</span><span class="p">(</span><span class="n">tc</span><span class="p">[</span><span class="s2">&quot;expected&quot;</span><span class="p">],</span> <span class="n">extracted</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+    <span class="n">correct_10</span> <span class="o">=</span> <span class="n">is_correct</span><span class="p">(</span><span class="n">tc</span><span class="p">[</span><span class="s2">&quot;expected&quot;</span><span class="p">],</span> <span class="n">extracted</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="mf">0.10</span><span class="p">)</span>
+
+    <span class="n">rag_results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="o">**</span><span class="n">tc</span><span class="p">,</span>
+            <span class="s2">&quot;answer&quot;</span><span class="p">:</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;output&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;extracted&quot;</span><span class="p">:</span> <span class="n">extracted</span><span class="p">,</span>
+            <span class="s2">&quot;correct_5pct&quot;</span><span class="p">:</span> <span class="n">correct_5</span><span class="p">,</span>
+            <span class="s2">&quot;correct_10pct&quot;</span><span class="p">:</span> <span class="n">correct_10</span><span class="p">,</span>
+            <span class="s2">&quot;latency_s&quot;</span><span class="p">:</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;latency_s&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;input_tokens&quot;</span><span class="p">:</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;input_tokens&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;output_tokens&quot;</span><span class="p">:</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;output_tokens&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;filing_found&quot;</span><span class="p">:</span> <span class="n">filing_context</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  RAG: </span><span class="si">{</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">test_cases</span><span class="p">)</span><span class="si">}</span><span class="s2"> done&quot;</span><span class="p">)</span>
+
+<span class="n">df_rag</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rag_results</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_rag</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Filings found: </span><span class="si">{</span><span class="n">filings_found</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;RAG accuracy (5%):  </span><span class="si">{</span><span class="n">df_rag</span><span class="p">[</span><span class="s1">&#39;correct_5pct&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">df_rag</span><span class="p">[</span><span class="s1">&#39;correct_5pct&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;RAG accuracy (10%): </span><span class="si">{</span><span class="n">df_rag</span><span class="p">[</span><span class="s1">&#39;correct_10pct&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">df_rag</span><span class="p">[</span><span class="s1">&#39;correct_10pct&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  RAG: 10/117 done
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  RAG: 20/117 done
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  RAG: 30/117 done
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  RAG: 40/117 done
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  RAG: 50/117 done
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  RAG: 60/117 done
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  RAG: 70/117 done
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  RAG: 80/117 done
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  RAG: 90/117 done
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  RAG: 100/117 done
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  RAG: 110/117 done
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Filings found: 90/117
+RAG accuracy (5%):  71/117 (60.7%)
+RAG accuracy (10%): 76/117 (65.0%)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="results-comparison">
+<h2>Results comparison<a class="headerlink" href="#results-comparison" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;RAG BENCHMARK RESULTS&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+
+<span class="n">baseline_cost</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span>
+    <span class="n">calculate_cost</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;input_tokens&quot;</span><span class="p">],</span> <span class="n">r</span><span class="p">[</span><span class="s2">&quot;output_tokens&quot;</span><span class="p">],</span> <span class="n">MODEL_INPUT_PRICE</span><span class="p">,</span> <span class="n">MODEL_OUTPUT_PRICE</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">baseline_results</span>
+<span class="p">)</span>
+<span class="n">rag_cost</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span>
+    <span class="n">calculate_cost</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;input_tokens&quot;</span><span class="p">],</span> <span class="n">r</span><span class="p">[</span><span class="s2">&quot;output_tokens&quot;</span><span class="p">],</span> <span class="n">MODEL_INPUT_PRICE</span><span class="p">,</span> <span class="n">MODEL_OUTPUT_PRICE</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">rag_results</span>
+<span class="p">)</span>
+
+<span class="n">summary</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;Metric&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;Accuracy (5% tolerance)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Accuracy (10% tolerance)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Avg latency (s)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Total cost (USD)&quot;</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;Baseline&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">df_baseline</span><span class="p">[</span><span class="s1">&#39;correct_5pct&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">df_baseline</span><span class="p">[</span><span class="s1">&#39;correct_10pct&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">df_baseline</span><span class="p">[</span><span class="s1">&#39;latency_s&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;$</span><span class="si">{</span><span class="n">baseline_cost</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;RAG&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">df_rag</span><span class="p">[</span><span class="s1">&#39;correct_5pct&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">df_rag</span><span class="p">[</span><span class="s1">&#39;correct_10pct&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">df_rag</span><span class="p">[</span><span class="s1">&#39;latency_s&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;$</span><span class="si">{</span><span class="n">rag_cost</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="p">],</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">summary</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>============================================================
+RAG BENCHMARK RESULTS
+============================================================
+                  Metric Baseline     RAG
+ Accuracy (5% tolerance)     8.5%   60.7%
+Accuracy (10% tolerance)    19.7%   65.0%
+         Avg latency (s)     1.35    1.08
+        Total cost (USD)  $0.0044 $0.0604
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Per-question breakdown</span>
+<span class="n">comparison</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;Company&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">tc</span><span class="p">[</span><span class="s2">&quot;company_name&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">tc</span> <span class="ow">in</span> <span class="n">test_cases</span><span class="p">],</span>
+        <span class="s2">&quot;Year&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">tc</span><span class="p">[</span><span class="s2">&quot;fiscal_year&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">tc</span> <span class="ow">in</span> <span class="n">test_cases</span><span class="p">],</span>
+        <span class="s2">&quot;Metric&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">tc</span><span class="p">[</span><span class="s2">&quot;metric_label&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">tc</span> <span class="ow">in</span> <span class="n">test_cases</span><span class="p">],</span>
+        <span class="s2">&quot;Expected&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">tc</span><span class="p">[</span><span class="s2">&quot;expected&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">tc</span> <span class="ow">in</span> <span class="n">test_cases</span><span class="p">],</span>
+        <span class="s2">&quot;Baseline&quot;</span><span class="p">:</span> <span class="n">df_baseline</span><span class="p">[</span><span class="s2">&quot;extracted&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+        <span class="s2">&quot;Base_OK&quot;</span><span class="p">:</span> <span class="n">df_baseline</span><span class="p">[</span><span class="s2">&quot;correct_10pct&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+        <span class="s2">&quot;RAG&quot;</span><span class="p">:</span> <span class="n">df_rag</span><span class="p">[</span><span class="s2">&quot;extracted&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+        <span class="s2">&quot;RAG_OK&quot;</span><span class="p">:</span> <span class="n">df_rag</span><span class="p">[</span><span class="s2">&quot;correct_10pct&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+<span class="n">comparison</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">OUTPUT_DIR</span> <span class="o">/</span> <span class="s2">&quot;rag_benchmark_results.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Saved detailed results to </span><span class="si">{</span><span class="n">OUTPUT_DIR</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="s1">&#39;rag_benchmark_results.csv&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">comparison</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Saved detailed results to /Users/jbejarano/GitRepositories/finm-32900-ALL/case_study_sec_filings/_output/rag_benchmark_results.csv
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Company</th>
+      <th>Year</th>
+      <th>Metric</th>
+      <th>Expected</th>
+      <th>Baseline</th>
+      <th>Base_OK</th>
+      <th>RAG</th>
+      <th>RAG_OK</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>APPLE INC</td>
+      <td>2024</td>
+      <td>total revenue (net sales)</td>
+      <td>391035.0</td>
+      <td>400000.0</td>
+      <td>True</td>
+      <td>391035.0</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>APPLE INC</td>
+      <td>2024</td>
+      <td>net income (loss)</td>
+      <td>93736.0</td>
+      <td>2024.0</td>
+      <td>False</td>
+      <td>93736.0</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>APPLE INC</td>
+      <td>2024</td>
+      <td>total assets</td>
+      <td>364980.0</td>
+      <td>2023.0</td>
+      <td>False</td>
+      <td>364980.0</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>APPLE INC</td>
+      <td>2025</td>
+      <td>total revenue (net sales)</td>
+      <td>416161.0</td>
+      <td>400000.0</td>
+      <td>True</td>
+      <td>416161.0</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>APPLE INC</td>
+      <td>2025</td>
+      <td>net income (loss)</td>
+      <td>112010.0</td>
+      <td>2023.0</td>
+      <td>False</td>
+      <td>94695.0</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>112</th>
+      <td>AMC ENTERTAINMENT HOLDINGS</td>
+      <td>2024</td>
+      <td>net income (loss)</td>
+      <td>-352.6</td>
+      <td>100.0</td>
+      <td>False</td>
+      <td>-352.6</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>113</th>
+      <td>AMC ENTERTAINMENT HOLDINGS</td>
+      <td>2024</td>
+      <td>total assets</td>
+      <td>8247.5</td>
+      <td>10000.0</td>
+      <td>False</td>
+      <td>8247.5</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>114</th>
+      <td>AMC ENTERTAINMENT HOLDINGS</td>
+      <td>2025</td>
+      <td>total revenue (net sales)</td>
+      <td>4848.9</td>
+      <td>2023.0</td>
+      <td>False</td>
+      <td>5000.0</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>115</th>
+      <td>AMC ENTERTAINMENT HOLDINGS</td>
+      <td>2025</td>
+      <td>net income (loss)</td>
+      <td>-632.4</td>
+      <td>200.0</td>
+      <td>False</td>
+      <td>40.0</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>116</th>
+      <td>AMC ENTERTAINMENT HOLDINGS</td>
+      <td>2025</td>
+      <td>total assets</td>
+      <td>8017.8</td>
+      <td>5000.0</td>
+      <td>False</td>
+      <td>6000.0</td>
+      <td>False</td>
+    </tr>
+  </tbody>
+</table>
+<p>117 rows × 8 columns</p>
+</div></div></div>
+</div>
+</section>
+<section id="takeaways">
+<h2>Takeaways<a class="headerlink" href="#takeaways" title="Link to this heading">#</a></h2>
+<p>Without context, the model must rely on memorized (and often stale or
+imprecise) financial data – resulting in frequent hallucinations. With
+RAG, the same model receives the actual SEC filing text containing the
+reported figures and can extract them accurately.</p>
+<p>This is the core value proposition of retrieval-augmented generation:
+<strong>ground the model in source documents</strong> so it doesn’t have to guess.
+A cheap, fast model with good retrieval beats an expensive model
+working from memory alone.</p>
+<section id="connecting-the-two-notebooks">
+<h3>Connecting the two notebooks<a class="headerlink" href="#connecting-the-two-notebooks" title="Link to this heading">#</a></h3>
+<p>Together, these notebooks illustrate the full RAG pipeline:</p>
+<ul class="simple">
+<li><p><strong>Notebook 01</strong> built a semantic search index over SEC filings using
+vector embeddings and FAISS, and showed how to query it with
+natural-language questions.</p></li>
+<li><p><strong>Notebook 02</strong> (this one) demonstrated why retrieval matters: the
+same LLM that hallucinates without context becomes accurate when we
+inject the right source documents.</p></li>
+</ul>
+<p>In a production system, the retrieval step from notebook 01 would feed
+directly into the generation step from notebook 02 – the query
+identifies the most relevant filing passages, and those passages
+become the context window for the LLM.</p>
+</section>
+</section>
+</section>
+
+<div class="section ablog__blog_comments">
+   
+</div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="01_filing_search_ipynb.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">01. Semantic Search of SEC Filings</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../subject_to_change_after_this_week.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">WARNING: Notes subject to change after this week</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-rag">What is RAG?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-experiment">The experiment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-data">The data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#helper-functions">Helper functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-compustat-ground-truth">Load Compustat ground truth</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-benchmark-q-a-pairs">Generate benchmark Q&amp;A pairs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#baseline-evaluation-no-context">Baseline evaluation (no context)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-filing-lookup-for-rag">Build filing lookup for RAG</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rag-prompt-construction">RAG prompt construction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rag-enhanced-evaluation">RAG-enhanced evaluation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#results-comparison">Results comparison</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#takeaways">Takeaways</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#connecting-the-two-notebooks">Connecting the two notebooks</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jeremiah Bejarano
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, Jeremiah Bejarano.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -202,8 +202,19 @@
 <li class="toctree-l2"><a class="reference internal" href="../review_w03.html">Study Questions</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../discussion_04.html">Discussion 4: Benchmarking and LLM Tool Use</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reasoning_acting_tools.html">From Chain-Of-Thought To Tool Use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/benchmarking_llms.html">Benchmarking LLMs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rag.html">Retrieval-Augmented Generation (RAG)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/01_filing_search_ipynb.html">01. Semantic Search of SEC Filings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/02_rag_benchmark_ipynb.html">02. RAG Benchmark: Can Retrieved Context Fix a Weak Model?</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="../../subject_to_change_after_this_week.html">WARNING: Notes subject to change after this week</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../discussion_04.html">Discussion 4:</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../discussion_05.html">Discussion 5: Agents</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../intro_to_agents.html">Introduction to Agents</a></li>
+</ul>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Homework 📝</span></p>
 <ul class="nav bd-sidenav">
@@ -224,6 +235,12 @@
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/02_embeddings_demos_ipynb.html">Text Embeddings: From Words to Vectors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/03_methodology_ipynb.html">Methodology: From Embeddings to Predictions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/04_results_ipynb.html">Replication Results: Chen, Kelly, and Xiu (2022)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../HW3.html">Homework 3: Benchmarking &amp; RAG</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/01_benchmark_questions.html">01. Benchmark Questions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/02_analyze_results.html">02. LLM Benchmark Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/03_build_agents.html">03. Building Agents: From Simple Prompting to Tool-Using Agents</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../final_project.html">Final Project</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -472,6 +489,12 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chatkit-implementation-workflow-png">chatkit_implementation_workflow.png</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nextjs-nested-layouts-png">nextjs_nested_layouts.png</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nextjs-nested-route-png">nextjs_nested_route.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rag-directory">rag/ (directory)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rag-paper-fig1-architecture-png">rag_paper_fig1_architecture.png</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rag-pipeline-overview-png">rag_pipeline_overview.png</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#contextual-retrieval-flow-png">contextual_retrieval_flow.png</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kelly-expected-returns-directory">kelly_expected_returns/ (directory)</a></li>
 </ul>
             </nav>
@@ -758,6 +781,33 @@ document.write(`
 <li><p><strong>Original URL:</strong> <code class="docutils literal notranslate"><span class="pre">https://h8DxKfmAPhn8O0p3.public.blob.vercel-storage.com/docs/light/blog-nested-route.png</span></code></p></li>
 </ul>
 </section>
+<section id="rag-directory">
+<h2>rag/ (directory)<a class="headerlink" href="#rag-directory" title="Link to this heading">#</a></h2>
+<section id="rag-paper-fig1-architecture-png">
+<h3>rag_paper_fig1_architecture.png<a class="headerlink" href="#rag-paper-fig1-architecture-png" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Source:</strong> Lewis, P., Perez, E., Piktus, A., et al. (2020). “Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks.” <em>NeurIPS 2020</em>.</p></li>
+<li><p><strong>Description:</strong> Figure 1 from the original RAG paper showing the question encoder, document index, MIPS retrieval, and BART generator architecture.</p></li>
+<li><p><strong>Original URL:</strong> <code class="docutils literal notranslate"><span class="pre">https://arxiv.org/html/2005.11401v4/x1.png</span></code></p></li>
+</ul>
+</section>
+<section id="rag-pipeline-overview-png">
+<h3>rag_pipeline_overview.png<a class="headerlink" href="#rag-pipeline-overview-png" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Source:</strong> <a class="reference external" href="https://www.anthropic.com/news/contextual-retrieval">Anthropic - Introducing Contextual Retrieval</a></p></li>
+<li><p><strong>Description:</strong> Standard RAG pipeline showing preprocessing (corpus chunking, embedding, vector DB) and runtime (query, retrieval, rank fusion, generation).</p></li>
+<li><p><strong>Original URL:</strong> <code class="docutils literal notranslate"><span class="pre">https://cdn.sanity.io/images/4zrzovbb/website/45603646e979c62349ce27744a940abf30200d57-3840x2160.png</span></code></p></li>
+</ul>
+</section>
+<section id="contextual-retrieval-flow-png">
+<h3>contextual_retrieval_flow.png<a class="headerlink" href="#contextual-retrieval-flow-png" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Source:</strong> <a class="reference external" href="https://www.anthropic.com/news/contextual-retrieval">Anthropic - Introducing Contextual Retrieval</a></p></li>
+<li><p><strong>Description:</strong> Contextual Retrieval preprocessing flow showing how each chunk is situated within its document context before embedding.</p></li>
+<li><p><strong>Original URL:</strong> <code class="docutils literal notranslate"><span class="pre">https://cdn.sanity.io/images/4zrzovbb/website/2496e7c6fedd7ffaa043895c23a4089638b0c21b-3840x2160.png</span></code></p></li>
+</ul>
+</section>
+</section>
 <section id="kelly-expected-returns-directory">
 <h2>kelly_expected_returns/ (directory)<a class="headerlink" href="#kelly-expected-returns-directory" title="Link to this heading">#</a></h2>
 <ul class="simple">
@@ -834,6 +884,12 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chatkit-implementation-workflow-png">chatkit_implementation_workflow.png</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nextjs-nested-layouts-png">nextjs_nested_layouts.png</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nextjs-nested-route-png">nextjs_nested_route.png</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rag-directory">rag/ (directory)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rag-paper-fig1-architecture-png">rag_paper_fig1_architecture.png</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rag-pipeline-overview-png">rag_pipeline_overview.png</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#contextual-retrieval-flow-png">contextual_retrieval_flow.png</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kelly-expected-returns-directory">kelly_expected_returns/ (directory)</a></li>
 </ul>
   </nav></div>

@@ -1,0 +1,930 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>From Chain-Of-Thought To Tool Use &#8212; Generative and Agentic AI for Finance</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=f23691d7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=7a7908ec"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'discussions/reasoning_acting_tools';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/custom.js?v=c0d9a6f1"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Benchmarking LLMs" href="../notebooks/benchmarking_llms.html" />
+    <link rel="prev" title="Discussion 4: Benchmarking and LLM Tool Use" href="../discussion_04.html" /> 
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>   
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Generative and Agentic AI for Finance - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Generative and Agentic AI for Finance - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Generative and Agentic AI for Finance
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../README.html">Course Syllabus: FINM 33200, Spring 2026</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Course Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Discussions 📖</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_01.html">Discussion 1: The New Quant - LLMs in Finance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="llms_transforming_finance.html">LLMs Transforming Finance: The New Quant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="expected_returns_llms.html">LLMs for Return Prediction: Prompts vs. Embeddings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chartbook_research_catalog.html">ChartBook: Cataloging Research for Humans and AI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_and_structured_outputs.html">API Basics and Structured Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="review_w01.html">Study Questions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_02.html">Discussion 2: Text Representation and Tokenization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="structure_of_news.html">The Structure of Economic News</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ai_copilots_intro.html">AI Copilots: History and Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="words_to_tokens.html">From Words to Tokens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_embedding_analogies_ipynb.html">Optional extra: News, Financial Crises, and the Geometry of Meaning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="review_w02.html">Study Questions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_03.html">Discussion 3: LLM Fundamentals</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="ai_roundup_w03.html">AI Roundup: Week 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="llms_and_lookahead_bias.html">LLMs and Lookahead Bias</a></li>
+<li class="toctree-l2"><a class="reference internal" href="microgpt_math.html">The Mathematics of microGPT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openai_api_platform.html">The OpenAI API Platform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/openai_api_overview.html">OpenAI API Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="review_w03.html">Study Questions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../discussion_04.html">Discussion 4: Benchmarking and LLM Tool Use</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">From Chain-Of-Thought To Tool Use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/benchmarking_llms.html">Benchmarking LLMs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rag.html">Retrieval-Augmented Generation (RAG)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/01_filing_search_ipynb.html">01. Semantic Search of SEC Filings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/02_rag_benchmark_ipynb.html">02. RAG Benchmark: Can Retrieved Context Fix a Weak Model?</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../subject_to_change_after_this_week.html">WARNING: Notes subject to change after this week</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_05.html">Discussion 5: Agents</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="intro_to_agents.html">Introduction to Agents</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Homework 📝</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../HW0.html">Homework 0: Set Up Your Environment</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/01_data_sources_overview_ipynb.html">Data Sources &amp; Strategy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/02_gdelt_sp500_filtering_ipynb.html">GDELT Filtering &amp; Data Quality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/03_crosswalk_quality_ipynb.html">Crosswalk Quality</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../HW1.html">Homework 1: Lopez-Lira, Tang (2023)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/01_data_overview_ipynb.html">Data Sources Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/02_methodology_ipynb.html">NLP Pipeline &amp; Portfolio Construction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/03_replication_results_ipynb.html">Replication Results</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../HW2.html">Homework 2: Chen, Kelly, Xiu (2022)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/01_explore_data_ipynb.html">Data Explorer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/02_embeddings_demos_ipynb.html">Text Embeddings: From Words to Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/03_methodology_ipynb.html">Methodology: From Embeddings to Predictions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/04_results_ipynb.html">Replication Results: Chen, Kelly, and Xiu (2022)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../HW3.html">Homework 3: Benchmarking &amp; RAG</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/01_benchmark_questions.html">01. Benchmark Questions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/02_analyze_results.html">02. LLM Benchmark Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/03_build_agents.html">03. Building Agents: From Simple Prompting to Tool-Using Agents</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../final_project.html">Final Project</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/final_project_rubric.html">Final Project Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/potential_final_projects.html">Potential Final Project Ideas</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exams 📋</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../exam_prep.html">Exam Preparation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Misc 📌</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../acknowledgments.html">Acknowledgments</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../appendix.html">Appendix</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="nanochat_math.html">The Mathematics of Karpathy’s nanochat</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project/issues/new?title=Issue%20on%20page%20%2Fdiscussions/reasoning_acting_tools.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/discussions/reasoning_acting_tools.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>From Chain-Of-Thought To Tool Use</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-gpt-3-and-few-shot-learning">Part 1: GPT-3 and few-shot learning</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-problem">The problem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-core-idea-in-context-learning">The core idea: in-context learning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scale-unlocks-in-context-learning">Scale unlocks in-context learning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-ceiling-arithmetic-and-multi-step-reasoning">The ceiling: arithmetic and multi-step reasoning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">Key takeaways</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-chain-of-thought-prompting">Part 2: Chain-of-thought prompting</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">The problem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-core-idea">The core idea</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-the-chain-of-thought-looks-like-in-practice">What the chain of thought looks like in practice</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#an-emergent-ability-of-scale">An emergent ability of scale</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#state-of-the-art-results-without-training">State-of-the-art results without training</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Key takeaways</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#connection-to-finance">Connection to finance</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-react-synergizing-reasoning-and-acting">Part 3: ReAct – synergizing reasoning and acting</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-problem-with-reasoning-alone">The problem with reasoning alone</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-core-idea-think-then-act-then-observe">The core idea: think, then act, then observe</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-this-matters-grounding-and-auditability">Why this matters: grounding and auditability</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#connection-to-modern-tools">Connection to modern tools</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-4-toolformer-self-supervised-tool-use">Part 4: Toolformer – self-supervised tool use</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">The problem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-innovation">The innovation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-self-supervised-pipeline">The self-supervised pipeline</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-five-tools">The five tools</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#results-a-small-model-outperforms-giants">Results: a small model outperforms giants</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scaling-laws-for-tool-use">Scaling laws for tool use</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#when-are-tool-calls-actually-helpful">When are tool calls actually helpful?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-toolformer-matters">Why Toolformer matters</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-big-picture-from-prompting-to-agents">The big picture: from prompting to agents</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                   <section class="tex2jax_ignore mathjax_ignore" id="from-chain-of-thought-to-tool-use">
+<h1>From Chain-Of-Thought To Tool Use<a class="headerlink" href="#from-chain-of-thought-to-tool-use" title="Link to this heading">#</a></h1>
+<p><em>Four papers behind how modern LLMs learn from examples, reason, act, and use tools.</em></p>
+<p><strong>Papers:</strong></p>
+<ul class="simple">
+<li><p><a class="reference download internal" download="" href="../_downloads/e941f1f2975c1ec26e2cf17f658c5cfe/LanguageModelsAreFew-ShotLearners.pdf"><span class="xref download myst">Language Models are Few-Shot Learners (Brown et al., 2020)</span></a></p></li>
+<li><p><a class="reference download internal" download="" href="../_downloads/bae3ad71a7e63c1d9757bc30db07d910/ChainOfThoughPromptingElicitsReasoning.pdf"><span class="xref download myst">Chain-of-Thought Prompting Elicits Reasoning in Large Language Models (Wei et al., 2022)</span></a></p></li>
+<li><p><a class="reference download internal" download="" href="../_downloads/3399d4c37a3909db52f4e3aec1aad5c6/ReAct_2210.03629v3.pdf"><span class="xref download myst">ReAct: Synergizing Reasoning and Acting in Language Models (Yao et al., 2023)</span></a></p></li>
+<li><p><a class="reference download internal" download="" href="../_downloads/e116f6d6a64c55d2f5cf6376a19af0d7/toolformer_2302.04761v1.pdf"><span class="xref download myst">Toolformer: Language Models Can Teach Themselves to Use Tools (Schick et al., 2023)</span></a></p></li>
+</ul>
+<hr class="docutils" />
+<p>Large language models generate fluent text, but early models fell apart on tasks requiring multi-step reasoning, external information, or precise computation. Between 2020 and 2023, four papers introduced ideas that are now baked into every major LLM system you use, from ChatGPT to Claude Code to LangGraph agents. Each builds on the last:</p>
+<ol class="arabic simple">
+<li><p><strong>GPT-3</strong> (Brown et al., 2020) – showed that large models can learn tasks from just a few examples in the prompt</p></li>
+<li><p><strong>Chain-of-Thought Prompting</strong> (Wei et al., 2022) – taught models to reason step by step</p></li>
+<li><p><strong>ReAct</strong> (Yao et al., 2023) – taught models to interleave reasoning with actions in the real world</p></li>
+<li><p><strong>Toolformer</strong> (Schick et al., 2023) – taught models to decide for themselves which tools to use</p></li>
+</ol>
+<p>Together, they explain how we got from “LLMs as text completers” to “LLMs as reasoning agents that use tools,” which is the paradigm behind every agentic system we build in this course.</p>
+<hr class="docutils" />
+<section id="part-1-gpt-3-and-few-shot-learning">
+<h2>Part 1: GPT-3 and few-shot learning<a class="headerlink" href="#part-1-gpt-3-and-few-shot-learning" title="Link to this heading">#</a></h2>
+<blockquote>
+<div><p>Brown, T.B., Mann, B., Ryder, N., Subbiah, M., Kaplan, J., Dhariwal, P., Neelakantan, A., Shyam, P., Sastry, G., Askell, A., et al. (2020). Language Models are Few-Shot Learners. <em>NeurIPS 2020</em>.</p>
+</div></blockquote>
+<section id="the-problem">
+<h3>The problem<a class="headerlink" href="#the-problem" title="Link to this heading">#</a></h3>
+<p>Before GPT-3, the standard recipe for getting a language model to do a specific task was pre-training followed by fine-tuning: train a large model on a broad text corpus, then update its weights on a labeled dataset specific to your task. This worked well, but it had practical problems. You needed thousands of labeled examples for every new task. Models fine-tuned on narrow datasets could overfit to spurious patterns. And collecting task-specific training data for every possible use case simply doesn’t scale.</p>
+<p>Humans don’t work this way. Give a person a few examples of a task and a brief instruction, and they can usually figure out the pattern. GPT-3 asked whether a language model could do the same.</p>
+</section>
+<section id="the-core-idea-in-context-learning">
+<h3>The core idea: in-context learning<a class="headerlink" href="#the-core-idea-in-context-learning" title="Link to this heading">#</a></h3>
+<p>GPT-3 (175 billion parameters) showed that a large enough language model can perform tasks by conditioning on just a few examples in the prompt, with no weight updates at all. The authors called this <strong>in-context learning</strong> and tested it in three settings:</p>
+<p><img alt="Zero-shot, one-shot, and few-shot vs fine-tuning" src="../_images/gpt3_fig21_zero_one_few_shot.png" /></p>
+<p><em>Figure 2.1 from Brown et al. (2020): The four paradigms for task adaptation. Fine-tuning (right) updates model weights on many labeled examples. Zero-shot, one-shot, and few-shot (left) provide the task at inference time through the prompt alone, with no gradient updates. For few-shot, the model typically sees 10–100 examples in context.</em></p>
+<ul class="simple">
+<li><p><strong>Zero-shot</strong>: give the model only a natural language instruction (“Translate English to French:”)</p></li>
+<li><p><strong>One-shot</strong>: add a single example of the desired input-output mapping</p></li>
+<li><p><strong>Few-shot</strong>: provide a handful of examples (typically 10–100, whatever fits in the context window)</p></li>
+</ul>
+<p>No parameters are updated. The model “learns” the task purely from the pattern in the prompt.</p>
+</section>
+<section id="scale-unlocks-in-context-learning">
+<h3>Scale unlocks in-context learning<a class="headerlink" href="#scale-unlocks-in-context-learning" title="Link to this heading">#</a></h3>
+<p>In-context learning turns out to be an emergent property of scale. Small models barely benefit from additional examples in the prompt; large models get dramatically better.</p>
+<p><img alt="In-context learning curves" src="../_images/gpt3_fig12_incontext_learning.png" /></p>
+<p><em>Figure 1.2 from Brown et al. (2020): Larger models make increasingly efficient use of in-context information. On a simple task (removing random symbols from words), the 175B parameter model improves sharply with more examples, while the 1.3B model remains nearly flat. The steeper “in-context learning curves” for larger models hold across a wide range of tasks.</em></p>
+<p>Across 42 benchmarks, the pattern is consistent: few-shot performance scales faster with model size than zero-shot performance, and the gap widens at the largest scales.</p>
+<p><img alt="Aggregate performance across benchmarks" src="../_images/gpt3_fig13_aggregate_scaling.png" /></p>
+<p><em>Figure 1.3 from Brown et al. (2020): Aggregate performance across all 42 accuracy-denominated benchmarks. Zero-shot performance rises steadily with scale, but few-shot performance increases more rapidly. At 175B parameters, few-shot prompting achieves roughly 57% aggregate accuracy vs. 40% for zero-shot. Larger models are better at extracting the task from examples.</em></p>
+</section>
+<section id="the-ceiling-arithmetic-and-multi-step-reasoning">
+<h3>The ceiling: arithmetic and multi-step reasoning<a class="headerlink" href="#the-ceiling-arithmetic-and-multi-step-reasoning" title="Link to this heading">#</a></h3>
+<p>GPT-3 did well on many NLP tasks, but it fell apart on problems that require multi-step computation. The authors tested it on arithmetic of increasing difficulty:</p>
+<p><img alt="Arithmetic results" src="../_images/gpt3_fig310_arithmetic.png" /></p>
+<p><em>Figure 3.10 from Brown et al. (2020): Few-shot arithmetic performance across model sizes. GPT-3 175B achieves near-perfect accuracy on 2-digit addition and subtraction, but performance drops sharply for 4–5 digit operations and multiplication. Even the largest model can only reliably do simple arithmetic. This is a direct prediction problem: the model must jump from the question to the answer with no intermediate steps.</em></p>
+<p>GPT-3 175B reaches 100% on 2-digit addition but drops to 25–26% on 4-digit operations and 29.2% on 2-digit multiplication. The model can pattern-match simple cases, but it has no mechanism for working through multi-step calculations.</p>
+<p>The authors noted it themselves in the limitations section: “GPT-3 has notable weaknesses in text synthesis and several NLP tasks… it has difficulty with common sense physics… and struggles with tasks that involve comparing two sentences or snippets.” The model could learn <em>what</em> to do from examples, but it couldn’t show its <em>reasoning</em>.</p>
+</section>
+<section id="key-takeaways">
+<h3>Key takeaways<a class="headerlink" href="#key-takeaways" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Scale matters: in-context learning only works well at large model sizes.</p></li>
+<li><p>No training data required for new tasks: just provide examples in the prompt.</p></li>
+<li><p>Few-shot prompting closes much of the gap to fine-tuned models on many benchmarks.</p></li>
+<li><p>Clear ceiling: tasks requiring multi-step reasoning or computation remain out of reach with standard prompting.</p></li>
+</ul>
+<p>That ceiling is exactly what chain-of-thought prompting was designed to break through.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="part-2-chain-of-thought-prompting">
+<h2>Part 2: Chain-of-thought prompting<a class="headerlink" href="#part-2-chain-of-thought-prompting" title="Link to this heading">#</a></h2>
+<blockquote>
+<div><p>Wei, J., Wang, X., Schuurmans, D., Bosma, M., Ichter, B., Xia, F., Chi, E.H., Le, Q.V., &amp; Zhou, D. (2022). Chain-of-Thought Prompting Elicits Reasoning in Large Language Models. <em>NeurIPS 2022</em>.</p>
+</div></blockquote>
+<section id="id1">
+<h3>The problem<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>Standard few-shot prompting, giving the model a few (question, answer) examples, works fine for many tasks but fails systematically on problems that require multi-step reasoning. Math word problems, multi-hop question answering, and symbolic manipulation all need intermediate computations that standard prompting skips entirely.</p>
+</section>
+<section id="the-core-idea">
+<h3>The core idea<a class="headerlink" href="#the-core-idea" title="Link to this heading">#</a></h3>
+<p>The insight is simple enough to seem obvious in retrospect: instead of showing the model (question, answer) pairs, show it (question, <em>reasoning steps</em>, answer) triples. The authors call this a <strong>chain of thought</strong>, a series of intermediate natural language reasoning steps leading to the final answer.</p>
+<p><img alt="Standard Prompting vs Chain-of-Thought Prompting" src="../_images/cot_fig1_standard_vs_cot.png" /></p>
+<p><em>Figure 1 from Wei et al. (2022): Standard prompting gives the wrong answer (27) because the model jumps directly to a conclusion. Chain-of-thought prompting produces the correct answer (9) by working through intermediate steps: “23 apples originally… used 20… had 23 - 20 = 3… bought 6 more… 3 + 6 = 9.”</em></p>
+<p>No model training, no fine-tuning, no architectural changes. You just change what goes in the prompt. The model learns to mimic the reasoning pattern from the examples.</p>
+</section>
+<section id="what-the-chain-of-thought-looks-like-in-practice">
+<h3>What the chain of thought looks like in practice<a class="headerlink" href="#what-the-chain-of-thought-looks-like-in-practice" title="Link to this heading">#</a></h3>
+<p>The authors manually wrote chain-of-thought examples for eight benchmarks spanning arithmetic, commonsense, and symbolic reasoning:</p>
+<p><img alt="Examples of chain-of-thought triples across benchmarks" src="../_images/cot_fig3_examples.png" /></p>
+<p><em>Figure 3 from Wei et al. (2022): Examples of (input, chain of thought, output) triples for arithmetic, commonsense, and symbolic reasoning benchmarks. Chains of thought are highlighted in color. The reasoning format adapts naturally to each task type: math problems get equations, commonsense questions get logical deductions, symbolic tasks get step-by-step manipulations.</em></p>
+</section>
+<section id="an-emergent-ability-of-scale">
+<h3>An emergent ability of scale<a class="headerlink" href="#an-emergent-ability-of-scale" title="Link to this heading">#</a></h3>
+<p>One of the paper’s more interesting findings is that chain-of-thought reasoning only appears in sufficiently large models. Small models (under ~100B parameters) prompted with chain-of-thought examples produce fluent but <em>illogical</em> chains of thought, and actually perform <em>worse</em> than standard prompting. The benefit only kicks in at scale.</p>
+<p><img alt="Chain-of-thought as emergent ability" src="../_images/cot_fig4_scaling.png" /></p>
+<p><em>Figure 4 from Wei et al. (2022): For standard prompting, performance is flat as models scale. With chain-of-thought prompting, performance jumps once models reach ~100B parameters. This is the signature of an emergent ability: a capability that appears suddenly at scale rather than improving gradually.</em></p>
+<p>The practical implication: chain-of-thought prompting does not help small models. When you work with GPT-4, Claude, or Gemini, it’s highly effective. Apply it to a small fine-tuned model and you may actually hurt performance.</p>
+</section>
+<section id="state-of-the-art-results-without-training">
+<h3>State-of-the-art results without training<a class="headerlink" href="#state-of-the-art-results-without-training" title="Link to this heading">#</a></h3>
+<p>With just eight hand-written chain-of-thought examples, PaLM 540B achieved new state-of-the-art on the GSM8K math word problem benchmark, outperforming even a fine-tuned GPT-3 with a verifier that was specifically trained on math problems.</p>
+<p><img alt="GSM8K state-of-the-art" src="../_images/cot_fig2_gsm8k_sota.png" /></p>
+<p><em>Figure 2 from Wei et al. (2022): On the GSM8K benchmark, PaLM 540B with chain-of-thought prompting (57%) surpasses the previous best result from a fine-tuned GPT-3 with a verifier (55%). Standard prompting with PaLM only achieves 18%. No task-specific training data required.</em></p>
+</section>
+<section id="id2">
+<h3>Key takeaways<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>No training required. Chain-of-thought is a pure prompting technique.</p></li>
+<li><p>Only effective for models with ~100B+ parameters.</p></li>
+<li><p>Works for arithmetic, commonsense, and symbolic reasoning.</p></li>
+<li><p>Robust across different annotators, exemplar orderings, and exemplar sets.</p></li>
+<li><p>Limitation: the model reasons entirely from its internal knowledge. It cannot access external information or verify its own claims.</p></li>
+</ul>
+<p>That last limitation, an “internal monologue” with no connection to the external world, is what the next paper addresses.</p>
+</section>
+<section id="connection-to-finance">
+<h3>Connection to finance<a class="headerlink" href="#connection-to-finance" title="Link to this heading">#</a></h3>
+<p>Wei et al.’s chain-of-thought technique has been directly adapted for finance. Nitarach (2025) introduced FinCoT, a finance-specific chain-of-thought framework that injects expert-defined reasoning blueprints into LLM prompts. Evaluated on CFA-style questions, FinCoT improved accuracy from 63% to 80% on a general 8B model, showing that careful prompt engineering can substantially boost performance in quantitative domains without any fine-tuning.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="part-3-react-synergizing-reasoning-and-acting">
+<h2>Part 3: ReAct – synergizing reasoning and acting<a class="headerlink" href="#part-3-react-synergizing-reasoning-and-acting" title="Link to this heading">#</a></h2>
+<blockquote>
+<div><p>Yao, S., Zhao, J., Yu, D., Du, N., Shafran, I., Narasimhan, K., &amp; Cao, Y. (2023). ReAct: Synergizing Reasoning and Acting in Language Models. <em>ICLR 2023</em>.</p>
+</div></blockquote>
+<section id="the-problem-with-reasoning-alone">
+<h3>The problem with reasoning alone<a class="headerlink" href="#the-problem-with-reasoning-alone" title="Link to this heading">#</a></h3>
+<p>Chain-of-thought prompting showed that LLMs can reason effectively. But CoT reasoning happens entirely inside the model’s head. The model cannot look up facts it doesn’t know, verify claims against external sources, or take actions in the real world. This means it will sometimes hallucinate – confidently stating wrong facts – with no way for the system to catch the error.</p>
+</section>
+<section id="the-core-idea-think-then-act-then-observe">
+<h3>The core idea: think, then act, then observe<a class="headerlink" href="#the-core-idea-think-then-act-then-observe" title="Link to this heading">#</a></h3>
+<p>ReAct (Reason + Act) adds a simple loop to chain-of-thought: after reasoning about what to do, the model actually <em>does</em> something (searches Wikipedia, runs a calculation, interacts with an environment), observes the result, and then reasons about what to do next. Each step in the loop is one of three types:</p>
+<ul class="simple">
+<li><p><strong>Thought</strong>: internal reasoning, just like CoT – plan the next move, interpret new information, handle exceptions</p></li>
+<li><p><strong>Action</strong>: an external action (e.g., <code class="docutils literal notranslate"><span class="pre">Search[query]</span></code>, <code class="docutils literal notranslate"><span class="pre">Lookup[term]</span></code>)</p></li>
+<li><p><strong>Observation</strong>: the result that comes back from the environment</p></li>
+</ul>
+<p>The model alternates between thinking and acting until it has enough information to answer.</p>
+<p><img alt="ReAct comparison of 4 methods" src="../_images/react_fig1_comparison.png" /></p>
+<p><em>Figure 1 from Yao et al. (2023): Four approaches to the same question. (a) Standard prompting gives a wrong answer immediately. (b) Chain-of-thought reasons step by step but hallucinates facts. © Act-only takes actions without reasoning, making errors. (d) ReAct interleaves thoughts and actions – it reasons about what to search for, reads the result, and adjusts its plan.</em></p>
+</section>
+<section id="why-this-matters-grounding-and-auditability">
+<h3>Why this matters: grounding and auditability<a class="headerlink" href="#why-this-matters-grounding-and-auditability" title="Link to this heading">#</a></h3>
+<p>The key advantage is <strong>grounding</strong>. When CoT fails, it’s usually because the model hallucinated a fact and then reasoned perfectly from that wrong starting point. When ReAct fails, it’s more often because a search returned unhelpful results or the model made a reasoning error – problems you can actually diagnose and fix.</p>
+<p>If you’re building a system that needs to be factually reliable, say, analyzing earnings data or verifying regulatory filings, this distinction matters. ReAct forces the model to retrieve information from external sources rather than making it up, and the explicit Thought-Action-Observation trace makes the model’s reasoning auditable.</p>
+<p>In the paper’s experiments, ReAct outperformed both CoT-only and Act-only approaches on question answering (HotpotQA), fact verification (FEVER), and interactive decision-making tasks. The best results came from combining ReAct with CoT: try the grounded approach first, fall back to pure reasoning when retrieval doesn’t help.</p>
+</section>
+<section id="connection-to-modern-tools">
+<h3>Connection to modern tools<a class="headerlink" href="#connection-to-modern-tools" title="Link to this heading">#</a></h3>
+<p>The ReAct paradigm is the foundation of most agentic AI systems in production today:</p>
+<ul class="simple">
+<li><p><strong>Claude Code</strong> uses a ReAct-style loop: it reasons about what tool to use, executes it (read file, run command, edit code), observes the result, and reasons about the next step</p></li>
+<li><p><strong>ChatGPT with tools</strong> follows the same pattern: think about what to search, search the web, interpret results, respond</p></li>
+<li><p><strong>LangGraph agents</strong> explicitly implement the Thought-Action-Observation cycle as a state machine</p></li>
+<li><p><strong>MCP</strong> (Model Context Protocol) provides the standardized action space – the tools that ReAct-style agents can call</p></li>
+</ul>
+<p>When you review and edit an AI assistant’s work in tools like Claude Code or Cursor, you’re acting as a human-in-the-loop in a ReAct system. You correct the reasoning, and the actions follow.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="part-4-toolformer-self-supervised-tool-use">
+<h2>Part 4: Toolformer – self-supervised tool use<a class="headerlink" href="#part-4-toolformer-self-supervised-tool-use" title="Link to this heading">#</a></h2>
+<blockquote>
+<div><p>Schick, T., Dwivedi-Yu, J., Dess`{i}, R., Raileanu, R., Lomeli, M., Zettlemoyer, L., Cancedda, N., &amp; Scialom, T. (2023). Toolformer: Language Models Can Teach Themselves to Use Tools. <em>Meta AI Research</em>.</p>
+</div></blockquote>
+<section id="id3">
+<h3>The problem<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>Both CoT and ReAct require humans to design the prompts that teach models when and how to use tools. ReAct relies on hand-written few-shot examples showing the model how to interact with Wikipedia. What if the model could learn for itself which tools to use, when to use them, and how to call them?</p>
+<p>LLMs have well-known limitations: they can’t do reliable arithmetic, they lack access to current information, they can’t translate between all languages, and they have no sense of the current date or time. Tools solve all of these problems, but teaching a model to use tools traditionally requires either large amounts of human annotation or task-specific prompting setups.</p>
+</section>
+<section id="the-innovation">
+<h3>The innovation<a class="headerlink" href="#the-innovation" title="Link to this heading">#</a></h3>
+<p>Toolformer proposes a self-supervised approach: the model teaches itself to use tools by determining which tool calls actually help it predict future tokens. No human annotations of tool use needed, just a handful of demonstrations of each API’s format.</p>
+<p><img alt="Toolformer exemplary predictions" src="../_images/toolformer_fig1_predictions.png" /></p>
+<p><em>Figure 1 from Schick et al. (2023): The model autonomously decides to call different APIs during text generation. It uses a QA system to find “the publisher of The New England Journal of Medicine,” a Calculator for “400/1400 = 0.29,” a Machine Translation system for “tortuga = turtle,” and a WikiSearch for the Brown Act. The model decides both when to call a tool and what arguments to pass.</em></p>
+</section>
+<section id="the-self-supervised-pipeline">
+<h3>The self-supervised pipeline<a class="headerlink" href="#the-self-supervised-pipeline" title="Link to this heading">#</a></h3>
+<p>The training process has three steps:</p>
+<p><img alt="Toolformer 3-step pipeline" src="../_images/toolformer_fig2_pipeline.png" /></p>
+<p><em>Figure 2 from Schick et al. (2023): The three-step approach, illustrated for a question answering tool. (1) Sample: Given a text, the model generates candidate API calls at various positions. (2) Execute: Each candidate call is actually executed to get a response. (3) Filter: Only API calls whose results reduce the model’s loss on future tokens are kept. The filtering criterion is what makes this work. The model keeps tool calls that genuinely help it predict what comes next, not just any tool call.</em></p>
+<p>For each candidate API call, the system compares:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(L_i^+\)</span>: the loss when the API call <em>and its result</em> are included</p></li>
+<li><p><span class="math notranslate nohighlight">\(L_i^-\)</span>: the loss without the API call (or with just the call but no result)</p></li>
+</ul>
+<p>Only calls where <span class="math notranslate nohighlight">\(L_i^- - L_i^+ \geq \tau_f\)</span> (the result meaningfully reduces loss) are kept. This ensures the model only learns to use tools when they actually provide useful information.</p>
+</section>
+<section id="the-five-tools">
+<h3>The five tools<a class="headerlink" href="#the-five-tools" title="Link to this heading">#</a></h3>
+<p>Toolformer was trained with five APIs:</p>
+<p><img alt="APIs used in Toolformer" src="../_images/toolformer_table1_apis.png" /></p>
+<p><em>Table 1 from Schick et al. (2023): The five APIs integrated into Toolformer: Question Answering, Wikipedia Search, Calculator, Calendar, and Machine Translation. Each addresses a specific LLM limitation: factual knowledge gaps, computational inability, temporal awareness, and cross-lingual understanding.</em></p>
+</section>
+<section id="results-a-small-model-outperforms-giants">
+<h3>Results: a small model outperforms giants<a class="headerlink" href="#results-a-small-model-outperforms-giants" title="Link to this heading">#</a></h3>
+<p>Toolformer, based on a 6.7B parameter GPT-J model, substantially outperforms both OPT (66B) and GPT-3 (175B), models 10x and 25x larger, on multiple benchmarks:</p>
+<p><img alt="Toolformer results on LAMA and math benchmarks" src="../_images/toolformer_tables34_results.png" /></p>
+<p><em>Tables 3 and 4 from Schick et al. (2023): Left (Table 3): On LAMA knowledge benchmarks, Toolformer (33.8 on SQuAD, 11.5 on Google-RE, 53.5 on T-REx) outperforms GPT-3 175B (26.8, 7.0, 39.8). Right (Table 4): On math benchmarks, Toolformer (40.4 on ASDiv, 29.4 on SVAMP, 44.0 on MAWPS) again outperforms GPT-3 175B (14.0, 10.0, 19.8). The Calculator tool is used in 97.9% of math examples. A small model with the right tools can outperform a much larger model without them.</em></p>
+</section>
+<section id="scaling-laws-for-tool-use">
+<h3>Scaling laws for tool use<a class="headerlink" href="#scaling-laws-for-tool-use" title="Link to this heading">#</a></h3>
+<p>The ability to effectively use tools only emerges at around 775M parameters. Below this threshold, models cannot learn when and how to make API calls, regardless of training.</p>
+<p><img alt="Toolformer scaling laws" src="../_images/toolformer_fig4_scaling.png" /></p>
+<p><em>Figure 4 from Schick et al. (2023): Average performance on LAMA, math, and QA benchmarks for GPT-2 models of different sizes finetuned with Toolformer’s approach. Tool use (blue, solid) only provides benefit starting at ~775M parameters. Below that, models with and without tools perform similarly. This mirrors the emergent ability pattern from chain-of-thought prompting: tool use requires sufficient model capacity to learn when and how to delegate to external systems.</em></p>
+</section>
+<section id="when-are-tool-calls-actually-helpful">
+<h3>When are tool calls actually helpful?<a class="headerlink" href="#when-are-tool-calls-actually-helpful" title="Link to this heading">#</a></h3>
+<p>The paper includes an analysis of which API calls the model learns to keep versus discard:</p>
+<p><img alt="Examples of API calls with filtering scores" src="../_images/toolformer_table10_examples.png" /></p>
+<p><em>Table 10 from Schick et al. (2023): Examples of API calls sorted by filtering score <span class="math notranslate nohighlight">\(L_i^- - L_i^+\)</span>. High values (top rows) are genuinely useful calls: looking up the Battle of Flodden, getting the current date, finding the length of the Nile. Low or negative values (bottom rows) are unhelpful: asking “Who was the last time I was with?” (unanswerable), or computing “85/23” in an irrelevant context. The model learns to distinguish useful from useless tool calls without human supervision.</em></p>
+</section>
+<section id="why-toolformer-matters">
+<h3>Why Toolformer matters<a class="headerlink" href="#why-toolformer-matters" title="Link to this heading">#</a></h3>
+<p>Toolformer demonstrated three principles now central to modern LLM systems:</p>
+<ol class="arabic simple">
+<li><p>Tool use can substitute for model size. A small model with the right tools can outperform a much larger model without them.</p></li>
+<li><p>Models can learn tool use from self-supervision. No expensive human annotation of “when to use a calculator” needed.</p></li>
+<li><p>The model should decide for itself when and how to use tools, rather than being told by a human when to invoke each tool.</p></li>
+</ol>
+<p>These principles directly inform how modern systems work:</p>
+<ul class="simple">
+<li><p>OpenAI’s function calling lets models decide which functions to call and with what arguments</p></li>
+<li><p>Anthropic’s tool use follows the same pattern: Claude decides when to use tools based on the conversation</p></li>
+<li><p>MCP servers provide the standardized API layer that tools like Claude Code use to interact with external systems</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="the-big-picture-from-prompting-to-agents">
+<h2>The big picture: from prompting to agents<a class="headerlink" href="#the-big-picture-from-prompting-to-agents" title="Link to this heading">#</a></h2>
+<p>These four papers form a clear progression:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Paper</p></th>
+<th class="head"><p>Year</p></th>
+<th class="head"><p>Key idea</p></th>
+<th class="head"><p>What it unlocked</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>GPT-3</p></td>
+<td><p>2020</p></td>
+<td><p>In-context learning from few examples</p></td>
+<td><p>Models can learn tasks from the prompt alone</p></td>
+</tr>
+<tr class="row-odd"><td><p>Chain-of-Thought</p></td>
+<td><p>2022</p></td>
+<td><p>Show reasoning steps in the prompt</p></td>
+<td><p>Models can reason step by step</p></td>
+</tr>
+<tr class="row-even"><td><p>ReAct</p></td>
+<td><p>2023</p></td>
+<td><p>Interleave reasoning with actions</p></td>
+<td><p>Models can reason and act on the world</p></td>
+</tr>
+<tr class="row-odd"><td><p>Toolformer</p></td>
+<td><p>2023</p></td>
+<td><p>Self-supervised tool use training</p></td>
+<td><p>Models can learn which tools to use</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Each addresses a limitation of the previous:</p>
+<ul class="simple">
+<li><p>GPT-3 can learn tasks from examples but cannot reason through multi-step problems <span class="math notranslate nohighlight">\(\rightarrow\)</span> CoT adds intermediate reasoning</p></li>
+<li><p>CoT can reason but cannot access external information <span class="math notranslate nohighlight">\(\rightarrow\)</span> ReAct adds actions</p></li>
+<li><p>ReAct requires hand-written prompts showing how to use each tool <span class="math notranslate nohighlight">\(\rightarrow\)</span> Toolformer learns autonomously</p></li>
+<li><p>Toolformer was limited to single tool calls <span class="math notranslate nohighlight">\(\rightarrow\)</span> modern systems combine all four ideas</p></li>
+</ul>
+<p>When you use Claude Code to solve a coding task, the system is:</p>
+<ol class="arabic simple">
+<li><p>Reasoning about the problem (CoT)</p></li>
+<li><p>Acting by reading files, running commands, and editing code (ReAct)</p></li>
+<li><p>Choosing tools dynamically based on what the task requires (Toolformer)</p></li>
+</ol>
+<p>If you understand these four papers, you understand why modern AI tools work the way they do, and you have the vocabulary to design your own agentic workflows.</p>
+</section>
+</section>
+
+<div class="section ablog__blog_comments">
+   
+</div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../discussion_04.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Discussion 4: Benchmarking and LLM Tool Use</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../notebooks/benchmarking_llms.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Benchmarking LLMs</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-gpt-3-and-few-shot-learning">Part 1: GPT-3 and few-shot learning</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-problem">The problem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-core-idea-in-context-learning">The core idea: in-context learning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scale-unlocks-in-context-learning">Scale unlocks in-context learning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-ceiling-arithmetic-and-multi-step-reasoning">The ceiling: arithmetic and multi-step reasoning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">Key takeaways</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-chain-of-thought-prompting">Part 2: Chain-of-thought prompting</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">The problem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-core-idea">The core idea</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-the-chain-of-thought-looks-like-in-practice">What the chain of thought looks like in practice</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#an-emergent-ability-of-scale">An emergent ability of scale</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#state-of-the-art-results-without-training">State-of-the-art results without training</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Key takeaways</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#connection-to-finance">Connection to finance</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-react-synergizing-reasoning-and-acting">Part 3: ReAct – synergizing reasoning and acting</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-problem-with-reasoning-alone">The problem with reasoning alone</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-core-idea-think-then-act-then-observe">The core idea: think, then act, then observe</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-this-matters-grounding-and-auditability">Why this matters: grounding and auditability</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#connection-to-modern-tools">Connection to modern tools</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-4-toolformer-self-supervised-tool-use">Part 4: Toolformer – self-supervised tool use</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">The problem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-innovation">The innovation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-self-supervised-pipeline">The self-supervised pipeline</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-five-tools">The five tools</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#results-a-small-model-outperforms-giants">Results: a small model outperforms giants</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scaling-laws-for-tool-use">Scaling laws for tool use</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#when-are-tool-calls-actually-helpful">When are tool calls actually helpful?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-toolformer-matters">Why Toolformer matters</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-big-picture-from-prompting-to-agents">The big picture: from prompting to agents</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jeremiah Bejarano
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, Jeremiah Bejarano.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

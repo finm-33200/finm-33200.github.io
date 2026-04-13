@@ -66,3 +66,17 @@ Review and be able to reproduce from scratch all worked examples in the [Words t
 21. Why did Cursor and Windsurf fork VS Code rather than build extensions? Name at least two capabilities that the VS Code extension API does not support.
 
 22. What distinguishes a terminal-based agent harness (e.g., Claude Code, Codex CLI) from an IDE fork (e.g., Cursor)? What architectural advantage do terminal-based harnesses have?
+
+## Embeddings and Return Prediction (Chen, Kelly & Xiu 2022)
+
+23. In the Chen, Kelly & Xiu (2022) replication (Homework 2), students used mean pooling to convert BERT's token-level hidden states into a single headline-level embedding. Write the mean-pooling formula. What role does the attention mask play, and what goes wrong if it is omitted?
+
+24. In the Homework 2 pipeline, binary labels are created from a 3-day compound return window centered on the article date: $r = \prod_{k=-1}^{1}(1+r_{t+k}) - 1$, with label = 1 if $r > 0$. What information is lost by converting continuous returns to binary labels? Why is this still useful for a classification-based approach?
+
+25. Describe the rolling-window evaluation scheme used in Homework 2 (train on years $T{-}8$ to $T{-}3$, validate on $T{-}2$ to $T{-}1$, test on year $T$). Which of the following would introduce look-ahead bias: (a) fitting the StandardScaler on train + test data, (b) fitting TF-IDF vocabulary on the entire corpus, (c) selecting the regularization parameter $C$ on the validation set?
+
+26. Chen, Kelly & Xiu (2022) show that an equal-weighted ensemble of multiple LLMs achieves a Sharpe ratio of 5.11, compared to 4.62 for the best individual model (ChatGPT). Given pairwise correlations between models ranging from 0.3 to 0.8, explain why the ensemble outperforms. How is this analogous to diversification in portfolio theory?
+
+27. The "Negation Portfolios" table in Chen, Kelly & Xiu (2022) shows that word-based methods (SESTM, LMMD) suffer large declines in long-short Sharpe ratio on articles containing negation, while LLM-based methods do not. Explain why bag-of-words methods fail on negation and why simply removing negation words from a stop-word list does not fix the problem.
+
+28. Chen, Kelly & Xiu (2022) show that the embedding-based approach works across 25+ countries and languages. Explain why LLM embeddings are "polyglot" — why do they work without translation? What is the relationship between the number of stocks in a country and the strategy's Sharpe ratio?

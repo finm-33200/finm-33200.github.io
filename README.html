@@ -202,8 +202,19 @@
 <li class="toctree-l2"><a class="reference internal" href="discussions/review_w03.html">Study Questions</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="discussion_04.html">Discussion 4: Benchmarking and LLM Tool Use</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="discussions/reasoning_acting_tools.html">From Chain-Of-Thought To Tool Use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/benchmarking_llms.html">Benchmarking LLMs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/rag.html">Retrieval-Augmented Generation (RAG)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/01_filing_search_ipynb.html">01. Semantic Search of SEC Filings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/02_rag_benchmark_ipynb.html">02. RAG Benchmark: Can Retrieved Context Fix a Weak Model?</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="subject_to_change_after_this_week.html">WARNING: Notes subject to change after this week</a></li>
-<li class="toctree-l1"><a class="reference internal" href="discussion_04.html">Discussion 4:</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="discussion_05.html">Discussion 5: Agents</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="discussions/intro_to_agents.html">Introduction to Agents</a></li>
+</ul>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Homework 📝</span></p>
 <ul class="nav bd-sidenav">
@@ -224,6 +235,12 @@
 <li class="toctree-l2"><a class="reference internal" href="notebooks/02_embeddings_demos_ipynb.html">Text Embeddings: From Words to Vectors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/03_methodology_ipynb.html">Methodology: From Embeddings to Predictions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/04_results_ipynb.html">Replication Results: Chen, Kelly, and Xiu (2022)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="HW3.html">Homework 3: Benchmarking &amp; RAG</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/01_benchmark_questions.html">01. Benchmark Questions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/02_analyze_results.html">02. LLM Benchmark Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/03_build_agents.html">03. Building Agents: From Simple Prompting to Tool-Using Agents</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="final_project.html">Final Project</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -448,7 +465,7 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#assessment">Assessment</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#schedule">Schedule</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#guest-seminar-speakers-weeks-58">Guest Seminar Speakers (Weeks 5–8)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#guest-seminar-speakers-weeks-59">Guest Seminar Speakers (Weeks 5–9)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exam-preparation">Exam Preparation</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hw-due-dates">HW Due Dates</a></li>
 </ul>
@@ -525,14 +542,13 @@ repos, found here: <a class="github reference external" href="https://github.com
 </section>
 <section id="guest-seminar-speakers">
 <h3>Guest Seminar Speakers<a class="headerlink" href="#guest-seminar-speakers" title="Link to this heading">#</a></h3>
-<p>During Weeks 5, 6, 7, and 8, class will feature guest seminar speakers. Attendance at these seminars is required and will be taken. Seminar attendance is graded on a pass/fail basis (present or absent). Students are permitted to miss at most one seminar without penalty; any additional absences will affect the seminar attendance grade.</p>
+<p>During Weeks 5 through 9, class will feature guest seminar speakers. Attendance at these seminars is required and will be taken. Seminar attendance is graded on a pass/fail basis (present or absent). Students are permitted to miss at most one seminar without penalty; any additional absences will affect the seminar attendance grade.</p>
 <p>Note that seminar attendance is separate from the participation grade.</p>
 </section>
 <section id="final-project">
 <h3>Final Project<a class="headerlink" href="#final-project" title="Link to this heading">#</a></h3>
 <p>Students will form groups of 4 and each complete a course project.
-Each group will present their completed project to other student groups and to the instructor at the end of the course. These presentations will be
-scheduled individually.</p>
+Each group will present their completed project to other student groups and to the instructor at the end of the course. Presentations are held asynchronously via a sign-up sheet with the TAs.</p>
 </section>
 </section>
 <section id="assessment">
@@ -616,7 +632,7 @@ agenda is listed in the first sub-section of the chapter.</p>
 </tr>
 <tr class="row-even"><td><p>5</p></td>
 <td><p>Apr 20</p></td>
-<td><p><strong>Midterm Exam</strong> (9:30–10:30am) + Guest: Matt Stockton — <em>RAG and Agentic Retrieval</em> (10:45–11:45am)</p></td>
+<td><p><strong>Midterm Exam</strong> (9:30–10:30am)</p></td>
 <td><p>Midterm</p></td>
 </tr>
 <tr class="row-odd"><td><p>6</p></td>
@@ -626,7 +642,7 @@ agenda is listed in the first sub-section of the chapter.</p>
 </tr>
 <tr class="row-even"><td><p>7</p></td>
 <td><p>May 4</p></td>
-<td><p>Guest: TBD</p></td>
+<td><p>Guest: Matt Stockton — <em>RAG and Agentic Retrieval</em> (11:15am)</p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p>8</p></td>
@@ -636,7 +652,7 @@ agenda is listed in the first sub-section of the chapter.</p>
 </tr>
 <tr class="row-even"><td><p>9</p></td>
 <td><p>May 18</p></td>
-<td><p>Final Project Presentations</p></td>
+<td><p>Guest: TBD</p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p>10</p></td>
@@ -647,14 +663,14 @@ agenda is listed in the first sub-section of the chapter.</p>
 </tbody>
 </table>
 </div>
-<section id="guest-seminar-speakers-weeks-58">
-<h3>Guest Seminar Speakers (Weeks 5–8)<a class="headerlink" href="#guest-seminar-speakers-weeks-58" title="Link to this heading">#</a></h3>
+<section id="guest-seminar-speakers-weeks-59">
+<h3>Guest Seminar Speakers (Weeks 5–9)<a class="headerlink" href="#guest-seminar-speakers-weeks-59" title="Link to this heading">#</a></h3>
 <p>Attendance at guest speaker sessions is <strong>required</strong> and will be taken. See the “Guest Seminar Speakers” section above for the attendance policy.</p>
 <ul class="simple">
-<li><p><strong>April 20:</strong> Matt Stockton — RAG and Agentic Retrieval</p></li>
 <li><p><strong>April 27:</strong> Brian Lewis — “Where Most AI Tools Fail in Large Enterprises and Why” (11:00am–12:00pm)</p></li>
-<li><p><strong>May 4:</strong> TBD</p></li>
+<li><p><strong>May 4:</strong> Matt Stockton — RAG and Agentic Retrieval (11:15am)</p></li>
 <li><p><strong>May 11:</strong> Matt Olson — Auto Research for Backtesting</p></li>
+<li><p><strong>May 18:</strong> TBD</p></li>
 </ul>
 </section>
 <section id="exam-preparation">
@@ -730,7 +746,7 @@ agenda is listed in the first sub-section of the chapter.</p>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#assessment">Assessment</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#schedule">Schedule</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#guest-seminar-speakers-weeks-58">Guest Seminar Speakers (Weeks 5–8)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#guest-seminar-speakers-weeks-59">Guest Seminar Speakers (Weeks 5–9)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exam-preparation">Exam Preparation</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hw-due-dates">HW Due Dates</a></li>
 </ul>

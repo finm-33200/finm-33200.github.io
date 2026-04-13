@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Discussion 4: &#8212; Generative and Agentic AI for Finance</title>
+    <title>Discussion 4: Benchmarking and LLM Tool Use &#8212; Generative and Agentic AI for Finance</title>
   
   
   
@@ -47,13 +47,15 @@
     <script src="_static/copybutton.js?v=f281be69"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'discussion_04';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/custom.js?v=c0d9a6f1"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Homework 0: Set Up Your Environment" href="HW0.html" />
-    <link rel="prev" title="WARNING: Notes subject to change after this week" href="subject_to_change_after_this_week.html" /> 
+    <link rel="next" title="From Chain-Of-Thought To Tool Use" href="discussions/reasoning_acting_tools.html" />
+    <link rel="prev" title="Study Questions" href="discussions/review_w03.html" /> 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>   
   </head>
@@ -202,8 +204,19 @@
 <li class="toctree-l2"><a class="reference internal" href="discussions/review_w03.html">Study Questions</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Discussion 4: Benchmarking and LLM Tool Use</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="discussions/reasoning_acting_tools.html">From Chain-Of-Thought To Tool Use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/benchmarking_llms.html">Benchmarking LLMs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discussions/rag.html">Retrieval-Augmented Generation (RAG)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/01_filing_search_ipynb.html">01. Semantic Search of SEC Filings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/02_rag_benchmark_ipynb.html">02. RAG Benchmark: Can Retrieved Context Fix a Weak Model?</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="subject_to_change_after_this_week.html">WARNING: Notes subject to change after this week</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Discussion 4:</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="discussion_05.html">Discussion 5: Agents</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="discussions/intro_to_agents.html">Introduction to Agents</a></li>
+</ul>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Homework 📝</span></p>
 <ul class="nav bd-sidenav">
@@ -224,6 +237,12 @@
 <li class="toctree-l2"><a class="reference internal" href="notebooks/02_embeddings_demos_ipynb.html">Text Embeddings: From Words to Vectors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/03_methodology_ipynb.html">Methodology: From Embeddings to Predictions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/04_results_ipynb.html">Replication Results: Chen, Kelly, and Xiu (2022)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="HW3.html">Homework 3: Benchmarking &amp; RAG</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/01_benchmark_questions.html">01. Benchmark Questions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/02_analyze_results.html">02. LLM Benchmark Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/03_build_agents.html">03. Building Agents: From Simple Prompting to Tool-Using Agents</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="final_project.html">Final Project</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -426,7 +445,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Discussion 4:</h1>
+    <h1>Discussion 4: Benchmarking and LLM Tool Use</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -439,8 +458,17 @@ document.write(`
                 
 <div id="searchbox"></div>
                 <article class="bd-article">
-                   <section class="tex2jax_ignore mathjax_ignore" id="discussion-4">
-<h1>Discussion 4:<a class="headerlink" href="#discussion-4" title="Link to this heading">#</a></h1>
+                   <section class="tex2jax_ignore mathjax_ignore" id="discussion-4-benchmarking-and-llm-tool-use">
+<h1>Discussion 4: Benchmarking and LLM Tool Use<a class="headerlink" href="#discussion-4-benchmarking-and-llm-tool-use" title="Link to this heading">#</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discussions/reasoning_acting_tools.html">From Chain-Of-Thought To Tool Use</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/benchmarking_llms.html">Benchmarking LLMs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="discussions/rag.html">Retrieval-Augmented Generation (RAG)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/01_filing_search_ipynb.html">01. Semantic Search of SEC Filings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/02_rag_benchmark_ipynb.html">02. RAG Benchmark: Can Retrieved Context Fix a Weak Model?</a></li>
+</ul>
+</div>
 </section>
 
 <div class="section ablog__blog_comments">
@@ -458,20 +486,20 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="subject_to_change_after_this_week.html"
+       href="discussions/review_w03.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">WARNING: Notes subject to change after this week</p>
+        <p class="prev-next-title">Study Questions</p>
       </div>
     </a>
     <a class="right-next"
-       href="HW0.html"
+       href="discussions/reasoning_acting_tools.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Homework 0: Set Up Your Environment</p>
+        <p class="prev-next-title">From Chain-Of-Thought To Tool Use</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

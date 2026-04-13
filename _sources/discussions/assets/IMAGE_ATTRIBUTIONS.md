@@ -206,6 +206,26 @@ This file documents the sources of images used in the FINM 33200 textbook.
 - **Description:** Next.js blog nested route example showing how file structure creates URL paths
 - **Original URL:** `https://h8DxKfmAPhn8O0p3.public.blob.vercel-storage.com/docs/light/blog-nested-route.png`
 
+## rag/ (directory)
+
+### rag_paper_fig1_architecture.png
+
+- **Source:** Lewis, P., Perez, E., Piktus, A., et al. (2020). "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks." *NeurIPS 2020*.
+- **Description:** Figure 1 from the original RAG paper showing the question encoder, document index, MIPS retrieval, and BART generator architecture.
+- **Original URL:** `https://arxiv.org/html/2005.11401v4/x1.png`
+
+### rag_pipeline_overview.png
+
+- **Source:** [Anthropic - Introducing Contextual Retrieval](https://www.anthropic.com/news/contextual-retrieval)
+- **Description:** Standard RAG pipeline showing preprocessing (corpus chunking, embedding, vector DB) and runtime (query, retrieval, rank fusion, generation).
+- **Original URL:** `https://cdn.sanity.io/images/4zrzovbb/website/45603646e979c62349ce27744a940abf30200d57-3840x2160.png`
+
+### contextual_retrieval_flow.png
+
+- **Source:** [Anthropic - Introducing Contextual Retrieval](https://www.anthropic.com/news/contextual-retrieval)
+- **Description:** Contextual Retrieval preprocessing flow showing how each chunk is situated within its document context before embedding.
+- **Original URL:** `https://cdn.sanity.io/images/4zrzovbb/website/2496e7c6fedd7ffaa043895c23a4089638b0c21b-3840x2160.png`
+
 ## kelly_expected_returns/ (directory)
 
 - **Source:** Chen, Y., Kelly, B., & Xiu, D. (2023). "Expected Returns and Large Language Models." Presentation slides from the Wharton Jacobs Levy Equity Management Center conference.

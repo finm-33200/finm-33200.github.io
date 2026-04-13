@@ -60,15 +60,14 @@ There will be two exams: a midterm and a final. Both are closed-book, multiple-c
 
 ### Guest Seminar Speakers
 
-During Weeks 5, 6, 7, and 8, class will feature guest seminar speakers. Attendance at these seminars is required and will be taken. Seminar attendance is graded on a pass/fail basis (present or absent). Students are permitted to miss at most one seminar without penalty; any additional absences will affect the seminar attendance grade.
+During Weeks 5 through 9, class will feature guest seminar speakers. Attendance at these seminars is required and will be taken. Seminar attendance is graded on a pass/fail basis (present or absent). Students are permitted to miss at most one seminar without penalty; any additional absences will affect the seminar attendance grade.
 
 Note that seminar attendance is separate from the participation grade.
 
 ### Final Project
 
 Students will form groups of 4 and each complete a course project.
-Each group will present their completed project to other student groups and to the instructor at the end of the course. These presentations will be
-scheduled individually.
+Each group will present their completed project to other student groups and to the instructor at the end of the course. Presentations are held asynchronously via a sign-up sheet with the TAs.
 
 ## Assessment
 
@@ -107,21 +106,21 @@ agenda is listed in the first sub-section of the chapter.
 | 2    | Mar 30 | Text Representation, Tokenization & Embeddings                       | HW1 released        |
 | 3    | Apr 6  | LLM Fundamentals: Chronologically Consistent LLMs, Training from Scratch (nanoGPT, nanochat) | HW2 released |
 | 4    | Apr 13 | Agentic Workflows, Tool Use & MCP                                    |                     |
-| 5    | Apr 20 | **Midterm Exam** (9:30–10:30am) + Guest: Matt Stockton — *RAG and Agentic Retrieval* (10:45–11:45am) | Midterm |
+| 5    | Apr 20 | **Midterm Exam** (9:30–10:30am)                                      | Midterm             |
 | 6    | Apr 27 | Guest: Brian Lewis — *Where Most AI Tools Fail in Large Enterprises and Why* (11:00am–12:00pm) |           |
-| 7    | May 4  | Guest: TBD                                                           |                     |
+| 7    | May 4  | Guest: Matt Stockton — *RAG and Agentic Retrieval* (11:15am)        |                     |
 | 8    | May 11 | Guest: Matt Olson — *Auto Research for Backtesting*                  |                     |
-| 9    | May 18 | Final Project Presentations                                          |                     |
+| 9    | May 18 | Guest: TBD                                                           |                     |
 | 10   | Finals | **Final Exam**                                                       |                     |
 
-### Guest Seminar Speakers (Weeks 5–8)
+### Guest Seminar Speakers (Weeks 5–9)
 
 Attendance at guest speaker sessions is **required** and will be taken. See the "Guest Seminar Speakers" section above for the attendance policy.
 
-- **April 20:** Matt Stockton — RAG and Agentic Retrieval
 - **April 27:** Brian Lewis — "Where Most AI Tools Fail in Large Enterprises and Why" (11:00am–12:00pm)
-- **May 4:** TBD
+- **May 4:** Matt Stockton — RAG and Agentic Retrieval (11:15am)
 - **May 11:** Matt Olson — Auto Research for Backtesting
+- **May 18:** TBD
 
 ### Exam Preparation
 

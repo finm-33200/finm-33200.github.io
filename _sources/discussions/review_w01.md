@@ -63,3 +63,23 @@ Review questions for Week 1: The New Quant -- LLMs in Finance.
 19. Explain the three message roles in the OpenAI chat completions API (system, user, assistant). How does the system message shape model behavior?
 
 20. Approximately how many tokens does a typical word correspond to? If GPT-4's context window is 128K tokens, roughly how many words can fit in one context window?
+
+## Markets Learning and Strategy Decay
+
+21. Lopez-Lira & Tang (2023) report that the annualized Sharpe ratio of the GPT-4 long-short strategy declines from approximately 6.5 in 2021 to 2.0 in 2023. Give at least two explanations for this decline that are consistent with the Efficient Markets Hypothesis.
+
+22. In the "Markets Learning" figure, the confidence intervals around the Sharpe ratio estimates narrow from 2021 to 2023. Why does this happen? Is it evidence that the strategy is becoming *less* volatile, or is there a simpler statistical explanation?
+
+## Replication: Label Distributions and Portfolio Consequences
+
+23. In the Homework 1 replication, GPT-3.5-Turbo classified 69.5% of headlines as UNKNOWN, compared to approximately 34% in the original paper's GPT-4 results. Explain why a high UNKNOWN rate reduces the long-short portfolio's Sharpe ratio, even though UNKNOWN signals are not traded.
+
+24. The replication produced a YES:NO ratio of approximately 8:1 (27.4% YES vs. 3.2% NO). What does this imbalance imply for (a) the composition of the long vs. short legs on a typical day, and (b) the strategy's effective exposure?
+
+25. In the FinBERT baseline from Homework 1, the model produces three labels (positive, neutral, negative). How are these mapped to trading signals? Why does FinBERT underperform GPT for return prediction, despite being fine-tuned on financial text?
+
+## Replication: Overnight News Timing
+
+26. The replication assigns headlines arriving after 4:00 PM ET to the *next* trading day and drops headlines arriving between 9:30 AM and 4:00 PM ET. Explain the rationale for each rule. What data would you need to include intraday headlines in the analysis?
+
+27. RavenPack timestamps are stored in UTC. Describe the steps needed to correctly apply the overnight timing rule. What error would result from applying the 4:00 PM cutoff directly to UTC timestamps?
