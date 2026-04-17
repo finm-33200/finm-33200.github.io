@@ -47,6 +47,8 @@
     <script src="../_static/copybutton.js?v=f281be69"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'discussions/review_w03';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../_static/custom.js?v=c0d9a6f1"></script>
@@ -208,6 +210,7 @@
 <li class="toctree-l2"><a class="reference internal" href="rag.html">Retrieval-Augmented Generation (RAG)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../notebooks/01_filing_search_ipynb.html">01. Semantic Search of SEC Filings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../notebooks/02_rag_benchmark_ipynb.html">02. RAG Benchmark: Can Retrieved Context Fix a Weak Model?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="review_w04.html">Study Questions</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../subject_to_change_after_this_week.html">WARNING: Notes subject to change after this week</a></li>
@@ -432,7 +435,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -448,6 +453,21 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lookahead-bias-in-llms">Lookahead Bias in LLMs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chronologically-consistent-llms">Chronologically Consistent LLMs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#entity-neutering">Entity Neutering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#microgpt-and-nanochat">microGPT and nanochat</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#openai-api-platform">OpenAI API Platform</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#structured-outputs">Structured Outputs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#function-calling-tool-use">Function Calling / Tool Use</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hw1-required-reading-claude-code-and-finbert">HW1 Required Reading: Claude Code and FinBERT</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -459,7 +479,73 @@ document.write(`
                    <section class="tex2jax_ignore mathjax_ignore" id="study-questions">
 <h1>Study Questions<a class="headerlink" href="#study-questions" title="Link to this heading">#</a></h1>
 <p>Review questions for Week 3: LLM Fundamentals.</p>
-<p><em>Questions will be added as course material is developed.</em></p>
+<hr class="docutils" />
+<section id="lookahead-bias-in-llms">
+<h2>Lookahead Bias in LLMs<a class="headerlink" href="#lookahead-bias-in-llms" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>What is lookahead bias in the context of using pretrained LLMs for financial research? How does it differ from the classical definition of lookahead bias in backtesting?</p></li>
+<li><p>Sarkar and Vafa (2024) formalize lookahead bias as <span class="math notranslate nohighlight">\(\text{Cov}(\hat{\mu}(X_t; M, \theta),\, \varepsilon_{t+1}) \neq 0\)</span>. Explain what each term represents and why a nonzero covariance indicates information leakage from the model’s pretraining data.</p></li>
+<li><p>Sarkar and Vafa (2024) identify two mechanisms of lookahead bias: <em>language leakage</em> and <em>selection bias</em>. Define each and give a concrete example from financial research.</p></li>
+<li><p>When Sarkar and Vafa (2024) asked an LLM to assess risk factors from Zoom’s 2019 earnings call, the output mentioned “COVID-19” — a term that did not exist during the analysis period. Why does this occur, and why are simple prompting fixes (“only consider information up to 2019”) insufficient?</p></li>
+</ol>
+</section>
+<section id="chronologically-consistent-llms">
+<h2>Chronologically Consistent LLMs<a class="headerlink" href="#chronologically-consistent-llms" title="Link to this heading">#</a></h2>
+<ol class="arabic simple" start="5">
+<li><p>He et al. (2025) propose ChronoBERT and ChronoGPT as a solution to lookahead bias. What is the key design principle behind these models? What does the “time subscript” (e.g., ChronoBERT<span class="math notranslate nohighlight">\(_{2019}\)</span>) mean?</p></li>
+<li><p>How do He et al. (2025) validate that their chronologically consistent models do not encode future knowledge? Describe the presidential election validation test and what it reveals about standard BERT vs. ChronoBERT.</p></li>
+<li><p>ChronoBERT (149M parameters) achieves a long-short Sharpe ratio of 4.80, compared to Llama 3.1’s 4.90 — despite being 5–50x smaller. What does this result suggest about (a) the magnitude of lookahead bias in larger models for this application, and (b) the value of chronological consistency?</p></li>
+</ol>
+</section>
+<section id="entity-neutering">
+<h2>Entity Neutering<a class="headerlink" href="#entity-neutering" title="Link to this heading">#</a></h2>
+<ol class="arabic simple" start="8">
+<li><p>Engelberg et al. (2025) propose entity neutering as an alternative to training new models. Describe the iterative process: mask, check, paraphrase, repeat. Why is simple firm-name masking insufficient (i.e., why can the LLM still identify Coca-Cola after removing “KO” from the text)?</p></li>
+<li><p>After entity neutering, ChatGPT identifies the subject firm only 0.11% of the time, compared to 69.1% with simple firm-name masking. Yet entity neutering preserves sentiment 96–97% of the time. Explain why preserving sentiment while removing entity identity is the key requirement.</p></li>
+<li><p>How are the chronologically consistent LLM approach and the entity neutering approach complementary? What type of leakage does each address?</p></li>
+</ol>
+</section>
+<section id="microgpt-and-nanochat">
+<h2>microGPT and nanochat<a class="headerlink" href="#microgpt-and-nanochat" title="Link to this heading">#</a></h2>
+<div class="tip admonition">
+<p class="admonition-title">Note</p>
+<p>You do not need to know the math or code behind microGPT or nanochat. Focus on what they are, what we did with them in class, and how they connect to the broader course themes.</p>
+</div>
+<ol class="arabic simple" start="11">
+<li><p>What is Karpathy’s microGPT? What task does it perform (what does it predict?), and what data was it originally trained on? What data did we retrain it on in class, and what did the model learn to generate?</p></li>
+<li><p>What is Karpathy’s nanochat? What is the goal of the nanochat speedrun?</p></li>
+</ol>
+</section>
+<section id="openai-api-platform">
+<h2>OpenAI API Platform<a class="headerlink" href="#openai-api-platform" title="Link to this heading">#</a></h2>
+<ol class="arabic simple" start="13">
+<li><p>Why should you set a monthly spend limit on the OpenAI API platform before writing any code? What happens if you hit the limit?</p></li>
+<li><p>API costs scale with token count (input + output). Given the pricing table in the notes, approximately how much would it cost to process 1 million input tokens with GPT-4o-mini vs. GPT-4o? Why does the notes recommend starting with cheaper models during development?</p></li>
+</ol>
+</section>
+<section id="structured-outputs">
+<h2>Structured Outputs<a class="headerlink" href="#structured-outputs" title="Link to this heading">#</a></h2>
+<ol class="arabic simple" start="15">
+<li><p>LLMs produce free-form text by default. Why is this a problem when you need to feed the model’s output into a downstream data pipeline (e.g., storing extracted financial data in a database)? What does structured output solve?</p></li>
+<li><p>In the Lopez-Lira &amp; Tang (2023) replication, students needed the model to return exactly one of three labels (YES, NO, UNKNOWN) for each headline. Without structured output, what could go wrong? How does constraining the model’s output format at the decoding level differ from simply asking the model nicely in the prompt to return valid JSON?</p></li>
+</ol>
+</section>
+<section id="function-calling-tool-use">
+<h2>Function Calling / Tool Use<a class="headerlink" href="#function-calling-tool-use" title="Link to this heading">#</a></h2>
+<ol class="arabic simple" start="17">
+<li><p>Explain the tool-calling loop: (1) send messages + tool definitions, (2) model returns <code class="docutils literal notranslate"><span class="pre">tool_calls</span></code>, (3) execute locally and append results, (4) repeat. Why does the model return <code class="docutils literal notranslate"><span class="pre">content</span> <span class="pre">=</span> <span class="pre">None</span></code> when it wants to use a tool?</p></li>
+<li><p>Why does the API design require <em>your code</em> to execute tool calls rather than having the model execute them on the server? Discuss at least two of the three reasons (security, control, generality).</p></li>
+<li><p>LLM knowledge has a training cutoff date. How does the web search tool address this limitation?</p></li>
+</ol>
+</section>
+<section id="hw1-required-reading-claude-code-and-finbert">
+<h2>HW1 Required Reading: Claude Code and FinBERT<a class="headerlink" href="#hw1-required-reading-claude-code-and-finbert" title="Link to this heading">#</a></h2>
+<ol class="arabic simple" start="20">
+<li><p>What is Claude Code’s <em>plan mode</em>? When working on a multi-step task like writing code to solve one fo the homeworks, why is it useful to have the agent outline a plan before it starts writing code?</p></li>
+<li><p>The Anthropic talk “Don’t Build Agents, Build Skills Instead” argues for structuring work with Claude Code using <em>skills</em> and <em>slash commands</em> rather than writing one large prompt that tries to do everything. What is a skill in this context? How does a skill differ from a <code class="docutils literal notranslate"><span class="pre">CLAUDE.md</span></code> file?</p></li>
+<li><p>In Matt Pocock’s “5 Claude Code skills I use every single day,” the <em>grill me</em> skill tells Claude to “interview me relentlessly about every aspect of this plan until we reach a shared understanding,” walking down each branch of a <em>design tree</em> and resolving dependencies between decisions one by one. What fundamental problem in LLM-assisted development is this skill trying to solve? Why is reaching a shared understanding with the LLM <em>before</em> it writes code important?</p></li>
+</ol>
+</section>
 </section>
 
 <div class="section ablog__blog_comments">
@@ -500,6 +586,28 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lookahead-bias-in-llms">Lookahead Bias in LLMs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chronologically-consistent-llms">Chronologically Consistent LLMs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#entity-neutering">Entity Neutering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#microgpt-and-nanochat">microGPT and nanochat</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#openai-api-platform">OpenAI API Platform</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#structured-outputs">Structured Outputs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#function-calling-tool-use">Function Calling / Tool Use</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hw1-required-reading-claude-code-and-finbert">HW1 Required Reading: Claude Code and FinBERT</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

@@ -210,6 +210,7 @@
 <li class="toctree-l2"><a class="reference internal" href="rag.html">Retrieval-Augmented Generation (RAG)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../notebooks/01_filing_search_ipynb.html">01. Semantic Search of SEC Filings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../notebooks/02_rag_benchmark_ipynb.html">02. RAG Benchmark: Can Retrieved Context Fix a Weak Model?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="review_w04.html">Study Questions</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../subject_to_change_after_this_week.html">WARNING: Notes subject to change after this week</a></li>
@@ -522,7 +523,7 @@ document.write(`
 <div><p>Chen, Y., Kelly, B., &amp; Xiu, D. (2022). <a class="reference download internal" download="" href="../_downloads/b8c204e66d3cee16f5eef713601e9cae/chen_kelly_xiu_2022_expected_returns_and_large_language_models.pdf"><span class="xref download myst">Expected Returns and Large Language Models.</span></a> <a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4416687">https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4416687</a></p>
 </div></blockquote>
 <p><em>Lopez-Lira &amp; Tang take the <strong>prompting</strong> approach: ask ChatGPT directly whether a headline is good or bad for a stock, and trade on the answer. Chen, Kelly &amp; Xiu take the <strong>embedding</strong> approach: extract the model’s internal numerical representations and feed them into a return prediction model. As we’ll see, both work — and they capture different information.</em></p>
-<p><em>Slide images below are reproduced from the authors’ presentation slides. Sources: Lopez-Lira, “Can ChatGPT Forecast Stock Price Movements?”, 2024; Chen, Kelly, Xiu, “Expected Returns and Large Language Models,” 2023. For illustrative purposes only.</em></p>
+<p><em>Slide images below are reproduced from the authors’ presentation slides. Sources: Lopez-Lira &amp; Tang, “Can ChatGPT Forecast Stock Price Movements?”, 2024; Chen, Kelly, Xiu, “Expected Returns and Large Language Models,” 2023. For illustrative purposes only.</em></p>
 <hr class="docutils" />
 <section id="llms-are-statistical-prediction-models">
 <h2>LLMs Are Statistical Prediction Models<a class="headerlink" href="#llms-are-statistical-prediction-models" title="Link to this heading">#</a></h2>
@@ -605,9 +606,9 @@ document.write(`
 <p>A critical design choice: the sample period starts in October 2021, after GPT’s training data knowledge cutoff (September 2021). This avoids look-ahead bias — the model can’t have memorized the outcomes.</p>
 <p>One thing to emphasize: this is not done through the ChatGPT chat interface. To run this at scale across thousands of headlines per day, you need the API.</p>
 <p><img alt="ChatGPT interface" src="../_images/slide_041.png" /></p>
-<p><em>Source: Lopez-Lira, “Can ChatGPT Forecast Stock Price Movements?”, 2024. For illustrative purposes only.</em></p>
+<p><em>Source: Lopez-Lira &amp; Tang, “Can ChatGPT Forecast Stock Price Movements?”, 2024. For illustrative purposes only.</em></p>
 <p><img alt="ChatGPT API code example" src="../_images/slide_07.png" /></p>
-<p><em>Source: Lopez-Lira, “Can ChatGPT Forecast Stock Price Movements?”, 2024. For illustrative purposes only.</em></p>
+<p><em>Source: Lopez-Lira &amp; Tang, “Can ChatGPT Forecast Stock Price Movements?”, 2024. For illustrative purposes only.</em></p>
 </section>
 <section id="the-prompt">
 <h3>The Prompt<a class="headerlink" href="#the-prompt" title="Link to this heading">#</a></h3>
@@ -626,17 +627,17 @@ document.write(`
 <h3>Results<a class="headerlink" href="#results" title="Link to this heading">#</a></h3>
 <p>The strategy works. A long-short portfolio based on GPT-4’s assessments of overnight news turns <span class="math notranslate nohighlight">\(1 into roughly \)</span>7 over the sample period (October 2021 to early 2024), before transaction costs.</p>
 <p><img alt="Cumulative returns of investing $1 (no transaction costs)" src="../_images/slide_24.png" /></p>
-<p><em>Source: Lopez-Lira, “Can ChatGPT Forecast Stock Price Movements?”, 2024. For illustrative purposes only.</em></p>
+<p><em>Source: Lopez-Lira &amp; Tang, “Can ChatGPT Forecast Stock Price Movements?”, 2024. For illustrative purposes only.</em></p>
 <p>The long-short strategy achieves an annualized Sharpe ratio of 3.28. Most of the predictability comes from the short side, consistent with limits-to-arbitrage arguments — it’s harder to trade on bad news, so the signal persists longer.</p>
 <p>A key finding: <strong>financial reasoning is an emerging capacity of larger language models.</strong> The table below shows that GPT-4 dramatically outperforms smaller models. GPT-1, GPT-2, and FinBERT actually have <em>negative</em> Sharpe ratios — they’re worse than random. Only models above a certain complexity threshold can predict returns with the correct sign.</p>
 <p><img alt="Average next day's return by prediction score across models" src="../_images/slide_37.png" /></p>
-<p><em>Source: Lopez-Lira, “Can ChatGPT Forecast Stock Price Movements?”, 2024. For illustrative purposes only.</em></p>
+<p><em>Source: Lopez-Lira &amp; Tang, “Can ChatGPT Forecast Stock Price Movements?”, 2024. For illustrative purposes only.</em></p>
 </section>
 <section id="markets-learning">
 <h3>Markets Learning<a class="headerlink" href="#markets-learning" title="Link to this heading">#</a></h3>
 <p>An important question: does this predictability persist? As LLMs become widely adopted, you’d expect markets to incorporate information faster, reducing the exploitable signal. Lopez-Lira &amp; Tang find evidence of exactly this — the annualized Sharpe ratio of the overnight news strategy has been declining over time, from roughly 6 in late 2021 to about 2 by 2023.</p>
 <p><img alt="Markets learning: declining Sharpe ratios over time" src="../_images/slide_32.png" /></p>
-<p><em>Source: Lopez-Lira, “Can ChatGPT Forecast Stock Price Movements?”, 2024. For illustrative purposes only.</em></p>
+<p><em>Source: Lopez-Lira &amp; Tang, “Can ChatGPT Forecast Stock Price Movements?”, 2024. For illustrative purposes only.</em></p>
 <p>This is consistent with market efficiency improving as more participants adopt these tools. The signal is real, but it’s being competed away.</p>
 </section>
 </section>

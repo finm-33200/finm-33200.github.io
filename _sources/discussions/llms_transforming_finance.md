@@ -89,9 +89,9 @@ Andrej Karpathy — founding member of OpenAI, former head of AI at Tesla, and o
 
 The most direct application of LLMs in finance: reading text and extracting trading signals.
 
-### The Lopez-Lira Finding
+### The Lopez-Lira & Tang Finding
 
-> **📚 Literature: Lopez-Lira, A. (2023). "Can ChatGPT Forecast Stock Price Movements? Return Predictability and Large Language Models."**
+> **📚 Literature: Lopez-Lira, A. & Tang, Y. (2023). "Can ChatGPT Forecast Stock Price Movements? Return Predictability and Large Language Models."**
 >
 > This paper tested whether ChatGPT could predict stock returns by classifying news headlines as "good news," "bad news," or "uncertain." The headline finding: **GPT-4's sentiment scores correlate positively with next-day returns and outperform traditional sentiment metrics.** Crucially, smaller models like BERT showed no predictive power—only the largest models captured this return predictability. This "scale matters" insight explains why the field shifted from fine-tuned small models to prompting frontier models.
 
@@ -101,7 +101,7 @@ The most direct application of LLMs in finance: reading text and extracting trad
 
 > **📚 Literature: Chen, L., Kelly, B., & Xiu, D. (2022). "Return Prediction with Large Language Models."**
 >
-> While Lopez-Lira uses sentiment labels, Chen et al. use embeddings—the dense vector representations that LLMs produce internally. They find that LLM embeddings significantly outperform simpler NLP methods (bag-of-words, Word2Vec) and technical signals across 16 global equity markets and 13 languages. Benefits are most pronounced for articles featuring negation or complex narratives—exactly where simpler methods fail.
+> While Lopez-Lira & Tang use sentiment labels, Chen et al. use embeddings—the dense vector representations that LLMs produce internally. They find that LLM embeddings significantly outperform simpler NLP methods (bag-of-words, Word2Vec) and technical signals across 16 global equity markets and 13 languages. Benefits are most pronounced for articles featuring negation or complex narratives—exactly where simpler methods fail.
 
 *We explore text representations — from bag-of-words to embeddings — in [Discussion 4: Text Representation & Embeddings](../discussion_04.md), and replicate a portion of this analysis in [Homework 2](../HW2.md).*
 
@@ -235,7 +235,7 @@ While BloombergGPT remains proprietary, the AI4Finance Foundation has released F
 
 The papers above suggest several practical implications:
 
-1. **Scale matters.** The Lopez-Lira finding—that only frontier models capture return-predictive sentiment—means practitioners should use the best available models for signal extraction, not fine-tuned small models.
+1. **Scale matters.** The Lopez-Lira & Tang finding—that only frontier models capture return-predictive sentiment—means practitioners should use the best available models for signal extraction, not fine-tuned small models.
 
 2. **Prompts before fine-tuning.** FinCoT's 17-percentage-point improvement from better prompts suggests exhausting prompt engineering before investing in fine-tuning.
 
@@ -249,7 +249,7 @@ The papers above suggest several practical implications:
 
 ## Discussion Questions
 
-1. **Scale vs. fine-tuning:** Given the Lopez-Lira finding, when would you still choose to fine-tune a smaller model rather than prompt a frontier model?
+1. **Scale vs. fine-tuning:** Given the Lopez-Lira & Tang finding, when would you still choose to fine-tune a smaller model rather than prompt a frontier model?
 
 2. **Lookahead bias:** How would you design a backtesting framework that uses LLMs without introducing forward-looking bias? Would you always use ChronoGPT, or are there cases where standard models are acceptable?
 
@@ -261,7 +261,7 @@ The papers above suggest several practical implications:
 
 ## Hands-On: Live Demo
 
-Let's see Lopez-Lira's core methodology in action. We'll classify 5 headlines with GPT-4o-mini and examine the sentiment scores:
+Let's see Lopez-Lira & Tang's core methodology in action. We'll classify 5 headlines with GPT-4o-mini and examine the sentiment scores:
 
 ```python
 from openai import OpenAI

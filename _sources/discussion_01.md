@@ -5,7 +5,7 @@
 1. **Who am I** — Introductions and background
 2. **Syllabus** — Course overview, structure, and expectations
 3. **The New Quant** — Survey of LLM applications in finance (Fu 2025)
-4. **Expected Returns and LLMs** — The Lopez-Lira finding on scale and financial sentiment
+4. **Expected Returns and LLMs** — The Lopez-Lira & Tang finding on scale and financial sentiment
 5. **HW0 in class** — Environment setup and tool installation
 6. **HW1** — Will be released in the next day or two
 

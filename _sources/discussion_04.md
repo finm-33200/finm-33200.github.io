@@ -7,4 +7,5 @@ notebooks/benchmarking_llms
 discussions/rag.md
 notebooks/01_filing_search_ipynb
 notebooks/02_rag_benchmark_ipynb
+discussions/review_w04.md
 ```

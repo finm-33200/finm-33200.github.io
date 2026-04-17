@@ -208,6 +208,7 @@
 <li class="toctree-l2"><a class="reference internal" href="rag.html">Retrieval-Augmented Generation (RAG)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../notebooks/01_filing_search_ipynb.html">01. Semantic Search of SEC Filings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../notebooks/02_rag_benchmark_ipynb.html">02. RAG Benchmark: Can Retrieved Context Fix a Weak Model?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="review_w04.html">Study Questions</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../subject_to_change_after_this_week.html">WARNING: Notes subject to change after this week</a></li>
@@ -466,7 +467,7 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sentiment-event-extraction">1. Sentiment &amp; Event Extraction</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-lopez-lira-finding">The Lopez-Lira Finding</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-lopez-lira-tang-finding">The Lopez-Lira &amp; Tang Finding</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#llm-embeddings-for-return-prediction">LLM Embeddings for Return Prediction</a></li>
 </ul>
 </li>
@@ -619,10 +620,10 @@ document.write(`
 <section id="sentiment-event-extraction">
 <h2>1. Sentiment &amp; Event Extraction<a class="headerlink" href="#sentiment-event-extraction" title="Link to this heading">#</a></h2>
 <p>The most direct application of LLMs in finance: reading text and extracting trading signals.</p>
-<section id="the-lopez-lira-finding">
-<h3>The Lopez-Lira Finding<a class="headerlink" href="#the-lopez-lira-finding" title="Link to this heading">#</a></h3>
+<section id="the-lopez-lira-tang-finding">
+<h3>The Lopez-Lira &amp; Tang Finding<a class="headerlink" href="#the-lopez-lira-tang-finding" title="Link to this heading">#</a></h3>
 <blockquote>
-<div><p><strong>📚 Literature: Lopez-Lira, A. (2023). “Can ChatGPT Forecast Stock Price Movements? Return Predictability and Large Language Models.”</strong></p>
+<div><p><strong>📚 Literature: Lopez-Lira, A. &amp; Tang, Y. (2023). “Can ChatGPT Forecast Stock Price Movements? Return Predictability and Large Language Models.”</strong></p>
 <p>This paper tested whether ChatGPT could predict stock returns by classifying news headlines as “good news,” “bad news,” or “uncertain.” The headline finding: <strong>GPT-4’s sentiment scores correlate positively with next-day returns and outperform traditional sentiment metrics.</strong> Crucially, smaller models like BERT showed no predictive power—only the largest models captured this return predictability. This “scale matters” insight explains why the field shifted from fine-tuned small models to prompting frontier models.</p>
 </div></blockquote>
 <p><strong>Key insight:</strong> The same headline classified by BERT and GPT-4 produces different signals—and only GPT-4’s signal predicts returns.</p>
@@ -631,7 +632,7 @@ document.write(`
 <h3>LLM Embeddings for Return Prediction<a class="headerlink" href="#llm-embeddings-for-return-prediction" title="Link to this heading">#</a></h3>
 <blockquote>
 <div><p><strong>📚 Literature: Chen, L., Kelly, B., &amp; Xiu, D. (2022). “Return Prediction with Large Language Models.”</strong></p>
-<p>While Lopez-Lira uses sentiment labels, Chen et al. use embeddings—the dense vector representations that LLMs produce internally. They find that LLM embeddings significantly outperform simpler NLP methods (bag-of-words, Word2Vec) and technical signals across 16 global equity markets and 13 languages. Benefits are most pronounced for articles featuring negation or complex narratives—exactly where simpler methods fail.</p>
+<p>While Lopez-Lira &amp; Tang use sentiment labels, Chen et al. use embeddings—the dense vector representations that LLMs produce internally. They find that LLM embeddings significantly outperform simpler NLP methods (bag-of-words, Word2Vec) and technical signals across 16 global equity markets and 13 languages. Benefits are most pronounced for articles featuring negation or complex narratives—exactly where simpler methods fail.</p>
 </div></blockquote>
 <p><em>We explore text representations — from bag-of-words to embeddings — in <a class="reference internal" href="../discussion_04.html"><span class="std std-doc">Discussion 4: Text Representation &amp; Embeddings</span></a>, and replicate a portion of this analysis in <a class="reference internal" href="../HW2.html"><span class="std std-doc">Homework 2</span></a>.</em></p>
 </section>
@@ -759,7 +760,7 @@ document.write(`
 <h2>What This Means for Quant Practitioners<a class="headerlink" href="#what-this-means-for-quant-practitioners" title="Link to this heading">#</a></h2>
 <p>The papers above suggest several practical implications:</p>
 <ol class="arabic simple">
-<li><p><strong>Scale matters.</strong> The Lopez-Lira finding—that only frontier models capture return-predictive sentiment—means practitioners should use the best available models for signal extraction, not fine-tuned small models.</p></li>
+<li><p><strong>Scale matters.</strong> The Lopez-Lira &amp; Tang finding—that only frontier models capture return-predictive sentiment—means practitioners should use the best available models for signal extraction, not fine-tuned small models.</p></li>
 <li><p><strong>Prompts before fine-tuning.</strong> FinCoT’s 17-percentage-point improvement from better prompts suggests exhausting prompt engineering before investing in fine-tuning.</p></li>
 <li><p><strong>Hybrid approaches work.</strong> NeuSym-RAG’s combination of neural and symbolic retrieval outperforms either alone—a pattern likely to generalize across financial applications.</p></li>
 <li><p><strong>Agents are ready.</strong> Trading-R1’s Sharpe ratios and Deep Research’s analyst-grade reports demonstrate that agentic systems can perform real financial work, not just demos.</p></li>
@@ -770,7 +771,7 @@ document.write(`
 <section id="discussion-questions">
 <h2>Discussion Questions<a class="headerlink" href="#discussion-questions" title="Link to this heading">#</a></h2>
 <ol class="arabic simple">
-<li><p><strong>Scale vs. fine-tuning:</strong> Given the Lopez-Lira finding, when would you still choose to fine-tune a smaller model rather than prompt a frontier model?</p></li>
+<li><p><strong>Scale vs. fine-tuning:</strong> Given the Lopez-Lira &amp; Tang finding, when would you still choose to fine-tune a smaller model rather than prompt a frontier model?</p></li>
 <li><p><strong>Lookahead bias:</strong> How would you design a backtesting framework that uses LLMs without introducing forward-looking bias? Would you always use ChronoGPT, or are there cases where standard models are acceptable?</p></li>
 <li><p><strong>Agentic trading:</strong> Trading-R1 achieves strong Sharpe ratios in research settings. What additional challenges would you face deploying such a system in production?</p></li>
 <li><p><strong>RAG vs. fine-tuning:</strong> When building a financial Q&amp;A system, how would you decide between RAG (retrieving from documents) and fine-tuning on financial text?</p></li>
@@ -779,7 +780,7 @@ document.write(`
 <hr class="docutils" />
 <section id="hands-on-live-demo">
 <h2>Hands-On: Live Demo<a class="headerlink" href="#hands-on-live-demo" title="Link to this heading">#</a></h2>
-<p>Let’s see Lopez-Lira’s core methodology in action. We’ll classify 5 headlines with GPT-4o-mini and examine the sentiment scores:</p>
+<p>Let’s see Lopez-Lira &amp; Tang’s core methodology in action. We’ll classify 5 headlines with GPT-4o-mini and examine the sentiment scores:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">openai</span> <span class="kn">import</span> <span class="n">OpenAI</span>
 
 <span class="n">client</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">()</span>
@@ -875,7 +876,7 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sentiment-event-extraction">1. Sentiment &amp; Event Extraction</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-lopez-lira-finding">The Lopez-Lira Finding</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-lopez-lira-tang-finding">The Lopez-Lira &amp; Tang Finding</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#llm-embeddings-for-return-prediction">LLM Embeddings for Return Prediction</a></li>
 </ul>
 </li>

@@ -8,7 +8,7 @@
 
 *Lopez-Lira & Tang take the **prompting** approach: ask ChatGPT directly whether a headline is good or bad for a stock, and trade on the answer. Chen, Kelly & Xiu take the **embedding** approach: extract the model's internal numerical representations and feed them into a return prediction model. As we'll see, both work --- and they capture different information.*
 
-*Slide images below are reproduced from the authors' presentation slides. Sources: Lopez-Lira, "Can ChatGPT Forecast Stock Price Movements?", 2024; Chen, Kelly, Xiu, "Expected Returns and Large Language Models," 2023. For illustrative purposes only.*
+*Slide images below are reproduced from the authors' presentation slides. Sources: Lopez-Lira & Tang, "Can ChatGPT Forecast Stock Price Movements?", 2024; Chen, Kelly, Xiu, "Expected Returns and Large Language Models," 2023. For illustrative purposes only.*
 
 ---
 
@@ -128,11 +128,11 @@ One thing to emphasize: this is not done through the ChatGPT chat interface. To 
 
 ![ChatGPT interface](assets/lopez_lira/slide_04.png)
 
-*Source: Lopez-Lira, "Can ChatGPT Forecast Stock Price Movements?", 2024. For illustrative purposes only.*
+*Source: Lopez-Lira & Tang, "Can ChatGPT Forecast Stock Price Movements?", 2024. For illustrative purposes only.*
 
 ![ChatGPT API code example](assets/lopez_lira/slide_07.png)
 
-*Source: Lopez-Lira, "Can ChatGPT Forecast Stock Price Movements?", 2024. For illustrative purposes only.*
+*Source: Lopez-Lira & Tang, "Can ChatGPT Forecast Stock Price Movements?", 2024. For illustrative purposes only.*
 
 ### The Prompt
 
@@ -154,7 +154,7 @@ The strategy works. A long-short portfolio based on GPT-4's assessments of overn
 
 ![Cumulative returns of investing $1 (no transaction costs)](assets/lopez_lira/slide_24.png)
 
-*Source: Lopez-Lira, "Can ChatGPT Forecast Stock Price Movements?", 2024. For illustrative purposes only.*
+*Source: Lopez-Lira & Tang, "Can ChatGPT Forecast Stock Price Movements?", 2024. For illustrative purposes only.*
 
 The long-short strategy achieves an annualized Sharpe ratio of 3.28. Most of the predictability comes from the short side, consistent with limits-to-arbitrage arguments --- it's harder to trade on bad news, so the signal persists longer.
 
@@ -162,7 +162,7 @@ A key finding: **financial reasoning is an emerging capacity of larger language 
 
 ![Average next day's return by prediction score across models](assets/lopez_lira/slide_37.png)
 
-*Source: Lopez-Lira, "Can ChatGPT Forecast Stock Price Movements?", 2024. For illustrative purposes only.*
+*Source: Lopez-Lira & Tang, "Can ChatGPT Forecast Stock Price Movements?", 2024. For illustrative purposes only.*
 
 ### Markets Learning
 
@@ -170,7 +170,7 @@ An important question: does this predictability persist? As LLMs become widely a
 
 ![Markets learning: declining Sharpe ratios over time](assets/lopez_lira/slide_32.png)
 
-*Source: Lopez-Lira, "Can ChatGPT Forecast Stock Price Movements?", 2024. For illustrative purposes only.*
+*Source: Lopez-Lira & Tang, "Can ChatGPT Forecast Stock Price Movements?", 2024. For illustrative purposes only.*
 
 This is consistent with market efficiency improving as more participants adopt these tools. The signal is real, but it's being competed away.
 

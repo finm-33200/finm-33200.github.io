@@ -210,6 +210,7 @@
 <li class="toctree-l2"><a class="reference internal" href="rag.html">Retrieval-Augmented Generation (RAG)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../notebooks/01_filing_search_ipynb.html">01. Semantic Search of SEC Filings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../notebooks/02_rag_benchmark_ipynb.html">02. RAG Benchmark: Can Retrieved Context Fix a Weak Model?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="review_w04.html">Study Questions</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../subject_to_change_after_this_week.html">WARNING: Notes subject to change after this week</a></li>
@@ -475,7 +476,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-strict-true-requirement">The <code class="docutils literal notranslate"><span class="pre">strict:</span> <span class="pre">True</span></code> Requirement</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-the-lopez-lira-classifier">Building the Lopez-Lira Classifier</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-the-lopez-lira-tang-classifier">Building the Lopez-Lira &amp; Tang Classifier</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preview-evaluation-with-promptfoo">Preview: Evaluation with promptfoo</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-measurement-mindset">The Measurement Mindset</a></li>
 </ul>
@@ -781,9 +782,9 @@ document.write(`
 </section>
 </section>
 <hr class="docutils" />
-<section id="building-the-lopez-lira-classifier">
-<h2>Building the Lopez-Lira Classifier<a class="headerlink" href="#building-the-lopez-lira-classifier" title="Link to this heading">#</a></h2>
-<p>Let’s build the complete sentiment classification pipeline from Lopez-Lira (2023):</p>
+<section id="building-the-lopez-lira-tang-classifier">
+<h2>Building the Lopez-Lira &amp; Tang Classifier<a class="headerlink" href="#building-the-lopez-lira-tang-classifier" title="Link to this heading">#</a></h2>
+<p>Let’s build the complete sentiment classification pipeline from Lopez-Lira &amp; Tang (2023):</p>
 <p><strong>Full code</strong>: <a class="reference external" href="https://github.com/finm-33200/ai_inclass_examples/tree/main/basic_llm_api/11_lopez_lira">11_lopez_lira on GitHub</a></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">openai</span> <span class="kn">import</span> <span class="n">OpenAI</span>
 <span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span>
@@ -791,7 +792,7 @@ document.write(`
 <span class="kn">import</span> <span class="nn">csv</span>
 
 <span class="k">class</span> <span class="nc">LopezLiraSentiment</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Replicating Lopez-Lira (2023) sentiment classification.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Replicating Lopez-Lira &amp; Tang (2023) sentiment classification.&quot;&quot;&quot;</span>
 
     <span class="n">classification</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;good news&quot;</span><span class="p">,</span> <span class="s2">&quot;bad news&quot;</span><span class="p">,</span> <span class="s2">&quot;uncertain&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Classify as &#39;good news&#39;, &#39;bad news&#39;, or &#39;uncertain&#39;&quot;</span>
@@ -802,7 +803,7 @@ document.write(`
     <span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">classify_headlines</span><span class="p">(</span><span class="n">headlines</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Classify a batch of headlines following Lopez-Lira methodology.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Classify a batch of headlines following Lopez-Lira &amp; Tang methodology.&quot;&quot;&quot;</span>
 
     <span class="n">client</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">()</span>
     <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
@@ -920,7 +921,7 @@ python<span class="w"> </span>hello.py
 </section>
 <section id="exercise-4-batch-classification">
 <h3>Exercise 4: Batch Classification<a class="headerlink" href="#exercise-4-batch-classification" title="Link to this heading">#</a></h3>
-<p>Use the Lopez-Lira classifier to process the sample headlines in <code class="docutils literal notranslate"><span class="pre">data/sample_headlines.csv</span></code>. Calculate the distribution of positive/negative/neutral classifications.</p>
+<p>Use the Lopez-Lira &amp; Tang classifier to process the sample headlines in <code class="docutils literal notranslate"><span class="pre">data/sample_headlines.csv</span></code>. Calculate the distribution of positive/negative/neutral classifications.</p>
 </section>
 </section>
 <hr class="docutils" />
@@ -1006,7 +1007,7 @@ python<span class="w"> </span>hello.py
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-strict-true-requirement">The <code class="docutils literal notranslate"><span class="pre">strict:</span> <span class="pre">True</span></code> Requirement</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-the-lopez-lira-classifier">Building the Lopez-Lira Classifier</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-the-lopez-lira-tang-classifier">Building the Lopez-Lira &amp; Tang Classifier</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preview-evaluation-with-promptfoo">Preview: Evaluation with promptfoo</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-measurement-mindset">The Measurement Mindset</a></li>
 </ul>

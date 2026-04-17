@@ -77,7 +77,7 @@ This diagram illustrates the layered architecture of generative AI systems. Let'
 | Gemini 1.5 | Google | Very long context (1M tokens) | Processing full documents |
 | LLaMA 3 | Meta | Open source, customizable | On-premise, fine-tuning |
 
-**Key trade-off:** Frontier models (GPT-4o, Claude 3.5) are more capable but expensive. For high-volume tasks like processing thousands of headlines, cheaper models like GPT-4o-mini may be sufficient—the Lopez-Lira paper finding that "scale matters" suggests testing this empirically.
+**Key trade-off:** Frontier models (GPT-4o, Claude 3.5) are more capable but expensive. For high-volume tasks like processing thousands of headlines, cheaper models like GPT-4o-mini may be sufficient—the Lopez-Lira & Tang paper finding that "scale matters" suggests testing this empirically.
 
 ---
 

@@ -235,9 +235,9 @@ With `strict: True`, you get guaranteed schema compliance.
 
 ---
 
-## Building the Lopez-Lira Classifier
+## Building the Lopez-Lira & Tang Classifier
 
-Let's build the complete sentiment classification pipeline from Lopez-Lira (2023):
+Let's build the complete sentiment classification pipeline from Lopez-Lira & Tang (2023):
 
 **Full code**: [11_lopez_lira on GitHub](https://github.com/finm-33200/ai_inclass_examples/tree/main/basic_llm_api/11_lopez_lira)
 
@@ -248,7 +248,7 @@ from typing import Literal
 import csv
 
 class LopezLiraSentiment(BaseModel):
-    """Replicating Lopez-Lira (2023) sentiment classification."""
+    """Replicating Lopez-Lira & Tang (2023) sentiment classification."""
 
     classification: Literal["good news", "bad news", "uncertain"] = Field(
         description="Classify as 'good news', 'bad news', or 'uncertain'"
@@ -259,7 +259,7 @@ class LopezLiraSentiment(BaseModel):
     )
 
 def classify_headlines(headlines: list[str], model: str = "gpt-4o-mini"):
-    """Classify a batch of headlines following Lopez-Lira methodology."""
+    """Classify a batch of headlines following Lopez-Lira & Tang methodology."""
 
     client = OpenAI()
     results = []
@@ -377,7 +377,7 @@ Design a Pydantic schema for extracting financial metrics from earnings headline
 - Magnitude (if mentioned)
 
 ### Exercise 4: Batch Classification
-Use the Lopez-Lira classifier to process the sample headlines in `data/sample_headlines.csv`. Calculate the distribution of positive/negative/neutral classifications.
+Use the Lopez-Lira & Tang classifier to process the sample headlines in `data/sample_headlines.csv`. Calculate the distribution of positive/negative/neutral classifications.
 
 ---
 
