@@ -55,12 +55,12 @@ These topics will not be covered in class. Students who are unfamiliar with any 
 
 There will be two exams: a midterm and a final. Both are closed-book, multiple-choice, timed, proctored exams with no internet access.
 
-- **Midterm Exam:** The midterm will take place at the start of class during Week 5 (April 20), from 9:30am to 10:30am sharp. The guest seminar will follow from 10:45am to 11:45am.
+- **Midterm Exam:** The midterm will take place during Week 5 (April 20), from 9:30am to 11:00am. There is no lecture or guest speaker on the midterm day.
 - **Final Exam:** The final exam will be held during finals week (Week 10).
 
 ### Guest Seminar Speakers
 
-During Weeks 5 through 9, class will feature guest seminar speakers. Attendance at these seminars is required and will be taken. Seminar attendance is graded on a pass/fail basis (present or absent). Students are permitted to miss at most one seminar without penalty; any additional absences will affect the seminar attendance grade.
+During Weeks 6 through 9, class will feature guest seminar speakers. Attendance at these seminars is required and will be taken. Seminar attendance is graded on a pass/fail basis (present or absent). Students are permitted to miss at most one seminar without penalty; any additional absences will affect the seminar attendance grade.
 
 Note that seminar attendance is separate from the participation grade.
 
@@ -85,7 +85,7 @@ Each group will present their completed project to other student groups and to t
 - **Midterm & Final Exams:** Closed-book, multiple-choice, proctored exams. See the Exams section above for scheduling details.
 - **Final Project:** The final project will be completed in groups. Students will either choose the
   project from among a few options provided at the beginning of the quarter or they will propose their own project.
-- **Seminar Attendance:** Graded based on attendance at the guest seminar sessions during Weeks 5–8. Students may miss one seminar without penalty.
+- **Seminar Attendance:** Graded based on attendance at the guest seminar sessions during Weeks 6–9. Students may miss one seminar without penalty.
 - **Participation:** The participation grade will depend on the positive impacts that a student has
   on the class. These include participating in in-class discussions and/or
   answering questions on the class GitHub page (or on Canvas). Students are in
@@ -106,14 +106,14 @@ agenda is listed in the first sub-section of the chapter.
 | 2    | Mar 30 | Text Representation, Tokenization & Embeddings                       | HW1 released        |
 | 3    | Apr 6  | LLM Fundamentals: Chronologically Consistent LLMs, Training from Scratch (nanoGPT, nanochat) | HW2 released |
 | 4    | Apr 13 | Agentic Workflows, Tool Use & MCP                                    |                     |
-| 5    | Apr 20 | **Midterm Exam** (9:30–10:30am)                                      | Midterm             |
+| 5    | Apr 20 | **Midterm Exam** (9:30–11:00am)                                      | Midterm             |
 | 6    | Apr 27 | Guest: Brian Lewis — *Where Most AI Tools Fail in Large Enterprises and Why* (11:00am–12:00pm) |           |
 | 7    | May 4  | Guest: Matt Stockton — *RAG and Agentic Retrieval* (11:15am)        |                     |
 | 8    | May 11 | Guest: Matt Olson — *Auto Research for Backtesting*                  |                     |
 | 9    | May 18 | Guest: TBD                                                           |                     |
 | 10   | Finals | **Final Exam**                                                       |                     |
 
-### Guest Seminar Speakers (Weeks 5–9)
+### Guest Seminar Speakers (Weeks 6–9)
 
 Attendance at guest speaker sessions is **required** and will be taken. See the "Guest Seminar Speakers" section above for the attendance policy.
 
