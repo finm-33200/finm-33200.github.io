@@ -1,0 +1,2428 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>RAG Case Study: Data Overview &#8212; Generative and Agentic AI for Finance</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=f23691d7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=7a7908ec"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/01_data_overview';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/custom.js?v=c0d9a6f1"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="RAG Pipeline Walkthrough" href="02_rag_pipeline_walkthrough.html" />
+    <link rel="prev" title="Homework 3: Benchmarking &amp; RAG" href="../HW3.html" /> 
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>   
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Generative and Agentic AI for Finance - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Generative and Agentic AI for Finance - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Generative and Agentic AI for Finance
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../README.html">Course Syllabus: FINM 33200, Spring 2026</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Course Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Discussions 📖</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_01.html">Discussion 1: The New Quant - LLMs in Finance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/llms_transforming_finance.html">LLMs Transforming Finance: The New Quant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/expected_returns_llms.html">LLMs for Return Prediction: Prompts vs. Embeddings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/chartbook_research_catalog.html">ChartBook: Cataloging Research for Humans and AI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/api_and_structured_outputs.html">API Basics and Structured Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/review_w01.html">Study Questions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_02.html">Discussion 2: Text Representation and Tokenization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/structure_of_news.html">The Structure of Economic News</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/ai_copilots_intro.html">AI Copilots: History and Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/words_to_tokens.html">From Words to Tokens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/03_embedding_analogies_ipynb.html">Optional extra: News, Financial Crises, and the Geometry of Meaning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/review_w02.html">Study Questions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_03.html">Discussion 3: LLM Fundamentals</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/ai_roundup_w03.html">AI Roundup: Week 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/llms_and_lookahead_bias.html">LLMs and Lookahead Bias</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/microgpt_math.html">The Mathematics of microGPT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/openai_api_platform.html">The OpenAI API Platform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openai_api_overview.html">OpenAI API Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/review_w03.html">Study Questions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_04.html">Discussion 4: Benchmarking and LLM Tool Use</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/reasoning_acting_tools.html">From Chain-Of-Thought To Tool Use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="benchmarking_llms.html">Benchmarking LLMs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/rag.html">Retrieval-Augmented Generation (RAG)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01_filing_search_ipynb.html">01. Semantic Search of SEC Filings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02_rag_benchmark_ipynb.html">02. RAG Benchmark: Can Retrieved Context Fix a Weak Model?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/review_w04.html">Study Questions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_05.html">Discussion 5: Agents</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/github_pages.html">Publishing to GitHub Pages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/intro_to_agents.html">Introduction to Agents</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../subject_to_change_after_this_week.html">WARNING: Notes subject to change after this week</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Homework 📝</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../HW0.html">Homework 0: Set Up Your Environment</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="01_data_sources_overview_ipynb.html">Data Sources &amp; Strategy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02_gdelt_sp500_filtering_ipynb.html">GDELT Filtering &amp; Data Quality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_crosswalk_quality_ipynb.html">Crosswalk Quality</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../HW1.html">Homework 1: Lopez-Lira, Tang (2023)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="01_data_overview_ipynb.html">Data Sources Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02_methodology_ipynb.html">NLP Pipeline &amp; Portfolio Construction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_replication_results_ipynb.html">Replication Results</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../HW2.html">Homework 2: Chen, Kelly, Xiu (2022)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="01_explore_data_ipynb.html">Data Explorer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02_embeddings_demos_ipynb.html">Text Embeddings: From Words to Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_methodology_ipynb.html">Methodology: From Embeddings to Predictions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04_results_ipynb.html">Replication Results: Chen, Kelly, and Xiu (2022)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../HW3.html">Homework 3: Benchmarking &amp; RAG</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">RAG Case Study: Data Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02_rag_pipeline_walkthrough.html">RAG Pipeline Walkthrough</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_rag_benchmark.html">Benchmarking RAG with SEC Filings</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../final_project.html">Final Project</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/final_project_rubric.html">Final Project Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/potential_final_projects.html">Potential Final Project Ideas</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exams 📋</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../exam_prep.html">Exam Preparation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Misc 📌</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../acknowledgments.html">Acknowledgments</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../appendix.html">Appendix</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/nanochat_math.html">The Mathematics of Karpathy’s nanochat</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project/issues/new?title=Issue%20on%20page%20%2Fnotebooks/01_data_overview.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/01_data_overview.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>RAG Case Study: Data Overview</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-sample-companies">The sample companies</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-filing-index">The filing index</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filings-per-company">Filings per company</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#raw-vs-cleaned-filings">Raw vs. cleaned filings</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aggregate-size-comparison">Aggregate size comparison</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#side-by-side-preview">Side-by-side preview</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compustat-ground-truth">Compustat ground truth</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions-we-will-ask-the-model">Questions we will ask the model</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recap">Recap</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                   <section class="tex2jax_ignore mathjax_ignore" id="rag-case-study-data-overview">
+<h1>RAG Case Study: Data Overview<a class="headerlink" href="#rag-case-study-data-overview" title="Link to this heading">#</a></h1>
+<p>This is the first of three notebooks for <strong>HW3: Benchmarking RAG with
+SEC Filings</strong>. Its job is to orient you to the data we will use in the
+experiment. No analysis yet – just “what did we pull, and what does it
+look like?”</p>
+<p>The homework uses three datasets:</p>
+<ol class="arabic simple">
+<li><p><strong>SEC 10-K filings</strong> from the WRDS SEC Analytics Suite. We pull both
+the <em>raw</em> EDGAR text and the <em>cleaned</em> plaintext for a small sample
+of 10 well-known companies. Notebooks 02 and 03 will use these as
+the retrieval corpus for RAG, and compare how cleaned vs. raw
+context affects accuracy.</p></li>
+<li><p><strong>Compustat fundamentals</strong> for the same companies. These audited
+revenue, net income, and total asset figures are the ground-truth
+answers for our benchmark questions.</p></li>
+<li><p><strong>A filing index</strong> tying the two together (CIK, company name, form
+type, filing date, file path).</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">from</span> <span class="nn">settings</span> <span class="kn">import</span> <span class="n">config</span>
+<span class="kn">from</span> <span class="nn">pull_CRSP_Compustat</span> <span class="kn">import</span> <span class="n">load_compustat</span>
+<span class="kn">from</span> <span class="nn">pull_sec_filings_raw</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">SAMPLE_COMPANIES</span><span class="p">,</span>
+    <span class="n">edgar_to_wrds_path</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">DATA_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">config</span><span class="p">(</span><span class="s2">&quot;DATA_DIR&quot;</span><span class="p">))</span>
+<span class="n">CLEAN_DIR</span> <span class="o">=</span> <span class="n">DATA_DIR</span> <span class="o">/</span> <span class="s2">&quot;wrds_clean_filings&quot;</span>
+<span class="n">RAW_DIR</span> <span class="o">=</span> <span class="n">DATA_DIR</span> <span class="o">/</span> <span class="s2">&quot;wrds_raw_filings&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="the-sample-companies">
+<h2>The sample companies<a class="headerlink" href="#the-sample-companies" title="Link to this heading">#</a></h2>
+<p>We picked 10 well-known public companies spanning tech, consumer,
+finance, and auto. The sample is deliberately small: the point of this
+homework is the RAG methodology, not statistical coverage.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sample_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">[{</span><span class="s2">&quot;cik&quot;</span><span class="p">:</span> <span class="n">cik</span><span class="p">,</span> <span class="s2">&quot;company_name&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">}</span> <span class="k">for</span> <span class="n">cik</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">SAMPLE_COMPANIES</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
+<span class="p">)</span>
+<span class="n">sample_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>cik</th>
+      <th>company_name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0000320193</td>
+      <td>Apple Inc</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0000789019</td>
+      <td>Microsoft Corp</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0001018724</td>
+      <td>Amazon.com Inc</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0000019617</td>
+      <td>JPMorgan Chase &amp; Co</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0000200406</td>
+      <td>Johnson &amp; Johnson</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0000104169</td>
+      <td>Walmart Inc</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0001318605</td>
+      <td>Tesla Inc</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0001065280</td>
+      <td>Netflix Inc</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>0001045810</td>
+      <td>NVIDIA Corp</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>0001652044</td>
+      <td>Alphabet Inc</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="the-filing-index">
+<h2>The filing index<a class="headerlink" href="#the-filing-index" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">pull_sec_filings_raw.py</span></code> queries the WRDS <code class="docutils literal notranslate"><span class="pre">wrdssec_all.dforms</span></code> table
+for 10-K metadata and saves the result to
+<code class="docutils literal notranslate"><span class="pre">_data/sec_filings_metadata/filing_index.parquet</span></code>. Each row represents
+one filing.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">filing_idx</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span>
+    <span class="n">DATA_DIR</span> <span class="o">/</span> <span class="s2">&quot;sec_filings_metadata&quot;</span> <span class="o">/</span> <span class="s2">&quot;filing_index.parquet&quot;</span>
+<span class="p">)</span>
+<span class="n">filing_idx</span><span class="p">[</span><span class="s2">&quot;fdate&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">filing_idx</span><span class="p">[</span><span class="s2">&quot;fdate&quot;</span><span class="p">])</span>
+<span class="n">filing_idx</span><span class="p">[</span><span class="s2">&quot;fiscal_year&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">filing_idx</span><span class="p">[</span><span class="s2">&quot;fdate&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total 10-K filings in index: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">filing_idx</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;Date range: </span><span class="si">{</span><span class="n">filing_idx</span><span class="p">[</span><span class="s1">&#39;fdate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">()</span><span class="si">}</span><span class="s2"> -&gt; &quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">filing_idx</span><span class="p">[</span><span class="s1">&#39;fdate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="p">)</span>
+<span class="n">filing_idx</span><span class="p">[[</span><span class="s2">&quot;cik&quot;</span><span class="p">,</span> <span class="s2">&quot;coname&quot;</span><span class="p">,</span> <span class="s2">&quot;form&quot;</span><span class="p">,</span> <span class="s2">&quot;fdate&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;fdate&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Total 10-K filings in index: 48
+Date range: 2022-01-27 -&gt; 2026-03-13
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>cik</th>
+      <th>coname</th>
+      <th>form</th>
+      <th>fdate</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>47</th>
+      <td>0001065280</td>
+      <td>NETFLIX INC</td>
+      <td>10-K</td>
+      <td>2022-01-27</td>
+    </tr>
+    <tr>
+      <th>46</th>
+      <td>0001652044</td>
+      <td>Alphabet Inc.</td>
+      <td>10-K</td>
+      <td>2022-02-02</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>0001018724</td>
+      <td>AMAZON COM INC</td>
+      <td>10-K</td>
+      <td>2022-02-04</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>0001318605</td>
+      <td>Tesla, Inc.</td>
+      <td>10-K</td>
+      <td>2022-02-07</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>0000200406</td>
+      <td>JOHNSON &amp; JOHNSON</td>
+      <td>10-K</td>
+      <td>2022-02-17</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>0000019617</td>
+      <td>JPMORGAN CHASE &amp; CO</td>
+      <td>10-K</td>
+      <td>2022-02-22</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>0001045810</td>
+      <td>NVIDIA CORP</td>
+      <td>10-K</td>
+      <td>2022-03-18</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>0000104169</td>
+      <td>Walmart Inc.</td>
+      <td>10-K</td>
+      <td>2022-03-18</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>0000789019</td>
+      <td>MICROSOFT CORP</td>
+      <td>10-K</td>
+      <td>2022-07-28</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>0000320193</td>
+      <td>Apple Inc.</td>
+      <td>10-K</td>
+      <td>2022-10-28</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>0001065280</td>
+      <td>NETFLIX INC</td>
+      <td>10-K</td>
+      <td>2023-01-26</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>0001318605</td>
+      <td>Tesla, Inc.</td>
+      <td>10-K</td>
+      <td>2023-01-31</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>0001018724</td>
+      <td>AMAZON COM INC</td>
+      <td>10-K</td>
+      <td>2023-02-03</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>0001652044</td>
+      <td>Alphabet Inc.</td>
+      <td>10-K</td>
+      <td>2023-02-03</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>0000200406</td>
+      <td>JOHNSON &amp; JOHNSON</td>
+      <td>10-K</td>
+      <td>2023-02-16</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>0000019617</td>
+      <td>JPMORGAN CHASE &amp; CO</td>
+      <td>10-K</td>
+      <td>2023-02-21</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>0001045810</td>
+      <td>NVIDIA CORP</td>
+      <td>10-K</td>
+      <td>2023-02-24</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>0000104169</td>
+      <td>Walmart Inc.</td>
+      <td>10-K</td>
+      <td>2023-03-17</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>0000789019</td>
+      <td>MICROSOFT CORP</td>
+      <td>10-K</td>
+      <td>2023-07-27</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>0000320193</td>
+      <td>Apple Inc.</td>
+      <td>10-K</td>
+      <td>2023-11-03</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>0001065280</td>
+      <td>NETFLIX INC</td>
+      <td>10-K</td>
+      <td>2024-01-26</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>0001318605</td>
+      <td>Tesla, Inc.</td>
+      <td>10-K</td>
+      <td>2024-01-29</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>0001652044</td>
+      <td>Alphabet Inc.</td>
+      <td>10-K</td>
+      <td>2024-01-31</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>0001018724</td>
+      <td>AMAZON COM INC</td>
+      <td>10-K</td>
+      <td>2024-02-02</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>0000019617</td>
+      <td>JPMORGAN CHASE &amp; CO</td>
+      <td>10-K</td>
+      <td>2024-02-16</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>0000200406</td>
+      <td>JOHNSON &amp; JOHNSON</td>
+      <td>10-K</td>
+      <td>2024-02-16</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>0001045810</td>
+      <td>NVIDIA CORP</td>
+      <td>10-K</td>
+      <td>2024-02-21</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>0000104169</td>
+      <td>Walmart Inc.</td>
+      <td>10-K</td>
+      <td>2024-03-15</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>0000789019</td>
+      <td>MICROSOFT CORP</td>
+      <td>10-K</td>
+      <td>2024-07-30</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>0000320193</td>
+      <td>Apple Inc.</td>
+      <td>10-K</td>
+      <td>2024-11-01</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>0001065280</td>
+      <td>NETFLIX INC</td>
+      <td>10-K</td>
+      <td>2025-01-27</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>0001318605</td>
+      <td>Tesla, Inc.</td>
+      <td>10-K</td>
+      <td>2025-01-30</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>0001652044</td>
+      <td>Alphabet Inc.</td>
+      <td>10-K</td>
+      <td>2025-02-05</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>0001018724</td>
+      <td>AMAZON COM INC</td>
+      <td>10-K</td>
+      <td>2025-02-07</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>0000200406</td>
+      <td>JOHNSON &amp; JOHNSON</td>
+      <td>10-K</td>
+      <td>2025-02-13</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>0000019617</td>
+      <td>JPMORGAN CHASE &amp; CO</td>
+      <td>10-K</td>
+      <td>2025-02-14</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>0001045810</td>
+      <td>NVIDIA CORP</td>
+      <td>10-K</td>
+      <td>2025-02-26</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>0000104169</td>
+      <td>Walmart Inc.</td>
+      <td>10-K</td>
+      <td>2025-03-14</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>0000789019</td>
+      <td>MICROSOFT CORP</td>
+      <td>10-K</td>
+      <td>2025-07-30</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>0000320193</td>
+      <td>Apple Inc.</td>
+      <td>10-K</td>
+      <td>2025-10-31</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0001065280</td>
+      <td>NETFLIX INC</td>
+      <td>10-K</td>
+      <td>2026-01-23</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0001318605</td>
+      <td>Tesla, Inc.</td>
+      <td>10-K</td>
+      <td>2026-01-29</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0001652044</td>
+      <td>Alphabet Inc.</td>
+      <td>10-K</td>
+      <td>2026-02-05</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0001018724</td>
+      <td>AMAZON COM INC</td>
+      <td>10-K</td>
+      <td>2026-02-06</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0000200406</td>
+      <td>JOHNSON &amp; JOHNSON</td>
+      <td>10-K</td>
+      <td>2026-02-11</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0000019617</td>
+      <td>JPMORGAN CHASE &amp; CO</td>
+      <td>10-K</td>
+      <td>2026-02-13</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0001045810</td>
+      <td>NVIDIA CORP</td>
+      <td>10-K</td>
+      <td>2026-02-25</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>0000104169</td>
+      <td>Walmart Inc.</td>
+      <td>10-K</td>
+      <td>2026-03-13</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<section id="filings-per-company">
+<h3>Filings per company<a class="headerlink" href="#filings-per-company" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">per_company</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">filing_idx</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;cik&quot;</span><span class="p">,</span> <span class="s2">&quot;coname&quot;</span><span class="p">])</span>
+    <span class="o">.</span><span class="n">size</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;n_filings&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;n_filings&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">per_company</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>cik</th>
+      <th>coname</th>
+      <th>n_filings</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0000019617</td>
+      <td>JPMORGAN CHASE &amp; CO</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0000104169</td>
+      <td>Walmart Inc.</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0000200406</td>
+      <td>JOHNSON &amp; JOHNSON</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0001018724</td>
+      <td>AMAZON COM INC</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0001045810</td>
+      <td>NVIDIA CORP</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0001065280</td>
+      <td>NETFLIX INC</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>0001318605</td>
+      <td>Tesla, Inc.</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>0001652044</td>
+      <td>Alphabet Inc.</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0000320193</td>
+      <td>Apple Inc.</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0000789019</td>
+      <td>MICROSOFT CORP</td>
+      <td>4</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+<section id="raw-vs-cleaned-filings">
+<h2>Raw vs. cleaned filings<a class="headerlink" href="#raw-vs-cleaned-filings" title="Link to this heading">#</a></h2>
+<p>The WRDS SEC Analytics Suite publishes two versions of every filing:</p>
+<ul class="simple">
+<li><p><strong>Raw</strong> (<code class="docutils literal notranslate"><span class="pre">/wrds/sec/warchives/...</span></code>) – the filing as submitted to
+EDGAR, including SGML/HTML markup, XBRL tagging, embedded images
+encoded as base64, and boilerplate headers.</p></li>
+<li><p><strong>Cleaned</strong> (<code class="docutils literal notranslate"><span class="pre">/wrds/sec/wrds_clean_filings/...</span></code>) – the same filing
+with markup stripped and whitespace normalized, so it reads like
+plain text.</p></li>
+</ul>
+<p>Both downloads are mirrored locally into a directory structure that
+matches WRDS’s layout: <code class="docutils literal notranslate"><span class="pre">{cik_prefix}/{cik}/{accession}.txt</span></code>.</p>
+<p>Let’s confirm both versions landed on disk and compare their sizes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">size_mb</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="k">return</span> <span class="mf">0.0</span>
+    <span class="k">return</span> <span class="n">path</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span><span class="o">.</span><span class="n">st_size</span> <span class="o">/</span> <span class="mi">1_000_000</span>
+
+
+<span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">filing_idx</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">relpath</span> <span class="o">=</span> <span class="n">edgar_to_wrds_path</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;fname&quot;</span><span class="p">])</span>
+    <span class="n">clean_path</span> <span class="o">=</span> <span class="n">CLEAN_DIR</span> <span class="o">/</span> <span class="n">relpath</span>
+    <span class="n">raw_path</span> <span class="o">=</span> <span class="n">RAW_DIR</span> <span class="o">/</span> <span class="n">relpath</span>
+    <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+        <span class="s2">&quot;company&quot;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;coname&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;filing_date&quot;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;fdate&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">date</span><span class="p">(),</span>
+        <span class="s2">&quot;cleaned_mb&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">size_mb</span><span class="p">(</span><span class="n">clean_path</span><span class="p">),</span> <span class="mi">3</span><span class="p">),</span>
+        <span class="s2">&quot;raw_mb&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">size_mb</span><span class="p">(</span><span class="n">raw_path</span><span class="p">),</span> <span class="mi">3</span><span class="p">),</span>
+        <span class="s2">&quot;cleaned_path&quot;</span><span class="p">:</span> <span class="n">relpath</span> <span class="k">if</span> <span class="n">clean_path</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;raw_path&quot;</span><span class="p">:</span> <span class="n">relpath</span> <span class="k">if</span> <span class="n">raw_path</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">})</span>
+
+<span class="n">size_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+<span class="n">size_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>company</th>
+      <th>filing_date</th>
+      <th>cleaned_mb</th>
+      <th>raw_mb</th>
+      <th>cleaned_path</th>
+      <th>raw_path</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Walmart Inc.</td>
+      <td>2026-03-13</td>
+      <td>2.112</td>
+      <td>13.080</td>
+      <td>000010/104169/0000104169-26-000055.txt</td>
+      <td>000010/104169/0000104169-26-000055.txt</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>NVIDIA CORP</td>
+      <td>2026-02-25</td>
+      <td>1.721</td>
+      <td>11.462</td>
+      <td>000104/1045810/0001045810-26-000021.txt</td>
+      <td>000104/1045810/0001045810-26-000021.txt</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>JPMORGAN CHASE &amp; CO</td>
+      <td>2026-02-13</td>
+      <td>6.831</td>
+      <td>64.896</td>
+      <td>000001/19617/0001628280-26-008131.txt</td>
+      <td>000001/19617/0001628280-26-008131.txt</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>JOHNSON &amp; JOHNSON</td>
+      <td>2026-02-11</td>
+      <td>2.886</td>
+      <td>24.877</td>
+      <td>000020/200406/0000200406-26-000016.txt</td>
+      <td>000020/200406/0000200406-26-000016.txt</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>AMAZON COM INC</td>
+      <td>2026-02-06</td>
+      <td>1.901</td>
+      <td>12.701</td>
+      <td>000101/1018724/0001018724-26-000004.txt</td>
+      <td>000101/1018724/0001018724-26-000004.txt</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Alphabet Inc.</td>
+      <td>2026-02-05</td>
+      <td>2.034</td>
+      <td>15.653</td>
+      <td>000165/1652044/0001652044-26-000018.txt</td>
+      <td>000165/1652044/0001652044-26-000018.txt</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Tesla, Inc.</td>
+      <td>2026-01-29</td>
+      <td>2.346</td>
+      <td>15.755</td>
+      <td>000131/1318605/0001628280-26-003952.txt</td>
+      <td>000131/1318605/0001628280-26-003952.txt</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>NETFLIX INC</td>
+      <td>2026-01-23</td>
+      <td>1.953</td>
+      <td>13.533</td>
+      <td>000106/1065280/0001065280-26-000034.txt</td>
+      <td>000106/1065280/0001065280-26-000034.txt</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Apple Inc.</td>
+      <td>2025-10-31</td>
+      <td>1.277</td>
+      <td>9.392</td>
+      <td>000032/320193/0000320193-25-000079.txt</td>
+      <td>000032/320193/0000320193-25-000079.txt</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>MICROSOFT CORP</td>
+      <td>2025-07-30</td>
+      <td>1.941</td>
+      <td>34.890</td>
+      <td>000078/789019/0000950170-25-100235.txt</td>
+      <td>000078/789019/0000950170-25-100235.txt</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Walmart Inc.</td>
+      <td>2025-03-14</td>
+      <td>1.760</td>
+      <td>12.095</td>
+      <td>000010/104169/0000104169-25-000021.txt</td>
+      <td>000010/104169/0000104169-25-000021.txt</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>NVIDIA CORP</td>
+      <td>2025-02-26</td>
+      <td>1.794</td>
+      <td>12.326</td>
+      <td>000104/1045810/0001045810-25-000023.txt</td>
+      <td>000104/1045810/0001045810-25-000023.txt</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>JPMORGAN CHASE &amp; CO</td>
+      <td>2025-02-14</td>
+      <td>6.597</td>
+      <td>74.059</td>
+      <td>000001/19617/0000019617-25-000270.txt</td>
+      <td>000001/19617/0000019617-25-000270.txt</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>JOHNSON &amp; JOHNSON</td>
+      <td>2025-02-13</td>
+      <td>2.648</td>
+      <td>24.342</td>
+      <td>000020/200406/0000200406-25-000038.txt</td>
+      <td>000020/200406/0000200406-25-000038.txt</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>AMAZON COM INC</td>
+      <td>2025-02-07</td>
+      <td>1.726</td>
+      <td>12.030</td>
+      <td>000101/1018724/0001018724-25-000004.txt</td>
+      <td>000101/1018724/0001018724-25-000004.txt</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>Alphabet Inc.</td>
+      <td>2025-02-05</td>
+      <td>1.822</td>
+      <td>14.774</td>
+      <td>000165/1652044/0001652044-25-000014.txt</td>
+      <td>000165/1652044/0001652044-25-000014.txt</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>Tesla, Inc.</td>
+      <td>2025-01-30</td>
+      <td>2.134</td>
+      <td>15.789</td>
+      <td>000131/1318605/0001628280-25-003063.txt</td>
+      <td>000131/1318605/0001628280-25-003063.txt</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>NETFLIX INC</td>
+      <td>2025-01-27</td>
+      <td>1.522</td>
+      <td>12.059</td>
+      <td>000106/1065280/0001065280-25-000044.txt</td>
+      <td>000106/1065280/0001065280-25-000044.txt</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>Apple Inc.</td>
+      <td>2024-11-01</td>
+      <td>1.345</td>
+      <td>9.759</td>
+      <td>000032/320193/0000320193-24-000123.txt</td>
+      <td>000032/320193/0000320193-24-000123.txt</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>MICROSOFT CORP</td>
+      <td>2024-07-30</td>
+      <td>1.943</td>
+      <td>30.376</td>
+      <td>000078/789019/0000950170-24-087843.txt</td>
+      <td>000078/789019/0000950170-24-087843.txt</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>Walmart Inc.</td>
+      <td>2024-03-15</td>
+      <td>1.943</td>
+      <td>13.086</td>
+      <td>000010/104169/0000104169-24-000056.txt</td>
+      <td>000010/104169/0000104169-24-000056.txt</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>NVIDIA CORP</td>
+      <td>2024-02-21</td>
+      <td>1.570</td>
+      <td>11.814</td>
+      <td>000104/1045810/0001045810-24-000029.txt</td>
+      <td>000104/1045810/0001045810-24-000029.txt</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>JOHNSON &amp; JOHNSON</td>
+      <td>2024-02-16</td>
+      <td>2.666</td>
+      <td>22.223</td>
+      <td>000020/200406/0000200406-24-000013.txt</td>
+      <td>000020/200406/0000200406-24-000013.txt</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>JPMORGAN CHASE &amp; CO</td>
+      <td>2024-02-16</td>
+      <td>6.539</td>
+      <td>69.751</td>
+      <td>000001/19617/0000019617-24-000225.txt</td>
+      <td>000001/19617/0000019617-24-000225.txt</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>AMAZON COM INC</td>
+      <td>2024-02-02</td>
+      <td>1.711</td>
+      <td>12.111</td>
+      <td>000101/1018724/0001018724-24-000008.txt</td>
+      <td>000101/1018724/0001018724-24-000008.txt</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>Alphabet Inc.</td>
+      <td>2024-01-31</td>
+      <td>1.747</td>
+      <td>13.928</td>
+      <td>000165/1652044/0001652044-24-000022.txt</td>
+      <td>000165/1652044/0001652044-24-000022.txt</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>Tesla, Inc.</td>
+      <td>2024-01-29</td>
+      <td>2.102</td>
+      <td>15.528</td>
+      <td>000131/1318605/0001628280-24-002390.txt</td>
+      <td>000131/1318605/0001628280-24-002390.txt</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>NETFLIX INC</td>
+      <td>2024-01-26</td>
+      <td>1.245</td>
+      <td>10.066</td>
+      <td>000106/1065280/0001065280-24-000030.txt</td>
+      <td>000106/1065280/0001065280-24-000030.txt</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>Apple Inc.</td>
+      <td>2023-11-03</td>
+      <td>1.190</td>
+      <td>9.570</td>
+      <td>000032/320193/0000320193-23-000106.txt</td>
+      <td>000032/320193/0000320193-23-000106.txt</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>MICROSOFT CORP</td>
+      <td>2023-07-27</td>
+      <td>1.755</td>
+      <td>40.966</td>
+      <td>000078/789019/0000950170-23-035122.txt</td>
+      <td>000078/789019/0000950170-23-035122.txt</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>Walmart Inc.</td>
+      <td>2023-03-17</td>
+      <td>1.855</td>
+      <td>13.431</td>
+      <td>000010/104169/0000104169-23-000020.txt</td>
+      <td>000010/104169/0000104169-23-000020.txt</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>NVIDIA CORP</td>
+      <td>2023-02-24</td>
+      <td>1.696</td>
+      <td>13.525</td>
+      <td>000104/1045810/0001045810-23-000017.txt</td>
+      <td>000104/1045810/0001045810-23-000017.txt</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>JPMORGAN CHASE &amp; CO</td>
+      <td>2023-02-21</td>
+      <td>5.801</td>
+      <td>72.224</td>
+      <td>000001/19617/0000019617-23-000231.txt</td>
+      <td>000001/19617/0000019617-23-000231.txt</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>JOHNSON &amp; JOHNSON</td>
+      <td>2023-02-16</td>
+      <td>2.434</td>
+      <td>24.820</td>
+      <td>000020/200406/0000200406-23-000016.txt</td>
+      <td>000020/200406/0000200406-23-000016.txt</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>AMAZON COM INC</td>
+      <td>2023-02-03</td>
+      <td>1.564</td>
+      <td>12.809</td>
+      <td>000101/1018724/0001018724-23-000004.txt</td>
+      <td>000101/1018724/0001018724-23-000004.txt</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>Alphabet Inc.</td>
+      <td>2023-02-03</td>
+      <td>1.679</td>
+      <td>15.264</td>
+      <td>000165/1652044/0001652044-23-000016.txt</td>
+      <td>000165/1652044/0001652044-23-000016.txt</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>Tesla, Inc.</td>
+      <td>2023-01-31</td>
+      <td>2.544</td>
+      <td>31.445</td>
+      <td>000131/1318605/0000950170-23-001409.txt</td>
+      <td>000131/1318605/0000950170-23-001409.txt</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>NETFLIX INC</td>
+      <td>2023-01-26</td>
+      <td>1.027</td>
+      <td>8.639</td>
+      <td>000106/1065280/0001065280-23-000035.txt</td>
+      <td>000106/1065280/0001065280-23-000035.txt</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>Apple Inc.</td>
+      <td>2022-10-28</td>
+      <td>1.161</td>
+      <td>10.332</td>
+      <td>000032/320193/0000320193-22-000108.txt</td>
+      <td>000032/320193/0000320193-22-000108.txt</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>MICROSOFT CORP</td>
+      <td>2022-07-28</td>
+      <td>1.709</td>
+      <td>26.423</td>
+      <td>000078/789019/0001564590-22-026876.txt</td>
+      <td>000078/789019/0001564590-22-026876.txt</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>Walmart Inc.</td>
+      <td>2022-03-18</td>
+      <td>2.019</td>
+      <td>14.199</td>
+      <td>000010/104169/0000104169-22-000012.txt</td>
+      <td>000010/104169/0000104169-22-000012.txt</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>NVIDIA CORP</td>
+      <td>2022-03-18</td>
+      <td>1.814</td>
+      <td>12.667</td>
+      <td>000104/1045810/0001045810-22-000036.txt</td>
+      <td>000104/1045810/0001045810-22-000036.txt</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>JPMORGAN CHASE &amp; CO</td>
+      <td>2022-02-22</td>
+      <td>6.935</td>
+      <td>69.494</td>
+      <td>000001/19617/0000019617-22-000272.txt</td>
+      <td>000001/19617/0000019617-22-000272.txt</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>JOHNSON &amp; JOHNSON</td>
+      <td>2022-02-17</td>
+      <td>2.802</td>
+      <td>25.022</td>
+      <td>000020/200406/0000200406-22-000022.txt</td>
+      <td>000020/200406/0000200406-22-000022.txt</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>Tesla, Inc.</td>
+      <td>2022-02-07</td>
+      <td>2.677</td>
+      <td>29.316</td>
+      <td>000131/1318605/0000950170-22-000796.txt</td>
+      <td>000131/1318605/0000950170-22-000796.txt</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>AMAZON COM INC</td>
+      <td>2022-02-04</td>
+      <td>2.109</td>
+      <td>13.442</td>
+      <td>000101/1018724/0001018724-22-000005.txt</td>
+      <td>000101/1018724/0001018724-22-000005.txt</td>
+    </tr>
+    <tr>
+      <th>46</th>
+      <td>Alphabet Inc.</td>
+      <td>2022-02-02</td>
+      <td>2.021</td>
+      <td>15.045</td>
+      <td>000165/1652044/0001652044-22-000019.txt</td>
+      <td>000165/1652044/0001652044-22-000019.txt</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>NETFLIX INC</td>
+      <td>2022-01-27</td>
+      <td>1.221</td>
+      <td>9.175</td>
+      <td>000106/1065280/0001065280-22-000036.txt</td>
+      <td>000106/1065280/0001065280-22-000036.txt</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<section id="aggregate-size-comparison">
+<h3>Aggregate size comparison<a class="headerlink" href="#aggregate-size-comparison" title="Link to this heading">#</a></h3>
+<p>Raw filings are dramatically larger than cleaned ones – most of the
+bulk is HTML/XBRL markup and inline images. This matters for RAG: if
+you feed raw text into the model’s prompt you burn context window (and
+tokens) on markup that contributes nothing to the answer.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">summary</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;cleaned&quot;</span><span class="p">,</span> <span class="s2">&quot;raw&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;total_mb&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">size_df</span><span class="p">[</span><span class="s2">&quot;cleaned_mb&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="n">size_df</span><span class="p">[</span><span class="s2">&quot;raw_mb&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()],</span>
+    <span class="s2">&quot;mean_mb_per_filing&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="n">size_df</span><span class="p">[</span><span class="s2">&quot;cleaned_mb&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
+        <span class="n">size_df</span><span class="p">[</span><span class="s2">&quot;raw_mb&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;n_files_present&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="n">size_df</span><span class="p">[</span><span class="s2">&quot;cleaned_path&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span>
+        <span class="n">size_df</span><span class="p">[</span><span class="s2">&quot;raw_path&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span>
+    <span class="p">],</span>
+<span class="p">})</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">summary</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>version</th>
+      <th>total_mb</th>
+      <th>mean_mb_per_filing</th>
+      <th>n_files_present</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>cleaned</td>
+      <td>113.829</td>
+      <td>2.371</td>
+      <td>48</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>raw</td>
+      <td>1070.163</td>
+      <td>22.295</td>
+      <td>48</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="side-by-side-preview">
+<h3>Side-by-side preview<a class="headerlink" href="#side-by-side-preview" title="Link to this heading">#</a></h3>
+<p>Both files start with an identical SGML header (filer info, accession
+number, etc.), so a naive <code class="docutils literal notranslate"><span class="pre">text[:800]</span></code> would look the same in both.
+To make the difference concrete, we jump past the header and find the
+table of contents – specifically, the “Item 1. Business” entry. The
+cleaned file shows it as readable prose; the raw file shows the same
+content buried in HTML attributes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">present</span> <span class="o">=</span> <span class="n">size_df</span><span class="p">[(</span><span class="n">size_df</span><span class="p">[</span><span class="s2">&quot;cleaned_mb&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">size_df</span><span class="p">[</span><span class="s2">&quot;raw_mb&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)]</span>
+<span class="n">sample_row</span> <span class="o">=</span> <span class="n">present</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">relpath</span> <span class="o">=</span> <span class="n">sample_row</span><span class="p">[</span><span class="s2">&quot;cleaned_path&quot;</span><span class="p">]</span>
+
+<span class="n">cleaned_text</span> <span class="o">=</span> <span class="p">(</span><span class="n">CLEAN_DIR</span> <span class="o">/</span> <span class="n">relpath</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+<span class="n">raw_text</span> <span class="o">=</span> <span class="p">(</span><span class="n">RAW_DIR</span> <span class="o">/</span> <span class="n">relpath</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;File: </span><span class="si">{</span><span class="n">relpath</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Company: </span><span class="si">{</span><span class="n">sample_row</span><span class="p">[</span><span class="s1">&#39;company&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">   Filed: </span><span class="si">{</span><span class="n">sample_row</span><span class="p">[</span><span class="s1">&#39;filing_date&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cleaned size: </span><span class="si">{</span><span class="n">sample_row</span><span class="p">[</span><span class="s1">&#39;cleaned_mb&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> MB    &quot;</span>
+      <span class="sa">f</span><span class="s2">&quot;Raw size: </span><span class="si">{</span><span class="n">sample_row</span><span class="p">[</span><span class="s1">&#39;raw_mb&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> MB&quot;</span><span class="p">)</span>
+
+<span class="c1"># Locate the table of contents in each version. The landmark &quot;Item 1.&quot;</span>
+<span class="c1"># appears at very different byte offsets because the raw file has tens</span>
+<span class="c1"># of thousands of bytes of XBRL/HTML ahead of the readable text.</span>
+<span class="n">LANDMARK</span> <span class="o">=</span> <span class="s2">&quot;Item 1.&quot;</span>
+<span class="n">clean_idx</span> <span class="o">=</span> <span class="n">cleaned_text</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">LANDMARK</span><span class="p">)</span>
+<span class="n">raw_idx</span> <span class="o">=</span> <span class="n">raw_text</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">LANDMARK</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&#39;</span><span class="si">{</span><span class="n">LANDMARK</span><span class="si">}</span><span class="s2">&#39; offset in cleaned: </span><span class="si">{</span><span class="n">clean_idx</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">LANDMARK</span><span class="si">}</span><span class="s2">&#39; offset in raw:     </span><span class="si">{</span><span class="n">raw_idx</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>File: 000010/104169/0000104169-26-000055.txt
+Company: Walmart Inc.   Filed: 2026-03-13
+Cleaned size: 2.11 MB    Raw size: 13.08 MB
+
+&#39;Item 1.&#39; offset in cleaned: 87,663
+&#39;Item 1.&#39; offset in raw:     343,452
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Cleaned version (800 chars around “Item 1.”):</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">cleaned_text</span><span class="p">[</span><span class="n">clean_idx</span><span class="p">:</span><span class="n">clean_idx</span> <span class="o">+</span> <span class="mi">800</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Item 1. Business&quot; above for additional discussion of the competitive landscape of our business.
+
+Further, the protection of our proprietary rights, including our trademarks, copyrights, domain names, patents and trade secrets, is important to our business. Effective protection of our proprietary rights may not be available in every jurisdiction in which we offer our products and services, and we may not be able to prevent or deter third parties from infringing or misappropriating our intellectual property, or ensure that third parties will not independently develop equivalent or superior intellectual property rights, which could affect our ability to maintain a competitive advantage and adversely impact our business.
+
+Certain segments of the retail industry are undergoing consolidation or 
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Raw version (800 chars around “Item 1.”):</strong></p>
+<p>Same words, same place in the document – but wrapped in inline
+styles, anchor tags, and table layout markup. An LLM would have to
+parse all of this to extract “Item 1. Business”.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">raw_text</span><span class="p">[</span><span class="n">raw_idx</span><span class="p">:</span><span class="n">raw_idx</span> <span class="o">+</span> <span class="mi">800</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Item 1. Business&lt;/a&gt;&lt;/span&gt;&lt;span style=&quot;color:#000000;font-family:&#39;Times New Roman&#39;,serif;font-size:10pt;font-weight:400;line-height:120%&quot;&gt;&quot; above for additional discussion of the competitive landscape of our business.&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;margin-top:5pt&quot;&gt;&lt;span style=&quot;color:#000000;font-family:&#39;Times New Roman&#39;,serif;font-size:10pt;font-weight:400;line-height:120%&quot;&gt;Further, the protection of our proprietary rights, including our trademarks, copyrights, domain names, patents and trade secrets, is important to our business. Effective protection of our proprietary rights may not be available in every jurisdiction in which we offer our products and services, and we may not be able to prevent or deter third parties from infringing or misappropriating our intellectual property, or ensure that
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="compustat-ground-truth">
+<h2>Compustat ground truth<a class="headerlink" href="#compustat-ground-truth" title="Link to this heading">#</a></h2>
+<p>For each (company, fiscal year) we pull three audited figures from
+Compustat: revenue (<code class="docutils literal notranslate"><span class="pre">sale</span></code>), net income (<code class="docutils literal notranslate"><span class="pre">ni</span></code>), and total assets
+(<code class="docutils literal notranslate"><span class="pre">at</span></code>). These are reported in millions of USD, and they serve as the
+ground truth that the RAG benchmark compares LLM answers against.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">comp</span> <span class="o">=</span> <span class="n">load_compustat</span><span class="p">(</span><span class="n">DATA_DIR</span><span class="p">)</span>
+<span class="n">comp</span> <span class="o">=</span> <span class="n">comp</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;sale&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s2">&quot;conm&quot;</span><span class="p">,</span> <span class="s2">&quot;datadate&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;Compustat rows: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">comp</span><span class="p">)</span><span class="si">}</span><span class="s2">   &quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;Companies: </span><span class="si">{</span><span class="n">comp</span><span class="p">[</span><span class="s1">&#39;conm&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span><span class="si">}</span><span class="s2">   &quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;Date range: </span><span class="si">{</span><span class="n">comp</span><span class="p">[</span><span class="s1">&#39;datadate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">()</span><span class="si">}</span><span class="s2"> -&gt; &quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">comp</span><span class="p">[</span><span class="s1">&#39;datadate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="p">)</span>
+<span class="n">comp</span><span class="p">[[</span><span class="s2">&quot;conm&quot;</span><span class="p">,</span> <span class="s2">&quot;datadate&quot;</span><span class="p">,</span> <span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="s2">&quot;sale&quot;</span><span class="p">,</span> <span class="s2">&quot;ni&quot;</span><span class="p">,</span> <span class="s2">&quot;at&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Compustat rows: 122   Companies: 10   Date range: 2014-01-31 -&gt; 2026-01-31
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>conm</th>
+      <th>datadate</th>
+      <th>year</th>
+      <th>sale</th>
+      <th>ni</th>
+      <th>at</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>46</th>
+      <td>TESLA INC</td>
+      <td>2024-12-31</td>
+      <td>2024</td>
+      <td>97690.0</td>
+      <td>7091.0</td>
+      <td>122070.0</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>TESLA INC</td>
+      <td>2025-12-31</td>
+      <td>2025</td>
+      <td>94827.0</td>
+      <td>3794.0</td>
+      <td>137806.0</td>
+    </tr>
+    <tr>
+      <th>60</th>
+      <td>WALMART INC</td>
+      <td>2014-01-31</td>
+      <td>2014</td>
+      <td>474259.0</td>
+      <td>16022.0</td>
+      <td>204751.0</td>
+    </tr>
+    <tr>
+      <th>61</th>
+      <td>WALMART INC</td>
+      <td>2015-01-31</td>
+      <td>2015</td>
+      <td>483521.0</td>
+      <td>16363.0</td>
+      <td>203706.0</td>
+    </tr>
+    <tr>
+      <th>62</th>
+      <td>WALMART INC</td>
+      <td>2016-01-31</td>
+      <td>2016</td>
+      <td>479962.0</td>
+      <td>14694.0</td>
+      <td>199581.0</td>
+    </tr>
+    <tr>
+      <th>63</th>
+      <td>WALMART INC</td>
+      <td>2017-01-31</td>
+      <td>2017</td>
+      <td>482154.0</td>
+      <td>13643.0</td>
+      <td>198825.0</td>
+    </tr>
+    <tr>
+      <th>64</th>
+      <td>WALMART INC</td>
+      <td>2018-01-31</td>
+      <td>2018</td>
+      <td>496785.0</td>
+      <td>9862.0</td>
+      <td>204522.0</td>
+    </tr>
+    <tr>
+      <th>65</th>
+      <td>WALMART INC</td>
+      <td>2019-01-31</td>
+      <td>2019</td>
+      <td>511729.0</td>
+      <td>6670.0</td>
+      <td>219295.0</td>
+    </tr>
+    <tr>
+      <th>66</th>
+      <td>WALMART INC</td>
+      <td>2020-01-31</td>
+      <td>2020</td>
+      <td>521426.0</td>
+      <td>14881.0</td>
+      <td>236495.0</td>
+    </tr>
+    <tr>
+      <th>67</th>
+      <td>WALMART INC</td>
+      <td>2021-01-31</td>
+      <td>2021</td>
+      <td>556933.0</td>
+      <td>13510.0</td>
+      <td>252496.0</td>
+    </tr>
+    <tr>
+      <th>68</th>
+      <td>WALMART INC</td>
+      <td>2022-01-31</td>
+      <td>2022</td>
+      <td>569962.0</td>
+      <td>13673.0</td>
+      <td>244860.0</td>
+    </tr>
+    <tr>
+      <th>69</th>
+      <td>WALMART INC</td>
+      <td>2023-01-31</td>
+      <td>2023</td>
+      <td>608481.0</td>
+      <td>11680.0</td>
+      <td>243197.0</td>
+    </tr>
+    <tr>
+      <th>70</th>
+      <td>WALMART INC</td>
+      <td>2024-01-31</td>
+      <td>2024</td>
+      <td>645737.0</td>
+      <td>15511.0</td>
+      <td>252399.0</td>
+    </tr>
+    <tr>
+      <th>71</th>
+      <td>WALMART INC</td>
+      <td>2025-01-31</td>
+      <td>2025</td>
+      <td>678338.0</td>
+      <td>19436.0</td>
+      <td>260823.0</td>
+    </tr>
+    <tr>
+      <th>72</th>
+      <td>WALMART INC</td>
+      <td>2026-01-31</td>
+      <td>2026</td>
+      <td>710813.0</td>
+      <td>21893.0</td>
+      <td>284668.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<section id="questions-we-will-ask-the-model">
+<h3>Questions we will ask the model<a class="headerlink" href="#questions-we-will-ask-the-model" title="Link to this heading">#</a></h3>
+<p>In notebook 02 we walk through how one benchmark question flows
+through the pipeline, and notebook 03 runs the full grid. Questions
+are keyed on (company, fiscal year, metric) – which is also the
+join key between Compustat and the 10-K corpus. Here is what those
+questions will look like for the most recent fiscal years.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">recent</span> <span class="o">=</span> <span class="n">comp</span><span class="p">[</span><span class="n">comp</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">2023</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">preview</span> <span class="o">=</span> <span class="n">recent</span><span class="p">[[</span><span class="s2">&quot;conm&quot;</span><span class="p">,</span> <span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="s2">&quot;datadate&quot;</span><span class="p">,</span> <span class="s2">&quot;sale&quot;</span><span class="p">,</span> <span class="s2">&quot;ni&quot;</span><span class="p">,</span> <span class="s2">&quot;at&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">preview</span><span class="p">[</span><span class="s2">&quot;datadate&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">preview</span><span class="p">[</span><span class="s2">&quot;datadate&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">date</span>
+<span class="n">preview</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>conm</th>
+      <th>year</th>
+      <th>datadate</th>
+      <th>sale</th>
+      <th>ni</th>
+      <th>at</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>33</th>
+      <td>ALPHABET INC</td>
+      <td>2023</td>
+      <td>2023-12-31</td>
+      <td>307394.0</td>
+      <td>73795.0</td>
+      <td>402392.0</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>ALPHABET INC</td>
+      <td>2024</td>
+      <td>2024-12-31</td>
+      <td>350018.0</td>
+      <td>100118.0</td>
+      <td>450256.0</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>ALPHABET INC</td>
+      <td>2025</td>
+      <td>2025-12-31</td>
+      <td>402836.0</td>
+      <td>132170.0</td>
+      <td>595281.0</td>
+    </tr>
+    <tr>
+      <th>82</th>
+      <td>AMAZON.COM INC</td>
+      <td>2023</td>
+      <td>2023-12-31</td>
+      <td>574785.0</td>
+      <td>30425.0</td>
+      <td>527854.0</td>
+    </tr>
+    <tr>
+      <th>83</th>
+      <td>AMAZON.COM INC</td>
+      <td>2024</td>
+      <td>2024-12-31</td>
+      <td>637959.0</td>
+      <td>59248.0</td>
+      <td>624894.0</td>
+    </tr>
+    <tr>
+      <th>84</th>
+      <td>AMAZON.COM INC</td>
+      <td>2025</td>
+      <td>2025-12-31</td>
+      <td>716924.0</td>
+      <td>77670.0</td>
+      <td>818042.0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>APPLE INC</td>
+      <td>2023</td>
+      <td>2023-09-30</td>
+      <td>383285.0</td>
+      <td>96995.0</td>
+      <td>352583.0</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>APPLE INC</td>
+      <td>2024</td>
+      <td>2024-09-30</td>
+      <td>391035.0</td>
+      <td>93736.0</td>
+      <td>364980.0</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>APPLE INC</td>
+      <td>2025</td>
+      <td>2025-09-30</td>
+      <td>416161.0</td>
+      <td>112010.0</td>
+      <td>359241.0</td>
+    </tr>
+    <tr>
+      <th>57</th>
+      <td>JOHNSON &amp; JOHNSON</td>
+      <td>2023</td>
+      <td>2023-12-31</td>
+      <td>85159.0</td>
+      <td>35153.0</td>
+      <td>167558.0</td>
+    </tr>
+    <tr>
+      <th>58</th>
+      <td>JOHNSON &amp; JOHNSON</td>
+      <td>2024</td>
+      <td>2024-12-31</td>
+      <td>88821.0</td>
+      <td>14066.0</td>
+      <td>180104.0</td>
+    </tr>
+    <tr>
+      <th>59</th>
+      <td>JOHNSON &amp; JOHNSON</td>
+      <td>2025</td>
+      <td>2025-12-31</td>
+      <td>94193.0</td>
+      <td>26804.0</td>
+      <td>199210.0</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>JPMORGAN CHASE &amp; CO</td>
+      <td>2023</td>
+      <td>2023-12-31</td>
+      <td>236311.0</td>
+      <td>49552.0</td>
+      <td>3875393.0</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>JPMORGAN CHASE &amp; CO</td>
+      <td>2024</td>
+      <td>2024-12-31</td>
+      <td>278803.0</td>
+      <td>58471.0</td>
+      <td>4002814.0</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>JPMORGAN CHASE &amp; CO</td>
+      <td>2025</td>
+      <td>2025-12-31</td>
+      <td>279717.0</td>
+      <td>57048.0</td>
+      <td>4424900.0</td>
+    </tr>
+    <tr>
+      <th>106</th>
+      <td>MICROSOFT CORP</td>
+      <td>2023</td>
+      <td>2023-06-30</td>
+      <td>211915.0</td>
+      <td>72361.0</td>
+      <td>411976.0</td>
+    </tr>
+    <tr>
+      <th>107</th>
+      <td>MICROSOFT CORP</td>
+      <td>2024</td>
+      <td>2024-06-30</td>
+      <td>245122.0</td>
+      <td>88136.0</td>
+      <td>512163.0</td>
+    </tr>
+    <tr>
+      <th>108</th>
+      <td>MICROSOFT CORP</td>
+      <td>2025</td>
+      <td>2025-06-30</td>
+      <td>281724.0</td>
+      <td>101832.0</td>
+      <td>619003.0</td>
+    </tr>
+    <tr>
+      <th>94</th>
+      <td>NETFLIX INC</td>
+      <td>2023</td>
+      <td>2023-12-31</td>
+      <td>33723.297</td>
+      <td>5407.99</td>
+      <td>48731.992</td>
+    </tr>
+    <tr>
+      <th>95</th>
+      <td>NETFLIX INC</td>
+      <td>2024</td>
+      <td>2024-12-31</td>
+      <td>39000.966</td>
+      <td>8711.631</td>
+      <td>53630.374</td>
+    </tr>
+    <tr>
+      <th>96</th>
+      <td>NETFLIX INC</td>
+      <td>2025</td>
+      <td>2025-12-31</td>
+      <td>45183.036</td>
+      <td>10981.201</td>
+      <td>55596.993</td>
+    </tr>
+    <tr>
+      <th>118</th>
+      <td>NVIDIA CORP</td>
+      <td>2023</td>
+      <td>2023-01-31</td>
+      <td>26974.0</td>
+      <td>4368.0</td>
+      <td>41182.0</td>
+    </tr>
+    <tr>
+      <th>119</th>
+      <td>NVIDIA CORP</td>
+      <td>2024</td>
+      <td>2024-01-31</td>
+      <td>60922.0</td>
+      <td>29760.0</td>
+      <td>65728.0</td>
+    </tr>
+    <tr>
+      <th>120</th>
+      <td>NVIDIA CORP</td>
+      <td>2025</td>
+      <td>2025-01-31</td>
+      <td>130497.0</td>
+      <td>72880.0</td>
+      <td>111601.0</td>
+    </tr>
+    <tr>
+      <th>121</th>
+      <td>NVIDIA CORP</td>
+      <td>2026</td>
+      <td>2026-01-31</td>
+      <td>215938.0</td>
+      <td>120067.0</td>
+      <td>206803.0</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>TESLA INC</td>
+      <td>2023</td>
+      <td>2023-12-31</td>
+      <td>96773.0</td>
+      <td>14997.0</td>
+      <td>106618.0</td>
+    </tr>
+    <tr>
+      <th>46</th>
+      <td>TESLA INC</td>
+      <td>2024</td>
+      <td>2024-12-31</td>
+      <td>97690.0</td>
+      <td>7091.0</td>
+      <td>122070.0</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>TESLA INC</td>
+      <td>2025</td>
+      <td>2025-12-31</td>
+      <td>94827.0</td>
+      <td>3794.0</td>
+      <td>137806.0</td>
+    </tr>
+    <tr>
+      <th>69</th>
+      <td>WALMART INC</td>
+      <td>2023</td>
+      <td>2023-01-31</td>
+      <td>608481.0</td>
+      <td>11680.0</td>
+      <td>243197.0</td>
+    </tr>
+    <tr>
+      <th>70</th>
+      <td>WALMART INC</td>
+      <td>2024</td>
+      <td>2024-01-31</td>
+      <td>645737.0</td>
+      <td>15511.0</td>
+      <td>252399.0</td>
+    </tr>
+    <tr>
+      <th>71</th>
+      <td>WALMART INC</td>
+      <td>2025</td>
+      <td>2025-01-31</td>
+      <td>678338.0</td>
+      <td>19436.0</td>
+      <td>260823.0</td>
+    </tr>
+    <tr>
+      <th>72</th>
+      <td>WALMART INC</td>
+      <td>2026</td>
+      <td>2026-01-31</td>
+      <td>710813.0</td>
+      <td>21893.0</td>
+      <td>284668.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+<section id="recap">
+<h2>Recap<a class="headerlink" href="#recap" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>10 companies, one form type (10-K), fiscal years 2022+.</p></li>
+<li><p>Both raw and cleaned filing text downloaded from WRDS.</p></li>
+<li><p>Compustat fundamentals for the same companies, providing
+ground-truth answers.</p></li>
+</ul>
+<p>Notebook 02 walks through how the RAG pipeline is wired together
+function by function, with small concrete examples. Notebook 03 then
+scales that up and reports aggregate accuracy, latency, and cost for
+a weak LLM under three conditions: no context, retrieved <em>cleaned</em>
+filing text, and retrieved <em>raw</em> filing text.</p>
+</section>
+</section>
+
+<div class="section ablog__blog_comments">
+   
+</div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../HW3.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Homework 3: Benchmarking &amp; RAG</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="02_rag_pipeline_walkthrough.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">RAG Pipeline Walkthrough</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-sample-companies">The sample companies</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-filing-index">The filing index</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filings-per-company">Filings per company</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#raw-vs-cleaned-filings">Raw vs. cleaned filings</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aggregate-size-comparison">Aggregate size comparison</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#side-by-side-preview">Side-by-side preview</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compustat-ground-truth">Compustat ground truth</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions-we-will-ask-the-model">Questions we will ask the model</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recap">Recap</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jeremiah Bejarano
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, Jeremiah Bejarano.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

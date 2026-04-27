@@ -25,8 +25,8 @@ discussion_01.md
 discussion_02.md
 discussion_03.md
 discussion_04.md
-subject_to_change_after_this_week.md
 discussion_05.md
+subject_to_change_after_this_week.md
 ```
 
 ```{toctree}

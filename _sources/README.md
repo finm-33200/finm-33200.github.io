@@ -109,7 +109,8 @@ agenda is listed in the first sub-section of the chapter.
 | 5    | Apr 20 | **Midterm Exam** (9:30–11:00am)                                      | Midterm             |
 | 6    | Apr 27 | Guest: Brian Lewis — *Where Most AI Tools Fail in Large Enterprises and Why* (11:00am–12:00pm) |           |
 | 7    | May 4  | Guest: Matt Stockton — *RAG and Agentic Retrieval* (11:15am)        |                     |
-| 8    | May 11 | Guest: Matt Olson — *Auto Research for Backtesting*                  |                     |
+| 8a   | May 11 | Guest: Joel Fuentes — *Reinforcement Learning with Verifiable Rewards* (9:30am) |           |
+| 8b   | May 11 | Guest: Matt Olson — *Auto Research for Backtesting* (11:15am)        |                     |
 | 9    | May 18 | Guest: TBD                                                           |                     |
 | 10   | Finals | **Final Exam**                                                       |                     |
 
@@ -119,7 +120,8 @@ Attendance at guest speaker sessions is **required** and will be taken. See the 
 
 - **April 27:** Brian Lewis — "Where Most AI Tools Fail in Large Enterprises and Why" (11:00am–12:00pm)
 - **May 4:** Matt Stockton — RAG and Agentic Retrieval (11:15am)
-- **May 11:** Matt Olson — Auto Research for Backtesting
+- **May 11:** Joel Fuentes — Reinforcement Learning with Verifiable Rewards (9:30am)
+- **May 11:** Matt Olson — Auto Research for Backtesting (11:15am)
 - **May 18:** TBD
 
 ### Exam Preparation

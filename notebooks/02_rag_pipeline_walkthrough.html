@@ -1,0 +1,1554 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>RAG Pipeline Walkthrough &#8212; Generative and Agentic AI for Finance</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=f23691d7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=7a7908ec"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/02_rag_pipeline_walkthrough';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/custom.js?v=c0d9a6f1"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Benchmarking RAG with SEC Filings" href="03_rag_benchmark.html" />
+    <link rel="prev" title="RAG Case Study: Data Overview" href="01_data_overview.html" /> 
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>   
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Generative and Agentic AI for Finance - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Generative and Agentic AI for Finance - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Generative and Agentic AI for Finance
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../README.html">Course Syllabus: FINM 33200, Spring 2026</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Course Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Discussions 📖</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_01.html">Discussion 1: The New Quant - LLMs in Finance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/llms_transforming_finance.html">LLMs Transforming Finance: The New Quant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/expected_returns_llms.html">LLMs for Return Prediction: Prompts vs. Embeddings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/chartbook_research_catalog.html">ChartBook: Cataloging Research for Humans and AI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/api_and_structured_outputs.html">API Basics and Structured Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/review_w01.html">Study Questions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_02.html">Discussion 2: Text Representation and Tokenization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/structure_of_news.html">The Structure of Economic News</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/ai_copilots_intro.html">AI Copilots: History and Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/words_to_tokens.html">From Words to Tokens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/03_embedding_analogies_ipynb.html">Optional extra: News, Financial Crises, and the Geometry of Meaning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/review_w02.html">Study Questions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_03.html">Discussion 3: LLM Fundamentals</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/ai_roundup_w03.html">AI Roundup: Week 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/llms_and_lookahead_bias.html">LLMs and Lookahead Bias</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/microgpt_math.html">The Mathematics of microGPT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/openai_api_platform.html">The OpenAI API Platform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openai_api_overview.html">OpenAI API Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/review_w03.html">Study Questions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_04.html">Discussion 4: Benchmarking and LLM Tool Use</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/reasoning_acting_tools.html">From Chain-Of-Thought To Tool Use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="benchmarking_llms.html">Benchmarking LLMs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/rag.html">Retrieval-Augmented Generation (RAG)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01_filing_search_ipynb.html">01. Semantic Search of SEC Filings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02_rag_benchmark_ipynb.html">02. RAG Benchmark: Can Retrieved Context Fix a Weak Model?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/review_w04.html">Study Questions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../discussion_05.html">Discussion 5: Agents</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/github_pages.html">Publishing to GitHub Pages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/intro_to_agents.html">Introduction to Agents</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../subject_to_change_after_this_week.html">WARNING: Notes subject to change after this week</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Homework 📝</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../HW0.html">Homework 0: Set Up Your Environment</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="01_data_sources_overview_ipynb.html">Data Sources &amp; Strategy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02_gdelt_sp500_filtering_ipynb.html">GDELT Filtering &amp; Data Quality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_crosswalk_quality_ipynb.html">Crosswalk Quality</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../HW1.html">Homework 1: Lopez-Lira, Tang (2023)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="01_data_overview_ipynb.html">Data Sources Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02_methodology_ipynb.html">NLP Pipeline &amp; Portfolio Construction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_replication_results_ipynb.html">Replication Results</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../HW2.html">Homework 2: Chen, Kelly, Xiu (2022)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="01_explore_data_ipynb.html">Data Explorer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02_embeddings_demos_ipynb.html">Text Embeddings: From Words to Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_methodology_ipynb.html">Methodology: From Embeddings to Predictions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04_results_ipynb.html">Replication Results: Chen, Kelly, and Xiu (2022)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../HW3.html">Homework 3: Benchmarking &amp; RAG</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="01_data_overview.html">RAG Case Study: Data Overview</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">RAG Pipeline Walkthrough</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_rag_benchmark.html">Benchmarking RAG with SEC Filings</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../final_project.html">Final Project</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/final_project_rubric.html">Final Project Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FinalProject/potential_final_projects.html">Potential Final Project Ideas</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exams 📋</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../exam_prep.html">Exam Preparation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Misc 📌</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../acknowledgments.html">Acknowledgments</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../appendix.html">Appendix</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../discussions/nanochat_math.html">The Mathematics of Karpathy’s nanochat</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/jmbejara/blank_project/issues/new?title=Issue%20on%20page%20%2Fnotebooks/02_rag_pipeline_walkthrough.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/02_rag_pipeline_walkthrough.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>RAG Pipeline Walkthrough</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-pipeline-at-a-glance">The pipeline at a glance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-generate-benchmark-questions">Step 1: generate benchmark questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-find-the-matching-10-k">Step 2: find the matching 10-K</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-chunk-selection">Step 3: chunk selection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-assemble-the-prompt">Step 4: assemble the prompt</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-5-the-llm-call">Step 5: the LLM call</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-6-parse-a-number-out-of-the-reply">Step 6: parse a number out of the reply</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-7-grade-the-answer">Step 7: grade the answer</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-8-cost-accounting">Step 8: cost accounting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-together-end-to-end">Putting it together end-to-end</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#where-to-go-from-here">Where to go from here</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                   <section class="tex2jax_ignore mathjax_ignore" id="rag-pipeline-walkthrough">
+<h1>RAG Pipeline Walkthrough<a class="headerlink" href="#rag-pipeline-walkthrough" title="Link to this heading">#</a></h1>
+<p>Notebook 01 described the data; notebook 03 reports the benchmark
+numbers. This middle notebook explains <strong>how the pipeline itself is
+wired together</strong> – function by function, with small concrete inputs
+and outputs – so that when the results show up in notebook 03 you
+already know exactly what was done to produce each number.</p>
+<p>Everything here is imported from <a class="reference internal" href="#rag_benchmark.py"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">src/rag_benchmark.py</span></code></span></a>.
+The runnable script calls OpenAI; this notebook stays offline and uses
+saved CSV outputs from a previous run to show what the model actually
+returned. That way the walkthrough is cheap to re-execute and does not
+require an API key.</p>
+<section id="the-pipeline-at-a-glance">
+<h2>The pipeline at a glance<a class="headerlink" href="#the-pipeline-at-a-glance" title="Link to this heading">#</a></h2>
+<p>For each <code class="docutils literal notranslate"><span class="pre">(company,</span> <span class="pre">fiscal</span> <span class="pre">year,</span> <span class="pre">metric)</span></code> question we do the same
+thing in three conditions (baseline, RAG-cleaned, RAG-raw):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="n">build_test_cases</span><span class="p">()</span>              <span class="c1"># generate questions from Compustat</span>
+            <span class="o">|</span>
+            <span class="n">v</span>
+    <span class="n">find_10k_filing</span><span class="p">()</span>               <span class="c1"># retrieval  (skipped in baseline)</span>
+            <span class="o">|</span>
+            <span class="n">v</span>
+    <span class="n">extract_financial_context_</span><span class="o">*</span><span class="p">()</span>   <span class="c1"># chunk selection</span>
+            <span class="o">|</span>
+            <span class="n">v</span>
+    <span class="n">build_rag_prompt</span><span class="p">()</span>              <span class="c1"># assemble the prompt</span>
+            <span class="o">|</span>
+            <span class="n">v</span>
+    <span class="n">run_prompt</span><span class="p">()</span>                    <span class="c1"># OpenAI chat.completions call</span>
+            <span class="o">|</span>
+            <span class="n">v</span>
+    <span class="n">extract_number</span><span class="p">()</span>                <span class="c1"># parse a number out of the reply</span>
+            <span class="o">|</span>
+            <span class="n">v</span>
+    <span class="n">is_correct</span><span class="p">()</span>                    <span class="c1"># compare to Compustat ground truth</span>
+</pre></div>
+</div>
+<p>The sections below walk through those steps one at a time.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">from</span> <span class="nn">settings</span> <span class="kn">import</span> <span class="n">config</span>
+<span class="kn">from</span> <span class="nn">rag_benchmark</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">MODEL_ID</span><span class="p">,</span>
+    <span class="n">MODEL_INPUT_PRICE</span><span class="p">,</span>
+    <span class="n">MODEL_OUTPUT_PRICE</span><span class="p">,</span>
+    <span class="n">SYSTEM_MSG</span><span class="p">,</span>
+    <span class="n">METRICS</span><span class="p">,</span>
+    <span class="n">MAX_WORDS_CLEANED</span><span class="p">,</span>
+    <span class="n">MAX_WORDS_RAW</span><span class="p">,</span>
+    <span class="n">FINANCIAL_KEYWORDS</span><span class="p">,</span>
+    <span class="n">build_test_cases</span><span class="p">,</span>
+    <span class="n">extract_financial_context_cleaned</span><span class="p">,</span>
+    <span class="n">extract_financial_context_raw</span><span class="p">,</span>
+    <span class="n">load_filing_index</span><span class="p">,</span>
+    <span class="n">find_10k_filing</span><span class="p">,</span>
+    <span class="n">build_rag_prompt</span><span class="p">,</span>
+    <span class="n">extract_number</span><span class="p">,</span>
+    <span class="n">is_correct</span><span class="p">,</span>
+    <span class="n">calculate_cost</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">DATA_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">config</span><span class="p">(</span><span class="s2">&quot;DATA_DIR&quot;</span><span class="p">))</span>
+<span class="n">OUTPUT_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">config</span><span class="p">(</span><span class="s2">&quot;OUTPUT_DIR&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="step-1-generate-benchmark-questions">
+<h2>Step 1: generate benchmark questions<a class="headerlink" href="#step-1-generate-benchmark-questions" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">build_test_cases(min_year=...)</span></code> reads Compustat, filters to recent
+fiscal years, and produces one dictionary per
+<code class="docutils literal notranslate"><span class="pre">(company,</span> <span class="pre">fiscal_year,</span> <span class="pre">metric)</span></code> combination. The three metrics are
+fixed in <a class="reference internal" href="#rag_benchmark.py"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">rag_benchmark.py</span></code></span></a>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">METRICS</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;sale&#39;: &#39;total revenue (net sales)&#39;,
+ &#39;ni&#39;: &#39;net income (loss)&#39;,
+ &#39;at&#39;: &#39;total assets&#39;}
+</pre></div>
+</div>
+</div>
+</div>
+<p>Each returned test case is a plain dict. The LLM will see
+<code class="docutils literal notranslate"><span class="pre">question</span></code>, the grader will compare its answer against <code class="docutils literal notranslate"><span class="pre">expected</span></code>,
+and the retriever keys off <code class="docutils literal notranslate"><span class="pre">cik</span></code> and <code class="docutils literal notranslate"><span class="pre">fiscal_year_end</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">test_cases</span> <span class="o">=</span> <span class="n">build_test_cases</span><span class="p">(</span><span class="n">min_year</span><span class="o">=</span><span class="mi">2023</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total questions: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">test_cases</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  = </span><span class="si">{</span><span class="nb">len</span><span class="p">({</span><span class="n">tc</span><span class="p">[</span><span class="s1">&#39;cik&#39;</span><span class="p">]</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">tc</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">test_cases</span><span class="p">})</span><span class="si">}</span><span class="s2"> companies &quot;</span>
+      <span class="sa">f</span><span class="s2">&quot;x </span><span class="si">{</span><span class="nb">len</span><span class="p">({</span><span class="n">tc</span><span class="p">[</span><span class="s1">&#39;fiscal_year&#39;</span><span class="p">]</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">tc</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">test_cases</span><span class="p">})</span><span class="si">}</span><span class="s2"> fiscal years &quot;</span>
+      <span class="sa">f</span><span class="s2">&quot;x </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">METRICS</span><span class="p">)</span><span class="si">}</span><span class="s2"> metrics &quot;</span>
+      <span class="s2">&quot;(minus any missing Compustat rows)&quot;</span><span class="p">)</span>
+
+<span class="n">sample_case</span> <span class="o">=</span> <span class="n">test_cases</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">sample_case</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Total questions: 96
+  = 10 companies x 4 fiscal years x 3 metrics (minus any missing Compustat rows)
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;company_name&#39;: &#39;APPLE INC&#39;,
+ &#39;cik&#39;: &#39;0000320193&#39;,
+ &#39;fiscal_year&#39;: 2023,
+ &#39;fiscal_year_end&#39;: &#39;2023-09-30&#39;,
+ &#39;metric&#39;: &#39;sale&#39;,
+ &#39;metric_label&#39;: &#39;total revenue (net sales)&#39;,
+ &#39;expected&#39;: 383285.0,
+ &#39;question&#39;: &quot;What was APPLE INC&#39;s total revenue (net sales) for the fiscal year ending 2023-09-30? Report a single number in millions of US dollars.&quot;}
+</pre></div>
+</div>
+</div>
+</div>
+<p>The natural-language question assembled for the LLM:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">sample_case</span><span class="p">[</span><span class="s2">&quot;question&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>What was APPLE INC&#39;s total revenue (net sales) for the fiscal year ending 2023-09-30? Report a single number in millions of US dollars.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="step-2-find-the-matching-10-k">
+<h2>Step 2: find the matching 10-K<a class="headerlink" href="#step-2-find-the-matching-10-k" title="Link to this heading">#</a></h2>
+<p>Retrieval here is a <strong>structured lookup</strong>, not semantic search. We
+have a filing index keyed by CIK, and for each question we keep the
+first 10-K whose filing date falls in the 180 days after the fiscal
+year end. That window is wide enough to catch the annual report but
+narrow enough to avoid grabbing the <em>next</em> year’s filing.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tenk_idx</span> <span class="o">=</span> <span class="n">load_filing_index</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;10-K filings in the index: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">tenk_idx</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">tenk_idx</span><span class="p">[[</span><span class="s2">&quot;cik&quot;</span><span class="p">,</span> <span class="s2">&quot;coname&quot;</span><span class="p">,</span> <span class="s2">&quot;form&quot;</span><span class="p">,</span> <span class="s2">&quot;fdate&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;fdate&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10-K filings in the index: 48
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>cik</th>
+      <th>coname</th>
+      <th>form</th>
+      <th>fdate</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>47</th>
+      <td>0001065280</td>
+      <td>NETFLIX INC</td>
+      <td>10-K</td>
+      <td>2022-01-27</td>
+    </tr>
+    <tr>
+      <th>46</th>
+      <td>0001652044</td>
+      <td>Alphabet Inc.</td>
+      <td>10-K</td>
+      <td>2022-02-02</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>0001018724</td>
+      <td>AMAZON COM INC</td>
+      <td>10-K</td>
+      <td>2022-02-04</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>0001318605</td>
+      <td>Tesla, Inc.</td>
+      <td>10-K</td>
+      <td>2022-02-07</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>0000200406</td>
+      <td>JOHNSON &amp; JOHNSON</td>
+      <td>10-K</td>
+      <td>2022-02-17</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">find_10k_filing</span></code> takes the index, a CIK, a fiscal-year-end date,
+a directory of filings on disk, and a chunk-extractor function. It
+returns the extracted context plus a bit of provenance, or <code class="docutils literal notranslate"><span class="pre">None</span></code>
+if the filing is missing from our corpus.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fc_clean</span> <span class="o">=</span> <span class="n">find_10k_filing</span><span class="p">(</span>
+    <span class="n">tenk_idx</span><span class="p">,</span>
+    <span class="n">cik</span><span class="o">=</span><span class="n">sample_case</span><span class="p">[</span><span class="s2">&quot;cik&quot;</span><span class="p">],</span>
+    <span class="n">fiscal_year_end</span><span class="o">=</span><span class="n">sample_case</span><span class="p">[</span><span class="s2">&quot;fiscal_year_end&quot;</span><span class="p">],</span>
+    <span class="n">filings_dir</span><span class="o">=</span><span class="n">DATA_DIR</span> <span class="o">/</span> <span class="s2">&quot;wrds_clean_filings&quot;</span><span class="p">,</span>
+    <span class="n">extractor</span><span class="o">=</span><span class="n">extract_financial_context_cleaned</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="s2">&quot;context&quot;</span> <span class="k">else</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">fc_clean</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;context&#39;: 18868,
+ &#39;company_name&#39;: &#39;Apple Inc.&#39;,
+ &#39;filing_date&#39;: &#39;2023-11-03&#39;,
+ &#39;filing_bytes&#39;: 1190332}
+</pre></div>
+</div>
+</div>
+</div>
+<p>The same call against the raw archive – same CIK, same date, but
+pointing at <code class="docutils literal notranslate"><span class="pre">wrds_raw_filings</span></code> and using the raw extractor. Notice
+the context length jumps because the raw text carries markup.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fc_raw</span> <span class="o">=</span> <span class="n">find_10k_filing</span><span class="p">(</span>
+    <span class="n">tenk_idx</span><span class="p">,</span>
+    <span class="n">cik</span><span class="o">=</span><span class="n">sample_case</span><span class="p">[</span><span class="s2">&quot;cik&quot;</span><span class="p">],</span>
+    <span class="n">fiscal_year_end</span><span class="o">=</span><span class="n">sample_case</span><span class="p">[</span><span class="s2">&quot;fiscal_year_end&quot;</span><span class="p">],</span>
+    <span class="n">filings_dir</span><span class="o">=</span><span class="n">DATA_DIR</span> <span class="o">/</span> <span class="s2">&quot;wrds_raw_filings&quot;</span><span class="p">,</span>
+    <span class="n">extractor</span><span class="o">=</span><span class="n">extract_financial_context_raw</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="s2">&quot;context&quot;</span> <span class="k">else</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">fc_raw</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;context&#39;: 72546,
+ &#39;company_name&#39;: &#39;Apple Inc.&#39;,
+ &#39;filing_date&#39;: &#39;2023-11-03&#39;,
+ &#39;filing_bytes&#39;: 9569569}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="step-3-chunk-selection">
+<h2>Step 3: chunk selection<a class="headerlink" href="#step-3-chunk-selection" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">extract_financial_context_cleaned</span></code> is the real workhorse of the
+retrieval step. It scans the 10-K for two kinds of content:</p>
+<ol class="arabic simple">
+<li><p><strong>Keyword + number lines</strong> (e.g. “Total revenue    $383,285”) and
+grabs a few lines of surrounding context.</p></li>
+<li><p><strong>Financial narrative paragraphs</strong> that mention at least two
+financial keywords and contain a dollar figure.</p></li>
+</ol>
+<p>The keyword list is the same set the LLM is trying to answer about:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">FINANCIAL_KEYWORDS</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;net sales&#39;,
+ &#39;total net revenue&#39;,
+ &#39;total revenue&#39;,
+ &#39;net income&#39;,
+ &#39;net loss&#39;,
+ &#39;net earnings&#39;,
+ &#39;total assets&#39;,
+ &#39;results of operations&#39;,
+ &#39;operating income&#39;,
+ &#39;gross margin&#39;,
+ &#39;gross profit&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Both conditions (cleaned and raw) use the <em>same</em> extractor logic –
+<code class="docutils literal notranslate"><span class="pre">extract_financial_context_raw</span></code> is deliberately a thin wrapper. The
+only difference between conditions is the text WRDS hands us. A
+toy example makes the behavior concrete:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">toy_10k</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">ITEM 7. RESULTS OF OPERATIONS</span>
+
+<span class="s2">The following discussion compares our fiscal 2024 results to fiscal 2023.</span>
+
+<span class="s2">Net sales increased 8% to $383,285 million, driven by higher iPhone and</span>
+<span class="s2">Services revenue.</span>
+
+<span class="s2">Total assets grew to $352,755 million as of September 28, 2024.</span>
+
+<span class="s2">Unrelated filler about forward-looking statements goes here and should</span>
+<span class="s2">not be picked up by the chunker because it has neither a keyword nor a</span>
+<span class="s2">dollar figure.</span>
+
+<span class="s2">Net income for fiscal 2024 was $96,995 million, compared to $99,803</span>
+<span class="s2">million in the prior year.</span>
+<span class="s2">&quot;&quot;&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">extract_financial_context_cleaned</span><span class="p">(</span><span class="n">toy_10k</span><span class="p">,</span> <span class="n">max_words</span><span class="o">=</span><span class="mi">500</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ITEM 7. RESULTS OF OPERATIONS
+
+The following discussion compares our fiscal 2024 results to fiscal 2023.
+
+Net sales increased 8% to $383,285 million, driven by higher iPhone and
+Services revenue.
+
+Total assets grew to $352,755 million as of September 28, 2024.
+
+Unrelated filler about forward-looking statements goes here and should
+
+---
+
+The following discussion compares our fiscal 2024 results to fiscal 2023.
+
+Net sales increased 8% to $383,285 million, driven by higher iPhone and
+Services revenue.
+
+Total assets grew to $352,755 million as of September 28, 2024.
+
+Unrelated filler about forward-looking statements goes here and should
+not be picked up by the chunker because it has neither a keyword nor a
+dollar figure.
+
+---
+
+Unrelated filler about forward-looking statements goes here and should
+not be picked up by the chunker because it has neither a keyword nor a
+dollar figure.
+
+Net income for fiscal 2024 was $96,995 million, compared to $99,803
+million in the prior year.
+</pre></div>
+</div>
+</div>
+</div>
+<p>Even on real filings, the extracted context is a small fraction of
+the full 10-K. Here is the cleaned vs raw comparison for our sample
+filing:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cleaned_words</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">fc_clean</span><span class="p">[</span><span class="s2">&quot;context&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+<span class="n">raw_words</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">fc_raw</span><span class="p">[</span><span class="s2">&quot;context&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;condition&quot;</span><span class="p">:</span>     <span class="p">[</span><span class="s2">&quot;rag_cleaned&quot;</span><span class="p">,</span> <span class="s2">&quot;rag_raw&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;budget_words&quot;</span><span class="p">:</span>  <span class="p">[</span><span class="n">MAX_WORDS_CLEANED</span><span class="p">,</span> <span class="n">MAX_WORDS_RAW</span><span class="p">],</span>
+    <span class="s2">&quot;actual_words&quot;</span><span class="p">:</span>  <span class="p">[</span><span class="n">cleaned_words</span><span class="p">,</span> <span class="n">raw_words</span><span class="p">],</span>
+    <span class="s2">&quot;chars&quot;</span><span class="p">:</span>         <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">fc_clean</span><span class="p">[</span><span class="s2">&quot;context&quot;</span><span class="p">]),</span> <span class="nb">len</span><span class="p">(</span><span class="n">fc_raw</span><span class="p">[</span><span class="s2">&quot;context&quot;</span><span class="p">])],</span>
+    <span class="s2">&quot;chars_per_word&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="nb">round</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">fc_clean</span><span class="p">[</span><span class="s2">&quot;context&quot;</span><span class="p">])</span> <span class="o">/</span> <span class="nb">max</span><span class="p">(</span><span class="n">cleaned_words</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">1</span><span class="p">),</span>
+        <span class="nb">round</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">fc_raw</span><span class="p">[</span><span class="s2">&quot;context&quot;</span><span class="p">])</span> <span class="o">/</span> <span class="nb">max</span><span class="p">(</span><span class="n">raw_words</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="p">],</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>condition</th>
+      <th>budget_words</th>
+      <th>actual_words</th>
+      <th>chars</th>
+      <th>chars_per_word</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>rag_cleaned</td>
+      <td>3000</td>
+      <td>3009</td>
+      <td>18868</td>
+      <td>6.3</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>rag_raw</td>
+      <td>3000</td>
+      <td>2996</td>
+      <td>72546</td>
+      <td>24.2</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>The raw chunks have far more characters per word – that’s the
+SGML/HTML/XBRL markup that WRDS’s cleaning pipeline strips. Those
+characters become input tokens, and input tokens cost money.</p>
+<p>First 500 characters of the two contexts so you can see the
+difference directly:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--- cleaned (first 500 chars) ---&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">fc_clean</span><span class="p">[</span><span class="s2">&quot;context&quot;</span><span class="p">][:</span><span class="mi">500</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- raw (first 500 chars) ---&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">fc_raw</span><span class="p">[</span><span class="s2">&quot;context&quot;</span><span class="p">][:</span><span class="mi">500</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- cleaned (first 500 chars) ---
+Form 10-K Summary 
+
+57
+
+This Annual Report on Form 10-K (Form 10-K) contains forward-looking statements, within the meaning of the Private Securities Litigation Reform Act of 1995, that involve risks and uncertainties. Many of the forward-looking statements are located in Part I, Item 1 of this Form 10-K under the heading Business and Part II, Item 7 of this Form 10-K under the heading Managements Discussion and Analysis of Financial Condition and Results of Operations. Forward-looking statement
+
+--- raw (first 500 chars) ---
+&lt;DESCRIPTION&gt;EX-31.1
+&lt;TEXT&gt;
+&lt;html&gt;&lt;head&gt;
+&lt;!-- Document created using Wdesk --&gt;
+&lt;!-- Copyright 2023 Workiva --&gt;
+&lt;title&gt;Document&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;div id=&quot;i2369e0a153494a43a2376c67a756c66b_1&quot;&gt;&lt;/div&gt;&lt;div style=&quot;min-height:42.75pt;width:100%&quot;&gt;&lt;div&gt;&lt;font&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;&lt;/div&gt;&lt;div style=&quot;text-align:right&quot;&gt;&lt;font style=&quot;color:#000000;font-family:&#39;Helvetica&#39;,sans-serif;font-size:9pt;font-weight:700;line-height:120%&quot;&gt;Exhibit 31.1&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;margin-top:12pt;text-align:center&quot;&gt;&lt;font style=
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="step-4-assemble-the-prompt">
+<h2>Step 4: assemble the prompt<a class="headerlink" href="#step-4-assemble-the-prompt" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">build_rag_prompt</span></code> wraps the retrieved context and the question into
+a single user message. When <code class="docutils literal notranslate"><span class="pre">filing_context</span></code> is <code class="docutils literal notranslate"><span class="pre">None</span></code> (baseline or
+missing filing) it falls back to sending the bare question – this is
+how the baseline condition and “filing not found” cases are handled
+with the same downstream code path.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--- BASELINE PROMPT (no context) ---&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">build_rag_prompt</span><span class="p">(</span><span class="n">sample_case</span><span class="p">[</span><span class="s2">&quot;question&quot;</span><span class="p">],</span> <span class="kc">None</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- BASELINE PROMPT (no context) ---
+What was APPLE INC&#39;s total revenue (net sales) for the fiscal year ending 2023-09-30? Report a single number in millions of US dollars.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--- RAG PROMPT (first 1200 chars) ---&quot;</span><span class="p">)</span>
+<span class="n">rag_prompt</span> <span class="o">=</span> <span class="n">build_rag_prompt</span><span class="p">(</span><span class="n">sample_case</span><span class="p">[</span><span class="s2">&quot;question&quot;</span><span class="p">],</span> <span class="n">fc_clean</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">rag_prompt</span><span class="p">[:</span><span class="mi">1200</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;...&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">[total length: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">rag_prompt</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> chars]&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- RAG PROMPT (first 1200 chars) ---
+Use the following SEC filing excerpts to answer the question. Extract the specific numbers from the excerpts.
+
+SEC FILING EXCERPTS (Source: Apple Inc., 10-K, filed 2023-11-03):
+Form 10-K Summary 
+
+57
+
+This Annual Report on Form 10-K (Form 10-K) contains forward-looking statements, within the meaning of the Private Securities Litigation Reform Act of 1995, that involve risks and uncertainties. Many of the forward-looking statements are located in Part I, Item 1 of this Form 10-K under the heading Business and Part II, Item 7 of this Form 10-K under the heading Managements Discussion and Analysis of Financial Condition and Results of Operations. Forward-looking statements provide current expectations of future events based on certain assumptions and include any statement that does not directly relate to any historical or current fact. For example, statements in this Form 10-K regarding the potential future impact of macroeconomic conditions on the Companys business and results of operations are forward-looking statements. Forward-looking statements can also be identified by words such as future, anticipates, believes, estimates, expects, intends, plans, predicts, will, would, could, 
+...
+
+[total length: 19,248 chars]
+</pre></div>
+</div>
+</div>
+</div>
+<p>The system message that accompanies every call is also fixed:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">SYSTEM_MSG</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>You are a financial analyst. Answer the question with a single numeric value in millions of US dollars. If you are uncertain, give your best estimate. Do not refuse to answer.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="step-5-the-llm-call">
+<h2>Step 5: the LLM call<a class="headerlink" href="#step-5-the-llm-call" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">run_prompt(client,</span> <span class="pre">model_id,</span> <span class="pre">prompt,</span> <span class="pre">system_msg=...)</span></code> is a thin
+wrapper around <code class="docutils literal notranslate"><span class="pre">openai.chat.completions.create</span></code>. It measures wall
+time, captures token counts, and returns a dict:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;output&quot;</span><span class="p">:</span>        <span class="s2">&quot;...&quot;</span><span class="p">,</span>   <span class="c1"># the model&#39;s reply text</span>
+    <span class="s2">&quot;latency_s&quot;</span><span class="p">:</span>     <span class="mf">0.87</span><span class="p">,</span>
+    <span class="s2">&quot;input_tokens&quot;</span><span class="p">:</span>  <span class="mi">1234</span><span class="p">,</span>
+    <span class="s2">&quot;output_tokens&quot;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>We do <strong>not</strong> call the API here – that happens in
+<code class="docutils literal notranslate"><span class="pre">src/rag_benchmark.py</span></code> at build time and the results are cached to
+CSV. Let’s load the cached results and look at one real reply for
+the sample question.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df_baseline</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">OUTPUT_DIR</span> <span class="o">/</span> <span class="s2">&quot;baseline_results.csv&quot;</span><span class="p">)</span>
+<span class="n">df_clean</span>    <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">OUTPUT_DIR</span> <span class="o">/</span> <span class="s2">&quot;rag_cleaned_results.csv&quot;</span><span class="p">)</span>
+<span class="n">df_raw</span>      <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">OUTPUT_DIR</span> <span class="o">/</span> <span class="s2">&quot;rag_raw_results.csv&quot;</span><span class="p">)</span>
+
+<span class="n">sample_cik_int</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sample_case</span><span class="p">[</span><span class="s2">&quot;cik&quot;</span><span class="p">])</span>
+
+<span class="k">def</span> <span class="nf">pick</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;cik&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="o">==</span> <span class="n">sample_cik_int</span><span class="p">)</span>
+        <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;fiscal_year&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">sample_case</span><span class="p">[</span><span class="s2">&quot;fiscal_year&quot;</span><span class="p">])</span>
+        <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;metric&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">sample_case</span><span class="p">[</span><span class="s2">&quot;metric&quot;</span><span class="p">])</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">m</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">row_b</span> <span class="o">=</span> <span class="n">pick</span><span class="p">(</span><span class="n">df_baseline</span><span class="p">)</span>
+<span class="n">row_c</span> <span class="o">=</span> <span class="n">pick</span><span class="p">(</span><span class="n">df_clean</span><span class="p">)</span>
+<span class="n">row_r</span> <span class="o">=</span> <span class="n">pick</span><span class="p">(</span><span class="n">df_raw</span><span class="p">)</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;condition&quot;</span><span class="p">:</span>    <span class="p">[</span><span class="s2">&quot;baseline&quot;</span><span class="p">,</span> <span class="s2">&quot;rag_cleaned&quot;</span><span class="p">,</span> <span class="s2">&quot;rag_raw&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;answer&quot;</span><span class="p">:</span>       <span class="p">[</span><span class="n">row_b</span><span class="p">[</span><span class="s2">&quot;answer&quot;</span><span class="p">],</span> <span class="n">row_c</span><span class="p">[</span><span class="s2">&quot;answer&quot;</span><span class="p">],</span> <span class="n">row_r</span><span class="p">[</span><span class="s2">&quot;answer&quot;</span><span class="p">]],</span>
+    <span class="s2">&quot;latency_s&quot;</span><span class="p">:</span>    <span class="p">[</span><span class="n">row_b</span><span class="p">[</span><span class="s2">&quot;latency_s&quot;</span><span class="p">],</span> <span class="n">row_c</span><span class="p">[</span><span class="s2">&quot;latency_s&quot;</span><span class="p">],</span> <span class="n">row_r</span><span class="p">[</span><span class="s2">&quot;latency_s&quot;</span><span class="p">]],</span>
+    <span class="s2">&quot;input_tokens&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">row_b</span><span class="p">[</span><span class="s2">&quot;input_tokens&quot;</span><span class="p">],</span> <span class="n">row_c</span><span class="p">[</span><span class="s2">&quot;input_tokens&quot;</span><span class="p">],</span> <span class="n">row_r</span><span class="p">[</span><span class="s2">&quot;input_tokens&quot;</span><span class="p">]],</span>
+    <span class="s2">&quot;output_tokens&quot;</span><span class="p">:[</span><span class="n">row_b</span><span class="p">[</span><span class="s2">&quot;output_tokens&quot;</span><span class="p">],</span> <span class="n">row_c</span><span class="p">[</span><span class="s2">&quot;output_tokens&quot;</span><span class="p">],</span> <span class="n">row_r</span><span class="p">[</span><span class="s2">&quot;output_tokens&quot;</span><span class="p">]],</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>condition</th>
+      <th>answer</th>
+      <th>latency_s</th>
+      <th>input_tokens</th>
+      <th>output_tokens</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>baseline</td>
+      <td>Apple Inc's total revenue for the fiscal year ...</td>
+      <td>2.421</td>
+      <td>82</td>
+      <td>27</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>rag_cleaned</td>
+      <td>383,285</td>
+      <td>2.368</td>
+      <td>4227</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>rag_raw</td>
+      <td>394,328</td>
+      <td>9.356</td>
+      <td>21908</td>
+      <td>3</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Input-token counts line up with intuition: baseline is tiny (just
+the question), RAG-cleaned is larger (question + chunked context),
+and RAG-raw is larger still (same chunking, but each chunk carries
+markup).</p>
+</section>
+<section id="step-6-parse-a-number-out-of-the-reply">
+<h2>Step 6: parse a number out of the reply<a class="headerlink" href="#step-6-parse-a-number-out-of-the-reply" title="Link to this heading">#</a></h2>
+<p>The LLM answers in prose (“Apple’s fiscal 2024 revenue was
+approximately $383 billion.”) but the grader needs a numeric value
+<em>in millions of USD</em>. <code class="docutils literal notranslate"><span class="pre">extract_number</span></code> handles the common shapes:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">examples</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;Apple&#39;s fiscal 2024 revenue was approximately $383 billion.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Net income was 96,995 million.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;The total assets figure is $352,755.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Approximately -2,000 million (net loss).&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;I don&#39;t know.&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;llm_reply&quot;</span><span class="p">:</span> <span class="n">examples</span><span class="p">,</span>
+    <span class="s2">&quot;extracted_millions&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">extract_number</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">examples</span><span class="p">],</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>llm_reply</th>
+      <th>extracted_millions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Apple's fiscal 2024 revenue was approximately ...</td>
+      <td>383000.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Net income was 96,995 million.</td>
+      <td>96995.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>The total assets figure is $352,755.</td>
+      <td>352755.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Approximately -2,000 million (net loss).</td>
+      <td>2000.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>I don't know.</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>The parser’s preference order is:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;X</span> <span class="pre">billion&quot;</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">X</span> <span class="pre">*</span> <span class="pre">1000</span></code> (convert to millions).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;X</span> <span class="pre">million&quot;</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">X</span></code>.</p></li>
+<li><p>Otherwise, fall back to the last numeric token in the string
+(typically the figure the model quoted last).</p></li>
+</ol>
+<p>It’s deliberately forgiving – these are small models and the prose
+varies. The 5% and 10% tolerance bands in the next step absorb any
+rounding.</p>
+</section>
+<section id="step-7-grade-the-answer">
+<h2>Step 7: grade the answer<a class="headerlink" href="#step-7-grade-the-answer" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">is_correct(expected,</span> <span class="pre">extracted,</span> <span class="pre">tolerance)</span></code> is a relative error
+check with a guard for zero expected values.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">expected</span> <span class="o">=</span> <span class="n">sample_case</span><span class="p">[</span><span class="s2">&quot;expected&quot;</span><span class="p">]</span>
+<span class="n">examples</span> <span class="o">=</span> <span class="p">[</span><span class="n">expected</span><span class="p">,</span> <span class="n">expected</span> <span class="o">*</span> <span class="mf">1.03</span><span class="p">,</span> <span class="n">expected</span> <span class="o">*</span> <span class="mf">1.08</span><span class="p">,</span> <span class="n">expected</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;expected&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">expected</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">examples</span><span class="p">),</span>
+    <span class="s2">&quot;extracted&quot;</span><span class="p">:</span> <span class="n">examples</span><span class="p">,</span>
+    <span class="s2">&quot;within_5pct&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">is_correct</span><span class="p">(</span><span class="n">expected</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">examples</span><span class="p">],</span>
+    <span class="s2">&quot;within_10pct&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">is_correct</span><span class="p">(</span><span class="n">expected</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mf">0.10</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">examples</span><span class="p">],</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>expected</th>
+      <th>extracted</th>
+      <th>within_5pct</th>
+      <th>within_10pct</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>383285.0</td>
+      <td>383285.00</td>
+      <td>True</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>383285.0</td>
+      <td>394783.55</td>
+      <td>True</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>383285.0</td>
+      <td>413947.80</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>383285.0</td>
+      <td>191642.50</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>383285.0</td>
+      <td>NaN</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Notebook 03 reports accuracy at both tolerance levels because a
+fair number of correct answers in this task miss 5% by rounding
+and land comfortably inside 10%.</p>
+</section>
+<section id="step-8-cost-accounting">
+<h2>Step 8: cost accounting<a class="headerlink" href="#step-8-cost-accounting" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">calculate_cost(input_tokens,</span> <span class="pre">output_tokens)</span></code> applies the published
+<code class="docutils literal notranslate"><span class="pre">gpt-4o-mini</span></code> prices (per million tokens):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Model:              </span><span class="si">{</span><span class="n">MODEL_ID</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Input price (USD/M tokens):  </span><span class="si">{</span><span class="n">MODEL_INPUT_PRICE</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Output price (USD/M tokens): </span><span class="si">{</span><span class="n">MODEL_OUTPUT_PRICE</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;condition&quot;</span><span class="p">:</span>     <span class="p">[</span><span class="s2">&quot;baseline&quot;</span><span class="p">,</span> <span class="s2">&quot;rag_cleaned&quot;</span><span class="p">,</span> <span class="s2">&quot;rag_raw&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;input_tokens&quot;</span><span class="p">:</span>  <span class="p">[</span><span class="n">row_b</span><span class="p">[</span><span class="s2">&quot;input_tokens&quot;</span><span class="p">],</span> <span class="n">row_c</span><span class="p">[</span><span class="s2">&quot;input_tokens&quot;</span><span class="p">],</span> <span class="n">row_r</span><span class="p">[</span><span class="s2">&quot;input_tokens&quot;</span><span class="p">]],</span>
+    <span class="s2">&quot;output_tokens&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">row_b</span><span class="p">[</span><span class="s2">&quot;output_tokens&quot;</span><span class="p">],</span> <span class="n">row_c</span><span class="p">[</span><span class="s2">&quot;output_tokens&quot;</span><span class="p">],</span> <span class="n">row_r</span><span class="p">[</span><span class="s2">&quot;output_tokens&quot;</span><span class="p">]],</span>
+    <span class="s2">&quot;usd_per_query&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="n">calculate_cost</span><span class="p">(</span><span class="n">row_b</span><span class="p">[</span><span class="s2">&quot;input_tokens&quot;</span><span class="p">],</span> <span class="n">row_b</span><span class="p">[</span><span class="s2">&quot;output_tokens&quot;</span><span class="p">]),</span>
+        <span class="n">calculate_cost</span><span class="p">(</span><span class="n">row_c</span><span class="p">[</span><span class="s2">&quot;input_tokens&quot;</span><span class="p">],</span> <span class="n">row_c</span><span class="p">[</span><span class="s2">&quot;output_tokens&quot;</span><span class="p">]),</span>
+        <span class="n">calculate_cost</span><span class="p">(</span><span class="n">row_r</span><span class="p">[</span><span class="s2">&quot;input_tokens&quot;</span><span class="p">],</span> <span class="n">row_r</span><span class="p">[</span><span class="s2">&quot;output_tokens&quot;</span><span class="p">]),</span>
+    <span class="p">],</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model:              gpt-4o-mini
+Input price (USD/M tokens):  0.15
+Output price (USD/M tokens): 0.6
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>condition</th>
+      <th>input_tokens</th>
+      <th>output_tokens</th>
+      <th>usd_per_query</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>baseline</td>
+      <td>82</td>
+      <td>27</td>
+      <td>0.000028</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>rag_cleaned</td>
+      <td>4227</td>
+      <td>3</td>
+      <td>0.000636</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>rag_raw</td>
+      <td>21908</td>
+      <td>3</td>
+      <td>0.003288</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>One RAG call on this sample question costs well under a cent –
+which is the whole point of the exercise: if a small, cheap model
+can read the 10-K, you don’t need an expensive one to know the
+answer.</p>
+</section>
+<section id="putting-it-together-end-to-end">
+<h2>Putting it together end-to-end<a class="headerlink" href="#putting-it-together-end-to-end" title="Link to this heading">#</a></h2>
+<p>Here is what the pipeline does for our one sample question, traced
+through every step.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">trace</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;1. test case&quot;</span><span class="p">:</span>      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">sample_case</span><span class="p">[</span><span class="s1">&#39;company_name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> / &quot;</span>
+                         <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">sample_case</span><span class="p">[</span><span class="s1">&#39;metric_label&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> / &quot;</span>
+                         <span class="sa">f</span><span class="s2">&quot;FY ending </span><span class="si">{</span><span class="n">sample_case</span><span class="p">[</span><span class="s1">&#39;fiscal_year_end&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;2. ground truth&quot;</span><span class="p">:</span>   <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">sample_case</span><span class="p">[</span><span class="s1">&#39;expected&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2"> (USD millions, from Compustat)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;3. filing found&quot;</span><span class="p">:</span>   <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fc_clean</span><span class="p">[</span><span class="s1">&#39;company_name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">, &quot;</span>
+                         <span class="sa">f</span><span class="s2">&quot;filed </span><span class="si">{</span><span class="n">fc_clean</span><span class="p">[</span><span class="s1">&#39;filing_date&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">, &quot;</span>
+                         <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fc_clean</span><span class="p">[</span><span class="s1">&#39;filing_bytes&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> bytes on disk&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;4. context chars&quot;</span><span class="p">:</span>  <span class="sa">f</span><span class="s2">&quot;cleaned=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">fc_clean</span><span class="p">[</span><span class="s1">&#39;context&#39;</span><span class="p">])</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">  &quot;</span>
+                         <span class="sa">f</span><span class="s2">&quot;raw=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">fc_raw</span><span class="p">[</span><span class="s1">&#39;context&#39;</span><span class="p">])</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;5. llm reply (rag_cleaned)&quot;</span><span class="p">:</span> <span class="n">row_c</span><span class="p">[</span><span class="s2">&quot;answer&quot;</span><span class="p">][:</span><span class="mi">200</span><span class="p">],</span>
+    <span class="s2">&quot;6. extracted&quot;</span><span class="p">:</span>      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">row_c</span><span class="p">[</span><span class="s1">&#39;extracted&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;7. correct @ 5%&quot;</span><span class="p">:</span>   <span class="nb">bool</span><span class="p">(</span><span class="n">row_c</span><span class="p">[</span><span class="s2">&quot;correct_5pct&quot;</span><span class="p">]),</span>
+    <span class="s2">&quot;7. correct @ 10%&quot;</span><span class="p">:</span>  <span class="nb">bool</span><span class="p">(</span><span class="n">row_c</span><span class="p">[</span><span class="s2">&quot;correct_10pct&quot;</span><span class="p">]),</span>
+    <span class="s2">&quot;8. cost (USD)&quot;</span><span class="p">:</span>     <span class="n">calculate_cost</span><span class="p">(</span><span class="n">row_c</span><span class="p">[</span><span class="s2">&quot;input_tokens&quot;</span><span class="p">],</span> <span class="n">row_c</span><span class="p">[</span><span class="s2">&quot;output_tokens&quot;</span><span class="p">]),</span>
+<span class="p">}</span>
+<span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">trace</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">k</span><span class="si">:</span><span class="s2">&gt;30</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                  1. test case: APPLE INC / total revenue (net sales) / FY ending 2023-09-30
+               2. ground truth: 383,285 (USD millions, from Compustat)
+               3. filing found: Apple Inc., filed 2023-11-03, 1,190,332 bytes on disk
+              4. context chars: cleaned=18,868  raw=72,546
+    5. llm reply (rag_cleaned): 383,285
+                  6. extracted: 383285.0
+               7. correct @ 5%: True
+              7. correct @ 10%: True
+                 8. cost (USD): 0.000636
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="where-to-go-from-here">
+<h2>Where to go from here<a class="headerlink" href="#where-to-go-from-here" title="Link to this heading">#</a></h2>
+<p>Notebook 03 scales this up: it runs the full grid of questions
+through all three conditions and reports aggregate accuracy,
+latency, token usage, and cost. Before opening it, you should now
+be able to predict the qualitative shape of the results:</p>
+<ul class="simple">
+<li><p>Baseline is cheap but inaccurate (the model is guessing).</p></li>
+<li><p>RAG-cleaned is accurate and still cheap (small model, compact
+context, clean text).</p></li>
+<li><p>RAG-raw is accurate-ish but costs more per query and sometimes
+trips on markup – WRDS’s cleaning pipeline earns its keep.</p></li>
+</ul>
+<p>If you want to modify the pipeline, the two natural levers are in
+this notebook: change <code class="docutils literal notranslate"><span class="pre">FINANCIAL_KEYWORDS</span></code> / <code class="docutils literal notranslate"><span class="pre">MAX_WORDS_*</span></code> to
+reshape chunk selection, or swap <code class="docutils literal notranslate"><span class="pre">find_10k_filing</span></code> for a semantic
+retriever if you want a real RAG stack instead of a structured
+lookup.</p>
+</section>
+</section>
+
+<div class="section ablog__blog_comments">
+   
+</div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="01_data_overview.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">RAG Case Study: Data Overview</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="03_rag_benchmark.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Benchmarking RAG with SEC Filings</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-pipeline-at-a-glance">The pipeline at a glance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-generate-benchmark-questions">Step 1: generate benchmark questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-find-the-matching-10-k">Step 2: find the matching 10-K</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-chunk-selection">Step 3: chunk selection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-assemble-the-prompt">Step 4: assemble the prompt</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-5-the-llm-call">Step 5: the LLM call</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-6-parse-a-number-out-of-the-reply">Step 6: parse a number out of the reply</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-7-grade-the-answer">Step 7: grade the answer</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-8-cost-accounting">Step 8: cost accounting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-together-end-to-end">Putting it together end-to-end</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#where-to-go-from-here">Where to go from here</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jeremiah Bejarano
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, Jeremiah Bejarano.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -22,7 +22,7 @@ TBD
 ```{toctree}
 :maxdepth: 1
 
-notebooks/01_benchmark_questions
-notebooks/02_analyze_results
-notebooks/03_build_agents
+notebooks/01_data_overview
+notebooks/02_rag_pipeline_walkthrough
+notebooks/03_rag_benchmark
 ```
