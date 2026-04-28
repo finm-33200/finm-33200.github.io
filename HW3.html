@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Homework 3: Benchmarking &amp; RAG &#8212; Generative and Agentic AI for Finance</title>
+    <title>Homework 3: Benchmarking RAG with SEC Filings &#8212; Generative and Agentic AI for Finance</title>
   
   
   
@@ -241,7 +241,7 @@
 <li class="toctree-l2"><a class="reference internal" href="notebooks/04_results_ipynb.html">Replication Results: Chen, Kelly, and Xiu (2022)</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Homework 3: Benchmarking &amp; RAG</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Homework 3: Benchmarking RAG with SEC Filings</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/01_data_overview.html">RAG Case Study: Data Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/02_rag_pipeline_walkthrough.html">RAG Pipeline Walkthrough</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notebooks/03_rag_benchmark.html">Benchmarking RAG with SEC Filings</a></li>
@@ -449,7 +449,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Homework 3: Benchmarking & RAG</h1>
+    <h1>Homework 3: Benchmarking RAG with SEC Filings</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -459,7 +459,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#required-reading">Required “Reading”</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solution-notebooks">Solution Notebooks</a></li>
 </ul>
             </nav>
@@ -471,19 +471,22 @@ document.write(`
                 
 <div id="searchbox"></div>
                 <article class="bd-article">
-                   <section class="tex2jax_ignore mathjax_ignore" id="homework-3-benchmarking-rag">
-<h1>Homework 3: Benchmarking &amp; RAG<a class="headerlink" href="#homework-3-benchmarking-rag" title="Link to this heading">#</a></h1>
+                   <section class="tex2jax_ignore mathjax_ignore" id="homework-3-benchmarking-rag-with-sec-filings">
+<h1>Homework 3: Benchmarking RAG with SEC Filings<a class="headerlink" href="#homework-3-benchmarking-rag-with-sec-filings" title="Link to this heading">#</a></h1>
 <ul class="simple">
-<li><p><strong>GitHub Classroom Repository:</strong> TBD</p></li>
-<li><p><strong>Due Date:</strong> TBD</p></li>
+<li><p><strong>GitHub Classroom Repository:</strong> <a class="reference external" href="https://classroom.github.com/a/3JZeJvZ-">https://classroom.github.com/a/3JZeJvZ-</a></p></li>
+<li><p><strong>Due Date:</strong> Friday May 9, 2026 at 11:59 pm</p></li>
 </ul>
-<p><strong>Benchmarking LLMs and Retrieval-Augmented Generation for Finance</strong></p>
-<p>To get started with this homework, accept the GitHub Classroom assignment and clone the repository found above. All detailed instructions, deliverables, and grading criteria are in the homework repository README.</p>
-<p>In this assignment, you will explore two core topics in applied AI for finance: <strong>benchmarking large language models</strong> on quantitative finance questions and <strong>Retrieval-Augmented Generation (RAG)</strong>. You will evaluate how well different LLMs perform on domain-specific financial questions, analyze their strengths and weaknesses, and build agent-based systems that can retrieve relevant context to improve answer quality.</p>
-<hr class="docutils" />
-<section id="required-reading">
-<h2>Required “Reading”<a class="headerlink" href="#required-reading" title="Link to this heading">#</a></h2>
-<p>TBD</p>
+<p>To get started with this homework, accept the GitHub Classroom assignment and clone the repository found above. <strong>All detailed instructions, deliverables, and grading criteria are in the homework repository README.</strong></p>
+<p>You will build a <strong>Retrieval-Augmented Generation (RAG)</strong> pipeline against SEC 10-K filings and measure how much retrieval is worth — comparing a bare-question baseline against three RAG variants on Compustat ground truth (revenue, net income, total assets).</p>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>WRDS account with SEC Analytics Suite + Compustat access</p></li>
+<li><p>OpenAI API key</p></li>
+<li><p>Python 3.12+</p></li>
+</ul>
+<p>See the homework README for setup, pipeline commands, and the autograded test details.</p>
 </section>
 <hr class="docutils" />
 <section id="solution-notebooks">
@@ -546,7 +549,7 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#required-reading">Required “Reading”</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solution-notebooks">Solution Notebooks</a></li>
 </ul>
   </nav></div>

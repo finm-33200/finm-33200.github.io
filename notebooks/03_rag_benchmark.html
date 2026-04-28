@@ -241,7 +241,7 @@
 <li class="toctree-l2"><a class="reference internal" href="04_results_ipynb.html">Replication Results: Chen, Kelly, and Xiu (2022)</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="../HW3.html">Homework 3: Benchmarking &amp; RAG</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../HW3.html">Homework 3: Benchmarking RAG with SEC Filings</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="01_data_overview.html">RAG Case Study: Data Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="02_rag_pipeline_walkthrough.html">RAG Pipeline Walkthrough</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Benchmarking RAG with SEC Filings</a></li>
@@ -485,7 +485,8 @@ document.write(`
 <h1>Benchmarking RAG with SEC Filings<a class="headerlink" href="#benchmarking-rag-with-sec-filings" title="Link to this heading">#</a></h1>
 <p>This is the third notebook in the series. Notebook 01 inventoried the
 data; notebook 02 walked through the retrieval and grading code in
-<a class="reference internal" href="#rag_benchmark.py"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">src/rag_benchmark.py</span></code></span></a> with small runnable
+<a class="reference internal" href="#rag_benchmark.py"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">src/rag_benchmark.py</span></code></span></a> and
+<a class="reference internal" href="#embeddings_index.py"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">src/embeddings_index.py</span></code></span></a> with small runnable
 examples. This notebook runs the full grid of questions and reports
 the aggregate numbers.</p>
 <section id="what-is-rag">
@@ -493,10 +494,18 @@ the aggregate numbers.</p>
 <p><strong>Retrieval-Augmented Generation (RAG)</strong> is a two-stage pattern for
 getting accurate, grounded answers from a large language model:</p>
 <ol class="arabic simple">
-<li><p><strong>Retrieve</strong> relevant documents from a corpus. In this homework the
-corpus is a set of 10-K filings and the retrieval is a structured
-lookup (match on CIK and fiscal year end date). In production RAG
-systems the retrieval step is typically a vector/semantic search.</p></li>
+<li><p><strong>Retrieve</strong> relevant documents from a corpus. We benchmark two
+flavors of retrieval here:</p>
+<ul class="simple">
+<li><p><strong>Structured lookup</strong> – the question carries a CIK and fiscal
+year end, so we look up the matching 10-K directly and run a
+keyword chunker over it.</p></li>
+<li><p><strong>Dense semantic search</strong> – chunk the corpus once, embed every
+chunk with <code class="docutils literal notranslate"><span class="pre">text-embedding-3-small</span></code>, and query a global FAISS
+index at runtime. This is what most people mean by “classical
+RAG.”</p></li>
+</ul>
+</li>
 <li><p><strong>Generate</strong> an answer by injecting the retrieved text into the LLM
 prompt, so the model reads the source material instead of relying on
 whatever it memorized during training.</p></li>
@@ -515,34 +524,42 @@ EDGAR, with SGML/HTML/XBRL markup intact.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">/wrds/sec/wrds_clean_filings/...</span></code> – the same filing after WRDS’s
 <strong>cleaning pipeline</strong> strips markup and normalizes whitespace.</p></li>
 </ul>
-<p>We use that split to ask a concrete question: <em>does WRDS’s cleaning
-pipeline actually help RAG accuracy, or is the LLM fine with the raw
-archive?</em> The benchmark is a three-way comparison:</p>
+<p>We compare four conditions against the Compustat ground truth:</p>
 <ol class="arabic simple">
 <li><p><strong>Ground truth</strong> comes from Compustat (revenue, net income, total
 assets), as introduced in notebook 01.</p></li>
 <li><p><strong>Baseline</strong>: ask <code class="docutils literal notranslate"><span class="pre">gpt-4o-mini</span></code> each question with <strong>no context</strong>.
 The model must rely on whatever it learned during pre-training.</p></li>
-<li><p><strong>RAG (cleaned)</strong>: retrieve the matching 10-K from WRDS’s cleaned
-corpus and inject financial excerpts into the prompt.</p></li>
-<li><p><strong>RAG (raw)</strong>: do the same retrieval against WRDS’s raw archive
-instead. The <em>same</em> keyword-based chunk extractor is applied to
-both, so the only difference is the text WRDS hands us – cleaned
-vs. as-filed.</p></li>
+<li><p><strong>RAG (cleaned)</strong>: structured filing lookup against WRDS’s cleaned
+corpus, then a keyword-based chunk extractor.</p></li>
+<li><p><strong>RAG (raw)</strong>: same structured lookup, same keyword extractor,
+but pointed at the raw archive. The only difference is whether
+WRDS’s cleaning pipeline was applied to the input text.</p></li>
+<li><p><strong>RAG (semantic, cleaned)</strong>: classical dense retrieval. The 48
+cleaned filings are chunked and embedded into one global FAISS
+index. At query time we embed the question, take the top-k
+nearest chunks across the <em>entire</em> corpus, and inject them. There
+is no CIK/year prefilter – the retriever has to surface the
+right company on its own.</p></li>
 <li><p><strong>Evaluate</strong>: compare each answer to the Compustat ground truth
 within 5% and 10% tolerance bands.</p></li>
 </ol>
-<p>The raw-vs-cleaned split is the interesting part. Raw filings are
-larger and carry SGML/HTML/XBRL noise, so they cost more per query
-and may confuse the model. Does WRDS’s cleaning pipeline earn its
-keep?</p>
+<p>Two questions fall out of this design:</p>
+<ul class="simple">
+<li><p>Cleaned vs raw (conditions 3 vs 4): does WRDS’s cleaning pipeline
+actually earn its keep?</p></li>
+<li><p>Structured vs semantic (conditions 3 vs 5): when the join key is
+exact, what does swapping it for a vector search cost or buy?</p></li>
+</ul>
 </section>
 <section id="where-the-numbers-come-from">
 <h2>Where the numbers come from<a class="headerlink" href="#where-the-numbers-come-from" title="Link to this heading">#</a></h2>
 <p>The API calls happen in the doit task <code class="docutils literal notranslate"><span class="pre">run_rag_benchmark</span></code>
-(<code class="docutils literal notranslate"><span class="pre">src/rag_benchmark.py</span></code>), not in this notebook. That keeps notebook
-execution cheap and reproducible: the task writes three CSVs to
-<code class="docutils literal notranslate"><span class="pre">_output/</span></code>, and this notebook just loads and summarizes them.</p>
+(<code class="docutils literal notranslate"><span class="pre">src/rag_benchmark.py</span></code>), not in this notebook. The cleaned-corpus
+embeddings index is built once by the upstream task
+<code class="docutils literal notranslate"><span class="pre">build_embeddings</span></code> (<code class="docutils literal notranslate"><span class="pre">src/embeddings_index.py</span></code>) and cached on disk.
+This notebook just loads the four per-question CSVs and summarizes
+them.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
@@ -572,6 +589,7 @@ execution cheap and reproducible: the task writes three CSVs to
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df_baseline</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">OUTPUT_DIR</span> <span class="o">/</span> <span class="s2">&quot;baseline_results.csv&quot;</span><span class="p">)</span>
 <span class="n">df_clean</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">OUTPUT_DIR</span> <span class="o">/</span> <span class="s2">&quot;rag_cleaned_results.csv&quot;</span><span class="p">)</span>
 <span class="n">df_raw</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">OUTPUT_DIR</span> <span class="o">/</span> <span class="s2">&quot;rag_raw_results.csv&quot;</span><span class="p">)</span>
+<span class="n">df_semantic</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">OUTPUT_DIR</span> <span class="o">/</span> <span class="s2">&quot;rag_semantic_cleaned_results.csv&quot;</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Questions per condition: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df_baseline</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Model: </span><span class="si">{</span><span class="n">MODEL_ID</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -714,8 +732,9 @@ when you skip the cleaning step.</p>
 
 <span class="n">summary</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span>
     <span class="n">summarize</span><span class="p">(</span><span class="n">df_baseline</span><span class="p">,</span> <span class="s2">&quot;baseline (no context)&quot;</span><span class="p">),</span>
-    <span class="n">summarize</span><span class="p">(</span><span class="n">df_clean</span><span class="p">,</span>    <span class="s2">&quot;RAG (cleaned filings)&quot;</span><span class="p">),</span>
-    <span class="n">summarize</span><span class="p">(</span><span class="n">df_raw</span><span class="p">,</span>      <span class="s2">&quot;RAG (raw filings)&quot;</span><span class="p">),</span>
+    <span class="n">summarize</span><span class="p">(</span><span class="n">df_clean</span><span class="p">,</span>    <span class="s2">&quot;RAG (cleaned, structured)&quot;</span><span class="p">),</span>
+    <span class="n">summarize</span><span class="p">(</span><span class="n">df_raw</span><span class="p">,</span>      <span class="s2">&quot;RAG (raw, structured)&quot;</span><span class="p">),</span>
+    <span class="n">summarize</span><span class="p">(</span><span class="n">df_semantic</span><span class="p">,</span> <span class="s2">&quot;RAG (cleaned, semantic)&quot;</span><span class="p">),</span>
 <span class="p">])</span>
 <span class="n">summary_display</span> <span class="o">=</span> <span class="n">summary</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="n">summary_display</span><span class="p">[</span><span class="s2">&quot;accuracy_5pct&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">summary_display</span><span class="p">[</span><span class="s2">&quot;accuracy_5pct&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;%&quot;</span>
@@ -763,33 +782,44 @@ when you skip the cleaning step.</p>
       <td>baseline (no context)</td>
       <td>96</td>
       <td>20.8%</td>
-      <td>33.3%</td>
-      <td>1.27</td>
+      <td>28.1%</td>
+      <td>1.33</td>
       <td>81</td>
-      <td>34</td>
-      <td>0.0031</td>
+      <td>36</td>
+      <td>0.0033</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>RAG (cleaned filings)</td>
+      <td>RAG (cleaned, structured)</td>
       <td>96</td>
-      <td>79.2%</td>
       <td>81.2%</td>
-      <td>1.20</td>
+      <td>83.3%</td>
+      <td>1.54</td>
       <td>4460</td>
       <td>4</td>
-      <td>0.0645</td>
+      <td>0.0644</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>RAG (raw filings)</td>
+      <td>RAG (raw, structured)</td>
       <td>96</td>
-      <td>14.6%</td>
+      <td>16.7%</td>
       <td>25.0%</td>
-      <td>4.68</td>
+      <td>4.08</td>
       <td>20051</td>
-      <td>5</td>
+      <td>4</td>
       <td>0.2890</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>RAG (cleaned, semantic)</td>
+      <td>96</td>
+      <td>78.1%</td>
+      <td>81.2%</td>
+      <td>2.18</td>
+      <td>5796</td>
+      <td>3</td>
+      <td>0.0836</td>
     </tr>
   </tbody>
 </table>
@@ -798,23 +828,43 @@ when you skip the cleaning step.</p>
 </section>
 <section id="filing-retrieval-coverage">
 <h2>Filing-retrieval coverage<a class="headerlink" href="#filing-retrieval-coverage" title="Link to this heading">#</a></h2>
-<p>RAG only helps when the retrieval step actually finds a matching 10-K.
-If the filing isn’t in our corpus (or the fiscal year doesn’t line up)
-we fall back to asking without context, which degrades to the baseline.</p>
+<p>RAG only helps when the retrieval step lands on the right 10-K.
+“Coverage” means slightly different things depending on the
+retrieval flavor:</p>
+<ul class="simple">
+<li><p><strong>Structured conditions</strong> (<code class="docutils literal notranslate"><span class="pre">RAG</span> <span class="pre">cleaned</span></code>, <code class="docutils literal notranslate"><span class="pre">RAG</span> <span class="pre">raw</span></code>): we either
+find the matching filing on disk or we don’t. If we don’t, we fall
+back to the bare question and the row degrades to the baseline.</p></li>
+<li><p><strong>Semantic condition</strong> (<code class="docutils literal notranslate"><span class="pre">RAG</span> <span class="pre">semantic,</span> <span class="pre">cleaned</span></code>): every query
+returns ten chunks, but those chunks may come from the wrong
+company. We report the share of questions where the <em>top-1</em> chunk
+came from the right CIK – a weaker, soft notion of “found the
+filing.” Even when this is below 100%, the prompt may still
+contain useful chunks lower in the top-k.</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">coverage</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span>
     <span class="p">{</span>
-        <span class="s2">&quot;condition&quot;</span><span class="p">:</span> <span class="s2">&quot;RAG (cleaned)&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;filings_found&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">df_clean</span><span class="p">[</span><span class="s2">&quot;filing_found&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span>
+        <span class="s2">&quot;condition&quot;</span><span class="p">:</span> <span class="s2">&quot;RAG (cleaned, structured)&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;metric&quot;</span><span class="p">:</span> <span class="s2">&quot;filing_found&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hits&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">df_clean</span><span class="p">[</span><span class="s2">&quot;filing_found&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span>
         <span class="s2">&quot;total&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_clean</span><span class="p">),</span>
-        <span class="s2">&quot;coverage&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;filing_found&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;rate&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;filing_found&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
     <span class="p">},</span>
     <span class="p">{</span>
-        <span class="s2">&quot;condition&quot;</span><span class="p">:</span> <span class="s2">&quot;RAG (raw)&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;filings_found&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">df_raw</span><span class="p">[</span><span class="s2">&quot;filing_found&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span>
+        <span class="s2">&quot;condition&quot;</span><span class="p">:</span> <span class="s2">&quot;RAG (raw, structured)&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;metric&quot;</span><span class="p">:</span> <span class="s2">&quot;filing_found&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hits&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">df_raw</span><span class="p">[</span><span class="s2">&quot;filing_found&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span>
         <span class="s2">&quot;total&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_raw</span><span class="p">),</span>
-        <span class="s2">&quot;coverage&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">df_raw</span><span class="p">[</span><span class="s1">&#39;filing_found&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;rate&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">df_raw</span><span class="p">[</span><span class="s1">&#39;filing_found&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;condition&quot;</span><span class="p">:</span> <span class="s2">&quot;RAG (cleaned, semantic)&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;metric&quot;</span><span class="p">:</span> <span class="s2">&quot;top1_chunk_cik_match&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hits&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">df_semantic</span><span class="p">[</span><span class="s2">&quot;top_chunk_cik_match&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span>
+        <span class="s2">&quot;total&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_semantic</span><span class="p">),</span>
+        <span class="s2">&quot;rate&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">df_semantic</span><span class="p">[</span><span class="s1">&#39;top_chunk_cik_match&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
     <span class="p">},</span>
 <span class="p">])</span>
 <span class="n">coverage</span>
@@ -841,22 +891,33 @@ we fall back to asking without context, which degrades to the baseline.</p>
     <tr style="text-align: right;">
       <th></th>
       <th>condition</th>
-      <th>filings_found</th>
+      <th>metric</th>
+      <th>hits</th>
       <th>total</th>
-      <th>coverage</th>
+      <th>rate</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>RAG (cleaned)</td>
+      <td>RAG (cleaned, structured)</td>
+      <td>filing_found</td>
       <td>96</td>
       <td>96</td>
       <td>100.0%</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>RAG (raw)</td>
+      <td>RAG (raw, structured)</td>
+      <td>filing_found</td>
+      <td>96</td>
+      <td>96</td>
+      <td>100.0%</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>RAG (cleaned, semantic)</td>
+      <td>top1_chunk_cik_match</td>
       <td>96</td>
       <td>96</td>
       <td>100.0%</td>
@@ -882,6 +943,7 @@ items that complicate extraction.</p>
     <span class="s2">&quot;baseline&quot;</span><span class="p">:</span>      <span class="n">accuracy_by</span><span class="p">(</span><span class="n">df_baseline</span><span class="p">,</span> <span class="s2">&quot;metric_label&quot;</span><span class="p">),</span>
     <span class="s2">&quot;rag_cleaned&quot;</span><span class="p">:</span>   <span class="n">accuracy_by</span><span class="p">(</span><span class="n">df_clean</span><span class="p">,</span>    <span class="s2">&quot;metric_label&quot;</span><span class="p">),</span>
     <span class="s2">&quot;rag_raw&quot;</span><span class="p">:</span>       <span class="n">accuracy_by</span><span class="p">(</span><span class="n">df_raw</span><span class="p">,</span>      <span class="s2">&quot;metric_label&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;rag_semantic&quot;</span><span class="p">:</span>  <span class="n">accuracy_by</span><span class="p">(</span><span class="n">df_semantic</span><span class="p">,</span> <span class="s2">&quot;metric_label&quot;</span><span class="p">),</span>
 <span class="p">})</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">by_metric</span>
 </pre></div>
@@ -909,9 +971,11 @@ items that complicate extraction.</p>
       <th>baseline</th>
       <th>rag_cleaned</th>
       <th>rag_raw</th>
+      <th>rag_semantic</th>
     </tr>
     <tr>
       <th>metric_label</th>
+      <th></th>
       <th></th>
       <th></th>
       <th></th>
@@ -922,19 +986,22 @@ items that complicate extraction.</p>
       <th>net income (loss)</th>
       <td>0.156</td>
       <td>0.844</td>
-      <td>0.188</td>
+      <td>0.156</td>
+      <td>0.812</td>
     </tr>
     <tr>
       <th>total assets</th>
-      <td>0.344</td>
+      <td>0.281</td>
+      <td>0.812</td>
+      <td>0.219</td>
       <td>0.750</td>
-      <td>0.188</td>
     </tr>
     <tr>
       <th>total revenue (net sales)</th>
-      <td>0.500</td>
+      <td>0.406</td>
       <td>0.844</td>
       <td>0.375</td>
+      <td>0.875</td>
     </tr>
   </tbody>
 </table>
@@ -959,6 +1026,9 @@ Useful for spot-checking failures.</p>
     <span class="s2">&quot;rag_clean_ok&quot;</span><span class="p">:</span> <span class="n">df_clean</span><span class="p">[</span><span class="s2">&quot;correct_10pct&quot;</span><span class="p">],</span>
     <span class="s2">&quot;rag_raw_extracted&quot;</span><span class="p">:</span> <span class="n">df_raw</span><span class="p">[</span><span class="s2">&quot;extracted&quot;</span><span class="p">],</span>
     <span class="s2">&quot;rag_raw_ok&quot;</span><span class="p">:</span> <span class="n">df_raw</span><span class="p">[</span><span class="s2">&quot;correct_10pct&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;rag_semantic_extracted&quot;</span><span class="p">:</span> <span class="n">df_semantic</span><span class="p">[</span><span class="s2">&quot;extracted&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;rag_semantic_ok&quot;</span><span class="p">:</span> <span class="n">df_semantic</span><span class="p">[</span><span class="s2">&quot;correct_10pct&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;semantic_top1_match&quot;</span><span class="p">:</span> <span class="n">df_semantic</span><span class="p">[</span><span class="s2">&quot;top_chunk_cik_match&quot;</span><span class="p">],</span>
 <span class="p">})</span>
 <span class="n">detail</span>
 </pre></div>
@@ -993,6 +1063,9 @@ Useful for spot-checking failures.</p>
       <th>rag_clean_ok</th>
       <th>rag_raw_extracted</th>
       <th>rag_raw_ok</th>
+      <th>rag_semantic_extracted</th>
+      <th>rag_semantic_ok</th>
+      <th>semantic_top1_match</th>
     </tr>
   </thead>
   <tbody>
@@ -1002,11 +1075,14 @@ Useful for spot-checking failures.</p>
       <td>2023</td>
       <td>total revenue (net sales)</td>
       <td>383285.0</td>
-      <td>394328.0</td>
+      <td>394000.0</td>
       <td>True</td>
       <td>383285.0</td>
       <td>True</td>
       <td>394328.0</td>
+      <td>True</td>
+      <td>383285.0</td>
+      <td>True</td>
       <td>True</td>
     </tr>
     <tr>
@@ -1015,11 +1091,14 @@ Useful for spot-checking failures.</p>
       <td>2023</td>
       <td>net income (loss)</td>
       <td>96995.0</td>
-      <td>95000.0</td>
+      <td>94000.0</td>
       <td>True</td>
       <td>97000.0</td>
       <td>True</td>
-      <td>101000.0</td>
+      <td>100000.0</td>
+      <td>True</td>
+      <td>96995.0</td>
+      <td>True</td>
       <td>True</td>
     </tr>
     <tr>
@@ -1028,11 +1107,14 @@ Useful for spot-checking failures.</p>
       <td>2023</td>
       <td>total assets</td>
       <td>352583.0</td>
-      <td>352200.0</td>
+      <td>359000.0</td>
       <td>True</td>
       <td>351002.0</td>
       <td>True</td>
-      <td>352836.0</td>
+      <td>359000.0</td>
+      <td>True</td>
+      <td>352755.0</td>
+      <td>True</td>
       <td>True</td>
     </tr>
     <tr>
@@ -1045,7 +1127,10 @@ Useful for spot-checking failures.</p>
       <td>True</td>
       <td>391035.0</td>
       <td>True</td>
-      <td>383931.0</td>
+      <td>394328.0</td>
+      <td>True</td>
+      <td>391035.0</td>
+      <td>True</td>
       <td>True</td>
     </tr>
     <tr>
@@ -1054,15 +1139,21 @@ Useful for spot-checking failures.</p>
       <td>2024</td>
       <td>net income (loss)</td>
       <td>93736.0</td>
-      <td>99800.0</td>
+      <td>95000.0</td>
       <td>True</td>
       <td>93736.0</td>
       <td>True</td>
       <td>101000.0</td>
       <td>True</td>
+      <td>93736.0</td>
+      <td>True</td>
+      <td>True</td>
     </tr>
     <tr>
       <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
       <td>...</td>
       <td>...</td>
       <td>...</td>
@@ -1080,12 +1171,15 @@ Useful for spot-checking failures.</p>
       <td>2025</td>
       <td>net income (loss)</td>
       <td>72880.0</td>
-      <td>6500.0</td>
+      <td>4500.0</td>
       <td>False</td>
       <td>72880.0</td>
       <td>True</td>
-      <td>5247.0</td>
+      <td>5000.0</td>
       <td>False</td>
+      <td>72922.0</td>
+      <td>True</td>
+      <td>True</td>
     </tr>
     <tr>
       <th>92</th>
@@ -1093,12 +1187,15 @@ Useful for spot-checking failures.</p>
       <td>2025</td>
       <td>total assets</td>
       <td>111601.0</td>
-      <td>80000.0</td>
+      <td>53000.0</td>
       <td>False</td>
       <td>111601.0</td>
       <td>True</td>
-      <td>NaN</td>
+      <td>180000.0</td>
       <td>False</td>
+      <td>111601.0</td>
+      <td>True</td>
+      <td>True</td>
     </tr>
     <tr>
       <th>93</th>
@@ -1106,12 +1203,15 @@ Useful for spot-checking failures.</p>
       <td>2026</td>
       <td>total revenue (net sales)</td>
       <td>215938.0</td>
-      <td>30000.0</td>
+      <td>38000.0</td>
       <td>False</td>
       <td>215938.0</td>
       <td>True</td>
-      <td>26300.0</td>
+      <td>26912.0</td>
       <td>False</td>
+      <td>215938.0</td>
+      <td>True</td>
+      <td>True</td>
     </tr>
     <tr>
       <th>94</th>
@@ -1119,12 +1219,15 @@ Useful for spot-checking failures.</p>
       <td>2026</td>
       <td>net income (loss)</td>
       <td>120067.0</td>
-      <td>2023.0</td>
+      <td>4500.0</td>
       <td>False</td>
       <td>120067.0</td>
       <td>True</td>
-      <td>9952.0</td>
+      <td>4874.0</td>
       <td>False</td>
+      <td>119460.0</td>
+      <td>True</td>
+      <td>True</td>
     </tr>
     <tr>
       <th>95</th>
@@ -1132,16 +1235,19 @@ Useful for spot-checking failures.</p>
       <td>2026</td>
       <td>total assets</td>
       <td>206803.0</td>
-      <td>2023.0</td>
+      <td>45000.0</td>
       <td>False</td>
       <td>206803.0</td>
       <td>True</td>
-      <td>120000.0</td>
+      <td>136000.0</td>
       <td>False</td>
+      <td>65728.0</td>
+      <td>False</td>
+      <td>True</td>
     </tr>
   </tbody>
 </table>
-<p>96 rows × 10 columns</p>
+<p>96 rows × 13 columns</p>
 </div></div></div>
 </div>
 </section>
@@ -1155,8 +1261,9 @@ prompt.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ctx_stats</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
-    <span class="s2">&quot;rag_cleaned&quot;</span><span class="p">:</span> <span class="n">df_clean</span><span class="p">[</span><span class="s2">&quot;context_chars&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">(),</span>
-    <span class="s2">&quot;rag_raw&quot;</span><span class="p">:</span> <span class="n">df_raw</span><span class="p">[</span><span class="s2">&quot;context_chars&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">(),</span>
+    <span class="s2">&quot;rag_cleaned&quot;</span><span class="p">:</span>  <span class="n">df_clean</span><span class="p">[</span><span class="s2">&quot;context_chars&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">(),</span>
+    <span class="s2">&quot;rag_raw&quot;</span><span class="p">:</span>      <span class="n">df_raw</span><span class="p">[</span><span class="s2">&quot;context_chars&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">(),</span>
+    <span class="s2">&quot;rag_semantic&quot;</span><span class="p">:</span> <span class="n">df_semantic</span><span class="p">[</span><span class="s2">&quot;context_chars&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">(),</span>
 <span class="p">})</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">ctx_stats</span>
 </pre></div>
@@ -1183,6 +1290,7 @@ prompt.</p>
       <th></th>
       <th>rag_cleaned</th>
       <th>rag_raw</th>
+      <th>rag_semantic</th>
     </tr>
   </thead>
   <tbody>
@@ -1190,41 +1298,49 @@ prompt.</p>
       <th>count</th>
       <td>96.0</td>
       <td>96.0</td>
+      <td>96.0</td>
     </tr>
     <tr>
       <th>mean</th>
       <td>20021.0</td>
       <td>67173.0</td>
+      <td>20025.0</td>
     </tr>
     <tr>
       <th>std</th>
       <td>491.0</td>
       <td>8196.0</td>
+      <td>972.0</td>
     </tr>
     <tr>
       <th>min</th>
       <td>18868.0</td>
       <td>42712.0</td>
+      <td>18596.0</td>
     </tr>
     <tr>
       <th>25%</th>
       <td>19762.0</td>
       <td>61681.0</td>
+      <td>18632.0</td>
     </tr>
     <tr>
       <th>50%</th>
       <td>20127.0</td>
       <td>68741.0</td>
+      <td>20673.0</td>
     </tr>
     <tr>
       <th>75%</th>
       <td>20326.0</td>
       <td>72967.0</td>
+      <td>20703.0</td>
     </tr>
     <tr>
       <th>max</th>
       <td>21094.0</td>
       <td>77676.0</td>
+      <td>20753.0</td>
     </tr>
   </tbody>
 </table>
@@ -1277,22 +1393,29 @@ tokens, which makes each RAG query cost a fraction of a cent.</p>
       <th>0</th>
       <td>baseline (no context)</td>
       <td>81</td>
-      <td>34</td>
-      <td>0.0031</td>
+      <td>36</td>
+      <td>0.0033</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>RAG (cleaned filings)</td>
+      <td>RAG (cleaned, structured)</td>
       <td>4460</td>
       <td>4</td>
-      <td>0.0645</td>
+      <td>0.0644</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>RAG (raw filings)</td>
+      <td>RAG (raw, structured)</td>
       <td>20051</td>
-      <td>5</td>
+      <td>4</td>
       <td>0.2890</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>RAG (cleaned, semantic)</td>
+      <td>5796</td>
+      <td>3</td>
+      <td>0.0836</td>
     </tr>
   </tbody>
 </table>
@@ -1305,15 +1428,23 @@ tokens, which makes each RAG query cost a fraction of a cent.</p>
 <li><p><strong>Without context</strong>, a small model hallucinates specific financial
 figures with only occasional luck – the “knowledge” is stale or
 imprecise, and accuracy is low.</p></li>
-<li><p><strong>With WRDS cleaned filings</strong>, the same model becomes a reliable
-extractor. It no longer needs to <em>know</em> the answer; it just needs
-to <em>read</em> it off the 10-K.</p></li>
-<li><p><strong>WRDS raw vs. cleaned</strong>: the raw archive still helps relative to
-the baseline, but chunks carry SGML/HTML/XBRL markup that costs
-extra tokens and occasionally trips up the extractor (tagged
-numbers can look like financial figures). WRDS’s cleaning pipeline
-pays for itself: same retrieval, same model, better answers at
-lower token cost.</p></li>
+<li><p><strong>With WRDS cleaned filings (structured retrieval)</strong>, the same
+model becomes a reliable extractor. It no longer needs to <em>know</em>
+the answer; it just needs to <em>read</em> it off the 10-K.</p></li>
+<li><p><strong>WRDS raw vs. cleaned (structured)</strong>: the raw archive still helps
+relative to the baseline, but chunks carry SGML/HTML/XBRL markup
+that costs extra tokens and occasionally trips up the keyword
+extractor. WRDS’s cleaning pipeline pays for itself: same
+retrieval, same model, better answers at lower token cost.</p></li>
+<li><p><strong>Structured vs semantic (cleaned)</strong>: when the question carries a
+clean join key (CIK + fiscal year), the structured lookup is hard
+to beat – it always lands on the right filing. Semantic retrieval
+has to <em>find</em> the right filing among ~55k chunks, and any time the
+top-k bleeds in chunks from other companies, the model can be
+misled. The <code class="docutils literal notranslate"><span class="pre">top1_chunk_cik_match</span></code> rate is the key diagnostic. The
+payoff for semantic retrieval shows up in settings where the
+question is fuzzy or there is no clean join key – not in this
+benchmark.</p></li>
 </ul>
 </section>
 <section id="homework-exercises">
@@ -1324,9 +1455,15 @@ lower token cost.</p></li>
 <li><p>Extend <code class="docutils literal notranslate"><span class="pre">extract_financial_context_*</span></code> in <code class="docutils literal notranslate"><span class="pre">src/rag_benchmark.py</span></code> to
 pull more (or less) context. Does more context help, or does noise
 drown out the signal?</p></li>
-<li><p>Swap the retrieval step from structured lookup to semantic search
-(FAISS + sentence-transformers). How does top-k retrieval quality
-affect end-to-end accuracy?</p></li>
+<li><p>Tune the semantic retrieval. Vary <code class="docutils literal notranslate"><span class="pre">CHUNK_SIZE</span></code> / <code class="docutils literal notranslate"><span class="pre">CHUNK_OVERLAP</span></code>
+in <code class="docutils literal notranslate"><span class="pre">src/embeddings_index.py</span></code> and <code class="docutils literal notranslate"><span class="pre">top_k</span></code> / <code class="docutils literal notranslate"><span class="pre">max_words</span></code> in
+<code class="docutils literal notranslate"><span class="pre">run_rag_semantic</span></code>. Rebuild the embeddings index and rerun – does
+a larger top-k help, or does it just dilute the prompt with chunks
+from the wrong companies?</p></li>
+<li><p>Extend semantic retrieval to the raw corpus. Build a second FAISS
+index over <code class="docutils literal notranslate"><span class="pre">wrds_raw_filings</span></code>, add an <code class="docutils literal notranslate"><span class="pre">rag_semantic_raw</span></code> condition,
+and see whether dense retrieval is more or less robust to markup
+noise than the keyword extractor.</p></li>
 <li><p>Add a fourth metric (e.g. long-term debt) and see whether the
 accuracy ranking across conditions is stable.</p></li>
 </ol>

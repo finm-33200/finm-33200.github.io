@@ -1,19 +1,19 @@
-# Homework 3: Benchmarking & RAG
+# Homework 3: Benchmarking RAG with SEC Filings
 
-- **GitHub Classroom Repository:** TBD
-- **Due Date:** TBD
+- **GitHub Classroom Repository:** https://classroom.github.com/a/3JZeJvZ-
+- **Due Date:** Friday May 9, 2026 at 11:59 pm
 
-**Benchmarking LLMs and Retrieval-Augmented Generation for Finance**
+To get started with this homework, accept the GitHub Classroom assignment and clone the repository found above. **All detailed instructions, deliverables, and grading criteria are in the homework repository README.**
 
-To get started with this homework, accept the GitHub Classroom assignment and clone the repository found above. All detailed instructions, deliverables, and grading criteria are in the homework repository README.
+You will build a **Retrieval-Augmented Generation (RAG)** pipeline against SEC 10-K filings and measure how much retrieval is worth — comparing a bare-question baseline against three RAG variants on Compustat ground truth (revenue, net income, total assets).
 
-In this assignment, you will explore two core topics in applied AI for finance: **benchmarking large language models** on quantitative finance questions and **Retrieval-Augmented Generation (RAG)**. You will evaluate how well different LLMs perform on domain-specific financial questions, analyze their strengths and weaknesses, and build agent-based systems that can retrieve relevant context to improve answer quality.
+## Prerequisites
 
----
+- WRDS account with SEC Analytics Suite + Compustat access
+- OpenAI API key
+- Python 3.12+
 
-## Required "Reading"
-
-TBD
+See the homework README for setup, pipeline commands, and the autograded test details.
 
 ---
 

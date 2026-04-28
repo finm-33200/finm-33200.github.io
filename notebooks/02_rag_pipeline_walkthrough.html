@@ -239,7 +239,7 @@
 <li class="toctree-l2"><a class="reference internal" href="04_results_ipynb.html">Replication Results: Chen, Kelly, and Xiu (2022)</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="../HW3.html">Homework 3: Benchmarking &amp; RAG</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../HW3.html">Homework 3: Benchmarking RAG with SEC Filings</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="01_data_overview.html">RAG Case Study: Data Overview</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">RAG Pipeline Walkthrough</a></li>
 <li class="toctree-l2"><a class="reference internal" href="03_rag_benchmark.html">Benchmarking RAG with SEC Filings</a></li>
@@ -457,10 +457,18 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#two-flavors-of-retrieval">Two flavors of retrieval</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-pipeline-at-a-glance">The pipeline at a glance</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-generate-benchmark-questions">Step 1: generate benchmark questions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-find-the-matching-10-k">Step 2: find the matching 10-K</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-chunk-selection">Step 3: chunk selection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3b-dense-semantic-retrieval-the-classical-rag-path">Step 3b: dense semantic retrieval (the “classical RAG” path)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chunking-demo">Chunking demo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-the-prebuilt-index">Loading the prebuilt index</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-semantic-search-query">A semantic-search query</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#keyword-vs-semantic-side-by-side">Keyword vs semantic: side by side</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-assemble-the-prompt">Step 4: assemble the prompt</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-5-the-llm-call">Step 5: the LLM call</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-6-parse-a-number-out-of-the-reply">Step 6: parse a number out of the reply</a></li>
@@ -485,22 +493,47 @@ numbers. This middle notebook explains <strong>how the pipeline itself is
 wired together</strong> – function by function, with small concrete inputs
 and outputs – so that when the results show up in notebook 03 you
 already know exactly what was done to produce each number.</p>
-<p>Everything here is imported from <a class="reference internal" href="#rag_benchmark.py"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">src/rag_benchmark.py</span></code></span></a>.
-The runnable script calls OpenAI; this notebook stays offline and uses
-saved CSV outputs from a previous run to show what the model actually
+<p>Everything here is imported from <a class="reference internal" href="#rag_benchmark.py"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">src/rag_benchmark.py</span></code></span></a>
+and <a class="reference internal" href="#embeddings_index.py"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">src/embeddings_index.py</span></code></span></a>. The runnable
+scripts call OpenAI; this notebook stays mostly offline and uses saved
+CSV outputs from a previous run to show what the model actually
 returned. That way the walkthrough is cheap to re-execute and does not
-require an API key.</p>
+require an API key (it does briefly call the embeddings API in Step 3b
+to embed one query, but that costs a fraction of a cent and can be
+skipped).</p>
+<section id="two-flavors-of-retrieval">
+<h2>Two flavors of retrieval<a class="headerlink" href="#two-flavors-of-retrieval" title="Link to this heading">#</a></h2>
+<p>“RAG” just means <em>retrieve text from a corpus, then generate</em>. It does
+not specify how retrieval works. We benchmark two retrieval families
+in this homework:</p>
+<ul class="simple">
+<li><p><strong>Structured retrieval</strong> (<code class="docutils literal notranslate"><span class="pre">find_10k_filing</span></code>): the question already
+carries a CIK and a fiscal-year-end, so we look up the matching 10-K
+directly and run a keyword-based chunk extractor over it. This is
+what the <code class="docutils literal notranslate"><span class="pre">rag_cleaned</span></code> and <code class="docutils literal notranslate"><span class="pre">rag_raw</span></code> conditions use.</p></li>
+<li><p><strong>Dense semantic retrieval</strong> (<code class="docutils literal notranslate"><span class="pre">semantic_search</span></code>): the corpus is
+pre-chunked and every chunk is embedded into a 1536-dim vector with
+the OpenAI embeddings API. At query time we embed the question and
+ask FAISS for the top-k nearest chunks across the <em>whole</em> corpus –
+no CIK/year prefilter. This is what the <code class="docutils literal notranslate"><span class="pre">rag_semantic_cleaned</span></code>
+condition uses, and it is what most people mean when they say
+“classical RAG.”</p></li>
+</ul>
+<p>Both end up calling the same downstream code (<code class="docutils literal notranslate"><span class="pre">build_rag_prompt</span></code>,
+<code class="docutils literal notranslate"><span class="pre">run_prompt</span></code>, <code class="docutils literal notranslate"><span class="pre">extract_number</span></code>, <code class="docutils literal notranslate"><span class="pre">is_correct</span></code>). Only the retrieval step
+changes.</p>
+</section>
 <section id="the-pipeline-at-a-glance">
 <h2>The pipeline at a glance<a class="headerlink" href="#the-pipeline-at-a-glance" title="Link to this heading">#</a></h2>
 <p>For each <code class="docutils literal notranslate"><span class="pre">(company,</span> <span class="pre">fiscal</span> <span class="pre">year,</span> <span class="pre">metric)</span></code> question we do the same
-thing in three conditions (baseline, RAG-cleaned, RAG-raw):</p>
+thing in four conditions (baseline, RAG-cleaned, RAG-raw,
+RAG-semantic-cleaned):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="n">build_test_cases</span><span class="p">()</span>              <span class="c1"># generate questions from Compustat</span>
             <span class="o">|</span>
             <span class="n">v</span>
-    <span class="n">find_10k_filing</span><span class="p">()</span>               <span class="c1"># retrieval  (skipped in baseline)</span>
-            <span class="o">|</span>
-            <span class="n">v</span>
-    <span class="n">extract_financial_context_</span><span class="o">*</span><span class="p">()</span>   <span class="c1"># chunk selection</span>
+    <span class="o">----</span> <span class="n">pick</span> <span class="n">a</span> <span class="n">retrieval</span> <span class="n">path</span> <span class="p">(</span><span class="n">skipped</span> <span class="ow">in</span> <span class="n">baseline</span><span class="p">)</span> <span class="o">----</span>
+      <span class="n">structured</span><span class="p">:</span>  <span class="n">find_10k_filing</span><span class="p">()</span>  <span class="o">+</span>  <span class="n">extract_financial_context_</span><span class="o">*</span><span class="p">()</span>
+      <span class="n">semantic</span><span class="p">:</span>    <span class="n">semantic_search</span><span class="p">()</span>  <span class="n">over</span> <span class="n">a</span> <span class="n">prebuilt</span> <span class="n">FAISS</span> <span class="n">index</span>
             <span class="o">|</span>
             <span class="n">v</span>
     <span class="n">build_rag_prompt</span><span class="p">()</span>              <span class="c1"># assemble the prompt</span>
@@ -541,6 +574,14 @@ thing in three conditions (baseline, RAG-cleaned, RAG-raw):</p>
     <span class="n">extract_number</span><span class="p">,</span>
     <span class="n">is_correct</span><span class="p">,</span>
     <span class="n">calculate_cost</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">embeddings_index</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">EMBED_MODEL</span><span class="p">,</span>
+    <span class="n">CHUNK_SIZE</span><span class="p">,</span>
+    <span class="n">CHUNK_OVERLAP</span><span class="p">,</span>
+    <span class="n">chunk_text</span><span class="p">,</span>
+    <span class="n">load_index</span><span class="p">,</span>
+    <span class="n">semantic_search</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="n">DATA_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">config</span><span class="p">(</span><span class="s2">&quot;DATA_DIR&quot;</span><span class="p">))</span>
@@ -951,6 +992,393 @@ This Annual Report on Form 10-K (Form 10-K) contains forward-looking statements,
 </div>
 </div>
 </section>
+<section id="step-3b-dense-semantic-retrieval-the-classical-rag-path">
+<h2>Step 3b: dense semantic retrieval (the “classical RAG” path)<a class="headerlink" href="#step-3b-dense-semantic-retrieval-the-classical-rag-path" title="Link to this heading">#</a></h2>
+<p>The structured-lookup retrieval above works because the question
+already names the company and the fiscal year, and we have a clean
+index keyed on those. Most production RAG stacks do not have that
+luxury – the question is free text and there is no obvious join key.
+So they fall back to <strong>semantic search</strong>: embed the corpus once, embed
+the query, and ask a vector index for the most similar chunks.</p>
+<p>Three pieces are involved:</p>
+<ol class="arabic simple">
+<li><p>A <strong>chunker</strong> that splits each filing into overlapping passages.
+<code class="docutils literal notranslate"><span class="pre">chunk_text(text,</span> <span class="pre">chunk_size,</span> <span class="pre">overlap)</span></code> is a sliding character
+window – nothing fancy, just <code class="docutils literal notranslate"><span class="pre">chunk_size</span></code> characters at a time
+with <code class="docutils literal notranslate"><span class="pre">overlap</span></code> characters of overlap so a sentence isn’t sliced
+in half.</p></li>
+<li><p>An <strong>embedding model</strong> that turns each chunk (and later, each
+query) into a fixed-length vector. We use OpenAI
+<code class="docutils literal notranslate"><span class="pre">text-embedding-3-small</span></code> – 1536 dimensions, same API client we
+already use for the chat completions.</p></li>
+<li><p>A <strong>vector index</strong> that, given a query vector, returns the top-k
+most similar chunk vectors. We use FAISS (<code class="docutils literal notranslate"><span class="pre">IndexFlatIP</span></code> with
+L2-normalized vectors, which gives exact cosine similarity over
+the ~55k chunks in the cleaned corpus).</p></li>
+</ol>
+<p>The build (<code class="docutils literal notranslate"><span class="pre">task_build_embeddings</span></code> in <code class="docutils literal notranslate"><span class="pre">dodo.py</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">src/embeddings_index.py</span></code>) chunks all 48 cleaned filings, embeds every
+chunk in batches, and writes:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">_data/embeddings/cleaned_chunks.parquet</span></code> – one row per chunk
+with metadata (cik, accession, fdate, char_start, char_end, text).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_data/embeddings/cleaned_index.faiss</span></code> – the FAISS index, with
+row order aligned to the parquet.</p></li>
+</ul>
+<p>We do this once and cache, so subsequent benchmark runs only pay the
+query-side embedding cost.</p>
+<section id="chunking-demo">
+<h3>Chunking demo<a class="headerlink" href="#chunking-demo" title="Link to this heading">#</a></h3>
+<p>Same toy 10-K we used above for the keyword extractor, this time fed
+to <code class="docutils literal notranslate"><span class="pre">chunk_text</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">toy_chunks</span> <span class="o">=</span> <span class="n">chunk_text</span><span class="p">(</span><span class="n">toy_10k</span><span class="p">,</span> <span class="n">chunk_size</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">overlap</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;chunk_idx&quot;</span><span class="p">:</span> <span class="n">i</span><span class="p">,</span>
+        <span class="s2">&quot;char_start&quot;</span><span class="p">:</span> <span class="n">s</span><span class="p">,</span>
+        <span class="s2">&quot;char_end&quot;</span><span class="p">:</span> <span class="n">e</span><span class="p">,</span>
+        <span class="s2">&quot;preview&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">t</span><span class="p">[:</span><span class="mi">80</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;...&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">80</span> <span class="k">else</span> <span class="n">t</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">toy_chunks</span><span class="p">)</span>
+<span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>chunk_idx</th>
+      <th>char_start</th>
+      <th>char_end</th>
+      <th>preview</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>0</td>
+      <td>200</td>
+      <td>\nITEM 7. RESULTS OF OPERATIONS\n\nThe followi...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>160</td>
+      <td>360</td>
+      <td>higher iPhone and\nServices revenue.\n\nTotal...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>320</td>
+      <td>516</td>
+      <td>re and should\nnot be picked up by the chunker...</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>In the real build we use <code class="docutils literal notranslate"><span class="pre">chunk_size=2000,</span> <span class="pre">overlap=200</span></code>. Smaller
+chunks here just so the demo fits on a screen. The values used by
+the build are imported from <code class="docutils literal notranslate"><span class="pre">embeddings_index.py</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;CHUNK_SIZE   = </span><span class="si">{</span><span class="n">CHUNK_SIZE</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;CHUNK_OVERLAP = </span><span class="si">{</span><span class="n">CHUNK_OVERLAP</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;EMBED_MODEL  = </span><span class="si">{</span><span class="n">EMBED_MODEL</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CHUNK_SIZE   = 2000
+CHUNK_OVERLAP = 200
+EMBED_MODEL  = text-embedding-3-small
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="loading-the-prebuilt-index">
+<h3>Loading the prebuilt index<a class="headerlink" href="#loading-the-prebuilt-index" title="Link to this heading">#</a></h3>
+<p>Once the build is done, querying is fast and offline (modulo a single
+embedding call per query). Each chunk row carries its source filing’s
+CIK and filing date, so we can tell after retrieval which company /
+year the chunk came from.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">chunks_df</span><span class="p">,</span> <span class="n">faiss_index</span> <span class="o">=</span> <span class="n">load_index</span><span class="p">(</span>
+    <span class="n">DATA_DIR</span> <span class="o">/</span> <span class="s2">&quot;embeddings&quot;</span> <span class="o">/</span> <span class="s2">&quot;cleaned_chunks.parquet&quot;</span><span class="p">,</span>
+    <span class="n">DATA_DIR</span> <span class="o">/</span> <span class="s2">&quot;embeddings&quot;</span> <span class="o">/</span> <span class="s2">&quot;cleaned_index.faiss&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;chunks in index: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">chunks_df</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;distinct filings covered: </span><span class="si">{</span><span class="n">chunks_df</span><span class="p">[</span><span class="s1">&#39;accession&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;vector dimension: </span><span class="si">{</span><span class="n">faiss_index</span><span class="o">.</span><span class="n">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">chunks_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)[[</span><span class="s2">&quot;coname&quot;</span><span class="p">,</span> <span class="s2">&quot;fdate&quot;</span><span class="p">,</span> <span class="s2">&quot;chunk_idx&quot;</span><span class="p">,</span> <span class="s2">&quot;char_start&quot;</span><span class="p">,</span> <span class="s2">&quot;char_end&quot;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>chunks in index: 63,252
+distinct filings covered: 48
+vector dimension: 1536
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>coname</th>
+      <th>fdate</th>
+      <th>chunk_idx</th>
+      <th>char_start</th>
+      <th>char_end</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Walmart Inc.</td>
+      <td>2026-03-13</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2000</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Walmart Inc.</td>
+      <td>2026-03-13</td>
+      <td>1</td>
+      <td>1800</td>
+      <td>3800</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Walmart Inc.</td>
+      <td>2026-03-13</td>
+      <td>2</td>
+      <td>3600</td>
+      <td>5600</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="a-semantic-search-query">
+<h3>A semantic-search query<a class="headerlink" href="#a-semantic-search-query" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">semantic_search(client,</span> <span class="pre">question,</span> <span class="pre">chunks_df,</span> <span class="pre">faiss_index,</span> <span class="pre">top_k,</span> <span class="pre">max_words)</span></code> embeds the question, calls FAISS for the top-k chunks,
+and concatenates them up to a word budget. It returns the same shape
+of dict as <code class="docutils literal notranslate"><span class="pre">find_10k_filing</span></code> plus a <code class="docutils literal notranslate"><span class="pre">top_k_filings</span></code> field that lets
+us inspect which filings the chunks came from.</p>
+<p>We need an OpenAI client only to embed the <em>question</em> (the corpus
+embeddings are already cached). If you do not have an API key handy,
+skip the next two cells and read the prose – the rest of the
+notebook does not depend on this call.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">api_key</span> <span class="o">=</span> <span class="n">config</span><span class="p">(</span><span class="s2">&quot;OPENAI_API_KEY&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">api_key</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">openai</span> <span class="kn">import</span> <span class="n">OpenAI</span>
+    <span class="n">client</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="n">api_key</span><span class="p">)</span>
+    <span class="n">sem_result</span> <span class="o">=</span> <span class="n">semantic_search</span><span class="p">(</span>
+        <span class="n">client</span><span class="p">,</span>
+        <span class="n">sample_case</span><span class="p">[</span><span class="s2">&quot;question&quot;</span><span class="p">],</span>
+        <span class="n">chunks_df</span><span class="p">,</span>
+        <span class="n">faiss_index</span><span class="p">,</span>
+        <span class="n">top_k</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+        <span class="n">max_words</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span>
+    <span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">client</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">sem_result</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Set OPENAI_API_KEY to run the live retrieval cell below.&quot;</span><span class="p">)</span>
+
+<span class="n">sem_result</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">sem_result</span><span class="p">[</span><span class="s2">&quot;top_k_filings&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>rank</th>
+      <th>cik</th>
+      <th>coname</th>
+      <th>fdate</th>
+      <th>score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>0000320193</td>
+      <td>Apple Inc.</td>
+      <td>2022-10-28</td>
+      <td>0.696481</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>0000320193</td>
+      <td>Apple Inc.</td>
+      <td>2022-10-28</td>
+      <td>0.690407</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>0000320193</td>
+      <td>Apple Inc.</td>
+      <td>2024-11-01</td>
+      <td>0.686360</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>0000320193</td>
+      <td>Apple Inc.</td>
+      <td>2023-11-03</td>
+      <td>0.679476</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>0000320193</td>
+      <td>Apple Inc.</td>
+      <td>2023-11-03</td>
+      <td>0.679415</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Read across the rows: each row is one of the top-k chunks the
+semantic retriever picked, and the <code class="docutils literal notranslate"><span class="pre">coname</span></code> / <code class="docutils literal notranslate"><span class="pre">fdate</span></code> columns tell
+us whether the retriever is finding chunks from the right filing
+(the question asks about <code class="docutils literal notranslate"><span class="pre">sample_case[&quot;company_name&quot;]</span></code> for fiscal
+year <code class="docutils literal notranslate"><span class="pre">sample_case[&quot;fiscal_year_end&quot;]</span></code>).</p>
+</section>
+<section id="keyword-vs-semantic-side-by-side">
+<h3>Keyword vs semantic: side by side<a class="headerlink" href="#keyword-vs-semantic-side-by-side" title="Link to this heading">#</a></h3>
+<p>Same question, two retrievers. The keyword extractor pulls passages
+<em>only</em> from the matched filing; the semantic retriever pulls from
+anywhere in the corpus, but tends to land on the right company when
+the question is specific enough.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">sem_result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">sem_filings</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">({</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;coname&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">sem_result</span><span class="p">[</span><span class="s2">&quot;top_k_filings&quot;</span><span class="p">]})</span>
+    <span class="n">sem_chars</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">sem_result</span><span class="p">[</span><span class="s2">&quot;context&quot;</span><span class="p">])</span>
+    <span class="n">sem_words</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">sem_result</span><span class="p">[</span><span class="s2">&quot;context&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">sem_filings</span><span class="p">,</span> <span class="n">sem_chars</span><span class="p">,</span> <span class="n">sem_words</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;(skipped)&quot;</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;retriever&quot;</span><span class="p">:</span>      <span class="p">[</span><span class="s2">&quot;keyword (structured)&quot;</span><span class="p">,</span> <span class="s2">&quot;semantic (global FAISS)&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;filings_used&quot;</span><span class="p">:</span>   <span class="p">[</span>
+        <span class="n">fc_clean</span><span class="p">[</span><span class="s2">&quot;company_name&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sem_filings</span><span class="p">),</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;context_chars&quot;</span><span class="p">:</span>  <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">fc_clean</span><span class="p">[</span><span class="s2">&quot;context&quot;</span><span class="p">]),</span> <span class="n">sem_chars</span><span class="p">],</span>
+    <span class="s2">&quot;context_words&quot;</span><span class="p">:</span>  <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">fc_clean</span><span class="p">[</span><span class="s2">&quot;context&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()),</span> <span class="n">sem_words</span><span class="p">],</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>retriever</th>
+      <th>filings_used</th>
+      <th>context_chars</th>
+      <th>context_words</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>keyword (structured)</td>
+      <td>Apple Inc.</td>
+      <td>18868</td>
+      <td>3009</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>semantic (global FAISS)</td>
+      <td>Apple Inc.</td>
+      <td>2060</td>
+      <td>340</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
 <section id="step-4-assemble-the-prompt">
 <h2>Step 4: assemble the prompt<a class="headerlink" href="#step-4-assemble-the-prompt" title="Link to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">build_rag_prompt</span></code> wraps the retrieved context and the question into
@@ -1035,6 +1463,7 @@ the sample question.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df_baseline</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">OUTPUT_DIR</span> <span class="o">/</span> <span class="s2">&quot;baseline_results.csv&quot;</span><span class="p">)</span>
 <span class="n">df_clean</span>    <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">OUTPUT_DIR</span> <span class="o">/</span> <span class="s2">&quot;rag_cleaned_results.csv&quot;</span><span class="p">)</span>
 <span class="n">df_raw</span>      <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">OUTPUT_DIR</span> <span class="o">/</span> <span class="s2">&quot;rag_raw_results.csv&quot;</span><span class="p">)</span>
+<span class="n">df_semantic</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">OUTPUT_DIR</span> <span class="o">/</span> <span class="s2">&quot;rag_semantic_cleaned_results.csv&quot;</span><span class="p">)</span>
 
 <span class="n">sample_cik_int</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sample_case</span><span class="p">[</span><span class="s2">&quot;cik&quot;</span><span class="p">])</span>
 
@@ -1049,13 +1478,14 @@ the sample question.</p>
 <span class="n">row_b</span> <span class="o">=</span> <span class="n">pick</span><span class="p">(</span><span class="n">df_baseline</span><span class="p">)</span>
 <span class="n">row_c</span> <span class="o">=</span> <span class="n">pick</span><span class="p">(</span><span class="n">df_clean</span><span class="p">)</span>
 <span class="n">row_r</span> <span class="o">=</span> <span class="n">pick</span><span class="p">(</span><span class="n">df_raw</span><span class="p">)</span>
+<span class="n">row_s</span> <span class="o">=</span> <span class="n">pick</span><span class="p">(</span><span class="n">df_semantic</span><span class="p">)</span>
 
 <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
-    <span class="s2">&quot;condition&quot;</span><span class="p">:</span>    <span class="p">[</span><span class="s2">&quot;baseline&quot;</span><span class="p">,</span> <span class="s2">&quot;rag_cleaned&quot;</span><span class="p">,</span> <span class="s2">&quot;rag_raw&quot;</span><span class="p">],</span>
-    <span class="s2">&quot;answer&quot;</span><span class="p">:</span>       <span class="p">[</span><span class="n">row_b</span><span class="p">[</span><span class="s2">&quot;answer&quot;</span><span class="p">],</span> <span class="n">row_c</span><span class="p">[</span><span class="s2">&quot;answer&quot;</span><span class="p">],</span> <span class="n">row_r</span><span class="p">[</span><span class="s2">&quot;answer&quot;</span><span class="p">]],</span>
-    <span class="s2">&quot;latency_s&quot;</span><span class="p">:</span>    <span class="p">[</span><span class="n">row_b</span><span class="p">[</span><span class="s2">&quot;latency_s&quot;</span><span class="p">],</span> <span class="n">row_c</span><span class="p">[</span><span class="s2">&quot;latency_s&quot;</span><span class="p">],</span> <span class="n">row_r</span><span class="p">[</span><span class="s2">&quot;latency_s&quot;</span><span class="p">]],</span>
-    <span class="s2">&quot;input_tokens&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">row_b</span><span class="p">[</span><span class="s2">&quot;input_tokens&quot;</span><span class="p">],</span> <span class="n">row_c</span><span class="p">[</span><span class="s2">&quot;input_tokens&quot;</span><span class="p">],</span> <span class="n">row_r</span><span class="p">[</span><span class="s2">&quot;input_tokens&quot;</span><span class="p">]],</span>
-    <span class="s2">&quot;output_tokens&quot;</span><span class="p">:[</span><span class="n">row_b</span><span class="p">[</span><span class="s2">&quot;output_tokens&quot;</span><span class="p">],</span> <span class="n">row_c</span><span class="p">[</span><span class="s2">&quot;output_tokens&quot;</span><span class="p">],</span> <span class="n">row_r</span><span class="p">[</span><span class="s2">&quot;output_tokens&quot;</span><span class="p">]],</span>
+    <span class="s2">&quot;condition&quot;</span><span class="p">:</span>    <span class="p">[</span><span class="s2">&quot;baseline&quot;</span><span class="p">,</span> <span class="s2">&quot;rag_cleaned&quot;</span><span class="p">,</span> <span class="s2">&quot;rag_raw&quot;</span><span class="p">,</span> <span class="s2">&quot;rag_semantic_cleaned&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;answer&quot;</span><span class="p">:</span>       <span class="p">[</span><span class="n">row_b</span><span class="p">[</span><span class="s2">&quot;answer&quot;</span><span class="p">],</span> <span class="n">row_c</span><span class="p">[</span><span class="s2">&quot;answer&quot;</span><span class="p">],</span> <span class="n">row_r</span><span class="p">[</span><span class="s2">&quot;answer&quot;</span><span class="p">],</span> <span class="n">row_s</span><span class="p">[</span><span class="s2">&quot;answer&quot;</span><span class="p">]],</span>
+    <span class="s2">&quot;latency_s&quot;</span><span class="p">:</span>    <span class="p">[</span><span class="n">row_b</span><span class="p">[</span><span class="s2">&quot;latency_s&quot;</span><span class="p">],</span> <span class="n">row_c</span><span class="p">[</span><span class="s2">&quot;latency_s&quot;</span><span class="p">],</span> <span class="n">row_r</span><span class="p">[</span><span class="s2">&quot;latency_s&quot;</span><span class="p">],</span> <span class="n">row_s</span><span class="p">[</span><span class="s2">&quot;latency_s&quot;</span><span class="p">]],</span>
+    <span class="s2">&quot;input_tokens&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">row_b</span><span class="p">[</span><span class="s2">&quot;input_tokens&quot;</span><span class="p">],</span> <span class="n">row_c</span><span class="p">[</span><span class="s2">&quot;input_tokens&quot;</span><span class="p">],</span> <span class="n">row_r</span><span class="p">[</span><span class="s2">&quot;input_tokens&quot;</span><span class="p">],</span> <span class="n">row_s</span><span class="p">[</span><span class="s2">&quot;input_tokens&quot;</span><span class="p">]],</span>
+    <span class="s2">&quot;output_tokens&quot;</span><span class="p">:[</span><span class="n">row_b</span><span class="p">[</span><span class="s2">&quot;output_tokens&quot;</span><span class="p">],</span> <span class="n">row_c</span><span class="p">[</span><span class="s2">&quot;output_tokens&quot;</span><span class="p">],</span> <span class="n">row_r</span><span class="p">[</span><span class="s2">&quot;output_tokens&quot;</span><span class="p">],</span> <span class="n">row_s</span><span class="p">[</span><span class="s2">&quot;output_tokens&quot;</span><span class="p">]],</span>
 <span class="p">})</span>
 </pre></div>
 </div>
@@ -1091,15 +1521,15 @@ the sample question.</p>
       <th>0</th>
       <td>baseline</td>
       <td>Apple Inc's total revenue for the fiscal year ...</td>
-      <td>2.421</td>
+      <td>2.290</td>
       <td>82</td>
-      <td>27</td>
+      <td>30</td>
     </tr>
     <tr>
       <th>1</th>
       <td>rag_cleaned</td>
       <td>383,285</td>
-      <td>2.368</td>
+      <td>0.911</td>
       <td>4227</td>
       <td>3</td>
     </tr>
@@ -1107,8 +1537,16 @@ the sample question.</p>
       <th>2</th>
       <td>rag_raw</td>
       <td>394,328</td>
-      <td>9.356</td>
+      <td>4.838</td>
       <td>21908</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>rag_semantic_cleaned</td>
+      <td>383,285</td>
+      <td>0.689</td>
+      <td>5404</td>
       <td>3</td>
     </tr>
   </tbody>
@@ -1302,13 +1740,14 @@ and land comfortably inside 10%.</p>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Output price (USD/M tokens): </span><span class="si">{</span><span class="n">MODEL_OUTPUT_PRICE</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
 <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
-    <span class="s2">&quot;condition&quot;</span><span class="p">:</span>     <span class="p">[</span><span class="s2">&quot;baseline&quot;</span><span class="p">,</span> <span class="s2">&quot;rag_cleaned&quot;</span><span class="p">,</span> <span class="s2">&quot;rag_raw&quot;</span><span class="p">],</span>
-    <span class="s2">&quot;input_tokens&quot;</span><span class="p">:</span>  <span class="p">[</span><span class="n">row_b</span><span class="p">[</span><span class="s2">&quot;input_tokens&quot;</span><span class="p">],</span> <span class="n">row_c</span><span class="p">[</span><span class="s2">&quot;input_tokens&quot;</span><span class="p">],</span> <span class="n">row_r</span><span class="p">[</span><span class="s2">&quot;input_tokens&quot;</span><span class="p">]],</span>
-    <span class="s2">&quot;output_tokens&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">row_b</span><span class="p">[</span><span class="s2">&quot;output_tokens&quot;</span><span class="p">],</span> <span class="n">row_c</span><span class="p">[</span><span class="s2">&quot;output_tokens&quot;</span><span class="p">],</span> <span class="n">row_r</span><span class="p">[</span><span class="s2">&quot;output_tokens&quot;</span><span class="p">]],</span>
+    <span class="s2">&quot;condition&quot;</span><span class="p">:</span>     <span class="p">[</span><span class="s2">&quot;baseline&quot;</span><span class="p">,</span> <span class="s2">&quot;rag_cleaned&quot;</span><span class="p">,</span> <span class="s2">&quot;rag_raw&quot;</span><span class="p">,</span> <span class="s2">&quot;rag_semantic_cleaned&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;input_tokens&quot;</span><span class="p">:</span>  <span class="p">[</span><span class="n">row_b</span><span class="p">[</span><span class="s2">&quot;input_tokens&quot;</span><span class="p">],</span> <span class="n">row_c</span><span class="p">[</span><span class="s2">&quot;input_tokens&quot;</span><span class="p">],</span> <span class="n">row_r</span><span class="p">[</span><span class="s2">&quot;input_tokens&quot;</span><span class="p">],</span> <span class="n">row_s</span><span class="p">[</span><span class="s2">&quot;input_tokens&quot;</span><span class="p">]],</span>
+    <span class="s2">&quot;output_tokens&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">row_b</span><span class="p">[</span><span class="s2">&quot;output_tokens&quot;</span><span class="p">],</span> <span class="n">row_c</span><span class="p">[</span><span class="s2">&quot;output_tokens&quot;</span><span class="p">],</span> <span class="n">row_r</span><span class="p">[</span><span class="s2">&quot;output_tokens&quot;</span><span class="p">],</span> <span class="n">row_s</span><span class="p">[</span><span class="s2">&quot;output_tokens&quot;</span><span class="p">]],</span>
     <span class="s2">&quot;usd_per_query&quot;</span><span class="p">:</span> <span class="p">[</span>
         <span class="n">calculate_cost</span><span class="p">(</span><span class="n">row_b</span><span class="p">[</span><span class="s2">&quot;input_tokens&quot;</span><span class="p">],</span> <span class="n">row_b</span><span class="p">[</span><span class="s2">&quot;output_tokens&quot;</span><span class="p">]),</span>
         <span class="n">calculate_cost</span><span class="p">(</span><span class="n">row_c</span><span class="p">[</span><span class="s2">&quot;input_tokens&quot;</span><span class="p">],</span> <span class="n">row_c</span><span class="p">[</span><span class="s2">&quot;output_tokens&quot;</span><span class="p">]),</span>
         <span class="n">calculate_cost</span><span class="p">(</span><span class="n">row_r</span><span class="p">[</span><span class="s2">&quot;input_tokens&quot;</span><span class="p">],</span> <span class="n">row_r</span><span class="p">[</span><span class="s2">&quot;output_tokens&quot;</span><span class="p">]),</span>
+        <span class="n">calculate_cost</span><span class="p">(</span><span class="n">row_s</span><span class="p">[</span><span class="s2">&quot;input_tokens&quot;</span><span class="p">],</span> <span class="n">row_s</span><span class="p">[</span><span class="s2">&quot;output_tokens&quot;</span><span class="p">]),</span>
     <span class="p">],</span>
 <span class="p">})</span>
 </pre></div>
@@ -1349,8 +1788,8 @@ Output price (USD/M tokens): 0.6
       <th>0</th>
       <td>baseline</td>
       <td>82</td>
-      <td>27</td>
-      <td>0.000028</td>
+      <td>30</td>
+      <td>0.000030</td>
     </tr>
     <tr>
       <th>1</th>
@@ -1365,6 +1804,13 @@ Output price (USD/M tokens): 0.6
       <td>21908</td>
       <td>3</td>
       <td>0.003288</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>rag_semantic_cleaned</td>
+      <td>5404</td>
+      <td>3</td>
+      <td>0.000812</td>
     </tr>
   </tbody>
 </table>
@@ -1390,28 +1836,37 @@ through every step.</p>
                          <span class="sa">f</span><span class="s2">&quot;filed </span><span class="si">{</span><span class="n">fc_clean</span><span class="p">[</span><span class="s1">&#39;filing_date&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">, &quot;</span>
                          <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fc_clean</span><span class="p">[</span><span class="s1">&#39;filing_bytes&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> bytes on disk&quot;</span><span class="p">,</span>
     <span class="s2">&quot;4. context chars&quot;</span><span class="p">:</span>  <span class="sa">f</span><span class="s2">&quot;cleaned=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">fc_clean</span><span class="p">[</span><span class="s1">&#39;context&#39;</span><span class="p">])</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">  &quot;</span>
-                         <span class="sa">f</span><span class="s2">&quot;raw=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">fc_raw</span><span class="p">[</span><span class="s1">&#39;context&#39;</span><span class="p">])</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;5. llm reply (rag_cleaned)&quot;</span><span class="p">:</span> <span class="n">row_c</span><span class="p">[</span><span class="s2">&quot;answer&quot;</span><span class="p">][:</span><span class="mi">200</span><span class="p">],</span>
-    <span class="s2">&quot;6. extracted&quot;</span><span class="p">:</span>      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">row_c</span><span class="p">[</span><span class="s1">&#39;extracted&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;7. correct @ 5%&quot;</span><span class="p">:</span>   <span class="nb">bool</span><span class="p">(</span><span class="n">row_c</span><span class="p">[</span><span class="s2">&quot;correct_5pct&quot;</span><span class="p">]),</span>
-    <span class="s2">&quot;7. correct @ 10%&quot;</span><span class="p">:</span>  <span class="nb">bool</span><span class="p">(</span><span class="n">row_c</span><span class="p">[</span><span class="s2">&quot;correct_10pct&quot;</span><span class="p">]),</span>
-    <span class="s2">&quot;8. cost (USD)&quot;</span><span class="p">:</span>     <span class="n">calculate_cost</span><span class="p">(</span><span class="n">row_c</span><span class="p">[</span><span class="s2">&quot;input_tokens&quot;</span><span class="p">],</span> <span class="n">row_c</span><span class="p">[</span><span class="s2">&quot;output_tokens&quot;</span><span class="p">]),</span>
+                         <span class="sa">f</span><span class="s2">&quot;raw=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">fc_raw</span><span class="p">[</span><span class="s1">&#39;context&#39;</span><span class="p">])</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">  &quot;</span>
+                         <span class="sa">f</span><span class="s2">&quot;semantic=</span><span class="si">{</span><span class="n">row_s</span><span class="p">[</span><span class="s1">&#39;context_chars&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;5. llm reply (rag_cleaned)&quot;</span><span class="p">:</span>   <span class="n">row_c</span><span class="p">[</span><span class="s2">&quot;answer&quot;</span><span class="p">][:</span><span class="mi">200</span><span class="p">],</span>
+    <span class="s2">&quot;5. llm reply (rag_semantic)&quot;</span><span class="p">:</span>  <span class="n">row_s</span><span class="p">[</span><span class="s2">&quot;answer&quot;</span><span class="p">][:</span><span class="mi">200</span><span class="p">],</span>
+    <span class="s2">&quot;6. extracted (cleaned)&quot;</span><span class="p">:</span>       <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">row_c</span><span class="p">[</span><span class="s1">&#39;extracted&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;6. extracted (semantic)&quot;</span><span class="p">:</span>      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">row_s</span><span class="p">[</span><span class="s1">&#39;extracted&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;7. correct @ 10% (cleaned)&quot;</span><span class="p">:</span>   <span class="nb">bool</span><span class="p">(</span><span class="n">row_c</span><span class="p">[</span><span class="s2">&quot;correct_10pct&quot;</span><span class="p">]),</span>
+    <span class="s2">&quot;7. correct @ 10% (semantic)&quot;</span><span class="p">:</span>  <span class="nb">bool</span><span class="p">(</span><span class="n">row_s</span><span class="p">[</span><span class="s2">&quot;correct_10pct&quot;</span><span class="p">]),</span>
+    <span class="s2">&quot;7. semantic top-1 chunk match&quot;</span><span class="p">:</span> <span class="nb">bool</span><span class="p">(</span><span class="n">row_s</span><span class="p">[</span><span class="s2">&quot;top_chunk_cik_match&quot;</span><span class="p">]),</span>
+    <span class="s2">&quot;8. cost cleaned (USD)&quot;</span><span class="p">:</span>   <span class="n">calculate_cost</span><span class="p">(</span><span class="n">row_c</span><span class="p">[</span><span class="s2">&quot;input_tokens&quot;</span><span class="p">],</span> <span class="n">row_c</span><span class="p">[</span><span class="s2">&quot;output_tokens&quot;</span><span class="p">]),</span>
+    <span class="s2">&quot;8. cost semantic (USD)&quot;</span><span class="p">:</span>  <span class="n">calculate_cost</span><span class="p">(</span><span class="n">row_s</span><span class="p">[</span><span class="s2">&quot;input_tokens&quot;</span><span class="p">],</span> <span class="n">row_s</span><span class="p">[</span><span class="s2">&quot;output_tokens&quot;</span><span class="p">]),</span>
 <span class="p">}</span>
 <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">trace</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">k</span><span class="si">:</span><span class="s2">&gt;30</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">k</span><span class="si">:</span><span class="s2">&gt;32</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                  1. test case: APPLE INC / total revenue (net sales) / FY ending 2023-09-30
-               2. ground truth: 383,285 (USD millions, from Compustat)
-               3. filing found: Apple Inc., filed 2023-11-03, 1,190,332 bytes on disk
-              4. context chars: cleaned=18,868  raw=72,546
-    5. llm reply (rag_cleaned): 383,285
-                  6. extracted: 383285.0
-               7. correct @ 5%: True
-              7. correct @ 10%: True
-                 8. cost (USD): 0.000636
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                    1. test case: APPLE INC / total revenue (net sales) / FY ending 2023-09-30
+                 2. ground truth: 383,285 (USD millions, from Compustat)
+                 3. filing found: Apple Inc., filed 2023-11-03, 1,190,332 bytes on disk
+                4. context chars: cleaned=18,868  raw=72,546  semantic=18,596
+      5. llm reply (rag_cleaned): 383,285
+     5. llm reply (rag_semantic): 383,285
+          6. extracted (cleaned): 383285.0
+         6. extracted (semantic): 383285.0
+      7. correct @ 10% (cleaned): True
+     7. correct @ 10% (semantic): True
+   7. semantic top-1 chunk match: True
+           8. cost cleaned (USD): 0.000636
+          8. cost semantic (USD): 0.000812
 </pre></div>
 </div>
 </div>
@@ -1420,21 +1875,31 @@ through every step.</p>
 <section id="where-to-go-from-here">
 <h2>Where to go from here<a class="headerlink" href="#where-to-go-from-here" title="Link to this heading">#</a></h2>
 <p>Notebook 03 scales this up: it runs the full grid of questions
-through all three conditions and reports aggregate accuracy,
-latency, token usage, and cost. Before opening it, you should now
-be able to predict the qualitative shape of the results:</p>
+through all four conditions and reports aggregate accuracy, latency,
+token usage, and cost. Before opening it, you should now be able to
+predict the qualitative shape of the results:</p>
 <ul class="simple">
 <li><p>Baseline is cheap but inaccurate (the model is guessing).</p></li>
-<li><p>RAG-cleaned is accurate and still cheap (small model, compact
-context, clean text).</p></li>
-<li><p>RAG-raw is accurate-ish but costs more per query and sometimes
-trips on markup – WRDS’s cleaning pipeline earns its keep.</p></li>
+<li><p>RAG-cleaned (structured) is accurate and still cheap (small model,
+compact context, clean text, exact filing match).</p></li>
+<li><p>RAG-raw (structured) is accurate-ish but costs more per query and
+sometimes trips on markup – WRDS’s cleaning pipeline earns its
+keep.</p></li>
+<li><p>RAG-semantic-cleaned trades the exact filing match for a global
+FAISS lookup. Whether this helps or hurts depends on whether the
+top-k chunks land on the right company; <code class="docutils literal notranslate"><span class="pre">top_chunk_cik_match</span></code> in
+the per-question CSV tells you.</p></li>
 </ul>
-<p>If you want to modify the pipeline, the two natural levers are in
-this notebook: change <code class="docutils literal notranslate"><span class="pre">FINANCIAL_KEYWORDS</span></code> / <code class="docutils literal notranslate"><span class="pre">MAX_WORDS_*</span></code> to
-reshape chunk selection, or swap <code class="docutils literal notranslate"><span class="pre">find_10k_filing</span></code> for a semantic
-retriever if you want a real RAG stack instead of a structured
-lookup.</p>
+<p>Levers you can pull:</p>
+<ul class="simple">
+<li><p>Change <code class="docutils literal notranslate"><span class="pre">FINANCIAL_KEYWORDS</span></code> / <code class="docutils literal notranslate"><span class="pre">MAX_WORDS_*</span></code> in
+<code class="docutils literal notranslate"><span class="pre">src/rag_benchmark.py</span></code> to reshape the keyword chunker.</p></li>
+<li><p>Change <code class="docutils literal notranslate"><span class="pre">CHUNK_SIZE</span></code> / <code class="docutils literal notranslate"><span class="pre">CHUNK_OVERLAP</span></code> / <code class="docutils literal notranslate"><span class="pre">EMBED_MODEL</span></code> in
+<code class="docutils literal notranslate"><span class="pre">src/embeddings_index.py</span></code> (then rerun <code class="docutils literal notranslate"><span class="pre">task_build_embeddings</span></code>) to
+reshape the semantic chunker.</p></li>
+<li><p>Change <code class="docutils literal notranslate"><span class="pre">top_k</span></code> / <code class="docutils literal notranslate"><span class="pre">max_words</span></code> in <code class="docutils literal notranslate"><span class="pre">run_rag_semantic</span></code> to give the LLM
+more or fewer retrieved chunks per question.</p></li>
+</ul>
 </section>
 </section>
 
@@ -1486,10 +1951,18 @@ lookup.</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#two-flavors-of-retrieval">Two flavors of retrieval</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-pipeline-at-a-glance">The pipeline at a glance</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-generate-benchmark-questions">Step 1: generate benchmark questions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-find-the-matching-10-k">Step 2: find the matching 10-K</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-chunk-selection">Step 3: chunk selection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3b-dense-semantic-retrieval-the-classical-rag-path">Step 3b: dense semantic retrieval (the “classical RAG” path)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chunking-demo">Chunking demo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-the-prebuilt-index">Loading the prebuilt index</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-semantic-search-query">A semantic-search query</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#keyword-vs-semantic-side-by-side">Keyword vs semantic: side by side</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-assemble-the-prompt">Step 4: assemble the prompt</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-5-the-llm-call">Step 5: the LLM call</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-6-parse-a-number-out-of-the-reply">Step 6: parse a number out of the reply</a></li>
